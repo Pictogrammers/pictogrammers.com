@@ -1,0 +1,54 @@
+section {
+  background-color: white;
+  padding: 3rem 0 6rem;
+  position: relative;
+}
+
+section::after {
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("./resources/white-wave.svg");
+  content: '';
+  height: 200px;
+  pointer-events: none;
+  position: absolute;
+  top: -195px;
+  touch-action: none;
+  width: 100%;
+}
+
+.wave {
+  margin-top: -125px;
+  min-width: 500px;
+  user-select: none;
+  width: 100%;
+}
+
+.logos {
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-column-gap: 2rem;
+  grid-row-gap: 3rem;
+  justify-items: center;
+  max-width: 1080px;
+  margin: 1rem auto;
+}
+
+p {
+  max-width: 800px;
+  margin: 5rem auto 0;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+  section {
+    margin-top: -3rem;
+  }
+
+  br {
+    display: none;
+  }
+}

@@ -1,0 +1,35 @@
+section {
+  background-color: hsl(0, 0%, 96%);
+  padding: 6rem 0 8rem;
+}
+
+section h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: -2px;
+  margin: 0 .5rem;
+  text-align: center;
+}
+
+section p {
+  font-size: 1.2rem;
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.contributors {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: center;
+  padding: 2rem 2rem 0;
+}
+
+.contributors img {
+  border: 2px solid hsl(var(--primary-color));
+  border-radius: 50px;
+  margin: 0 .25rem;
+  width: 65px;
+}

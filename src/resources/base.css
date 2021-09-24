@@ -1,0 +1,28 @@
+:root {
+  --primary-font: 'Manrope', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --primary-color: 300, 100%, 22%;
+  --secondary-color: 194, 64%, 75%
+}
+
+html,
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  overscroll-behavior: none;
+  padding: 0;
+  width: 100%;
+}
+
+html {
+  background: hsl(var(--secondary-color));
+  background: linear-gradient(180deg, hsl(var(--secondary-color)) 0%, hsla(var(--secondary-color), .5) 100%);
+  color: hsl(var(--primary-color));
+  font-family: var(--primary-font);
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}

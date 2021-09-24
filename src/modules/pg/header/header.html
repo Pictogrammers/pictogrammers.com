@@ -1,0 +1,25 @@
+<template>
+  <header>
+    <a class="pictogrammers" href="/">
+      <img src="./resources/pictogrammers.svg" alt="Pictogrammers Logo" />
+      Pictogrammers
+    </a>
+
+    <nav>
+      <ul>
+        <li><a href="/#libraries" onclick={scrollTo}>Icon Libraries</a></li>
+        <li><a href="/#about" onclick={scrollTo}>About</a></li>
+        <li><a href="/#join" onclick={scrollTo}>Join Us</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <pg-button
+        href="https://github.com/Pictogrammers"
+        start-icon={icon.mdiGithub}
+      >
+        GitHub
+      </pg-button>
+    </div>
+  </header>
+</template>

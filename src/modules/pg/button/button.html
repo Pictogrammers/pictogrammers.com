@@ -1,0 +1,14 @@
+<template>
+    <a
+      class={className}
+      href={href}
+      rel="nofollow noreferrer"
+      target="_blank"
+    >
+      <pg-icon if:true={startIcon} class="start" path={startIcon}></pg-icon>
+      <span part="label">
+        <slot></slot>
+      </span>
+      <pg-icon if:true={endIcon} class="end" path={endIcon}></pg-icon>
+    </a>
+</template>

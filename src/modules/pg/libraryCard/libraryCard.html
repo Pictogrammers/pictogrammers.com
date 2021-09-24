@@ -1,0 +1,21 @@
+<template>
+  <div class="library">
+    <div class="content">
+      <img
+        if:true={image}
+        src={image}
+        alt={name}
+      />
+      <h3>{name}</h3>
+      <p if:true={description}>{description}</p>
+    </div>
+    <pg-button
+      if:true={link}
+      href={link}
+      invert
+      end-icon={icon.mdiArrowRight}
+    >
+      Browse Library
+    </pg-button>
+  </div>
+</template>

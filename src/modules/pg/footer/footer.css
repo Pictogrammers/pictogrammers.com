@@ -1,0 +1,47 @@
+footer {
+  border-top: 1px solid hsl(0, 0%, 69%);
+  color: hsl(0, 0%, 44%);
+  font-size: .9rem;
+  padding: 2rem;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 0 2rem;
+}
+
+.connect a {
+  background-color: rgba(255, 255, 255, .4);
+  border-radius: 50px;
+  color: hsl(0, 0%, 44%);
+  display: inline-block;
+  margin: .5rem;
+  padding: .5rem .5rem .3rem;
+  transition: box-shadow .3s ease-in-out, color .3s ease-in-out;
+}
+
+.connect a:hover {
+  color: hsl(var(--primary-color));
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .5);
+}
+
+@media (prefers-reduced-motion) {
+  .connect a {
+    transition: none;
+  }
+}
+
+
+@media only screen and (max-width: 800px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+
+  br {
+    display: none;
+  }
+}

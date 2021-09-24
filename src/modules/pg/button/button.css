@@ -1,0 +1,36 @@
+a {
+  align-items: center;
+  background-color: hsl(var(--primary-color));
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+  color: white;
+  display: inline-flex;
+  height: 40px;
+  font-weight: 600;
+  padding: 0 .75rem;
+  text-decoration: none;
+  transition: box-shadow .3s ease-in-out;
+}
+
+.invert {
+  background-color: white;
+  color: hsl(var(--primary-color));
+}
+
+.start {
+  margin: 2px .25rem 0 0;
+}
+
+.end {
+  margin: 2px 0 0 .25rem;
+}
+
+a:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .5);
+}
+
+@media (prefers-reduced-motion) {
+  a {
+    transition: none;
+  }
+}
