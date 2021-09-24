@@ -5,6 +5,9 @@
   <p>
     Built with <a href="https://lwc.dev/" target="_blank">Lightning Web Components</a>.
   </p>
+   <p>
+    <img src="./src/resources/og-card.png" alt="Pictogrammers" />
+  </p>
 </div>
 
 ## Development
