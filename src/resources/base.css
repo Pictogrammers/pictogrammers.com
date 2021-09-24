@@ -8,6 +8,8 @@ html,
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 0;
+  line-height: 1.8;
   margin: 0;
   overscroll-behavior: none;
   padding: 0;

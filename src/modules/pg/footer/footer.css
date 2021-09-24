@@ -1,6 +1,6 @@
 footer {
   border-top: 1px solid hsl(0, 0%, 69%);
-  color: hsl(0, 0%, 44%);
+  color: hsl(0, 0%, 29%);
   font-size: .9rem;
   padding: 2rem;
 }
@@ -20,7 +20,7 @@ footer {
   color: hsl(0, 0%, 44%);
   display: inline-block;
   margin: .5rem;
-  padding: .5rem .5rem .3rem;
+  padding: .5rem .5rem 0;
   transition: box-shadow .3s ease-in-out, color .3s ease-in-out;
 }
 
