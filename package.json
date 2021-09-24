@@ -5,6 +5,11 @@
     "license": "MIT",
     "repository": "git@github.com:Pictogrammers/pictogrammers.com.git",
     "author": "Michael Irigoyen <michael@irigoyen.dev>",
+    "contributors": [
+        "Michael Irigoyen <michael@irigoyen.dev>",
+        "Austin Andrews <admin@templarian.com>",
+        "Quentin Stoeckel <stoeckel.quentin@gmail.com>"
+    ],
     "scripts": {
         "build": "lwc-services build -m production",
         "build:development": "lwc-services build",
