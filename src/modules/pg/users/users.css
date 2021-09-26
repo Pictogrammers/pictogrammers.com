@@ -1,5 +1,8 @@
 section {
+  align-items: center;
   background-color: white;
+  display: flex;
+  flex-direction: column;
   padding: 3rem 0 6rem;
   position: relative;
 }
@@ -33,7 +36,7 @@ section::after {
   grid-row-gap: 3rem;
   justify-items: center;
   max-width: 1080px;
-  margin: 1rem auto;
+  width: 100%;
 }
 
 p {
@@ -46,9 +49,14 @@ p {
 @media only screen and (max-width: 800px) {
   section {
     margin-top: -3rem;
+    flex-direction: column-reverse;
   }
 
   br {
     display: none;
+  }
+
+  p {
+    margin: 0 auto 5rem;
   }
 }

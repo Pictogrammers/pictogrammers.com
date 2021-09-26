@@ -62,4 +62,18 @@ nav ul a:active {
   pg-button {
     display: none;
   }
+
+  header {
+    justify-content: center;
+  }
+
+  .pictogrammers {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .pictogrammers img {
+    width: 80%;
+  }
 }
