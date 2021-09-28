@@ -102,8 +102,12 @@ a:hover {
     margin: 4rem auto;
   }
 
+  .users .logos {
+    grid-row-gap: 3rem;
+  }
+
   .users .logos img {
-    padding: 1.5rem 2rem;
+    padding: 0 2rem;
   }
 
   .join {

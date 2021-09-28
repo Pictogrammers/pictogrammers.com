@@ -87,8 +87,9 @@ main p {
 .logo-on-color img {
   border-radius: 2px;
   border: 1px solid hsl(0, 0%, 84%);
-  margin: 1rem;
+  margin: 1rem 2rem;
   max-width: 400px;
+  width: 100%;
 }
 
 .back-white {
