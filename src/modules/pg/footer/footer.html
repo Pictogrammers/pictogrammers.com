@@ -1,25 +1,30 @@
 <template>
   <footer>
-    <div class="container">
-      <p>Copyright © {year} Pictogrammers Icon Group.<br/> All company logos are copyrighted by their respective owners.</p>
-      <div class="connect">
-        <a
-          aria-label="Follow Pictogrammers on Twitter"
-          href="https://twitter.com/pictogrammers"
-          rel="nofollow noreferrer"
-          target="_blank"
-        >
-          <pg-icon path={icon.mdiTwitter} size="1.5" title="Follow Pictogrammers on Twitter"></pg-icon>
-        </a>
-        <a
-          aria-label="Pictogrammers on GitHub"
-          href="https://github.com/Pictogrammers"
-          rel="nofollow noreferrer"
-          target="_blank"
-        >
-          <pg-icon path={icon.mdiGithub} size="1.5" title="Pictogrammers on GitHub"></pg-icon>
-        </a>
-      </div>
-    </div>
+    <ul>
+      <li class="copyright"><img src="/resources/brand/logos/pictogrammers-monogram.svg" alt="Pictogrammers monogram" /> © {year} Pictogrammers Icon Group.</li>
+      <li><a href="https://github.com/Pictogrammers/.github/blob/main/CODE_OF_CONDUCT.md" rel="nofollow noreferrer" target="_blank">Code of Conduct</a></li>
+      <li><a href="/brand-guidelines">Logo & Assets</a></li>
+      <li>
+        <span class="connect-text">Connect with us:</span>
+        <div class="connect">
+          <a
+            aria-label="Follow Pictogrammers on Twitter"
+            href="https://twitter.com/pictogrammers"
+            rel="nofollow noreferrer"
+            target="_blank"
+          >
+            <pg-icon path={icon.mdiTwitter} size="1.5" title="Follow Pictogrammers on Twitter"></pg-icon>
+          </a>
+          <a
+            aria-label="Pictogrammers on GitHub"
+            href="https://github.com/Pictogrammers"
+            rel="nofollow noreferrer"
+            target="_blank"
+          >
+            <pg-icon path={icon.mdiGithub} size="1.5" title="Pictogrammers on GitHub"></pg-icon>
+          </a>
+        </div>
+      </li>
+    </ul>
   </footer>
 </template>
