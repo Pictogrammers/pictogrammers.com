@@ -5,9 +5,13 @@ section {
   background-size: 1500px;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 120px);
+  height: 40vh;
   justify-content: space-between;
   text-align: center;
+}
+
+.full {
+  height: calc(100vh - 120px);
 }
 
 .text {
@@ -17,8 +21,8 @@ section {
   margin: 0 8rem;
 }
 
-.text h1 {
-  font-size: 8vh;
+.heading {
+  font-size: 4vh;
   letter-spacing: -3px;
 }
 
@@ -51,8 +55,8 @@ section {
     margin: 0 2rem;
   }
   
-  .text h1 {
-    font-size: 5vh;
+  .heading {
+    font-size: 2vh;
     letter-spacing: -1px;
   }
 }

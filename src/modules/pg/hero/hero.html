@@ -1,10 +1,15 @@
 <template>
-  <section id="home">
+  <section class={className}>
     <div class="text">
-      <h1>Open-source iconography for designers and developers</h1>
-      <p>We're a collective of passionate individuals creating beautiful icon libraries for drop-in use in your designs and development.</p>
+      <slot name="heading" class="heading"></slot>
+      <slot name="subheading"></slot>
     </div>
-    <a class="scroll" href="/#users" onclick={scrollTo}>
+    <a
+      if:true={showScrollCta}
+      class="scroll"
+      href="/#users"
+      onclick={scrollTo}
+    >
       <pg-icon path={icon.mdiArrowDownCircle}></pg-icon>
       Scroll to Learn More
     </a>

@@ -19,4 +19,9 @@ export default class App extends LightningElement {
       }, 500);
     }
   }
+
+  disconnectedCallback() {
+    this.template.querySelector('pg-header').removeEventListener('scroll_to', this.scrollTo.bind(this));
+    this.template.querySelector('pg-hero').removeEventListener('scroll_to', this.scrollTo.bind(this));
+  }
 }

@@ -11,9 +11,10 @@
         "Quentin Stoeckel <stoeckel.quentin@gmail.com>"
     ],
     "scripts": {
-        "build": "lwc-services build -m production",
+        "build": "lwc-services build -m production -w webpack/webpack.overrides.js",
         "build:development": "lwc-services build",
         "lint": "eslint ./src/**/*.js",
+        "postbuild": "mv dist/index-new.html dist/index.html",
         "postinstall": "husky install",
         "precommit": "npm run prettier:verify && [ $? -eq 0 ] && npm run lint",
         "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
@@ -23,7 +24,7 @@
         "test:unit:coverage": "lwc-services test:unit --coverage",
         "test:unit:debug": "lwc-services test:unit --debug",
         "test:unit:watch": "lwc-services test:unit --watch",
-        "watch": "lwc-services watch"
+        "watch": "lwc-services watch -w webpack/webpack.overrides.js"
     },
     "dependencies": {
         "@mdi/js": "^6.1.95",
