@@ -1,6 +1,6 @@
 section {
   align-items: center;
-  background: url("./resources/hero-grid.svg") repeat-x;
+  background: url("/resources/hero-grid.svg") repeat-x;
   background-position: bottom;
   background-size: 1500px;
   display: flex;

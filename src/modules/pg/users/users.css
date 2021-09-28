@@ -11,7 +11,7 @@ section::after {
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url("./resources/white-wave.svg");
+  background-image: url("/resources/white-wave.svg");
   content: '';
   height: 200px;
   pointer-events: none;

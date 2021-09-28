@@ -11,7 +11,7 @@ export default class About extends LightningElement {
   async getCoreContributors() {
     try {
       // TODO: Replace this with a call to the MDI API
-      const results = await fetch('./resources/contributors.json');
+      const results = await fetch('/resources/contributors.json');
       const contributors = await results.json();
 
       this.contributors = contributors
