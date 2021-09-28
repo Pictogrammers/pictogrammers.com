@@ -1,0 +1,79 @@
+section {
+  background-color: hsl(0, 0%, 100%);
+  padding: 5rem 0;
+  position: relative;
+}
+
+.highlight {
+  background-color: hsl(var(--primary-color));
+  color: white;
+  padding: 3rem 0;
+}
+
+.highlight::before, .highlight::after {
+  content: '';
+  height: 100px;
+  background-color: hsl(var(--primary-color));
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.highlight::before {
+  clip-path: ellipse(75% 100% at 50% 100%);
+  top: -30px;
+}
+
+.highlight::after {
+  clip-path: ellipse(75% 100% at 50% 0%);
+  bottom: -30px;
+}
+
+.wave::after {
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("/resources/white-wave.svg");
+  content: '';
+  height: 200px;
+  pointer-events: none;
+  position: absolute;
+  top: -195px;
+  touch-action: none;
+  width: 100%;
+}
+
+.wave {
+  padding-top: 0;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: -2px;
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 0 1rem 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1080px;
+}
+
+@media only screen and (max-width: 800px) {
+  .highlight::before {
+    clip-path: ellipse(100% 100% at 50% 100%);
+  }
+
+  .highlight::after {
+    clip-path: ellipse(100% 100% at 50% 0%);
+  }
+
+  h2 {
+    text-align: center;
+    line-height: 1.1;
+  }
+}

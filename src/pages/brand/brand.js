@@ -1,8 +1,8 @@
 import { createElement } from 'lwc';
 
-import BrandGuidelines from 'pg/brand';
+import BrandGuidelines from 'pages/brand';
 
-const app = createElement('pg-brand', { is: BrandGuidelines });
+const brand = createElement('pages-brand', { is: BrandGuidelines });
 
 // eslint-disable-next-line @lwc/lwc/no-document-query
-document.getElementById('root').appendChild(app);
+document.getElementById('root').appendChild(brand);

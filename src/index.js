@@ -1,8 +1,8 @@
 import { createElement } from 'lwc';
 
-import App from 'pg/app';
+import Home from 'pages/home';
 
-const app = createElement('pg-app', { is: App });
+const home = createElement('pages-home', { is: Home });
 
 // eslint-disable-next-line @lwc/lwc/no-document-query
-document.getElementById('root').appendChild(app);
+document.getElementById('root').appendChild(home);

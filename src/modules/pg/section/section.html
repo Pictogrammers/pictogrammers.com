@@ -1,0 +1,8 @@
+<template>
+  <section part="section" class={className}>
+    <h2 if:true={title} part="heading">{title}</h2>
+    <div class="container">
+      <slot></slot>
+    </div>
+  </section>
+</template>

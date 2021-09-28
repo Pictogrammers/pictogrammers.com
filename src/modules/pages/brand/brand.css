@@ -1,0 +1,3 @@
+main pg-section:nth-child(even)::part(section) {
+  background-color: hsl(0, 0%, 96%);
+}
