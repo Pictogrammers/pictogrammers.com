@@ -50,6 +50,10 @@ section {
 }
 
 @media only screen and (max-width: 800px) {
+  section {
+    background-position: 0 2rem;
+  }
+
   .text {
     font-size: 2vh;
     margin: 0 2rem;
