@@ -18,15 +18,15 @@ main pg-section:nth-child(even)::part(section) {
   align-items: center;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  grid-column-gap: .5rem;
-  grid-row-gap: .5rem;
+  grid-column-gap: 3rem;
+  grid-row-gap: 5rem;
   justify-items: center;
   max-width: 1080px;
   width: 100%;
 }
 
 .users .logos img {
-  padding: 3rem;
+  max-width: 80%;
 }
 
 .about::part(heading) {
