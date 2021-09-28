@@ -35,7 +35,7 @@ main pg-section:nth-child(even)::part(section) {
 
 .about p {
   font-size: 1.2rem;
-  padding: 2rem;
+  padding: 2rem 0;
   text-align: center;
 }
 
@@ -103,7 +103,7 @@ a:hover {
   }
 
   .users .logos img {
-    padding: 1.5rem 4rem;
+    padding: 1.5rem 2rem;
   }
 
   .join {
@@ -112,7 +112,6 @@ a:hover {
 
   .join p {
     margin-top: 0;
-    padding: 2rem;
     text-align: center;
   }
 
