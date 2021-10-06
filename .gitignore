@@ -30,3 +30,5 @@ $RECYCLE.BIN/
 
 # Husky
 .husky
+
+/.sfdx
