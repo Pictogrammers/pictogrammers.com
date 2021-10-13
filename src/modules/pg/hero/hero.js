@@ -15,14 +15,16 @@ export default class Hero extends LightningElement {
   }
 
   get className() {
-    return cx(this.fullHeight && "full");
+    return cx(this.fullHeight && 'full');
   }
 
   scrollTo(event) {
-    this.dispatchEvent(new CustomEvent('scroll_to', {
-      detail: {
-        location: event.target.href.split('#')[1]
-      }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('scroll_to', {
+        detail: {
+          location: event.target.href.split('#')[1]
+        }
+      })
+    );
   }
 }

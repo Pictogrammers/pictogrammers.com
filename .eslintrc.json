@@ -1,10 +1,13 @@
 {
-    "plugins": ["inclusive-language"],
-    "extends": ["@salesforce/eslint-config-lwc/recommended"],
-    "rules": {
-        "@lwc/lwc/no-async-operation": "off",
-        "@lwc/lwc/no-inner-html": "warn",
-        "@lwc/lwc/no-document-query": "warn",
-        "inclusive-language/use-inclusive-words": "error"
-    }
+  "globals": {
+    "module": true
+  },
+  "plugins": ["inclusive-language"],
+  "extends": ["@salesforce/eslint-config-lwc/recommended"],
+  "rules": {
+    "@lwc/lwc/no-async-operation": "off",
+    "@lwc/lwc/no-inner-html": "warn",
+    "@lwc/lwc/no-document-query": "warn",
+    "inclusive-language/use-inclusive-words": "error"
+  }
 }

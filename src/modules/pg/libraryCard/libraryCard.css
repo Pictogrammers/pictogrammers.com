@@ -1,7 +1,9 @@
 .library {
-  background-color: rgba(255, 255, 255, .15);
+  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .12), 0 2px 2px rgba(0, 0, 0, .12), 0 4px 4px rgba(0, 0, 0, .12), 0 8px 8px rgba(0, 0, 0, .12), 0 16px 16px rgba(0, 0, 0, .12);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
+    0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12),
+    0 16px 16px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   height: calc(100% - 4rem);
@@ -14,13 +16,13 @@
 
 img {
   display: block;
-  margin: .5rem 4rem 0;
+  margin: 0.5rem 4rem 0;
 }
 
 h3 {
   font-size: 1.9rem;
   letter-spacing: -2px;
-  margin: 2rem 0 .5rem;
+  margin: 2rem 0 0.5rem;
   text-align: left;
 }
 

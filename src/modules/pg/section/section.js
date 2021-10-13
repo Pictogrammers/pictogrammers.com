@@ -7,9 +7,6 @@ export default class Section extends LightningElement {
   @api highlight = false;
 
   get className() {
-    return cx(
-      this.initialWave && "wave",
-      this.highlight && "highlight"
-    );
+    return cx(this.initialWave && 'wave', this.highlight && 'highlight');
   }
 }

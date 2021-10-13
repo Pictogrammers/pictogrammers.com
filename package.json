@@ -1,43 +1,43 @@
 {
-    "name": "pictogrammers",
-    "version": "1.0.0",
-    "homepage": "https://www.pictogrammers.com",
-    "license": "MIT",
-    "repository": "git@github.com:Pictogrammers/pictogrammers.com.git",
-    "author": "Michael Irigoyen <michael@irigoyen.dev>",
-    "contributors": [
-        "Michael Irigoyen <michael@irigoyen.dev>",
-        "Austin Andrews <admin@templarian.com>",
-        "Quentin Stoeckel <stoeckel.quentin@gmail.com>"
-    ],
-    "scripts": {
-        "build": "lwc-services build -m production -w webpack/webpack.overrides.js",
-        "build:development": "lwc-services build",
-        "lint": "eslint ./src/**/*.js",
-        "postbuild": "mv dist/index-new.html dist/index.html",
-        "postinstall": "husky install",
-        "precommit": "npm run prettier:verify && [ $? -eq 0 ] && npm run lint",
-        "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
-        "prettier:verify": "prettier --list-different \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
-        "start": "node scripts/server.js",
-        "test:unit": "lwc-services test:unit",
-        "test:unit:coverage": "lwc-services test:unit --coverage",
-        "test:unit:debug": "lwc-services test:unit --debug",
-        "test:unit:watch": "lwc-services test:unit --watch",
-        "watch": "lwc-services watch -w webpack/webpack.overrides.js"
-    },
-    "dependencies": {
-        "@mdi/js": "^6.1.95",
-        "clsx": "^1.1.1",
-        "compression": "^1.7.4",
-        "express": "^4.17.1",
-        "helmet": "^4.6.0"
-    },
-    "devDependencies": {
-        "eslint": "^7.32.0",
-        "eslint-plugin-inclusive-language": "^2.1.1",
-        "husky": "^7.0.2",
-        "lwc-services": "^3.1.2",
-        "prettier": "^2.4.1"
-    }
+  "name": "pictogrammers",
+  "version": "1.0.0",
+  "homepage": "https://www.pictogrammers.com",
+  "license": "MIT",
+  "repository": "git@github.com:Pictogrammers/pictogrammers.com.git",
+  "author": "Michael Irigoyen <michael@irigoyen.dev>",
+  "contributors": [
+    "Michael Irigoyen <michael@irigoyen.dev>",
+    "Austin Andrews <admin@templarian.com>",
+    "Quentin Stoeckel <stoeckel.quentin@gmail.com>"
+  ],
+  "scripts": {
+    "build": "lwc-services build -m production -w webpack/webpack.overrides.js",
+    "build:development": "lwc-services build",
+    "lint": "eslint ./src/**/*.js",
+    "postbuild": "mv dist/index-new.html dist/index.html",
+    "postinstall": "husky install",
+    "precommit": "npm run prettier:verify && [ $? -eq 0 ] && npm run lint",
+    "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
+    "prettier:verify": "prettier --list-different \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
+    "start": "node scripts/server.js",
+    "test:unit": "lwc-services test:unit",
+    "test:unit:coverage": "lwc-services test:unit --coverage",
+    "test:unit:debug": "lwc-services test:unit --debug",
+    "test:unit:watch": "lwc-services test:unit --watch",
+    "watch": "lwc-services watch -w webpack/webpack.overrides.js"
+  },
+  "dependencies": {
+    "@mdi/js": "^6.1.95",
+    "clsx": "^1.1.1",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-inclusive-language": "^2.1.1",
+    "husky": "^7.0.2",
+    "lwc-services": "^3.1.2",
+    "prettier": "^2.4.1"
+  }
 }

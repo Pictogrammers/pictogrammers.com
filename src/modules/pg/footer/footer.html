@@ -1,8 +1,23 @@
 <template>
   <footer>
     <ul>
-      <li class="copyright"><img src="/resources/brand/logos/pictogrammers-monogram.svg" alt="Pictogrammers monogram" /> © {year} Pictogrammers Icon Group.</li>
-      <li><a href="https://github.com/Pictogrammers/.github/blob/main/CODE_OF_CONDUCT.md" rel="nofollow noreferrer" target="_blank">Code of Conduct</a></li>
+      <li class="copyright">
+        <a href="#" onclick={scrollToTop}>
+          <img
+            src="/resources/brand/logos/pictogrammers-monogram.svg"
+            alt="Pictogrammers monogram"
+          />
+        </a>
+        © {year} Pictogrammers Icon Group.
+      </li>
+      <li>
+        <a
+          href="https://github.com/Pictogrammers/.github/blob/main/CODE_OF_CONDUCT.md"
+          rel="nofollow noreferrer"
+          target="_blank"
+          >Code of Conduct</a
+        >
+      </li>
       <li><a href="/brand-guidelines">Logo & Assets</a></li>
       <li>
         <span class="connect-text">Connect with us:</span>
@@ -13,7 +28,11 @@
             rel="nofollow noreferrer"
             target="_blank"
           >
-            <pg-icon path={icon.mdiTwitter} size="1.5" title="Follow Pictogrammers on Twitter"></pg-icon>
+            <pg-icon
+              path={icon.mdiTwitter}
+              size="1.5"
+              title="Follow Pictogrammers on Twitter"
+            ></pg-icon>
           </a>
           <a
             aria-label="Pictogrammers on GitHub"
@@ -21,7 +40,11 @@
             rel="nofollow noreferrer"
             target="_blank"
           >
-            <pg-icon path={icon.mdiGithub} size="1.5" title="Pictogrammers on GitHub"></pg-icon>
+            <pg-icon
+              path={icon.mdiGithub}
+              size="1.5"
+              title="Pictogrammers on GitHub"
+            ></pg-icon>
           </a>
         </div>
       </li>

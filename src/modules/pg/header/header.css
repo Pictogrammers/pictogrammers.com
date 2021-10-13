@@ -15,9 +15,9 @@ header {
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -1px;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   text-decoration: none;
-  transition: background-color .3s ease-in;
+  transition: background-color 0.3s ease-in;
 }
 
 .pictogrammers img {
@@ -34,15 +34,15 @@ nav ul a {
   color: hsl(var(--primary-color));
   font-size: 1.1rem;
   font-weight: 600;
-  margin: 0 .5rem;
-  padding: .5rem 1rem;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
   text-decoration: none;
-  transition: background-color .3s ease-in;
+  transition: background-color 0.3s ease-in;
 }
 
 .pictogrammers:hover,
 nav ul a:hover {
-  background-color: rgba(255, 255, 255, .25);
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .pictogrammers:active,

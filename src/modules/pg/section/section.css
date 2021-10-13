@@ -10,7 +10,8 @@ section {
   padding: 3rem 0;
 }
 
-.highlight::before, .highlight::after {
+.highlight::before,
+.highlight::after {
   content: '';
   height: 100px;
   background-color: hsl(var(--primary-color));
@@ -33,7 +34,7 @@ section {
   background-position: center bottom;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url("/resources/white-wave.svg");
+  background-image: url('/resources/white-wave.svg');
   content: '';
   height: 200px;
   left: 0;
@@ -80,6 +81,6 @@ h2 {
   }
 
   .container {
-    padding-top: .5rem;
+    padding-top: 0.5rem;
   }
 }

@@ -8,6 +8,6 @@ export default class Button extends LightningElement {
   @api invert = false;
 
   get className() {
-    return cx(this.invert && "invert");
+    return cx(this.invert && 'invert');
   }
 }

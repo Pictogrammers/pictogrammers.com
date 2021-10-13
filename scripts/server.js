@@ -15,9 +15,9 @@ const DIST_DIR = './dist';
 app.use(express.static(DIST_DIR));
 
 app.use('*', (req, res) => {
-    res.sendFile(path.resolve(DIST_DIR, 'index.html'));
+  res.sendFile(path.resolve(DIST_DIR, 'index.html'));
 });
 
 app.listen(PORT, () =>
-    console.log(`✅  Server started: http://${HOST}:${PORT}`)
+  console.log(`✅  Server started: http://${HOST}:${PORT}`)
 );

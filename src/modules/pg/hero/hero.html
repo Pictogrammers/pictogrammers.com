@@ -4,12 +4,7 @@
       <slot name="heading" class="heading"></slot>
       <slot name="subheading"></slot>
     </div>
-    <a
-      if:true={showScrollCta}
-      class="scroll"
-      href="#users"
-      onclick={scrollTo}
-    >
+    <a if:true={showScrollCta} class="scroll" href="#users" onclick={scrollTo}>
       <pg-icon path={icon.mdiArrowDownCircle}></pg-icon>
       Scroll to Learn More
     </a>

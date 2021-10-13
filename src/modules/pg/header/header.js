@@ -11,10 +11,12 @@ export default class Header extends LightningElement {
   }
 
   scrollTo(event) {
-    this.dispatchEvent(new CustomEvent('scroll_to', {
-      detail: {
-        location: event.target.href.split('#')[1]
-      }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('scroll_to', {
+        detail: {
+          location: event.target.href.split('#')[1]
+        }
+      })
+    );
   }
 }

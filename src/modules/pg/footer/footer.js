@@ -12,4 +12,8 @@ export default class Footer extends LightningElement {
   get icon() {
     return this.iconExportMapping;
   }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
