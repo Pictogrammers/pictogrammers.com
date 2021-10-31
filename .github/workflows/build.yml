@@ -21,7 +21,7 @@ jobs:
         run: npm run build
 
       - name: Install SSH Key
-        users: shimataro/ssh-key-action@v2
+        uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: 'pictogrammers-placeholder'
