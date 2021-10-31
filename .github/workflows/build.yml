@@ -23,7 +23,7 @@ jobs:
         run: |
           mkdir ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/gh_actions_key
-          chmod 600 ~/.ssh/gh_actions_Key
+          chmod 600 ~/.ssh/gh_actions_key
 
       - name: Deploy to Server
         run: sudo rsync -avzr --delete -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/${{ secrets.SSH_USERS }}/pictogrammers/
