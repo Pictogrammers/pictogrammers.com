@@ -20,13 +20,10 @@ jobs:
         run: npm run build
 
       - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: 'pictogrammers-placeholder'
-
-      - name: Add Known Host
-        run: sudo ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        run: |
+          mkdir ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/gh_actions_key
+          chmod 600 ~/.ssh/gh_actions_Key
 
       - name: Deploy to Server
-        run: sudo rsync -avz ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/${{ secrets.SSH_USER }}/pictogrammers/
+        run: sudo rsync -avzr --delete -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/${{ secrets.SSH_USERS }}/pictogrammers/
