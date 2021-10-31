@@ -20,6 +20,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Server
+        uses: trendyminds/github-actions-rsync@master
         with:
           RSYNC_OPTIONS: -avzr --delete
           RSYNC_TARGET: /opt/${{ secrets.SSH_USER }}/pictogrammers
