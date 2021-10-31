@@ -211,8 +211,10 @@ main p {
 a {
   border-bottom: 1px dotted #696969;
   color: hsl(0, 0%, 22%);
+  display: inline-block;
   font-weight: 600;
   line-height: 1;
+  margin: 0 0.25rem;
   transition: color 0.3s ease-in-out;
   text-decoration: none;
 }

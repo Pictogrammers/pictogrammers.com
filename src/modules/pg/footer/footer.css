@@ -43,7 +43,7 @@ a:hover {
   color: hsl(0, 0%, 44%);
   display: inline-block;
   margin: 0.5rem;
-  padding: 0.5rem 0.5rem 0;
+  padding: 0.5rem;
   transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
