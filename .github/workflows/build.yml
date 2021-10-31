@@ -27,7 +27,7 @@ jobs:
           known_hosts: 'pictogrammers-placeholder'
 
       - name: Add Known Host
-        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        run: sudo ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to Server
         run: sudo rsync -avz ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/${{ secrets.SSH_USER }}/pictogrammers/
