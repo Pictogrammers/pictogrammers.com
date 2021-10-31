@@ -20,8 +20,11 @@ jobs:
         run: npm run build
 
       - name: Deploy to Server
-        run: |
-          mkdir ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/gh_actions_key
-          chmod 600 ~/.ssh/gh_actions_key
-          sudo rsync -avzr --delete -e "ssh -i ~/.ssh/gh_actions_key -o StrictHostKeyChecking=no" ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/${{ secrets.SSH_USER }}/pictogrammers/
+        with:
+          RSYNC_OPTIONS: -avzr --delete
+          RSYNC_TARGET: /opt/${{ secrets.SSH_USER }}/pictogrammers
+          RSYNC_SOURCE: /dist/
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_USERNAME: ${{ secrets.SSH_USER }}
+          SSH_HOSTNAME: ${{ secrets.SSH_HOST }}
