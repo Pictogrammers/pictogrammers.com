@@ -1,0 +1,33 @@
+name: Build/Deploy
+on:
+  push:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Site
+        run: npm run build
+
+      - name: Install SSH Key
+        users: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 'pictogrammers-placeholder'
+
+      - name: Add Known Host
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Server
+        run: rsync -avz ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/${{ secrets.SSH_USER }}/pictogrammers/
