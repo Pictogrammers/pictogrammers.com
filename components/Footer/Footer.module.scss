@@ -1,0 +1,76 @@
+@import '../../styles/variables.scss';
+
+.root {
+  color: hsl(var(--dark-grey));
+  font-size: 0.9rem;
+  padding: 2rem;
+
+  .logo {
+    svg {  
+      [id='keycap-top'] {
+        transition: transform 0.1s;
+        transform: translate(0, 0);
+      }
+    }
+  
+    &:hover {
+      svg {
+        [id='keycap-top'] {
+          transform: translate(0, 14px);
+        }
+      }
+    }
+  }
+
+  ul {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0 auto;
+    max-width: $width-max;
+    padding: 0;
+  }
+  
+  li {
+    align-items: center;
+    display: flex;
+  }
+  
+  svg {
+    width: 62px;
+  }
+  
+  a:hover {
+    color: hsl(var(--primary-color));
+  }
+}
+
+.connectText {
+  padding-right: 1rem;
+}
+
+@media only screen and (max-width: $tablet-width) {
+  .root {
+    ul {
+      flex-direction: column;
+    }
+
+    a {
+      padding: 0.5rem 0;
+    }
+  }
+
+  .copyright {
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+  }
+
+  .connectText {
+    display: none;
+  }
+
+  .connect {
+    padding-top: 0.5rem;
+  }
+}

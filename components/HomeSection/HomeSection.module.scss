@@ -1,0 +1,92 @@
+@import '../../styles/variables.scss';
+
+.root {
+  background-color: hsl(var(--white));
+  padding: 5rem 0;
+  position: relative;
+
+  h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: -2px;
+    margin: 0 auto;
+    max-width: 1080px;
+    padding: 0 1rem 1rem;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 0 2rem;
+}
+
+.wave {
+  padding-top: 2rem;
+
+  &::after {
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url('../../assets/white-wave.svg');
+    content: '';
+    height: 200px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: -195px;
+    touch-action: none;
+    width: 100%;
+  }
+}
+
+.highlight {
+  background-color: hsl(var(--primary-color));
+  color: hsl(var(--white));
+  padding: 3rem 0;
+
+  &::before,
+  &::after {
+    content: '';
+    height: 100px;
+    background-color: hsl(var(--primary-color));
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+  }
+
+  &::before {
+    clip-path: ellipse(75% 100% at 50% 100%);
+    top: -30px;
+  }
+
+  &::after {
+    clip-path: ellipse(75% 100% at 50% 0%);
+    bottom: -30px;
+  }
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .root {
+    h2 {
+      text-align: center;
+      line-height: 1.1;
+    }
+  }
+
+  .container {
+    padding-top: 0.5rem;
+  }
+
+  .highlight {
+    &::before {
+      clip-path: ellipse(100% 100% at 50% 100%);
+    }
+  
+    &::after {
+      clip-path: ellipse(100% 100% at 50% 0%);
+    }
+  }
+}

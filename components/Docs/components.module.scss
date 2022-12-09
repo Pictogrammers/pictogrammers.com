@@ -1,0 +1,34 @@
+.heading {
+  display: flex;
+  align-items: center;
+
+  a {
+    margin: .25rem 0 0 .5rem;
+    opacity: .5;
+    transition: opacity .2s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.inlineCode {
+  border-radius: 5px;
+  display: inline;
+  padding: .1rem .2rem !important;
+}
+
+.darkButton {
+  &:hover {
+    color: hsl(var(--white));
+  }
+}
+
+.alert {
+  margin: 1rem 0;
+
+  p {
+    margin: 0;
+  }
+}

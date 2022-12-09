@@ -1,0 +1,38 @@
+---
+title: First-Party Libraries
+description: The Pictogrammers group creates many first-party utilities to make it easier to use our icon libraries.
+category: Guides
+---
+
+:::Note{type=info}
+First-party libraries, tools, and utilities only differ from third-party in who is publishing the packages. If a [core member](/contributors) of the Pictogrammers is involved in the publishing step of the package, it is first-party.
+:::
+
+## NPM
+
+Only packages published under the [@pictogrammers](https://www.npmjs.com/org/pictogrammers) or [@mdi](https://www.npmjs.com/org/mdi) organizations are considered first-party.
+
+### Steps for Publishing
+
+```bash
+git pull
+# (optional) Update Dependencies
+npm update
+# (optional) Build
+npm run build
+# update package.json
+# - "version": "1.0.0"
+# + "version": "1.0.1"
+git status
+git add .
+git commit -m "v1.0.1"
+git tag -a v1.0.1 -m "v1.0.1"
+git push
+git push origin --tags
+# Verify on GitHub then...
+npm publish
+```
+
+## Other
+
+Right now all first-party packages are published through GitHub and NPM.

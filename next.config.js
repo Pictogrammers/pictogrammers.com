@@ -1,7 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  publicRuntimeConfig: {
+
+  },
   reactStrictMode: true,
   swcMinify: true,
-}
+  webpack(config) {
+    config.module.rules.push({
+      issuer: { and: [/\.(js|ts)x?$/] },
+      test: /\.svg$/,
+      use: [{
+        loader: '@svgr/webpack',
+        options: {
+          // TODO: Reenable this and figure out how to disable group stripping
+          svgo: false
+        }
+      }]
+    });
+    
+    return config;
+  }
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

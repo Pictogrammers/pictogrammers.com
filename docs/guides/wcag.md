@@ -1,0 +1,74 @@
+---
+title: Web Content Accessibility Guidelines (WCAG) 2.0
+description: Following WCAG guidelines ensures a good user experience for anyone who utilizes our icon libraries.
+category: Guides
+---
+
+## Basics
+
+WCAG is developed through the W3C process in cooperation with individuals and organizations around the world, with a goal of providing a single shared standard for web content accessibility that meets the needs of individuals, organizations, and governments internationally.[^1]
+
+Here are a few tips for creating Accessible SVGs.
+
+## Tips
+
+### Vector (SVG) vs. Raster (PNG)
+
+For those designers reading this, you may understand the difference. But for those that don't, raster images, like PNG and JPG, are a pixel by pixel representation of an image. And vector images, like SVG's and fonts, generate images using math. This means, that no matter the scale of the image, a vector-based image will always be crisp. The goal is to always use vector-based images.
+
+### Use inline SVGs
+
+When the DOM is rendered on page load, the browser will create an Accessibility Tree. If you are using an image tag with the source pointing to an SVG, this will not be rendered in the Accessibility Tree. This will cause a problem with Assistive Technologies (AT) like screen readers and speech recognition tools. As an added bonus, this is one less HTTP request; making your site faster. 
+
+If you are using HTML5, then you do not need to have the SVG DTD, just a version number on the SVG itself. SVG 1.1 utilizes the DOM level 2 specification for this.[^2]
+
+``` html
+<svg version="1.1" viewBox="0 0 24 24">
+  <path fill="black" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+</svg>
+```
+
+### Include a title
+
+Taking the example above, a screen reader will not say anything except maybe 'Graphic'. In order for Assistive Technologies (AT) to understand what the content is and how to utilize that information there has to be either a `title` element as the first child of the SVG, or either of the following attributes: `aria-label`, `aria-labelledby`. Let's modify the SVG from above to tell the Assistive Technologies what to expect. The following would read: 'Graphic, Chevron pointing down'. This is much more precise and conveys exactly what the end user needs to know. It is recommended to use both the `title` element as well as the ARIA attribute for consistent results.
+
+``` html
+<svg version="1.1" viewBox="0 0 24 24" aria-labelledby="svg-title">
+  <title id="svg-title">Chevron pointing down</title>
+  <path fill="black" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+</svg>
+```
+
+### Include a description
+
+imagine the `desc` tag as the `alt` attribute on an `img` element. It's not just the name of the icon, but a description of the icon and possible actions to take. Again, the aforementioned icon is a chevron pointing down and could be inside of a button. When clicked, it will expand an accordion, and reveal content. We should let the Assistive Technologies know what the user should do. Now the following would read: 'Graphic, Chevron pointing down. Press the space bar or enter key to expand the content'.
+
+``` html
+<svg version="1.1" viewBox="0 0 24 24" aria-labelledby="svg-title" aria-describedby="svg-desc">
+  <title id="svg-title">Chevron pointing down</title>
+  <desc id="svg-desc">Press the spacebar or enter key to expand the content.</desc>
+  <path fill="black" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+</svg>
+```
+
+### Include a role
+
+In order to cover all bases, let's include the `role` attribute with a value of `img`, letting Assistive Technologies know for sure that it is a graphic. Not all browsers or Assistive Technologies are built the same, let alone work with each other in the same manner. This can cause complexities. This is the final product.
+
+``` html
+<svg version="1.1" viewBox="0 0 24 24" role="img" aria-labelledby="svg-title" aria-describedby="svg-desc">
+  <title id="svg-title">Chevron pointing down</title>
+  <desc id="svg-desc">Press the spacebar or enter key to expand the content.</desc>
+  <path fill="black" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+</svg>
+```
+
+these tips were taken from various blogs. You can find them below.
+
+## References
+
+1. [Tips for Creating Accessible SVG.](//www.sitepoint.com/tips-accessible-svg)
+2. [7 solutions for creating more accessible SVGs.](//simplyaccessible.com/article/7-solutions-svgs)
+
+[^1]: Web Content Accessibility Guidelines (WCAG) Overview. [Source](//www.w3.org/WAI/intro/wcag)
+[^2]: Document Object Model Level 2 Core Specification. [Source](//www.w3.org/TR/DOM-Level-2-Core)

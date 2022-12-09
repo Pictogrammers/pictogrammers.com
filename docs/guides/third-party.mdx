@@ -1,0 +1,96 @@
+---
+title: Third-Party Libraries
+description: Anyone can make useful tools and utilities with our icon libraries.
+category: Guides
+---
+
+While Pictogrammers supports several [first party](./first-party) libraries, utils, and components, our core team leaves a lot of the integrations up to the third-party community.
+
+## Who is a Third Party Developer?
+
+Any developer that provides an integration that relies on Pictogrammers icons. This can be components, utilities, or plugins for existing open-source projects.
+
+## Integrating with Pictogrammers Libraries
+
+The top priority of building an integration is knowing where you'll get the icons. There are three ways to get the icons NPM, the CDN, and GitHub.
+
+### NPM
+
+NPM packages are built after each release.
+
+- The [@pictogrammers](https://www.npmjs.com/org/pictogrammers) and [@mdi](https://www.npmjs.com/org/mdi) organizations on NPM.
+- [`@mdi/util`](https://www.npmjs.com/package/@mdi/util) - [Node scripting](/guide/nodejs-scripting) utility for building your own scripts.
+- [`@mdi/font-build`](https://www.npmjs.com/package/@mdi/font-build) - This is what builds the webfont! (`@mdi/svg` and `@mdi/light-svg` contain `font-build.json` for this reason).
+
+#### Material Design Icons
+
+- [`@mdi/js`](https://www.npmjs.com/package/@mdi/js) - ES6/TypeScript module.
+- [`@mdi/svg`](https://www.npmjs.com/package/@mdi/svg) - Individual optimized SVG files
+  - `meta.json` - All icon meta data, tags, aliases, font codepoints.
+- [`@mdi/font`](https://www.npmjs.com/package/@mdi/font) - Webfont files.
+
+#### Material Design Icons Light
+
+- [`@mdi/light-js`](https://www.npmjs.com/package/@mdi/light-js) - ES6/TypeScript module.
+- [`@mdi/light-svg`](https://www.npmjs.com/package/@mdi/light-svg) - Individual optimized SVG files
+  - `meta.json` - All icon meta data, tags, aliases, font codepoints.
+- [`@mdi/light-font`](https://www.npmjs.com/package/@mdi/light-font) - Webfont files.
+
+If your project can use one of the first-party libraries indirectly, we recommend telling people to install them separately. For instance `@mdi/react` can use any icon version.
+
+```bash
+npm install @mdi/js @mdi/react
+```
+
+This allows one to swap out other icon packs or upgrade/downgrade independently. Not all projects can do this, but we recommend it when possible.
+
+### CDN
+
+When we release, `@mdi/svg` and `@mdi/light-svg` are also published to the CDN.
+
+- `https://cdn.jsdelivr.net/npm/@mdi/svg`
+- `https://cdn.jsdelivr.net/npm/@mdi/light-svg`
+
+### GitHub
+
+GitHub is where we store all the NPM distribution repos. Each release is tagged so it's easy to view previous changes.
+
+#### Material Design Icons
+
+- [MaterialDesign](https://github.com/Templarian/MaterialDesign) - Main Repo Synced Real-time
+- [MaterialDesign-SVG](https://github.com/Templarian/MaterialDesign-SVG) - SVG Versioned
+- [MaterialDesign-JS](https://github.com/Templarian/MaterialDesign-JS) - JS Versioned
+- [MaterialDesign-Webfont](https://github.com/Templarian/MaterialDesign-Webfont) - Webfont Versioned
+
+#### Material Design Icons Light
+
+- [MaterialDesignLight](https://github.com/Templarian/MaterialDesignLight) - Main Repo Synced Real-time
+- [MaterialDesignLight-SVG](https://github.com/Templarian/MaterialDesignLight-SVG) - SVG Versioned
+- [MaterialDesignLight-JS](https://github.com/Templarian/MaterialDesignLight-JS) - JS Versioned
+- [MaterialDesignLight-Webfont](https://github.com/Templarian/MaterialDesignLight-Webfont) - Webfont Versioned
+
+### Build Script
+
+- [Scripting with NodeJS and MDI](http://templarian.com/2018/04/13/scripting-with-nodejs-and-material-design-icons/)
+
+## Guidelines
+
+Third parties should be able to do anything that helps their respective community integrate the use of the icons. With that said there are a few things we advise against.
+
+| Don't do this... | Maybe Try... |
+|------------------|--------------|
+| :Icon{icon=mdi:close color=red} Scraping the website for data | :Icon{icon=mdi:check color=green} Let us know through an issue if `meta.json` is missing anything. |
+| :Icon{icon=mdi:close color=red} Expecting us to add icons since you use the project | :Icon{icon=mdi:check color=green} We recommend projects to be built to support multiple icon packs and not to rely entirely on ours. |
+
+## Let us know what you built!
+
+Not required, but the core team loves seeing what the community makes. Funny enough, we are often the last ones that find out about all the cool integrations.
+
+## Existing Third Party Projects
+
+Definitely search around and checkout all the existing projects before starting. Your idea might already exist that you can help expand.
+
+- [Chrome](https://chrome.google.com/webstore/detail/materialdesignicons-picke/edjaedpifkihpjkcgknfokmibkoafhme) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/materialdesignicons-picker/) Extensions.
+- [VS Code Material Design Icons Intellisense](https://marketplace.visualstudio.com/items?itemName=lukas-tr.materialdesignicons-intellisense)
+- [Home Assistant](https://www.home-assistant.io/docs/configuration/customizing-devices/#icon)
+- mdi cli

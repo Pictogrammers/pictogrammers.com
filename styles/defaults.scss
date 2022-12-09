@@ -1,0 +1,42 @@
+@import './theme.module.scss';
+
+html,
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  margin: 0;
+  overscroll-behavior: none;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  @include theme-light;
+
+  background-attachment: fixed !important;
+  background-repeat: no-repeat;
+  background: hsl(var(--secondary-color));
+  background: linear-gradient(180deg, hsl(var(--secondary-color)) 0%, hsla(var(--secondary-color) / 5%) 200%);
+  color: hsl(var(--primary-color));
+  font-family: var(--primary-font);
+  letter-spacing: 0;
+  line-height: 1.8;
+
+  a {
+    color: hsl(var(--link-color));
+    font-weight: 600;
+    line-height: 1;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: hsl(var(--link-color-hover));
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}

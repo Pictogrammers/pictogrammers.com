@@ -1,0 +1,75 @@
+---
+title: Getting Started with Material Design Icons
+description: Easily use Material Design Icons in your Android app by using a library or the raw SVGs.
+library: Material Design Icons
+category: Getting Started
+---
+
+:::Note{type=info}
+Material Design Icons has been around for many years and is compatible with many technologies and frameworks. Please view the docs menu at the top for an appropriate getting started guide.
+:::
+
+## Using the Webfont
+
+One of the easiest ways to use the icons is through the webfont. There is also a hosted CDN option for quick use in demos or development.
+
+:Button[Learn More (Webfont - Getting Started)]{href='./webfont' startIcon=mdi:language-html5 variant=outlined}
+
+:::Note{type=warning}
+Using the webfont while easy to use is highly discouraged due to performance and overall request size. Please read the [Webfont Alternatives Guide](/guide/webfont-alternatives) for more details.
+:::
+
+## Using SVGs
+
+All icons are designed in vector and provided in SVG format.
+
+### As an Image File
+
+SVGs can be downloaded individually and included the same way as any bitmap image:
+
+```html
+<img src="/path/to/icons/example-icon.svg" alt="An example icon" style="width:24px;height:24px" />
+```
+
+### Inline SVG
+
+SVG's can be used inline in the HTML.
+
+```html
+<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+  <path fill="#000000" d="M ... Z" /> <!-- account -->
+</svg>
+```
+
+Inline SVGs can also be overlayed by adding additional paths.
+
+```html
+<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+  <path fill="#000000" d="M ... Z" /> <!-- account -->
+  <path fill="#990000" d="M ... Z" /> <!-- block-helper -->
+</svg>
+```
+
+:Button[Learn More (SVG - Getting Started)]{href='./svg' startIcon=mdi:svg variant=outlined}
+
+## Frameworks & Tools
+
+- [Android](./android)
+- [Angular](./angular)
+- [AngularJS](./angularjs)
+- [Ember](./ember)
+- [PHP](./php)
+- [Polymer](./polymer)
+- [React](./react)
+- [Rollup.js](./rollup)
+- [Ruby on Rails](./ruby-on-rails)
+- [Svelte](./svelte)
+- [SVG](./svg)
+- [Visual Studio Code](./visual-studio-code)
+- [VueJS](./vuejs)
+- [WebComponents](./webcomponent)
+- [Webfont](./webfont)
+- [Webpack](./webpack)
+- [Windows](./windows)
+- [Xamarin](./xamarin)
+

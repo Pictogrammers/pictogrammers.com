@@ -1,3 +1,15 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "plugins": [
+    "sort-destructure-keys"
+  ],
+  "rules": {
+    "arrow-parens": 2,
+    "jsx-quotes": [ 2, "prefer-single" ],
+    "quotes": [ 2, "single" ],
+    "semi": [ 2, "always" ],
+    "sort-destructure-keys/sort-destructure-keys": 2,
+    "sort-imports": [ 2, { "ignoreDeclarationSort": true } ],
+    "sort-keys": [ 2, "asc", { "caseSensitive": false } ]
+  }
 }
