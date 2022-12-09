@@ -1,6 +1,6 @@
 import getRandomArrayValues from './helpers/getRandomArrayValues';
 
-import { IContributor } from '../types/contributor';
+import { IContributor } from '../interfaces/contributor';
 
 const API_BASE = 'https://dev.materialdesignicons.com/api';
 

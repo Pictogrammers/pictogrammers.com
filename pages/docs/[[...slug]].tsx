@@ -12,10 +12,11 @@ import { mdiGithub, mdiTextBoxPlus } from '@mdi/js';
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 
-import { IDoc } from '../../types/doc';
+import { IDoc } from '../../interfaces/doc';
+import { TableOfContentsItemProps } from '../../interfaces/tableOfContents';
 import { getAllDocs, getDoc } from '../../utils/mdxUtils';
 
-// Custom Components
+import TableOfContents from '../../components/Docs/TableOfContents';
 import Heading from '../../components/Docs/Heading';
 import Code from '../../components/Docs/Code';
 import Icon from '../../components/Docs/Icon';
@@ -33,23 +34,25 @@ import {
 import classes from '../../styles/pages/docs.module.scss';
 
 interface Iparams extends ParsedUrlQuery {
-  slug: string
+  slug: string[]
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as Iparams;
-  const { content, data } = getDoc(slug);
+  const { content, data, toc } = getDoc(slug.join('/'));
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [ gfm ]
     },
     scope: data
   });
+
   return {
     props: {
       frontMatter: data,
-      slug,
-      source: mdxSource
+      slug: slug.join('/'),
+      source: mdxSource,
+      toc
     }
   };
 };
@@ -58,7 +61,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllDocs(['slug']);
   const paths = posts.map((post) => ({
     params: {
-     slug: post.slug
+     slug: post.slug.split('/')
     }
   }));
 
@@ -71,9 +74,10 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 // props type
 type Props = {
-  source: MDXRemoteSerializeResult;
-  slug: string;
   frontMatter: Omit<IDoc, 'slug'>;
+  slug: string;
+  source: MDXRemoteSerializeResult;
+  toc: Array<TableOfContentsItemProps>;
 }
 
 // components to render
@@ -97,7 +101,9 @@ const components = {
   tr: TableRow
 } as any;
 
-const PostPage: NextPage<Props> = ({ frontMatter, slug, source }: Props) => {
+const PostPage: NextPage<Props> = ({ frontMatter, slug, source, toc }: Props) => {
+  console.log(toc);
+
   const path = `docs/${slug}`;
   const {
     category,
@@ -146,9 +152,9 @@ const PostPage: NextPage<Props> = ({ frontMatter, slug, source }: Props) => {
         </article>
         <aside>
             <div className={classes.sidenav}>
-              TABLE OF CONTENTS
+              <TableOfContents toc={toc} />
               <div className={classes.edits}>
-                <p className={classes.tochead}>Improve This Article</p>
+                <p className={classes.improvehead}>Improve This Article</p>
                 <Button
                   color='secondary'
                   fullWidth

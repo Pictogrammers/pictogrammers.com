@@ -5,7 +5,7 @@ import Icon from '@mdi/react';
 import { mdiCrowd } from '@mdi/js';
 
 import { getContributors } from '../utils/apiUtils';
-import { IContributor } from '../types/contributor';
+import { IContributor } from '../interfaces/contributor';
 
 import Hero from '../components/Hero/Hero';
 import HomeSection from '../components/HomeSection/HomeSection';

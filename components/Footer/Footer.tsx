@@ -29,18 +29,15 @@ const Footer: FunctionComponent = () => {
         <li className={classes.connect}>
           <span className={classes.connectText}>Connect with us:</span>
           <div>
-            <IconButton
-              aria-label='Pictogrammers on GitHub'
-              href='https://github.com/Pictogrammers'
-            >
-              <Icon path={mdiGithub} size={1.5} title='Pictogrammers on GitHub' />
+            <IconButton aria-label='Pictogrammers on GitHub'>
+              <Link href='https://github.com/Pictogrammers'>
+                <Icon path={mdiGithub} size={1.5} />
+              </Link>
             </IconButton>
-            <IconButton
-              aria-label='Follow Pictogrammers on Mastodon'
-              href='https://fosstodon.org/@pictogrammers'
-              rel='me'
-            >
-              <Icon path={mdiMastodon} size={1.5} title='Follow Pictogrammers on Mastodon' />
+            <IconButton aria-label='Follow Pictogrammers on Mastodon'>
+              <Link href='https://github.com/Pictogrammers' rel='me'>
+                <Icon path={mdiMastodon} size={1.5} />
+              </Link>
             </IconButton>
           </div>
         </li>

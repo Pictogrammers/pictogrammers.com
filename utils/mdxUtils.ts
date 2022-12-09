@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import { join } from 'node:path';
 import glob from 'glob';
 import matter from 'gray-matter';
+import toc from 'markdown-toc';
 import readingTime from 'reading-time';
 
 const DOCS_PATH = join(process.cwd(), 'docs');
@@ -15,6 +16,7 @@ type Post = {
     [key: string]: string;
   };
   content: string;
+  toc: object[];
 }
 
 const getDocPaths = (): string[] => glob.sync('**/*.mdx', { cwd: DOCS_PATH });
@@ -24,8 +26,9 @@ export const getDoc = (slug: string): Post => {
   const docContents = fs.readFileSync(docPath, 'utf-8');
   const { content, data } = matter(docContents);
   const { text: articleReadTime } = readingTime(content);
+  const docToc = toc(content).json;
   data.readingTime = articleReadTime;
-  return { content, data };
+  return { content, data, toc: docToc };
 };
 
 export const getDocItems = (filePath: string, fields: string[] = []): Items => {
@@ -54,9 +57,8 @@ export const getDocItems = (filePath: string, fields: string[] = []): Items => {
   return items;
 };
 
-// TODO: Nuke this
 export const getAllDocs = (fields: string[]): Items[] => {
   const filePaths = getDocPaths();
-  const posts = filePaths.map((filePath) => getDocItems(filePath,fields)).sort((post1,post2) => post1.date > post2.date ? 1 : -1);
+  const posts = filePaths.map((filePath) => getDocItems(filePath, fields));
   return posts;
 };
