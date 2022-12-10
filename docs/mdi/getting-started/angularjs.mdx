@@ -11,74 +11,69 @@ In AngularJS, you will want to use a method that cleanly inserts [SVG](./svg) in
 
 If you need a standalone directive we suggest using the one below.
 
-::::Tabs
-:::Tab{title='Usage'}
+<Tabs>
+  <Tab title='Usage'>
+    ```html
+    <!-- After defining in mdiService.add('account', 'data here') -->
+    <mdi name="account"></mdi>
+    <!-- Or directly... -->
+    <mdi data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"></mdi>
+    ```
 
-```html
-<!-- After defining in mdiService.add('account', 'data here') -->
-<mdi name="account"></mdi>
-<!-- Or directly... -->
-<mdi data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"></mdi>
-```
-
-```javascript
-angular.module('app', ['mdi'])
-.controller('exampleController', [
-  'mdiService',
-  function (mdiService) {
-    // Individually
-    mdiService.add('account', 'M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z');
-    // or in the config
-  }
-])
-```
-
-:::
-
-:::Tab{title='mdi.js'}
-
-```javascript
-angular.module('mdi', [])
-.service('mdiService', function () {
-  var service = {
-    icons: {
-      error: 'M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z'
-    }
-  };
-  service.add = function (name, data) {
-    service.icons[name] = data;
-  };
-  service.get = function (name) {
-    return service.icons[name] || service.icons.error;
-  };
-  return service;
-})
-.directive('mdi', [
-  'mdiService',
-  function(mdiService) {
-    var controller = [
-      '$scope',
-      function ($scope) {
-        $scope.data = $scope.data || mdiService.get($scope.name);
-        if (!($scope.data)) {
-          throw 'mdi requires name or data attribute.';
-        }
+    ```javascript
+    angular.module('app', ['mdi'])
+    .controller('exampleController', [
+      'mdiService',
+      function (mdiService) {
+        // Individually
+        mdiService.add('account', 'M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z');
+        // or in the config
       }
-    ];
-    return {
-      scope: {
-        data: "=?",
-        name: "=?",
-      },
-      controller: controller,
-      template: '<svg viewBox="0 0 24 24"><path ng-attr-d="data"></path></svg>'
-    };
-  }
-]);
-```
-
-:::
-::::
+    ])
+    ```
+  </Tab>
+  <Tab title='mdi.js'>
+    ```javascript
+    angular.module('mdi', [])
+    .service('mdiService', function () {
+      var service = {
+        icons: {
+          error: 'M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z'
+        }
+      };
+      service.add = function (name, data) {
+        service.icons[name] = data;
+      };
+      service.get = function (name) {
+        return service.icons[name] || service.icons.error;
+      };
+      return service;
+    })
+    .directive('mdi', [
+      'mdiService',
+      function(mdiService) {
+        var controller = [
+          '$scope',
+          function ($scope) {
+            $scope.data = $scope.data || mdiService.get($scope.name);
+            if (!($scope.data)) {
+              throw 'mdi requires name or data attribute.';
+            }
+          }
+        ];
+        return {
+          scope: {
+            data: "=?",
+            name: "=?",
+          },
+          controller: controller,
+          template: '<svg viewBox="0 0 24 24"><path ng-attr-d="data"></path></svg>'
+        };
+      }
+    ]);
+    ```
+  </Tab>
+</Tabs>
 
 ## Frameworks
 

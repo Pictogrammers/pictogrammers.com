@@ -1,7 +1,7 @@
 import { ReactNode, useId, useState } from 'react';
 import { Tab as MuiTab, Tabs as MuiTabs } from '@mui/material';
 
-import classes from '../DocPage.module.scss';
+import classes from './components.module.scss';
 
 interface TabsProps {
   children?: TabProps[];
@@ -17,8 +17,29 @@ interface TabProps {
 interface TabPanelProps {
   children?: ReactNode;
   index: number;
+  tabId: string;
   value: number;
 }
+
+const Tab = (props: TabPanelProps) => {
+  const { children, index, tabId, value, ...rest } = props;
+
+  return (
+    <div
+      role='tabpanel'
+      hidden={value !== index}
+      id={`tabpanel-${tabId}-${index}`}
+      aria-labelledby={`tab-${tabId}-${index}`}
+      {...rest}
+    >
+      {value === index && (
+        <div className='tab-panel'>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Tabs = (attr: TabsProps) => {
   const tabId = useId();
@@ -31,26 +52,6 @@ const Tabs = (attr: TabsProps) => {
   if (!attr?.children?.length) {
     return;
   }
-
-  const TabPanel = (props: TabPanelProps) => {
-    const { children, index, value, ...rest } = props;
-  
-    return (
-      <div
-        role='tabpanel'
-        hidden={value !== index}
-        id={`tabpanel-${tabId}-${index}`}
-        aria-labelledby={`tab-${tabId}-${index}`}
-        {...rest}
-      >
-        {value === index && (
-          <div className='tab-panel'>
-            {children}
-          </div>
-        )}
-      </div>
-    );
-  };
 
   return (
     <div className={classes.tabContainer}>
@@ -68,17 +69,18 @@ const Tabs = (attr: TabsProps) => {
       </MuiTabs>
       {
         attr.children.map((child, i) => (
-          <TabPanel
+          <Tab
             index={i}
+            tabId={tabId}
             key={`tabpanel-${tabId}-${i}`}
             value={value}
           >
             {child.props.children}
-          </TabPanel>
+          </Tab>
         ))
       }
     </div>
   );
 };
 
-export default Tabs;
+export { Tab, Tabs };

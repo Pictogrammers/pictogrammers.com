@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import cx from 'clsx';
 import { ButtonProps, Button as MuiButton } from '@mui/material';
 
 import Icon from './Icon';
@@ -17,7 +18,10 @@ const Button = (props: IButton) => {
   return (
     <MuiButton
       classes={{
-        root: variant === 'contained' ? classes.darkButton : classes.lightButton
+        root: cx(classes.button, {
+          [classes.darkButton]: variant === 'contained',
+          [classes.lightButton]: variant !== 'contained'
+        })
       }}
       startIcon={typeof startIcon === 'string' ? <Icon name={startIcon} /> : startIcon}
       endIcon={typeof endIcon === 'string' ? <Icon name={endIcon} /> : endIcon}

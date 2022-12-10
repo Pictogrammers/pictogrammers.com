@@ -22,6 +22,7 @@ import Code from '../../components/Docs/Code';
 import Icon from '../../components/Docs/Icon';
 import Button from '../../components/Docs/Button';
 import Note from '../../components/Docs/Note';
+import { Tab, Tabs } from '../../components/Docs/Tabs';
 import {
   Table,
   TableBody,
@@ -71,8 +72,6 @@ export const getStaticPaths: GetStaticPaths = () => {
   };
 };
 
-
-// props type
 type Props = {
   frontMatter: Omit<IDoc, 'slug'>;
   slug: string;
@@ -80,30 +79,7 @@ type Props = {
   toc: Array<TableOfContentsItemProps>;
 }
 
-// components to render
-const components = {
-  Button,
-  code: Code,
-  h1: Heading(1),
-  h2: Heading(2),
-  h3: Heading(3),
-  h4: Heading(4),
-  h5: Heading(5),
-  h6: Heading(6),
-  Icon,
-  Note,
-  table: Table,
-  tbody: TableBody,
-  td: TableCell,
-  tfoot: TableFooter,
-  th: TableCell,
-  thead: TableHead,
-  tr: TableRow
-} as any;
-
 const PostPage: NextPage<Props> = ({ frontMatter, slug, source, toc }: Props) => {
-  console.log(toc);
-
   const path = `docs/${slug}`;
   const {
     category,
@@ -147,7 +123,30 @@ const PostPage: NextPage<Props> = ({ frontMatter, slug, source, toc }: Props) =>
           </Breadcrumbs>
           <h1>{title}</h1>
           <div className={classes.content}>
-            <MDXRemote components={components} {...source} />
+            <MDXRemote
+              components={{
+                Button,
+                code: Code,
+                h1: Heading(1),
+                h2: Heading(2),
+                h3: Heading(3),
+                h4: Heading(4),
+                h5: Heading(5),
+                h6: Heading(6),
+                Icon,
+                Note,
+                Tab,
+                table: Table,
+                Tabs,
+                tbody: TableBody,
+                td: TableCell,
+                tfoot: TableFooter,
+                th: TableCell,
+                thead: TableHead,
+                tr: TableRow
+              } as any}
+              {...source}
+            />
           </div>
         </article>
         <aside>

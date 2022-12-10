@@ -21,6 +21,12 @@
   padding: .1rem .2rem !important;
 }
 
+.button {
+  p {
+    margin: 0;
+  }
+}
+
 .darkButton {
   &:hover {
     color: hsl(var(--white));
@@ -32,6 +38,16 @@
 
   p {
     margin: 0;
+  }
+}
+
+.tabContainer {
+  border: 1px solid hsl(var(--light-grey));
+  border-radius: 5px;
+  padding: 1rem;
+
+  .headingAchor {
+    display: none;
   }
 }
 

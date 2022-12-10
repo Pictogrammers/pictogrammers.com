@@ -4,9 +4,9 @@ description: Using the metadata in our icon packages, you can use Node to build 
 category: Guides
 ---
 
-:::Note{type=success}
-**Goal:** Write a NodeJS script that takes the `@mdi/svg` [package](https://github.com/Templarian/MaterialDesign-SVG) or `@mdi/light-svg` [package](https://github.com/Templarian/MaterialDesignLight-SVG) and converts it into a easy to view `preview.html`.
-:::
+<Note type='success'>
+  **Goal:** Write a NodeJS script that takes the `@mdi/svg` [package](https://github.com/Templarian/MaterialDesign-SVG) or `@mdi/light-svg` [package](https://github.com/Templarian/MaterialDesignLight-SVG) and converts it into a easy to view `preview.html`.
+</Note>
 
 This example uses the `meta.json` (explained below) and in the end generates a single `html` file.
 
@@ -28,9 +28,9 @@ The first step will require you to open a command line of your choice (`CTRL+til
 
 Awesome, you will now see a folder called `node_modules` this contains a copy of the latest version of the SVG's and the `meta.json` file.
 
-:::Note{type=info}
-If you want to see the `meta.json`, open it in VSCode and then run `CTRL+P` followed by typing `format`. This will format the JSON file.
-:::
+<Note>
+  If you want to see the `meta.json`, open it in VSCode and then run `CTRL+P` followed by typing `format`. This will format the JSON file.
+</Note>
 
 ## What is meta.json
 
@@ -118,6 +118,6 @@ In the `package.json` a new script needs to be added to handle `build`.
 
 To run the build execute `npm run build`.
 
-## Wrapup
+## Wrap-up
 
 Hopefully you found the above tutorial useful and allows you to create more complex build scripts.

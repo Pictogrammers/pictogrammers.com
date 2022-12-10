@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "DavidAnson.vscode-markdownlint",
     "lukas-tr.materialdesignicons-intellisense",
     "unifiedjs.vscode-mdx"
   ]

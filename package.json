@@ -11,7 +11,7 @@
     "Quentin Stoeckel <stoeckel.quentin@gmail.com>"
   ],
   "scripts": {
-    "dev": "next dev",
+    "dev": "next-remote-watch ./docs",
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
@@ -28,7 +28,8 @@
     "react-helmet": "^6.1.0",
     "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^3.0.1",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "string-strip-html": "^13.0.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
@@ -46,6 +47,7 @@
     "markdown-toc": "^1.2.0",
     "next": "13.0.6",
     "next-mdx-remote": "^4.2.0",
+    "next-remote-watch": "^2.0.0",
     "reading-time": "^1.5.0",
     "sass": "^1.56.2",
     "typescript": "4.9.4"

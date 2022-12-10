@@ -5,14 +5,14 @@ library: Material Design Icons
 category: Getting Started
 ---
 
-:::Note{type=warning}
-Due to size, the **webfont may harm app/web performance**. Please read the *[Webfont Alternatives Guide](./guide/webfont-alternatives)* to determine if it is right for your project.
-:::
+<Note type='warning'>
+  Due to size, the **webfont may harm app/web performance**. Please read the *[Webfont Alternatives Guide](./guide/webfont-alternatives)* to determine if it is right for your project.
+</Note>
 
 The webfont is a quick way to integrate the icons into your application.
 
-:Button[View the Changelog]{href='/mdi/changelog' startIcon=mdi:text-box-outline variant=outlined}
-:Button[View the Upgrade Guide]{href='/mdi/upgrade' startIcon=mdi:format-list-checks variant=outlined}
+<Button href='/mdi/changelog' startIcon='mdi:text-box-outline'>View the Changelog</Button>
+<Button href='/mdi/upgrade' startIcon='mdi:format-list-checks'>View the Upgrade Guide</Button>
 
 ## Setup
 
@@ -59,9 +59,9 @@ Material Design Icons (MDI) contains many helper classes to quickly modify the l
 <span class="mdi mdi-account mdi-flip-h"></span>
 ```
 
-:::Note{type=info}
-`mdi-flip-*` and `mdi-rotate-*` classes cannot be used on the same element at the same time.
-:::
+<Note>
+  `mdi-flip-*` and `mdi-rotate-*` classes cannot be used on the same element at the same time.
+</Note>
 
 ### Spin (v1.9.32+)
 
@@ -118,9 +118,9 @@ Many times an icon has text next to it that explains the things. The icon is jus
 
 The above files are also on the CDN: [View Latest](https://www.jsdelivr.com/package/npm/@mdi/font@{{version}}).
 
-:::Note{type=info}
-`preview.html` is renamed to `index.html` on the CDN.
-:::
+<Note>
+  `preview.html` is renamed to `index.html` on the CDN.
+</Note>
 
 ## Build Webfont
 
@@ -135,6 +135,6 @@ npx @mdi/font-build
 
 Learn more: [@mdi/font-build](http://npmjs.com/package/@mdi/font-build)
 
-:::Note{type=info}
-Using the `--fontSvg` flag will generate the `.svg` font. This was removed in 4.0+ as no modern browser uses it.
-:::
+<Note>
+  Using the `--fontSvg` flag will generate the `.svg` font. This was removed in 4.0+ as no modern browser uses it.
+</Note>
