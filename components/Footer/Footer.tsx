@@ -24,7 +24,7 @@ const Footer: FunctionComponent = () => {
           <Link href='/docs/about/code-of-conduct/'>Code of Conduct</Link>
         </li>
         <li>
-          <Link href='/docs/about/brand-guidelines/'>Logo & Assets</Link>
+          <Link href='/brand-guidelines/'>Logo & Assets</Link>
         </li>
         <li className={classes.connect}>
           <span className={classes.connectText}>Connect with us:</span>
