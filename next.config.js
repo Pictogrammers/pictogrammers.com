@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  publicRuntimeConfig: {
-
+  images: {
+    unoptimized: true
   },
   reactStrictMode: true,
   swcMinify: true,
