@@ -15,9 +15,9 @@ const Footer: FunctionComponent = () => {
     <footer className={classes.root}>
       <ul>
         <li className={classes.copyright}>
-          <a className={classes.logo} href='#top'>
+          <Link aria-label='Return to the Pictogrammers Home' className={classes.logo} href='#top'>
             <PictogrammersLogo />
-          </a>
+          </Link>
           © {year} Pictogrammers Icon Group.
         </li>
         <li>
@@ -29,13 +29,13 @@ const Footer: FunctionComponent = () => {
         <li className={classes.connect}>
           <span className={classes.connectText}>Connect with us:</span>
           <div>
-            <IconButton aria-label='Pictogrammers on GitHub'>
-              <Link href='https://github.com/Pictogrammers'>
+            <IconButton>
+              <Link aria-label='Pictogrammers on GitHub' href='https://github.com/Pictogrammers'>
                 <Icon path={mdiGithub} size={1.5} />
               </Link>
             </IconButton>
-            <IconButton aria-label='Follow Pictogrammers on Mastodon'>
-              <Link href='https://github.com/Pictogrammers' rel='me'>
+            <IconButton>
+              <Link aria-label='Follow Pictogrammers on Mastodon' href='https://github.com/Pictogrammers' rel='me'>
                 <Icon path={mdiMastodon} size={1.5} />
               </Link>
             </IconButton>
