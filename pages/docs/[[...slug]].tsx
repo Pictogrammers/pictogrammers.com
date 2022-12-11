@@ -1,11 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
+import Head from 'next/head';
 import { serialize } from 'next-mdx-remote/serialize';
 import gfm from 'remark-gfm';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { ParsedUrlQuery } from 'querystring';
 
-import { Helmet } from 'react-helmet';
 import { Icon as MDIIcon } from '@mdi/react';
 import { mdiGithub, mdiTextBoxPlus } from '@mdi/js';
 
@@ -92,23 +92,23 @@ const PostPage: NextPage<Props> = ({ frontMatter, slug, source, toc }: Props) =>
 
   return (
     <div className={classes.root}>
-      <Helmet>
-        <title>{title} - Docs - Pictogrammers</title>
-        <meta content={`${title} - Docs - Pictogrammers`} name='title' />
-        {description && <meta content={description} name='description' />}
+      <Head>
+        <title>{`${title} - Docs - Pictogrammers`}</title>
+        <meta content={`${title} - Docs - Pictogrammers`} name='title' key='title' />
+        {description && <meta content={description} name='description' key='description' />}
 
-        <meta content={`${title} - Docs - Pictogrammers`} property='og:title' />
-        {description && <meta content={description} property='og:description' />}
-        <meta content='article' property='og:type' />
-        <meta content={`https://pictogrammers.com/${path}`} property='og:url' />
+        <meta content={`${title} - Docs - Pictogrammers`} property='og:title' key='og:title' />
+        {description && <meta content={description} property='og:description' key='og:description' />}
+        <meta content='article' property='og:type' key='og:type' />
+        <meta content={`https://pictogrammers.com/${path}`} property='og:url' key='og:url' />
 
-        <meta content={`${title} - Docs - Pictogrammers`} name='twitter:title' />
-        {description && <meta content={description} name='twitter:description' />}
-        {readingTime && <meta content='Reading Time' name='twitter:label1' />}
-        {readingTime && <meta content={readingTime} name='twitter:data1' />}
+        <meta content={`${title} - Docs - Pictogrammers`} name='twitter:title' key='twitter:title' />
+        {description && <meta content={description} name='twitter:description' key='twitter:description' />}
+        {readingTime && <meta content='Reading Time' name='twitter:label1' key='twitter:label1' />}
+        {readingTime && <meta content={readingTime} name='twitter:data1' key='twitter:data1' />}
 
         {hidden && <meta name='robots' content='noindex' />}
-      </Helmet>
+      </Head>
       <Paper className={classes.container}>
         <article className={classes.main} role='main'>
           <Breadcrumbs

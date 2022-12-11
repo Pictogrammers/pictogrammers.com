@@ -1,19 +1,20 @@
-import { Fragment, FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 type Props = {
   children: React.ReactNode;
+  className?: string;
 }
 
-const Layout: FunctionComponent<Props> = ({ children }: Props) => {
+const Layout: FunctionComponent<Props> = ({ children, className }: Props) => {
   return (
-    <Fragment>
+    <div className={className}>
       <Header />
       {children}
       <Footer />
-    </Fragment>
+    </div>
   );
 };
 

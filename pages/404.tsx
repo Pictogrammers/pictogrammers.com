@@ -1,5 +1,5 @@
 import { Fragment, FunctionComponent } from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import Paper from '@mui/material/Paper';
 import Icon from '@mdi/react';
 import { mdiEmoticonConfusedOutline } from '@mdi/js';
@@ -9,11 +9,11 @@ import classes from '../styles/pages/404.module.scss';
 const ErrorBoundary: FunctionComponent = () => {
   return (
     <Fragment>
-      <Helmet>
+      <Head>
         <title>404 - Page Not Found - Pictogrammers</title>
-        <meta content='404 - Page Not Found - Pictogrammers' name='title' />
+        <meta content='404 - Page Not Found - Pictogrammers' name='title' key='title' />
         <meta name='robots' content='noindex' />
-      </Helmet>
+      </Head>
       <div className={classes.root}>
         <Paper className={classes.container}>
           <Icon path={mdiEmoticonConfusedOutline} size={10} />

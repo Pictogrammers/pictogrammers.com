@@ -1,17 +1,16 @@
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import { Manrope } from '@next/font/google';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Helmet } from 'react-helmet';
 
 import { MdxComponentsProvider } from '../context/mdxContext';
 
 import Layout from '../components/Layout/Layout';
 
-import OpenGraphImage from '../assets/og-card.png';
-import TwitterImage from '../assets/twitter-card.png';
-
+import themeVars from '../styles/theme.module.scss';
 import '../styles/defaults.scss';
 
-import themeVars from '../styles/theme.module.scss';
+const manrope = Manrope({ subsets: ['latin'] });
 const theme = createTheme({
   palette: {
     primary: {
@@ -23,31 +22,35 @@ const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: themeVars['primary-font']
+    fontFamily: manrope.style.fontFamily
   }
 });
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
-      <Helmet>
+      <Head>
         <title>Pictogrammers - Open-source iconography for designers and developers</title>
-        <meta content='Pictogrammers' name='title' />
-        <meta content='Open-source iconography for designers and developers' name='description' />
-        <meta content='Pictogrammers Icon Group' property='og:title' />
-        <meta content='website' property='og:type' />
-        <meta content='https://pictogrammers.com/' property='og:url' />
-        <meta content='Open-source iconography for designers and developers' property='og:description' />
-        <meta content={OpenGraphImage.src} property='og:image' />
-        <meta content='summary' name='twitter:card' />
-        <meta content='@pictogrammers' name='twitter:creator' />
-        <meta content='@pictogrammers' name='twitter:site' />
-        <meta content='Pictogrammers Icon Group' name='twitter:title' />
-        <meta content='Open-source iconography for designers and developers' name='twitter:description' />
-        <meta content={TwitterImage.src} name='twitter:image' />
-      </Helmet>
+        <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
+        <meta content='Pictogrammers' name='title' key='title' />
+        <meta content='Open-source iconography for designers and developers' name='description' key='description' />
+        <meta content='en_US' property='og:locale' key='og:locale' />
+        <meta content='Pictogrammers Icon Group' property='og:title' key='og:title' />
+        <meta content='website' property='og:type' key='og:type' />
+        <meta content='https://pictogrammers.com/' property='og:url' key='og:url' />
+        <meta content='Open-source iconography for designers and developers' property='og:description' key='og:description' />
+        <meta content='/og-card.png' property='og:image' key='og:image' />
+        <meta content='630' property='og:image:height' key='og:image:height' />
+        <meta content='1200' property='og:image:width' key='og:image:width' />
+        <meta content='summary' name='twitter:card' key='twitter:card' />
+        <meta content='@pictogrammers' name='twitter:creator' key='twitter:creator' />
+        <meta content='@pictogrammers' name='twitter:site' key='twitter:site' />
+        <meta content='Pictogrammers Icon Group' name='twitter:title' key='twitter:title' />
+        <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
+        <meta content='twitter-card.png' name='twitter:image' key='twitter:image' />
+      </Head>
       <MdxComponentsProvider>
-        <Layout>
+        <Layout className={manrope.className}>
           <Component {...pageProps} />
         </Layout>
       </MdxComponentsProvider>
