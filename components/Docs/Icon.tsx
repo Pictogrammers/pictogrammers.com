@@ -1,6 +1,9 @@
 import { Icon as MDIcon } from '@mdi/react';
 // import * as mdi from '@mdi/js';
 
+// @ts-ignore
+const mdi = [];
+
 interface IIcon {
   name: string;
   size?: number;
