@@ -1,6 +1,4 @@
 - "Get Started" call to action in the homepage Hero.
-- Contributors:
-  - Prefetch all user avatars and cache on file system during build.
 - Generate sitemap.xml.
   - https://nextjs.org/learn/seo/crawling-and-indexing/xml-sitemaps
 - Tree-shaking not working with import * on mdi/js.

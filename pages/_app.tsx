@@ -31,7 +31,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={theme}>
       <Head>
         <title>Pictogrammers - Open-source iconography for designers and developers</title>
-        <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
+        <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover' />
         <meta content='Pictogrammers' name='title' key='title' />
         <meta content='Open-source iconography for designers and developers' name='description' key='description' />
         <meta content='en_US' property='og:locale' key='og:locale' />

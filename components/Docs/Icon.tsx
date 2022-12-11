@@ -1,5 +1,5 @@
 import { Icon as MDIcon } from '@mdi/react';
-import * as mdi from '@mdi/js';
+// import * as mdi from '@mdi/js';
 
 interface IIcon {
   name: string;
