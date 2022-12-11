@@ -15,7 +15,7 @@ export default function Document() {
         <meta name='msapplication-TileColor' content='#258dad' />
         <meta name='msapplication-tap-highlight' content='no' />
         <meta name='theme-color' content='#258dad' />
-        <link rel='apple-touch-icon' href='/icons/apple-touch-icon.png'></link>
+        <link rel='apple-touch-icon' href='/apple-touch-icon.png'></link>
       </Head>
       <body>
         <Main />

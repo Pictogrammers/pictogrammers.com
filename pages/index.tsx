@@ -1,6 +1,8 @@
 import { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import { Fragment } from 'react';
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
 import Icon from '@mdi/react';
 import { mdiCrowd } from '@mdi/js';
 
@@ -23,16 +25,17 @@ import MDLLogo from '../assets/mdl.svg';
 
 import classes from '../styles/pages/index.module.scss';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const contributors = await getContributors(12);
-  return { props: { contributors } };
-};
-
 type Props = {
-  contributors: IContributor[]
+  contributors: IContributor[];
+  totalContributors: number;
 }
 
-const Home: NextPage<Props> = ({ contributors }: Props) => {
+export const getStaticProps: GetStaticProps = async () => {
+  const { contributors, totalContributors } = await getContributors({ coreOnly: true, filterGenericAvatars: true, randomize: true, totalToReturn: 11 }) as Props;
+  return { props: { contributors, totalContributors } };
+};
+
+const Home: NextPage<Props> = ({ contributors, totalContributors }: Props) => {
   const featuredIconLibraries = [
     {
       description: 'The original. Following Google\'s Material Design guidelines for system icons, MDI is our largest library, touting over 6500 unique icons!',
@@ -78,21 +81,20 @@ const Home: NextPage<Props> = ({ contributors }: Props) => {
         <HomeSection className={classes.about} id='about' title='Who are we?'>
           <div>
             {contributors?.length && (
-              <ul className={classes.contributors}>
+              <AvatarGroup classes={{ root: classes.contributors }} max={13}>
                 {contributors.map((contributor) => (
-                  <li key={contributor.id} title={contributor.name}>
-                    <Image
-                      src={`data:image/jpeg;base64,${contributor.base64}`}
-                      alt={contributor.name}
-                      height={65}
-                      width={65}
-                    />
-                  </li>
+                  <Avatar
+                    alt={contributor.name}
+                    classes={{ root: classes.contributor }}
+                    key={contributor.id}
+                    src={`/contributors/${contributor.id}.jpg`}
+                  />
                 ))}
-              </ul>
+                <Avatar classes={{ root: classes.contributor }}>+{totalContributors - 11}</Avatar>
+              </AvatarGroup>
             )}
             <p>
-              The Pictogrammers Icon Group is a diverse group of 100+ collaborators
+              The Pictogrammers Icon Group is a diverse group of {totalContributors}+ collaborators
               from all walks of life. Hailing from all corners of the globe, we come
               together to express ideas in a universal language so that all may
               benefit. Icons may be small, but they are powerful forms of
@@ -139,26 +141,3 @@ const Home: NextPage<Props> = ({ contributors }: Props) => {
 };
 
 export default Home;
-
-// import { IDoc } from '../types/doc';
-
-// import { getAllDocs } from '../utils/mdxUtils';
-
-// props type
-// type Props = {
-//   posts: [IDoc]
-// }
-
-// get posts from serverside at build time
-// export const getStaticProps: GetStaticProps = async () => {
-//   const posts = getAllDocs([
-//     'title',
-//     'slug',
-//     'date',
-//     'description',
-//     'thumbnail'
-//   ]);
-
-//   // retunr the posts props
-//   return { props: { posts } };
-// };

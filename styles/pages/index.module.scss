@@ -45,16 +45,16 @@
   }
   
   .contributors {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
+    flex-wrap: wrap-reverse;
     justify-content: center;
     padding: 1rem 2rem 0;
 
-    img {
+    .contributor {
+      background-color: hsl(var(--primary-color));
       border: 2px solid hsl(var(--primary-color));
-      border-radius: 50px;
-      margin: 0 0.25rem;
+      height: 65px;
+      padding: 0 1px;
+      width: 65px;
     }
   }
 }
@@ -81,7 +81,6 @@
     max-height: 18rem;
   }
 }
-
 
 @media only screen and (max-width: $mobile-width) {
   .users {

@@ -1,5 +1,6 @@
 export interface IContributor {
   base64: string;
+  core: boolean;
   description: string;
   github: string;
   iconCount: number;
