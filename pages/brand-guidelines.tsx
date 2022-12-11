@@ -9,6 +9,7 @@ import Icon from '@mdi/react';
 import { mdiArrowDown } from '@mdi/js';
 
 import TableOfContents from '../components/Docs/TableOfContents';
+import Heading from '../components/Docs/Heading';
 
 import PictogrammersLogoSvg from '../assets/brand/logos/pictogrammers-full.svg';
 import MDILogoSvg from '../assets/mdi.svg';
@@ -31,9 +32,10 @@ import GuidanceDistorted from '../assets/brand/distorted.png';
 import GuidanceShadowed from '../assets/brand/shadowed.png';
 import GuidanceCropped from '../assets/brand/cropped.png';
 
-
 import classes from '../styles/pages/docs.module.scss';
 import brandClasses from '../styles/pages/brand-guidelines.module.scss';
+
+const Heading2 = Heading(2);
 
 const PostPage: NextPage = () => {
   const title = 'Brand Guidelines';
@@ -70,7 +72,7 @@ const PostPage: NextPage = () => {
           <h1>Brand Guidelines</h1>
           <div className={brandClasses.content}>
             <section className={brandClasses.logo}>
-              <h2 id='logo'>Logo</h2>
+              <Heading2>Logo</Heading2>
               <PictogrammersLogoSvg className={brandClasses.pictogrammers} />
               <p>The Pictogrammers logo is the central visual identity for the Pictogrammers Icon Group. The monogram was created by <Link href='https://fosstodon.org/@templarian'>Austin Andrews</Link> in 2020. The following year, the wordmark was added by <Link href='https://hachyderm.io/@mririgoyen'>Michael Irigoyen</Link>, completing the logo.</p>
               <Button
@@ -84,7 +86,7 @@ const PostPage: NextPage = () => {
             </section>
 
             <section>
-              <h2 id='color'>Color</h2>
+              <Heading2>Color</Heading2>
               <p>Our primary color palette is Pictogrammers Purple on a white background.</p>
               <div className={brandClasses.swatches}>
                 <div className={cx(brandClasses.swatch, brandClasses.purple)}>
@@ -107,7 +109,7 @@ const PostPage: NextPage = () => {
             </section>
 
             <section>
-              <h2 id='clearing-space'>Clearing Space</h2>
+              <Heading2>Clearing Space</Heading2>
               <p>The minimum clearing space of the logo is the width of the P in Pictorgrammers.</p>
               <div className={brandClasses.space}>
                 <div className={brandClasses.spaceLogos}>
@@ -142,7 +144,7 @@ const PostPage: NextPage = () => {
             </section>
 
             <section>
-              <h2 id='logo-on-color'>Logo on Color</h2>
+              <Heading2>Logo on Color</Heading2>
               <p>In some situations, the logo can be used on a colored background as long as there is a 5:1 contrast ratio. Anything less is not recommended. <Link href='https://webaim.org/resources/contrastchecker/' rel='nofollow noreferrer' target='_blank'>Check color contrasts here.</Link></p>
               <div className={brandClasses.logoOnColor}>
                 <Image
@@ -194,7 +196,7 @@ const PostPage: NextPage = () => {
             </section>
 
             <section>
-              <h2 id='wordmark'>Wordmark</h2>
+              <Heading2>Wordmark</Heading2>
               <p>The Pictogrammers wordmark may exist without the monogram. The typeface used to set the logo wordmark is <Link href='https://manropefont.com/' rel='nofollow noreferrer' target='_blank'>Manrope</Link>. The wordmark is optically kerned and its uppercase &quot;P&quot; is customized to mirror the monogram.</p>
               <figure className={brandClasses.wordmark}>
                 <Image
@@ -210,7 +212,7 @@ const PostPage: NextPage = () => {
             </section>
 
             <section>
-              <h2 id='monogram'>Monogram</h2>
+              <Heading2>Monogram</Heading2>
               <p>We use the monogram for our GitHub account, social media profile images, and as our &quot;favicon&quot; on our official site. The monogram may be used in cases where the association with Pictogrammers is clearly evident.</p>
               <div className={brandClasses.monogramSizes}>
                 <figure className={brandClasses.size128}>
@@ -253,7 +255,7 @@ const PostPage: NextPage = () => {
             </section>
 
             <section>
-              <h2 id='icon-library-logos'>Icon Library Logos</h2>
+              <Heading2>Icon Library Logos</Heading2>
               <p>Each of our icon libraries maintain their own visual identity in terms of logo and color. Please show them the same care and respect as the Pictogrammers monogram.</p>
               <div className={cx(brandClasses.library, brandClasses.mdi)}>
                 <MDILogoSvg title='Material Design Icons logo' />
@@ -280,7 +282,7 @@ const PostPage: NextPage = () => {
             </section>
 
             <section>
-              <h2 id='guidance'>Guidance</h2>
+              <Heading2>Guidance</Heading2>
               <p>Please maintain consistency of our brand by not misusing the Pictogrammers logo, monogram, wordmark, or any of our various icon library logos. If you have a question about whether your use of our logo is accepted, please <Link href='https://fosstodon.org/@pictogrammers' rel='me nofollow noreferrer' target='_blank'>get in touch</Link>.
               </p>
               <div className={brandClasses.rules}>

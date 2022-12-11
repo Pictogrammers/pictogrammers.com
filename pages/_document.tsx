@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head>
+        <link rel='manifest' href='/manifest.json' />
         <meta name='application-name' content='Pictogrammers' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
         <meta name='apple-mobile-web-app-status-bar-style' content='default' />
