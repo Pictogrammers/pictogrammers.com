@@ -11,8 +11,10 @@ import { mdiGithub, mdiTextBoxPlus } from '@mdi/js';
 
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
+import { ButtonProps } from '@mui/material/Button';
 
 import { IDoc } from '../../interfaces/doc';
+import { IconLibraries, IconProps } from '../../interfaces/icons';
 import { TableOfContentsItemProps } from '../../interfaces/tableOfContents';
 import { getAllDocs, getDoc } from '../../utils/mdxUtils';
 
@@ -40,7 +42,7 @@ interface Iparams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as Iparams;
-  const { content, data, toc } = getDoc(slug.join('/'));
+  const { availableIcons, content, data, toc } = getDoc(slug.join('/'));
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [ gfm ]
@@ -50,6 +52,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
+      availableIcons,
       frontMatter: data,
       slug: slug.join('/'),
       source: mdxSource,
@@ -77,9 +80,10 @@ type Props = {
   slug: string;
   source: MDXRemoteSerializeResult;
   toc: Array<TableOfContentsItemProps>;
+  availableIcons: IconLibraries;
 }
 
-const PostPage: NextPage<Props> = ({ frontMatter, slug, source, toc }: Props) => {
+const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, slug, source, toc }: Props) => {
   const path = `docs/${slug}`;
   const {
     category,
@@ -125,7 +129,7 @@ const PostPage: NextPage<Props> = ({ frontMatter, slug, source, toc }: Props) =>
           <div className={classes.content}>
             <MDXRemote
               components={{
-                Button,
+                Button: (props: ButtonProps) => Button({...props, availableIcons }),
                 code: Code,
                 h1: Heading(1),
                 h2: Heading(2),
@@ -133,7 +137,7 @@ const PostPage: NextPage<Props> = ({ frontMatter, slug, source, toc }: Props) =>
                 h4: Heading(4),
                 h5: Heading(5),
                 h6: Heading(6),
-                Icon,
+                Icon: (props: IconProps) => Icon({...props, availableIcons }),
                 Note,
                 Tab,
                 table: Table,
@@ -150,31 +154,31 @@ const PostPage: NextPage<Props> = ({ frontMatter, slug, source, toc }: Props) =>
           </div>
         </article>
         <aside>
-            <div className={classes.sidenav}>
-              <TableOfContents toc={toc} />
-              <div className={classes.edits}>
-                <p className={classes.improvehead}>Improve This Article</p>
-                <Button
-                  color='secondary'
-                  fullWidth
-                  href={`https://github.com/Pictogrammers/pictogrammers.com/blob/main/${path}.md`}
-                  startIcon={<MDIIcon path={mdiGithub} size={1} />}
-                  variant='outlined'
-                >
-                  Edit on GitHub
-                </Button>
-                <Button
-                  color='secondary'
-                  fullWidth
-                  href={`https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent(`Suggested Change to "${title}"`)}&body=${encodeURIComponent(`*URL:* https://pictogrammers.com/${path}\n\n<!-- Describe how you would improve the documentation here -->`)}`}
-                  startIcon={<MDIIcon path={mdiTextBoxPlus} size={1} />}
-                  variant='outlined'
-                >
-                  Suggest a Change
-                </Button>
-              </div>
+          <div className={classes.sidenav}>
+            <TableOfContents toc={toc} />
+            <div className={classes.edits}>
+              <p className={classes.improvehead}>Improve This Article</p>
+              <Button
+                color='secondary'
+                fullWidth
+                href={`https://github.com/Pictogrammers/pictogrammers.com/blob/main/${path}.md`}
+                startIcon={<MDIIcon path={mdiGithub} size={1} />}
+                variant='outlined'
+              >
+                Edit on GitHub
+              </Button>
+              <Button
+                color='secondary'
+                fullWidth
+                href={`https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent(`Suggested Change to "${title}"`)}&body=${encodeURIComponent(`*URL:* https://pictogrammers.com/${path}\n\n<!-- Describe how you would improve the documentation here -->`)}`}
+                startIcon={<MDIIcon path={mdiTextBoxPlus} size={1} />}
+                variant='outlined'
+              >
+                Suggest a Change
+              </Button>
             </div>
-          </aside>
+          </div>
+        </aside>
       </Paper>
     </div>
   );
