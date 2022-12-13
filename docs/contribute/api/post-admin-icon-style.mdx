@@ -1,0 +1,34 @@
+### Post Admin Icon Style
+
+```
+POST api/admin/icon/style
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Toggle `icon.styles` on or off. For instance an icon called `account-outline` should have the `outline` style.
+  </Tab>
+  <Tab title='Request'>
+    ```yaml
+    type: object
+    properties:
+      icon:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+      style:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+    ```
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    $ref: '#/api/model/icon'
+    ```
+  </Tab>
+</Tabs>

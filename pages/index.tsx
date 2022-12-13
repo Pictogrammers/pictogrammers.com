@@ -13,15 +13,15 @@ import Hero from '../components/Hero/Hero';
 import HomeSection from '../components/HomeSection/HomeSection';
 import LibraryCard from '../components/LibraryCard/LibraryCard';
 
-import AmbrookLogo from '../assets/ambrook.svg';
-import AccusoftLogo from '../assets/accusoft.svg';
-import HomeAssistantLogo from '../assets/home-assistant.svg';
-import KeePassXCLogo from '../assets/keepassxc.svg';
-import NabuCasaLogo from '../assets/nabu-casa.svg';
-import OnTaskLogo from '../assets/ontask.svg';
+import AmbrookLogo from '../assets/users/ambrook.svg';
+import AccusoftLogo from '../assets/users/accusoft.svg';
+import HomeAssistantLogo from '../assets/users/home-assistant.svg';
+import KeePassXCLogo from '../assets/users/keepassxc.svg';
+import NabuCasaLogo from '../assets/users/nabu-casa.svg';
+import OnTaskLogo from '../assets/users/ontask.svg';
 
-import MDILogo from '../assets/mdi.svg';
-import MDLLogo from '../assets/mdl.svg';
+import MDILogo from '../assets/libraries/mdi.svg';
+import MDLLogo from '../assets/libraries/mdl.svg';
 
 import classes from '../styles/pages/index.module.scss';
 

@@ -55,7 +55,13 @@ const Tabs = (attr: TabsProps) => {
 
   return (
     <div className={classes.tabContainer}>
-      <MuiTabs onChange={handleChange} value={value}>
+      <MuiTabs
+        allowScrollButtonsMobile
+        onChange={handleChange}
+        scrollButtons
+        value={value}
+        variant='scrollable'
+      >
         {
           attr.children.map((child, i) => (
             <MuiTab

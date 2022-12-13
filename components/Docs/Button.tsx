@@ -18,6 +18,15 @@ interface IButton extends ButtonProps {
 const Button = (props: IButton) => {
   const { availableIcons, children, endIcon, node, startIcon, variant = 'outlined', ...rest } = props;
 
+  const renderIcon = (icon: string | ReactNode) => {
+    if (typeof icon === 'string') {
+      const size = icon.startsWith('si') ? .9 : 1;
+      return <Icon availableIcons={availableIcons} name={icon} size={size} />;
+    }
+  
+    return icon;
+  };
+
   return (
     <MuiButton
       classes={{
@@ -26,8 +35,8 @@ const Button = (props: IButton) => {
           [classes.lightButton]: variant !== 'contained'
         })
       }}
-      startIcon={typeof startIcon === 'string' ? <Icon name={startIcon} availableIcons={availableIcons} /> : startIcon}
-      endIcon={typeof endIcon === 'string' ? <Icon name={endIcon} availableIcons={availableIcons} /> : endIcon}
+      startIcon={renderIcon(startIcon)}
+      endIcon={renderIcon(endIcon)}
       variant={variant}
       {...rest}
     >

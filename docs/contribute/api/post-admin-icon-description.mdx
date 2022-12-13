@@ -1,0 +1,32 @@
+### Post Admin Icon Description
+
+```
+POST api/admin/icon/description
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Update `icon.description` in a Markdown string.
+  </Tab>
+  <Tab title='Request'>
+    ```yaml
+    type: object
+    properties:
+      icon:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          description:
+            type: string
+            format: markdown
+            example: Icon Description.
+    ```
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    $ref: '#/api/model/icon'
+    ```
+  </Tab>
+</Tabs>

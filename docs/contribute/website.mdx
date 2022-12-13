@@ -1,0 +1,90 @@
+---
+title: Contribute to the Pictogrammers Site
+description: This guide contains information on how to contribute to the web site.
+category: Contribute
+---
+
+Similar to the icons we provide, this site is opens-ource. Years ago when the project was smaller [@templarian](https://twitter.com/templarian) built all the features, but as the community grew it is difficult to build every feature.
+
+|             | Public Site | Admin |
+|-------------|-------------|-------|
+| *Language*  | TypeScript  | TypeScript |
+| *Framework* | React 18 | Angular 9 |
+| *CSS*      | SCSS Modules | Bootstrap 4 (SASS) |
+| *Source* | [View](https://github.com/Pictogrammers/pictogrammers.com/tree/main/src/site) | [View](https://github.com/Pictogrammers/Icon-Site/tree/master/src) |
+
+## Public Site
+
+From the home page, icon pages, and documentation the public site can be edited.
+
+### Tech Stack
+
+- TypeScript - [Learn More on TypeScript](https://www.typescriptlang.org/)
+- React - [Learn More on React](https://reactjs.org/)
+
+### Building a Feature
+
+- Clone the [repo](https://github.com/Pictogrammers/pictogrammers.com)
+- `npm install`
+- `npm run dev`
+
+#### What Features are Wanted
+
+To know if your feature is going to be merged into production, it is highly recommended that an issue be created first for the community and contribution team to review.
+
+<Button href='https://github.com/Pictogrammers/pictogrammers.com/issues' startIcon='si:github'>View Issues on GitHub</Button>
+
+#### Feature Requires New Endpoints
+
+This is common that new features need a new endpoint, but please review the current open issues tagged `API` before requesting. The API is still closed source, but if the feature is needed the endpoint(s) can be added.
+
+Please also read through the API documentation, many of the existing endpoints have optional parameters.
+
+### Tips for Feature Development
+
+- Let us know early on if your feature needs a API to work.
+- Look at the existing code base and follow consistent naming.
+- Use existing services where it makes sense instead of wrapping your own.
+- Break up features into smaller features when possible.
+- Be patient, the larger the feature the long it takes for us to review.
+- VS Code `CTRL+SHIFT+P` `Format Document`
+
+## Admin
+
+<Note>
+  The Admin site is slated to be moved into the React site and new development on the Angular site has been stopped.
+</Note>
+
+Generally the only person making edits to the admin is the core team members, but still worth outlining below.
+
+### Tech Stack
+
+If you are familiar with Angular and Bootstrap the code base is hopefully pretty easy to follow.
+
+```
+/api       // Mock json files for local development
+/app
+- admin    // Admin Pages
+- homePage
+  - homePage.component.html
+  - homePage.component.scss
+  - homePage.component.ts
+- shared
+  -        // Shared components
+/content
+  - *.md   // Documentation and page content
+```
+
+Every page has a `.html`, `.scss`, and `.ts`. Most text is contained in Markdown files to encourage editing by as wide of an audiance as possible.
+
+### Building a Feature
+
+All features for the site are managed through pull requests. Clone the project in GitHub following the instructions in the readme.
+
+<Button href='https://github.com/Pictogrammers/pictogrammers.com' startIcon='si:github'>View on GitHub</Button>
+
+## Documentation
+
+Documentation edits and additions can be done directly in GitHub. GitHub will even create pull requests for you if you use one of the links provided on the left sidebar of any page.
+
+<Button href='https://github.com/Pictogrammers/pictogrammers.com/tree/main/docs' startIcon='mdi:file-multiple'>View all content files on GitHub</Button>

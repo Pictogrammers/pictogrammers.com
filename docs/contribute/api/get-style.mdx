@@ -1,0 +1,18 @@
+### Get Styles
+
+```
+GET api/:packageId/style
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Styles are documented in the icon naming guidelines. Examples include `box`, `circle`, `outline`, `off`. This endpoint requires the `packageId` so that it can return the count of each style.
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    type: array
+    items:
+      $ref: '#/api/model/style'
+    ```
+  </Tab>
+</Tabs>

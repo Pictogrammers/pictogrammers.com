@@ -1,0 +1,18 @@
+### Get Tags
+
+```
+GET api/:packageId/tag
+```
+
+<Tabs>
+  <Tab title='Description'>
+    A list of tags used to group icons in the system. If count is 0 the item will not be returned.
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    type: array
+    items:
+      $ref: '#/api/model/tag'
+    ```
+  </Tab>
+</Tabs>

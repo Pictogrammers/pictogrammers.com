@@ -1,0 +1,31 @@
+### Post Admin Icon Path Data
+
+```
+POST api/admin/icon/data
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Update `icon.data`.
+  </Tab>
+  <Tab title='Request'>
+    ```yaml
+    type: object
+    properties:
+      icon:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          data:
+            type: string
+            example: M...Z
+    ```
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    $ref: '#/api/model/icon'
+    ```
+  </Tab>
+</Tabs>

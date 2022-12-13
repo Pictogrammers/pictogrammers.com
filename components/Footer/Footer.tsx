@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { mdiGithub, mdiMastodon } from '@mdi/js';
+import { siGithub, siMastodon } from 'simple-icons';
 
 import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
 
@@ -31,12 +31,12 @@ const Footer: FunctionComponent = () => {
           <div>
             <IconButton>
               <Link aria-label='Pictogrammers on GitHub' href='https://github.com/Pictogrammers'>
-                <Icon path={mdiGithub} size={1.5} />
+                <Icon path={siGithub.path} size={1.25} />
               </Link>
             </IconButton>
             <IconButton>
               <Link aria-label='Follow Pictogrammers on Mastodon' href='https://github.com/Pictogrammers' rel='me'>
-                <Icon path={mdiMastodon} size={1.5} />
+                <Icon path={siMastodon.path} size={1.25} />
               </Link>
             </IconButton>
           </div>

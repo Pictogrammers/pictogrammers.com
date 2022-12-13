@@ -1,0 +1,31 @@
+### Post Admin Icon Name
+
+```
+POST api/admin/icon/name
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Update `icon.name` to rename an icon.
+  </Tab>
+  <Tab title='Request'>
+    ```yaml
+    type: object
+    properties:
+      icon:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          name:
+            type: string
+            example: new-name
+    ```
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    $ref: '#/api/model/icon'
+    ```
+  </Tab>
+</Tabs>

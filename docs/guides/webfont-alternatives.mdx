@@ -1,0 +1,56 @@
+---
+title: Webfont Alternatives
+description: There are many other solutions that are more ideal to use than the Webfont.
+category: Guides
+---
+
+This guide will outline some alternatives of the Webfont and why other solutions might be more ideal.
+
+## What is the webfont?
+
+The webfont is several font files that your browser can pick from. All modern browsers will pick the `woff2` font file to download. This font as of `v6.8.96` is **377 KB** and the CSS is **51.2 KB** compressed and growing with each release.
+
+- Large Size (larger than any modern web framework)
+- Use only 10 Icons and it includes all.
+
+<Note>
+  In a scenerio where the frontend does not know all required icons, it may be ideal to use the webfont.
+</Note>
+
+## Other Solutions
+
+### Iconify
+
+Instead of using the webfont, you can use the Iconify SVG framework. It is as easy to use as the webfont, but it only loads icons that are used on page and renders them as pixel perfect SVG rather than text. Read [Iconify Guide](/docs/guides/iconify) guide on how to use MDI and MDI Light with Iconify.
+
+### React
+
+For those using the React framework there is a first party provided component `@mdi/react`.
+
+<Button href='/docs/mdi/getting-started/react' startIcon='si:react'>View the React Guide</Button>
+
+### Angular
+
+<Button href='/docs/mdi/getting-started/angular' startIcon='si:angular'>View the Angular Guide</Button>
+
+### VueJS
+
+<Button href='/docs/mdi/getting-started/vuejs' startIcon='si:vuedotjs'>View the VueJS Guide</Button>
+
+### Other
+
+The `@mdi/js` library contains all the icon path data. By using this library in your JavaScript, you ensure you're only including the icons that are needed.
+
+```javascript
+import { mdiAccount } from '@mdi/js';
+
+// mdiAccount = 'M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z'
+
+document.querySelector('svg path').setAttribute('d', mdiAccount);
+```
+
+```html
+<svg viewBox="0 0 24 24">
+  <path d="" />
+</svg>
+```

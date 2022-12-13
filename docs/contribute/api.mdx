@@ -1,0 +1,66 @@
+---
+title: API Endpoints
+description: Definition of the API endpoints exposed by our website.
+category: Contribute
+---
+
+<Note type='warning'>
+  Please do not use these endpoints to scrape the site or to build third party applications. All data is provided in the <code>meta.json</code> on the <a href="https://cdn.jsdelivr.net/npm/@mdxi/svg@{{version}}/meta.json">CDN</a> or in the <a href="https://github.com/Templarian/MaterialDesign-SVG/blob/master/meta.json">GitHub</a> repo after every release.
+</Note>
+
+To help others build out features for the site all the endpoints are described below.
+
+## Public Endpoints
+
+Public endpoints are visible to everyone using the website.
+
+- No Authentication
+- Cached results (up to 5 minutes)
+- Objects may not contain all properties (ex: user objects)
+  - Look for the lock symbol in the object definitions below.
+
+import:/contribute/api/get-package.mdx
+
+import:/contribute/api/get-package-by-id.mdx
+
+import:/contribute/api/get-icon-by-id.mdx
+
+import:/contribute/api/get-icon-by-name.mdx
+
+import:/contribute/api/get-tag.mdx
+
+import:/contribute/api/get-user.mdx
+
+import:/contribute/api/get-user-by-id.mdx
+
+import:/contribute/api/get-style.mdx
+
+import:/contribute/api/get-base-icons.mdx
+
+import:/contribute/api/get-icon-download.mdx
+
+import:/contribute/api/get-package-user.mdx
+
+## Private Endpoints
+
+While pretty much all data is open to the public, most of the management related API's are restricted to collaborator and admin accounts.
+
+import:/contribute/api/get-admin-package-font.mdx
+
+import:/contribute/api/get-admin-icon-modification.mdx
+
+import:/contribute/api/post-admin-icon-name.mdx
+
+import:/contribute/api/post-admin-icon-description.mdx
+
+import:/contribute/api/post-admin-icon-data.mdx
+
+import:/contribute/api/post-admin-icon-optimize.mdx
+
+import:/contribute/api/post-admin-icon-tag.mdx
+
+import:/contribute/api/post-admin-icon-alias.mdx
+
+import:/contribute/api/post-admin-icon-style.mdx
+
+import:/contribute/api/post-admin-user.mdx

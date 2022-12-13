@@ -1,0 +1,34 @@
+### Post Admin Icon Alias
+
+```
+POST api/admin/icon/alias
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Aliasing icons with alternative names allows others to find them. For example `account` may also be known as `user` or `person`.
+  </Tab>
+  <Tab title='Request'>
+    ```yaml
+    type: object
+    properties:
+      icon:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+      alias:
+        type: object
+        properties:
+          name:
+            type: string
+            example: user
+    ```
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    $ref: '#/api/model/icon'
+    ```
+  </Tab>
+</Tabs>

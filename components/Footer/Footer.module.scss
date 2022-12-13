@@ -6,7 +6,9 @@
   padding: 2rem;
 
   .logo {
-    svg {  
+    svg {
+      width: 62px;
+
       [id='keycap-top'] {
         transition: transform 0.1s;
         transform: translate(0, 0);
@@ -35,10 +37,6 @@
   li {
     align-items: center;
     display: flex;
-  }
-  
-  svg {
-    width: 62px;
   }
   
   a:hover {

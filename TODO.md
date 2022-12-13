@@ -3,3 +3,6 @@
   - https://nextjs.org/learn/seo/crawling-and-indexing/xml-sitemaps
 - Finish migrating doc pages.
 - Build GitHub preview generator.
+- "History" pages should be tied to each font in the "Icons" view and not via Markdown.
+- Table of Contents needs some style lovin'.
+- Need a markdown linter in place.

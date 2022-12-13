@@ -1,0 +1,20 @@
+### Get Admin Icon Modifications
+
+```
+GET api/admin/icon/:iconId/modification
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Every modification to an icon property is tracked. This returns a list of those modifications.
+
+    > `isVisible = false` hides a modification from the public.
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    type: array
+    items:
+      $ref: '#/api/model/modification'
+    ```
+  </Tab>
+</Tabs>

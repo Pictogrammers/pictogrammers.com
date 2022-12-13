@@ -1,0 +1,27 @@
+### Get Package By Id
+
+```
+GET api/package/:packageId
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Search through a package of icons.
+  </Tab>
+  <Tab title='Request'>
+    There are various ways to filter the icon results by appending various parameters.
+
+    ```text
+    ?search=account
+    ?name=account,account-plus
+    ?uuid=
+    ?author=uuid
+    ?author=community
+    ```
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    $ref: '#/api/model/package'
+    ```
+  </Tab>
+</Tabs>

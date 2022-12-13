@@ -7,13 +7,14 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { ParsedUrlQuery } from 'querystring';
 
 import { Icon as MDIIcon } from '@mdi/react';
-import { mdiGithub, mdiTextBoxPlus } from '@mdi/js';
+import { mdiTextBoxPlus } from '@mdi/js';
+import { siGithub } from 'simple-icons';
 
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { ButtonProps } from '@mui/material/Button';
 
-import { IDoc } from '../../interfaces/doc';
+import { DocData } from '../../interfaces/doc';
 import { IconLibraries, IconProps } from '../../interfaces/icons';
 import { TableOfContentsItemProps } from '../../interfaces/tableOfContents';
 import { getAllDocs, getDoc } from '../../utils/mdxUtils';
@@ -42,7 +43,7 @@ interface Iparams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as Iparams;
-  const { availableIcons, content, data, toc } = getDoc(slug.join('/'));
+  const { availableIcons, content, data, readingTime, toc } = getDoc(slug.join('/'));
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [ gfm ]
@@ -54,6 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       availableIcons,
       frontMatter: data,
+      readingTime,
       slug: slug.join('/'),
       source: mdxSource,
       toc
@@ -76,21 +78,21 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 type Props = {
-  frontMatter: Omit<IDoc, 'slug'>;
+  frontMatter: DocData;
+  readingTime?: string;
   slug: string;
   source: MDXRemoteSerializeResult;
   toc: Array<TableOfContentsItemProps>;
   availableIcons: IconLibraries;
 }
 
-const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, slug, source, toc }: Props) => {
+const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, readingTime, slug, source, toc }: Props) => {
   const path = `docs/${slug}`;
   const {
     category,
     description,
     hidden,
     library,
-    readingTime,
     title
   } = frontMatter;
 
@@ -162,7 +164,7 @@ const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, slug, source, 
                 color='secondary'
                 fullWidth
                 href={`https://github.com/Pictogrammers/pictogrammers.com/blob/main/${path}.md`}
-                startIcon={<MDIIcon path={mdiGithub} size={1} />}
+                startIcon={<MDIIcon path={siGithub.path} size={.9} />}
                 variant='outlined'
               >
                 Edit on GitHub

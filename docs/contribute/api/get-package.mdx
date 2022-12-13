@@ -1,0 +1,18 @@
+### Get List of Packages
+
+```
+GET api/packages
+```
+
+<Tabs>
+  <Tab title='Description'>
+    A package is a named grouping of icons. Example: `Material Design Icons`. This endpoint lists the packages, but leaves off the `icons` object for performance reasons.
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    type: array
+    items:
+      $ref: '#/api/model/package'
+    ```
+  </Tab>
+</Tabs>

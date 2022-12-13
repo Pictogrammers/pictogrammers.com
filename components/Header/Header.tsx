@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Icon from '@mdi/react';
-import { mdiGithub } from '@mdi/js';
+import { siGithub } from 'simple-icons';
 
 import MdiHamburger from '../../assets/hamburger.svg';
 import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
@@ -66,7 +66,7 @@ const Header: FunctionComponent = () => {
       <div className={classes.github}>
         <NavButton
           href='https://github.com/Pictogrammers'
-          startIcon={<Icon path={mdiGithub} size={1} />}
+          startIcon={<Icon path={siGithub.path} size={.9} />}
           variant='contained'
         >
           GitHub

@@ -12,8 +12,8 @@ import TableOfContents from '../components/Docs/TableOfContents';
 import Heading from '../components/Docs/Heading';
 
 import PictogrammersLogoSvg from '../assets/brand/logos/pictogrammers-full.svg';
-import MDILogoSvg from '../assets/mdi.svg';
-import MDLLogoSvg from '../assets/mdl.svg';
+import MDILogoSvg from '../assets/libraries/mdi.svg';
+import MDLLogoSvg from '../assets/libraries/mdl.svg';
 import PictogrammersMonogram from '../assets/brand/logos/pictogrammers-monogram.png';
 import PictogrammersLogo from '../assets/brand/logos/pictogrammers-full.png';
 import PictogrammersLogoBlack from '../assets/brand/logos/pictogrammers-full-black.png';

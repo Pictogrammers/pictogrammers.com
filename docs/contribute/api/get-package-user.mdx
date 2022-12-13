@@ -1,0 +1,18 @@
+### Get List of Users by PackageId
+
+```
+GET api/package/:packageId/user
+```
+
+<Tabs>
+  <Tab title='Description'>
+    List all `user` objects associated to a `packageId`.
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    type: array
+    items:
+      $ref: '#/api/model/user'
+    ```
+  </Tab>
+</Tabs>

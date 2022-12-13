@@ -1,11 +1,14 @@
-export interface IDoc {
-  category?: string;
-  description: string;
-  hidden?: boolean;
-  library?: string;
-  prerequisites: string[]; // TODO: Placeholder component
+import { IconLibraries } from '../interfaces/icons';
+
+export interface DocData {
+  // Use of any because literally anything can be put into front matter
+  [key: string]: any;
+}
+
+export interface Doc {
+  availableIcons: IconLibraries;
+  content: string;
+  data: DocData;  
   readingTime?: string;
-  slug: string;
-  stacks: string[]; // TODO: Placeholder component
-  title: string;
+  toc: object[];
 }

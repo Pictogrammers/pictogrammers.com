@@ -5,23 +5,11 @@
   --cyan: 194deg 64% 75%;
   --dark-cyan: 194deg 65% 41%;
   --light-grey: 0deg 0% 94%;
+  --grey: 0deg 0% 56%;
   --dark-grey: 0deg 0% 20%;
 
   --primary-color: var(--purple);
   --secondary-color: var(--cyan);
-
-  --info-back: 197deg 53% 12%;
-  --info-text: 197deg 89% 85%;
-  --info-icon: 197deg 92% 56%;
-  --warning-back: 36deg 56% 17%;
-  --warning-text: 36deg 100% 86%;
-  --warning-icon: 36deg 100% 57%;
-  --error-back: 0deg 34% 16%;
-  --error-text: 0deg 67% 87%;
-  --error-icon: 0deg 90% 58%;
-  --success-back: 122deg 22% 20%;
-  --success-text: 122deg 38% 85%;
-  --success-icon: 122deg 38% 57%;
 }
 
 @mixin theme-light {

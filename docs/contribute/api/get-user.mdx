@@ -1,0 +1,20 @@
+### Get Users
+
+```
+GET api/user
+GET api/package/:packageId/user
+GET api/package/:packageId/user/core
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Retrieve all users. An alternative is to get users for only a single package or just the core users assigned to maintain that package.
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    type: array
+    items:
+      $ref: '#/api/model/user'
+    ```
+  </Tab>
+</Tabs>

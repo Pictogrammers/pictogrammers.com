@@ -1,0 +1,45 @@
+### Post Admin User
+
+```
+POST api/admin/user
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Insert a new `user` into the database. These users are readonly and cannot be logged into.
+
+    <Note type='warning'>This API requires elevated `core` access.</Note>
+  </Tab>
+  <Tab title='Request'>
+    ```yaml
+    type: object
+    properties:
+      user:
+        type: object
+        properties:
+          name:
+            type: string
+          github:
+            type: string
+          email:
+            type: string
+            format: email
+          twitter:
+            type: string
+          avatar:
+            type: string
+            format: base64
+          description:
+            type: string
+          website:
+            type: string
+          sponsored:
+            type: boolean
+    ```
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    $ref: '#/api/model/user'
+    ```
+  </Tab>
+</Tabs>

@@ -1,0 +1,18 @@
+### Get Admin Package Fonts
+
+```
+GET api/admin/package/:package_id/font
+```
+
+<Tabs>
+  <Tab title='Description'>
+    Retrieve an array of fonts for a given package.
+  </Tab>
+  <Tab title='Response'>
+    ```yaml
+    type: array
+    items:
+      $ref: '#/api/model/font'
+    ```
+  </Tab>
+</Tabs>
