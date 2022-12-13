@@ -31,19 +31,19 @@ const Header: FunctionComponent = () => {
           <div className={cx(classes.options, {
             [classes.open]: menuOpen
           })}>
-            <NavButton>
+            <NavButton onClick={() => setMenuOpen(false)}>
               Icons
             </NavButton>
-            <NavButton href='/docs/'>
+            <NavButton href='/docs/' onClick={() => setMenuOpen(false)}>
               Docs
             </NavButton>
-            <NavButton href='/docs/about'>
+            <NavButton href='/tools/' onClick={() => setMenuOpen(false)}>
+              Tools
+            </NavButton>
+            <NavButton href='/docs/about' onClick={() => setMenuOpen(false)}>
               About
             </NavButton>
-            <NavButton
-              href='/#join'
-              onClick={() => setMenuOpen(false)}
-            >
+            <NavButton href='/docs/contribute' onClick={() => setMenuOpen(false)}>
               Join Us
             </NavButton>
           </div>
