@@ -15,10 +15,13 @@ const Header: FunctionComponent = () => {
 
   const NavButton = (props: ButtonProps) => (
     <Button
-      classes={{
-        root: classes.navButton
-      }}
       onClick={() => setMenuOpen(false)}
+      sx={{
+        borderRadius: '50px',
+        fontSize: '16px',
+        padding: '.5rem 1rem',
+        textTransform: 'none'
+      }}
       {...props}
     />
   );
