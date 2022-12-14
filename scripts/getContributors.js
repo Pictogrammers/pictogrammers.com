@@ -51,4 +51,4 @@ const getContributors = async () => {
   }
 };
 
-getContributors();
+module.exports = getContributors;

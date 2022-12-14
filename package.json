@@ -14,7 +14,9 @@
     "dev": "next-remote-watch ./docs",
     "build": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild": "node scripts/prebuild",
+    "predev": "node scripts/prebuild"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

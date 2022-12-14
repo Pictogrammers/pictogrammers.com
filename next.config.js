@@ -10,10 +10,6 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   webpack(config, { isServer }) {
-    // if (isServer) {
-    require('./scripts/getContributors');
-    // }
-
     config.module.rules.push({
       issuer: { and: [/\.(js|ts)x?$/] },
       test: /\.svg$/,
