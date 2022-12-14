@@ -8,6 +8,7 @@ import Icon from '@mdi/react';
 import { siGithub, siTwitter } from 'simple-icons';
 import { mdiHeart, mdiLinkVariant } from '@mdi/js';
 
+import contributorsJson from '../../../public/contributors/contributors.json';
 import { ContributorProps, ContributorsMdxProps } from '../../../interfaces/contributor';
 
 import classes from './Contributors.module.scss';
@@ -17,8 +18,8 @@ const Contributor = ({
   github,
   iconCount,
   id,
+  image,
   name,
-  noImage,
   sponsored,
   twitter,
   website
@@ -41,7 +42,7 @@ const Contributor = ({
           <Avatar
             alt={name}
             classes={{ root: classes.avatar }}
-            src={!noImage ? `/contributors/${id}.jpg` : undefined}
+            src={image ? `/contributors/${id}.jpg` : undefined}
           >
             {name.split(' ').map((n)=>n[0]).join('').toUpperCase()}
           </Avatar>
@@ -102,7 +103,8 @@ const Contributor = ({
   );
 };
 
-const Contributors = ({ contributors: { contributors }, id, view }: ContributorsMdxProps) => {
+const Contributors = ({ id, view }: ContributorsMdxProps) => {
+  const { contributors } = contributorsJson;
   const filteredList = contributors.filter((contributor) => {
     if (view === 'single' && id) {
       return contributor.id === id;

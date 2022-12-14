@@ -11,7 +11,7 @@ const nextConfig = {
   swcMinify: true,
   webpack(config, { isServer }) {
     if (isServer) {
-      require('./scripts/getContributorImages');
+      require('./scripts/getContributors');
     }
 
     config.module.rules.push({

@@ -1,16 +1,15 @@
-import { GetStaticProps, NextPage } from 'next';
+import { NextPage } from 'next';
 import { Fragment } from 'react';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Icon from '@mdi/react';
 import { mdiCrowd } from '@mdi/js';
 
-import { getContributors } from '../utils/apiUtils';
-import { ContributorProps } from '../interfaces/contributor';
-
 import Hero from '../components/Hero/Hero';
 import HomeSection from '../components/HomeSection/HomeSection';
 import LibraryCard from '../components/LibraryCard/LibraryCard';
+
+import getRandomArrayValues from '../utils/helpers/getRandomArrayValues';
 
 import AmbrookLogo from '../assets/users/ambrook.svg';
 import AccusoftLogo from '../assets/users/accusoft.svg';
@@ -18,23 +17,17 @@ import HomeAssistantLogo from '../assets/users/home-assistant.svg';
 import KeePassXCLogo from '../assets/users/keepassxc.svg';
 import NabuCasaLogo from '../assets/users/nabu-casa.svg';
 import OnTaskLogo from '../assets/users/ontask.svg';
-
 import MDILogo from '../assets/libraries/mdi.svg';
 import MDLLogo from '../assets/libraries/mdl.svg';
 
+import contributorsJson from '../public/contributors/contributors.json';
+
 import classes from '../styles/pages/index.module.scss';
 
-type Props = {
-  contributors: ContributorProps[];
-  totalContributors: number;
-}
+const Home: NextPage = () => {
+  const { contributors, totalContributors } = contributorsJson;
+  const coreContributors = contributors.filter((contributor) => contributor.core);
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { contributors, totalContributors } = await getContributors({ coreOnly: true, filterGenericAvatars: true, randomize: true, totalToReturn: 11 }) as Props;
-  return { props: { contributors, totalContributors } };
-};
-
-const Home: NextPage<Props> = ({ contributors, totalContributors }: Props) => {
   const featuredIconLibraries = [
     {
       description: 'The original. Following Google\'s Material Design guidelines for system icons, MDI is our largest library, touting over 6500 unique icons!',
@@ -79,14 +72,14 @@ const Home: NextPage<Props> = ({ contributors, totalContributors }: Props) => {
         </HomeSection>
         <HomeSection className={classes.about} id='about' title='Who are we?'>
           <div>
-            {contributors?.length && (
+            {coreContributors?.length && (
               <AvatarGroup classes={{ root: classes.contributors }} max={13}>
-                {contributors.map((contributor) => (
+                {getRandomArrayValues(coreContributors, 12).map((contributor) => (
                   <Avatar
                     alt={contributor.name}
                     classes={{ root: classes.contributor }}
                     key={contributor.id}
-                    src={`/contributors/${contributor.id}.jpg`}
+                    src={contributor.image ? `/contributors/${contributor.id}.jpg` : undefined}
                   />
                 ))}
                 <Avatar classes={{ root: classes.contributor }}>+{totalContributors - 11}</Avatar>
