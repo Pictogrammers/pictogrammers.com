@@ -27,9 +27,14 @@ const Contributor = ({
   return (
     <Card
       classes={{ 
-        root: cx(classes.contributor,{
+        root: cx({
           [classes.core]: core
         })
+      }}
+      sx={{
+        display: 'flex',
+        height: '125px',
+        width: '100%'
       }}
     >
       <Badge
@@ -41,8 +46,14 @@ const Contributor = ({
         <div className={classes.content}>
           <Avatar
             alt={name}
-            classes={{ root: classes.avatar }}
             src={image ? `/contributors/${id}.jpg` : undefined}
+            sx={{
+              backgroundColor: 'hsl(var(--primary-color))',
+              border: '2px solid hsl(var(--primary-color))',
+              height: '50px',
+              marginRight: '1rem',
+              width: '50px'
+            }}
           >
             {name.split(' ').map((n)=>n[0]).join('').toUpperCase()}
           </Avatar>
