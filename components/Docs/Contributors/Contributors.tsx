@@ -52,9 +52,9 @@ const Contributor = ({
         </div>
         <div className={classes.links}>
           {sponsored && github && (
-            <Tooltip title={`Sponsor ${name} on Github`}>
+            <Tooltip title={`Sponsor ${name} on GitHub`}>
               <IconButton
-                aria-label={`Sponsor ${name} on Github`}
+                aria-label={`Sponsor ${name} on GitHub`}
                 classes={{ root: classes.sponsor }}
                 href={`https://github.com/sponsors/${github}`}
                 target='_blank'
@@ -64,9 +64,9 @@ const Contributor = ({
             </Tooltip>
           )}
           {github && (
-            <Tooltip title={`View ${github} on Github`}>
+            <Tooltip title={`View ${github} on GitHub`}>
               <IconButton
-                aria-label={`View ${github} on Github`}
+                aria-label={`View ${github} on GitHub`}
                 href={`https://github.com/${github}`}
                 target='_blank'
               >
@@ -75,9 +75,9 @@ const Contributor = ({
             </Tooltip>
           )}
           {twitter && (
-            <Tooltip title={`View ${twitter} on Github`}>
+            <Tooltip title={`View ${twitter} on Twitter`}>
               <IconButton
-                aria-label={`View ${twitter} on Github`}
+                aria-label={`View ${twitter} on Twitter`}
                 href={`https://twitter.com/${twitter}`}
                 target='_blank'
               >
