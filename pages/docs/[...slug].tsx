@@ -17,8 +17,11 @@ import { ButtonProps } from '@mui/material/Button';
 import { DocData } from '../../interfaces/doc';
 import { IconLibraries, IconProps } from '../../interfaces/icons';
 import { TableOfContentsItemProps } from '../../interfaces/tableOfContents';
+import { ContributorProps, ContributorsMdxProps } from '../../interfaces/contributor';
 import { getAllDocs, getDoc } from '../../utils/mdxUtils';
+import { getContributors } from '../../utils/apiUtils';
 
+import Contributors from '../../components/Docs/Contributors/Contributors';
 import TableOfContents from '../../components/Docs/TableOfContents';
 import Heading from '../../components/Docs/Heading';
 import Code from '../../components/Docs/Code';
@@ -37,12 +40,18 @@ import {
 
 import classes from '../../styles/pages/docs.module.scss';
 
-interface Iparams extends ParsedUrlQuery {
+interface IParams extends ParsedUrlQuery {
   slug: string[]
 }
 
+type CProps = {
+  contributors: ContributorProps[];
+  totalContributors: number;
+}
+
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { slug } = context.params as Iparams;
+  // Get Document Information
+  const { slug } = context.params as IParams;
   const { availableIcons, content, data, readingTime, toc } = getDoc(slug.join('/'));
   const mdxSource = await serialize(content, {
     mdxOptions: {
@@ -51,9 +60,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
     scope: data
   });
 
+  // Get Contributor Information
+  const { contributors, totalContributors } = await getContributors({}) as CProps;
+
   return {
     props: {
       availableIcons,
+      contributors: {
+        contributors,
+        totalContributors
+      },
       frontMatter: data,
       readingTime,
       slug: slug.join('/'),
@@ -78,15 +94,16 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 type Props = {
+  availableIcons: IconLibraries;
+  contributors: CProps;
   frontMatter: DocData;
   readingTime?: string;
   slug: string;
   source: MDXRemoteSerializeResult;
   toc: Array<TableOfContentsItemProps>;
-  availableIcons: IconLibraries;
 }
 
-const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, readingTime, slug, source, toc }: Props) => {
+const PostPage: NextPage<Props> = ({ availableIcons, contributors, frontMatter, readingTime, slug, source, toc }: Props) => {
   const path = `docs/${slug}`;
   const {
     category,
@@ -133,6 +150,7 @@ const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, readingTime, s
               components={{
                 Button: (props: ButtonProps) => Button({...props, availableIcons }),
                 code: Code,
+                Contributors: (props: ContributorsMdxProps) => Contributors({...props, contributors}),
                 h1: Heading(1),
                 h2: Heading(2),
                 h3: Heading(3),

@@ -1,6 +1,6 @@
 import getRandomArrayValues from './helpers/getRandomArrayValues';
 
-import { IContributor } from '../interfaces/contributor';
+import { ContributorProps } from '../interfaces/contributor';
 
 const API_BASE = 'https://dev.materialdesignicons.com/api';
 
@@ -33,9 +33,20 @@ export const getContributors = async ({
       return [];
     }
 
-    const filteredContributors = contributors.filter((contributor: IContributor) => {
-      return (coreOnly ? contributor.core === true : true) && (filterGenericAvatars ? contributor.base64 !== genericImage : true);
-    });
+    const filteredContributors = contributors
+      .filter((contributor: ContributorProps) => {
+        return (coreOnly ? contributor.core === true : true) && (filterGenericAvatars ? contributor.base64 !== genericImage : true);
+      })
+      .map((contributor: ContributorProps) => {
+        const { base64, ...rest } = contributor;
+        if (base64 === genericImage) {
+          rest.noImage = true;
+        }
+        return rest;
+      })
+      .sort((a: ContributorProps, b: ContributorProps) => {
+        return Number(b.core) - Number(a.core) || b.iconCount - a.iconCount;
+      });
 
     const returnAmount = totalToReturn || filteredContributors.length;
 

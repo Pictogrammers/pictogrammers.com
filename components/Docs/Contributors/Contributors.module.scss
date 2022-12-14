@@ -1,0 +1,92 @@
+@import '../../../styles/variables.scss';
+
+.contributor {
+  display: flex;
+  height: 125px;
+  width: 100%;
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.core {
+  border-top: 5px solid hsl(var(--cyan));
+}
+
+.badge {
+  background-color: hsl(var(--cyan));
+  border-radius: 0 0 0 5px;
+  color: hsl(var(--black));
+  position: absolute;
+  right: 19px;
+  top: 7px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem .5rem;
+
+  h2, p {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  p {
+    font-size: .9rem;
+  }
+}
+
+.avatar {
+  background-color: hsl(var(--primary-color));
+  border: 2px solid hsl(var(--primary-color));
+  height: 50px;
+  margin-right: 1rem;
+  width: 50px;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.links {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1rem;
+}
+
+.sponsor {
+  &:hover {
+    color: hsl(305, 100%, 40%);
+  }
+}
+
+.contributors {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media only screen and (max-width: ($tablet-width + 200)) {
+  .contributors {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .contributors {
+    grid-template-columns: 1fr;
+  }
+}

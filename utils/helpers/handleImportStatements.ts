@@ -11,12 +11,12 @@ const handleImportStatements = (content: string, docsPath: string) => {
     const [ , importPath ] = match;
 
     const importFullPath = join(docsPath, `${importPath}.mdx`);
-    if (fs.existsSync(importFullPath)) {
-      output[`import:${importPath}.mdx`] = fs.readFileSync(importFullPath, 'utf-8');
+    if (!fs.existsSync(importFullPath)) {
+      output[`import:${importPath}.mdx`] = `<Note type='error'>Unable to import **${importPath}.mdx**.</Note>`;
       return output;
     }
 
-    output[`import:${importPath}.mdx`] = `<Note type='error'>Unable to import **${importPath}.mdx**.</Note>`;
+    output[`import:${importPath}.mdx`] = fs.readFileSync(importFullPath, 'utf-8');
     return output;
   }, {} as ImportPaths);
 

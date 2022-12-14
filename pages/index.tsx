@@ -1,5 +1,4 @@
 import { GetStaticProps, NextPage } from 'next';
-import Image from 'next/image';
 import { Fragment } from 'react';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
@@ -7,7 +6,7 @@ import Icon from '@mdi/react';
 import { mdiCrowd } from '@mdi/js';
 
 import { getContributors } from '../utils/apiUtils';
-import { IContributor } from '../interfaces/contributor';
+import { ContributorProps } from '../interfaces/contributor';
 
 import Hero from '../components/Hero/Hero';
 import HomeSection from '../components/HomeSection/HomeSection';
@@ -26,7 +25,7 @@ import MDLLogo from '../assets/libraries/mdl.svg';
 import classes from '../styles/pages/index.module.scss';
 
 type Props = {
-  contributors: IContributor[];
+  contributors: ContributorProps[];
   totalContributors: number;
 }
 

@@ -145,7 +145,7 @@ const PostPage: NextPage = () => {
 
             <section>
               <Heading2>Logo on Color</Heading2>
-              <p>In some situations, the logo can be used on a colored background as long as there is a 5:1 contrast ratio. Anything less is not recommended. <Link href='https://webaim.org/resources/contrastchecker/' rel='nofollow noreferrer' target='_blank'>Check color contrasts here.</Link></p>
+              <p>In some situations, the logo can be used on a colored background as long as there is a 5:1 contrast ratio. Anything less is not recommended. <Link href='https://webaim.org/resources/contrastchecker/' target='_blank'>Check color contrasts here.</Link></p>
               <div className={brandClasses.logoOnColor}>
                 <Image
                   alt='Pictogrammers Logo on White Background'
@@ -197,7 +197,7 @@ const PostPage: NextPage = () => {
 
             <section>
               <Heading2>Wordmark</Heading2>
-              <p>The Pictogrammers wordmark may exist without the monogram. The typeface used to set the logo wordmark is <Link href='https://manropefont.com/' rel='nofollow noreferrer' target='_blank'>Manrope</Link>. The wordmark is optically kerned and its uppercase &quot;P&quot; is customized to mirror the monogram.</p>
+              <p>The Pictogrammers wordmark may exist without the monogram. The typeface used to set the logo wordmark is <Link href='https://manropefont.com/' target='_blank'>Manrope</Link>. The wordmark is optically kerned and its uppercase &quot;P&quot; is customized to mirror the monogram.</p>
               <figure className={brandClasses.wordmark}>
                 <Image
                   alt='Manual kerning and custom P vs. Manrope'
@@ -283,7 +283,7 @@ const PostPage: NextPage = () => {
 
             <section>
               <Heading2>Guidance</Heading2>
-              <p>Please maintain consistency of our brand by not misusing the Pictogrammers logo, monogram, wordmark, or any of our various icon library logos. If you have a question about whether your use of our logo is accepted, please <Link href='https://fosstodon.org/@pictogrammers' rel='me nofollow noreferrer' target='_blank'>get in touch</Link>.
+              <p>Please maintain consistency of our brand by not misusing the Pictogrammers logo, monogram, wordmark, or any of our various icon library logos. If you have a question about whether your use of our logo is accepted, please <Link href='https://fosstodon.org/@pictogrammers' rel='me' target='_blank'>get in touch</Link>.
               </p>
               <div className={brandClasses.rules}>
                 <figure>

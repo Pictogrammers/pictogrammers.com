@@ -1,8 +1,7 @@
 import { FunctionComponent, useState } from 'react';
 import cx from 'clsx';
 import Link from 'next/link';
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
+import Button, { ButtonProps } from '@mui/material/Button';
 import Icon from '@mdi/react';
 import { siGithub } from 'simple-icons';
 
@@ -11,15 +10,18 @@ import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
 
 import classes from './Header.module.scss';
 
-const NavButton = styled(Button)({
-  borderRadius: 50,
-  fontSize: 16,
-  padding: '.5rem 1rem',
-  textTransform: 'none'
-});
-
 const Header: FunctionComponent = () => {
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
+
+  const NavButton = (props: ButtonProps) => (
+    <Button
+      classes={{
+        root: classes.navButton
+      }}
+      onClick={() => setMenuOpen(false)}
+      {...props}
+    />
+  );
 
   return (
     <header id='top' className={classes.root}>
@@ -31,21 +33,11 @@ const Header: FunctionComponent = () => {
           <div className={cx(classes.options, {
             [classes.open]: menuOpen
           })}>
-            <NavButton onClick={() => setMenuOpen(false)}>
-              Icons
-            </NavButton>
-            <NavButton href='/docs/' onClick={() => setMenuOpen(false)}>
-              Docs
-            </NavButton>
-            <NavButton href='/tools/' onClick={() => setMenuOpen(false)}>
-              Tools
-            </NavButton>
-            <NavButton href='/docs/about' onClick={() => setMenuOpen(false)}>
-              About
-            </NavButton>
-            <NavButton href='/docs/contribute' onClick={() => setMenuOpen(false)}>
-              Join Us
-            </NavButton>
+            <NavButton href='/icons/'>Icons</NavButton>
+            <NavButton href='/docs/'>Docs</NavButton>
+            <NavButton href='/tools/'>Tools</NavButton>
+            <NavButton href='/docs/about'>About</NavButton>
+            <NavButton href='/docs/contribute'>Join Us</NavButton>
           </div>
         </div>
         <button
