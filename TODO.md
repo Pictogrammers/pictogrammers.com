@@ -22,6 +22,7 @@
 
 ## Meta
 
+- Global variables of the current verions of each icon pack that can be referenced anywhere, including documentation, via a variable.
 - Google Analytics.
 - Create clever 404 page.
 - Generate sitemap.xml.
