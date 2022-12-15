@@ -1,6 +1,6 @@
 import * as mdi from '@mdi/js';
 import * as mdil from '@mdi/light-js';
-import * as si from 'simple-icons';
+import * as si from 'simple-icons/icons';
 
 import { IconLibraries } from '../../interfaces/icons';
 

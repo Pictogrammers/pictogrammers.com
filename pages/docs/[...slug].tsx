@@ -8,7 +8,7 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { Icon as MDIIcon } from '@mdi/react';
 import { mdiTextBoxPlus } from '@mdi/js';
-import { siGithub } from 'simple-icons';
+import { siGithub } from 'simple-icons/icons';
 
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -40,6 +40,10 @@ import classes from '../../styles/pages/docs.module.scss';
 
 interface IParams extends ParsedUrlQuery {
   slug: string[]
+}
+
+interface IButton extends ButtonProps {
+  href: string;
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -132,7 +136,7 @@ const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, readingTime, s
           <div className={classes.content}>
             <MDXRemote
               components={{
-                Button: (props: ButtonProps) => Button({...props, availableIcons }),
+                Button: (props: IButton) => Button({...props, availableIcons }),
                 code: Code,
                 Contributors,
                 h1: Heading(1),

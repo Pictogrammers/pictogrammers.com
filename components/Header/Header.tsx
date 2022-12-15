@@ -3,7 +3,7 @@ import cx from 'clsx';
 import Link from 'next/link';
 import Button, { ButtonProps } from '@mui/material/Button';
 import Icon from '@mdi/react';
-import { siGithub } from 'simple-icons';
+import { siGithub } from 'simple-icons/icons';
 
 import MdiHamburger from '../../assets/hamburger.svg';
 import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';

@@ -5,7 +5,7 @@ import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mdi/react';
-import { siGithub, siTwitter } from 'simple-icons';
+import { siGithub, siTwitter } from 'simple-icons/icons';
 import { mdiHeart, mdiLinkVariant } from '@mdi/js';
 
 import contributorsJson from '../../../public/contributors/contributors.json';
