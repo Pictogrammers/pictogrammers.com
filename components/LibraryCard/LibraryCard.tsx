@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FunctionComponent } from 'react';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -34,13 +35,15 @@ const LibraryCard: FunctionComponent<LibraryCardProps> = ({
         {description && <p>{description}</p>}
       </div>
       {link &&
-        <LibraryButton
-          endIcon={<Icon path={mdiArrowRight} size={1} />}
-          href={link}
-          variant='contained'
-        >
-          Browse Library
-        </LibraryButton>
+        <Link href={link} passHref>
+          <LibraryButton
+            endIcon={<Icon path={mdiArrowRight} size={1} />}
+            fullWidth
+            variant='contained'
+          >
+            Browse Library
+          </LibraryButton>
+        </Link>
       }
     </div>
   );

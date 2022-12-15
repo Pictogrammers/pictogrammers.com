@@ -1,6 +1,7 @@
-import { TableOfContentsItemProps, TableOfContentsProps } from '../../interfaces/tableOfContents';
+import Link from 'next/link';
+import { TableOfContentsItemProps, TableOfContentsProps } from '../../../interfaces/tableOfContents';
 
-import classes from './components.module.scss';
+import classes from './TableOfContents.module.scss';
 
 const TableOfContents = ({ toc }: TableOfContentsProps) => {
   if (!toc.length) {
@@ -9,7 +10,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
 
   const output = toc.map((item: TableOfContentsItemProps) => (
     <li className={classes[`lvl-${item.lvl}`]} key={item.slug}>
-      <a href={`#${item.slug}`}>{item.content}</a>
+      <Link href={`#${item.slug}`}>{item.content}</Link>
     </li>
   ));
 

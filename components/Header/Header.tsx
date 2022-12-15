@@ -10,20 +10,26 @@ import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
 
 import classes from './Header.module.scss';
 
+interface NavButtonProps extends ButtonProps {
+  href: string;
+}
+
 const Header: FunctionComponent = () => {
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
-  const NavButton = (props: ButtonProps) => (
-    <Button
-      onClick={() => setMenuOpen(false)}
-      sx={{
-        borderRadius: '50px',
-        fontSize: '16px',
-        padding: '.5rem 1rem',
-        textTransform: 'none'
-      }}
-      {...props}
-    />
+  const NavButton = ({ href, ...props }: NavButtonProps) => (
+    <Link href={href} passHref>
+      <Button
+        onClick={() => setMenuOpen(false)}
+        sx={{
+          borderRadius: '50px',
+          fontSize: '16px',
+          padding: '.5rem 1rem',
+          textTransform: 'none'
+        }}
+        {...props}
+      />
+    </Link>
   );
 
   return (

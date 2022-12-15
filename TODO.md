@@ -22,6 +22,7 @@
 
 ## Meta
 
+- Google Analytics.
 - Create clever 404 page.
 - Generate sitemap.xml.
   - https://nextjs.org/learn/seo/crawling-and-indexing/xml-sitemaps

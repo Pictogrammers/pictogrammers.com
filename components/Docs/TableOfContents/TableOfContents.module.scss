@@ -1,0 +1,49 @@
+@import '../../../styles/variables.scss';
+
+.tableOfContents {
+  padding-bottom: 2rem;
+}
+
+.tochead {
+  font-size: .8rem;
+  text-transform: uppercase;
+}
+
+.toc {
+  max-height: 50vh;
+  overflow-y: auto;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    &.lvl-1 {
+      display: none;
+    }
+
+    @for $i from 3 through 6 {
+      &.lvl-#{$i} {
+        font-size: .95rem;
+        padding-left: #{$i - 2}rem;
+      }
+    }
+  }
+
+  a {
+    &:hover {
+      color: hsl(var(--primary-color));
+    }
+  }
+}
+
+@media only screen and (max-width: $tablet-width) {
+  .tochead {
+    margin-top: 0;
+  }
+
+  .tableOfContents {
+    display: none;
+  }
+}

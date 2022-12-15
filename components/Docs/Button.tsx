@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ReactNode } from 'react';
 import cx from 'clsx';
 import { ButtonProps, Button as MuiButton } from '@mui/material';
@@ -9,14 +10,15 @@ import Icon from './Icon';
 import classes from './components.module.scss';
 
 interface IButton extends ButtonProps {
+  availableIcons?: IconLibraries;
+  endIcon?: string | ReactNode;
+  href: string;
   node?: any;
   startIcon?: string | ReactNode;
-  endIcon?: string | ReactNode;
-  availableIcons?: IconLibraries;
 }
 
 const Button = (props: IButton) => {
-  const { availableIcons, children, endIcon, node, startIcon, variant = 'outlined', ...rest } = props;
+  const { availableIcons, children, endIcon, href, node, startIcon, variant = 'outlined', ...rest } = props;
 
   const renderIcon = (icon: string | ReactNode) => {
     if (typeof icon === 'string') {
@@ -28,20 +30,22 @@ const Button = (props: IButton) => {
   };
 
   return (
-    <MuiButton
-      classes={{
-        root: cx(classes.button, {
-          [classes.darkButton]: variant === 'contained',
-          [classes.lightButton]: variant !== 'contained'
-        })
-      }}
-      startIcon={renderIcon(startIcon)}
-      endIcon={renderIcon(endIcon)}
-      variant={variant}
-      {...rest}
-    >
-      {children}
-    </MuiButton>
+    <Link className={classes.button} href={href} passHref>
+      <MuiButton
+        classes={{
+          root: cx({
+            [classes.darkButton]: variant === 'contained',
+            [classes.lightButton]: variant !== 'contained'
+          })
+        }}
+        startIcon={renderIcon(startIcon)}
+        endIcon={renderIcon(endIcon)}
+        variant={variant}
+        {...rest}
+      >
+        {children}
+      </MuiButton>
+    </Link>
   );
 };
 
