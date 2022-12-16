@@ -30,7 +30,7 @@ const getIconLibraries = async () => {
       return icon;
     }));
 
-    output[library.id] = { ...library, icons };
+    output[library.id] = { ...library, icons, version: libraryVersion };
     return output;
   }, Promise.resolve({}));
 
@@ -39,4 +39,4 @@ const getIconLibraries = async () => {
   }));
 };
 
-getIconLibraries();
+export default getIconLibraries;
