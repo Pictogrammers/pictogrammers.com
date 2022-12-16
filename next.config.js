@@ -1,3 +1,5 @@
+const config = require('./config');
+
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV !== 'production'
@@ -7,6 +9,7 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
+  publicRuntimeConfig: config,
   reactStrictMode: true,
   swcMinify: true,
   webpack(config, { isServer }) {

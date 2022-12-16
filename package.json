@@ -15,8 +15,8 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "prebuild": "node scripts/prebuild",
-    "predev": "node scripts/prebuild"
+    "prebuild": "node --experimental-import-meta-resolve scripts/prebuild.mjs",
+    "predev": "node --experimental-import-meta-resolve scripts/prebuild.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -37,6 +37,8 @@
     "string-strip-html": "^13.0.2"
   },
   "devDependencies": {
+    "@mdi/light-svg": "^0.2.63",
+    "@mdi/svg": "^7.1.96",
     "@svgr/webpack": "^6.5.1",
     "@types/glob": "^8.0.0",
     "@types/node": "18.11.12",
