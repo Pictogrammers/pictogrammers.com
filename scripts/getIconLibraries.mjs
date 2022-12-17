@@ -30,13 +30,18 @@ const getIconLibraries = async () => {
       return icon;
     }));
 
-    output[library.id] = { ...library, icons, version: libraryVersion };
+    output[library.id] = { icons, version: libraryVersion };
     return output;
   }, Promise.resolve({}));
 
-  await Promise.all(Object.keys(processedLibraries).map(async (libraryId) => {
-    await fs.writeFile(`./public/libraries/${libraryId}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
-  }));
+  const allLibraries = await Object.keys(processedLibraries).reduce(async (prevPromise, libraryId) => {
+    const output = await prevPromise;
+    await fs.writeFile(`./public/libraries/${libraryId}.json`, JSON.stringify(processedLibraries[libraryId].icons), { flag: 'w' });
+    output[libraryId] = Number(processedLibraries[libraryId].version.split('.').join(''));
+    return output;
+  }, Promise.resolve({}));
+
+  await fs.writeFile('./public/libraries/libraries.json', JSON.stringify(allLibraries), { flag: 'w' });
 };
 
 export default getIconLibraries;

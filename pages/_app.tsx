@@ -1,11 +1,11 @@
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Manrope } from '@next/font/google';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import { MdxComponentsProvider } from '../context/mdxContext';
-
 import Layout from '../components/Layout/Layout';
+
+import { useLibraryDatabase } from '../hooks/useLibraryDatabase';
 
 import themeVars from '../styles/theme.module.scss';
 import '../styles/defaults.scss';
@@ -26,7 +26,9 @@ const theme = createTheme({
   }
 });
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+const Pictogrammers = ({ Component, pageProps }: AppProps) => {
+  useLibraryDatabase();
+
   return (
     <ThemeProvider theme={theme}>
       <Head>
@@ -49,11 +51,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
         <meta content='twitter-card.png' name='twitter:image' key='twitter:image' />
       </Head>
-      <MdxComponentsProvider>
-        <Layout className={manrope.className}>
-          <Component {...pageProps} />
-        </Layout>
-      </MdxComponentsProvider>
+      <Layout className={manrope.className}>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   );
 };
+
+export default Pictogrammers;
