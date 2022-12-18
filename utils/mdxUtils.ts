@@ -10,7 +10,6 @@ import getUsedIcons from './helpers/getUsedIcons';
 
 import { Doc, DocData } from '../interfaces/doc';
 
-
 const DOCS_PATH = join(process.cwd(), 'docs');
 const getDocPaths = (): string[] => glob.sync('**/*.mdx', { cwd: DOCS_PATH });
 

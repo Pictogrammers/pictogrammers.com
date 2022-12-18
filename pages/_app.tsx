@@ -5,8 +5,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import Layout from '../components/Layout/Layout';
 
-import { useLibraryDatabase } from '../hooks/useLibraryDatabase';
-
 import themeVars from '../styles/theme.module.scss';
 import '../styles/defaults.scss';
 
@@ -27,8 +25,6 @@ const theme = createTheme({
 });
 
 const Pictogrammers = ({ Component, pageProps }: AppProps) => {
-  useLibraryDatabase();
-
   return (
     <ThemeProvider theme={theme}>
       <Head>

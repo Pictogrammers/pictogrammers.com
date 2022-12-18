@@ -13,6 +13,10 @@ const ToolsLandingPage: NextPage = () => {
       </Head>
       <Paper className={classes.container}>
         <p>Tools Landing Page</p>
+        <ul>
+          <li>GitHub Preview Generator</li>
+          <li>Bitmask to SVG</li>
+        </ul>
       </Paper>
     </div>
   );

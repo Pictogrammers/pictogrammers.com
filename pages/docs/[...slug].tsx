@@ -15,7 +15,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { ButtonProps } from '@mui/material/Button';
 
 import { DocData } from '../../interfaces/doc';
-import { IconLibraries, IconProps } from '../../interfaces/icons';
+import { IconLibraries, MdxIconProps } from '../../interfaces/icons';
 import { TableOfContentsItemProps } from '../../interfaces/tableOfContents';
 import { getAllDocs, getDoc } from '../../utils/mdxUtils';
 
@@ -82,7 +82,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   };
 };
 
-type Props = {
+interface Props {
   availableIcons: IconLibraries;
   frontMatter: DocData;
   readingTime?: string;
@@ -145,7 +145,7 @@ const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, readingTime, s
                 h4: Heading(4),
                 h5: Heading(5),
                 h6: Heading(6),
-                Icon: (props: IconProps) => Icon({...props, availableIcons }),
+                Icon: (props: MdxIconProps) => Icon({...props, availableIcons }),
                 Note,
                 Tab,
                 table: Table,

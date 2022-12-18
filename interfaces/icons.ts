@@ -4,7 +4,15 @@ export interface IconLibraries {
   };
 }
 
-export interface IconProps {
+export interface IconLibraryIcon {
+  name: string;
+  jsName: string;
+  path: string;
+  author: string;
+  version: string;
+}
+
+export interface MdxIconProps {
   name: string;
   path?: string;
   size?: number;

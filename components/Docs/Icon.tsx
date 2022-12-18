@@ -1,8 +1,8 @@
 import { Icon as MDIcon } from '@mdi/react';
 
-import { IconProps } from '../../interfaces/icons';
+import { MdxIconProps } from '../../interfaces/icons';
 
-const Icon = (props: IconProps) => {
+const Icon = (props: MdxIconProps) => {
   const { availableIcons, name, path, size = 1, ...rest } = props;
 
   if (path) {
