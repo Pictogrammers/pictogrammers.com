@@ -1,5 +1,13 @@
 # TODO
 
+## General
+
+- Expand footer with links to docs, icon libraries, etc.
+- Global variables of the current versions of each icon pack that can be referenced anywhere, including documentation, via a variable.
+- Generate sitemap.xml.
+  - https://nextjs.org/learn/seo/crawling-and-indexing/xml-sitemaps
+- Fuse.js client-side search (docs and icons).
+
 ## Homepage
 
 - "Get Started" call to action in the homepage Hero.
@@ -8,6 +16,8 @@
 
 ## Icon Library View
 
+- Build landing page.
+- Build library and icon view pages.
 - "History" pages should be tied to each font in the "Icons" view and not via Markdown.
 
 ## Docs View
@@ -19,17 +29,11 @@
 
 - Build out Tools landing page.
 - Build GitHub preview generator.
+- Build page for Bitmask to SVG.
 
 ## Meta
 
-- Global variables of the current verions of each icon pack that can be referenced anywhere, including documentation, via a variable.
+- Write README.
 - Google Analytics.
 - Create clever 404 page.
-- Generate sitemap.xml.
-  - https://nextjs.org/learn/seo/crawling-and-indexing/xml-sitemaps
 - Need a markdown linter in place.
-- Investigate IndexedDB.
-  - Will use for icon libraries storage.
-  - Can we put docs/contributors there too?
-  - Will this make it possible for a client-side search of the entire site?
-

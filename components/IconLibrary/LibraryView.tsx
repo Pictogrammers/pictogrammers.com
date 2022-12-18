@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import Head from 'next/head';
 // import Dexie from 'dexie';
+import Paper from '@mui/material/Paper';
 
 import classes from './LibraryView.module.scss';
 
@@ -49,7 +50,9 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
         <title>Icons - Pictogrammers</title>
         <meta content='Icons - Pictogrammers' name='title' key='title' />
       </Head>
-      {library}
+      <Paper className={classes.container}>
+        {library}
+      </Paper>
     </div>
   );
 };

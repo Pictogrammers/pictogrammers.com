@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+
+.root {
+  padding: 0 1rem;
+}
+
+.container {
+  display: flex;
+  max-width: $width-max;
+  margin: 1rem auto;
+  position: relative;
+}

@@ -1,0 +1,12 @@
+.root {
+  background-image: repeating-linear-gradient(hsl(var(--medium-grey)) 0 2px, transparent 2px 100%), repeating-linear-gradient(90deg, hsl(var(--medium-grey)) 0 2px, transparent 2px 100%);
+  background-size: var(--dp-width, 4px) var(--dp-width, 4px);
+  background-position: calc(var(--dp-width, 4px) - 1px) calc(var(--dp-width, 4px) - 1px);
+  position: relative;
+
+  svg {
+    color: hsl(var(--dark-grey));
+    position: relative;
+    z-index: 1;
+  }
+}

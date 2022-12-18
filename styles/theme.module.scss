@@ -5,11 +5,14 @@
   --cyan: 194deg 64% 75%;
   --dark-cyan: 194deg 65% 41%;
   --light-grey: 0deg 0% 94%;
+  --medium-grey: 0deg 0% 84%;
   --grey: 0deg 0% 56%;
   --dark-grey: 0deg 0% 20%;
 
   --primary-color: var(--purple);
   --secondary-color: var(--cyan);
+
+  --dp-width: 10px;
 }
 
 @mixin theme-light {
