@@ -37,6 +37,32 @@ const getIconLibraries = async () => {
   const allLibraries = await Object.keys(processedLibraries).reduce(async (prevPromise, libraryId) => {
     const output = await prevPromise;
     await fs.writeFile(`./public/libraries/${libraryId}.json`, JSON.stringify(processedLibraries[libraryId].icons), { flag: 'w' });
+
+    const TEST_totalIcons = processedLibraries[libraryId].icons.length;
+    const TEST_dexieExport = {
+      formatName: 'dexie',
+      formatVersion: 1,
+      data: {
+        databaseName: `pg-icons-${libraryId}`,
+        databaseVersion: TEST_totalIcons,
+        tables: [
+          {
+            name: 'icons',
+            schema: 'id',
+            rowCount: TEST_totalIcons
+          }
+        ],
+        data: [
+          {
+            tableName: 'icons',
+            inbound: true,
+            rows: processedLibraries[libraryId].icons
+          }
+        ]
+      }
+    };
+    await fs.writeFile(`./public/libraries/dexie-${libraryId}.json`, JSON.stringify(TEST_dexieExport), { flag: 'w' });
+
     output[libraryId] = Number(processedLibraries[libraryId].version.split('.').join(''));
     return output;
   }, Promise.resolve({}));

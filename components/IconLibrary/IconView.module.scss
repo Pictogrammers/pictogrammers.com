@@ -5,8 +5,22 @@
 }
 
 .container {
-  // display: flex;
   max-width: $width-max;
   margin: 1rem auto;
   position: relative;
+}
+
+.heading {
+  align-items: center;
+  background-color: hsl(var(--light-grey));
+  border-bottom: 1px solid hsl(var(--medium-grey));
+  border-radius: 5px 5px 0 0;
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem;
+
+  h1 {
+    display: inline-block;
+    margin: 0;
+  }
 }

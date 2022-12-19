@@ -1,7 +1,9 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import Head from 'next/head';
-// import Dexie from 'dexie';
 import Paper from '@mui/material/Paper';
+import { Virtuoso } from 'react-virtuoso';
+
+import useProvisionDatabase from '../../hooks/useProvisionDatabase';
 
 import classes from './LibraryView.module.scss';
 
@@ -10,40 +12,30 @@ interface LibraryViewProps {
   slug: string;
 }
 
-// interface ImportPaths {
-//   default: {
-//     [key: string]: number;
-//   }
-// }
-
-// const openLibraryDb = async (libraryId: string) => {
-//   try {
-//     const db = new Dexie(`pg-icons-${libraryId}`);
-  
-//     // Set the version
-//     const { default: allLibraries } = await import('../../public/libraries/libraries.json') as ImportPaths;
-//     const version = allLibraries[libraryId];
-
-//     // Open the database
-//     db.version(version).stores({ icons: '&id, *name, *jsName' });
-
-//     // Check the icons table
-//     const dbIconCount = await db.table('icons').count();
-
-//     // If the table count doesn't match the version, fill it
-//     if (dbIconCount < version) {
-//       const { default: fullLibrary } = await import(`../../public/libraries/${libraryId}.json`);
-//       await db.table('icons').bulkPut(fullLibrary);
-//       console.log(`Populated ${libraryId} library with ${await db.table('icons').count()} icons.`);
-//     }
-
-//     return db;
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+function generateItems(length: number) {
+  return Array.from({ length }, (_, index) => `My Item ${index}`);
+}
 
 const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => {
+  const [ database, setDatabase ] = useState(null);
+
+  useProvisionDatabase(library, setDatabase);
+
+  // TODO: The database query should only include the rows currently
+  // visible in the dom.
+  // TODO: Filter various items in the DOM should affect the query.
+  useEffect(() => {
+    const getIcons = async () => {
+      if (!database) {
+        return;
+      }
+
+      const rows = await database.table('icons').toArray();
+      console.log(rows);
+    };
+    getIcons();
+  }, [ database ]);
+
   return (
     <div className={classes.root}>
       <Head>
@@ -51,7 +43,23 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
         <meta content='Icons - Pictogrammers' name='title' key='title' />
       </Head>
       <Paper className={classes.container}>
-        {library}
+        {!database && <div>Loading...</div>}
+        <h2>{library}</h2>
+        <Virtuoso
+          useWindowScroll
+          data={generateItems(200)}
+          itemContent={(index, user) => (
+            <div
+              style={{
+                backgroundColor: 'red',
+                padding: '1rem 0.5rem',
+              }}
+            >
+              <h4>A icon</h4>
+              <div style={{ marginTop: '1rem' }}>A desc</div>
+            </div>
+          )}
+        />
       </Paper>
     </div>
   );

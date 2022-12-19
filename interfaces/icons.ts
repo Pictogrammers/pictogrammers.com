@@ -5,6 +5,7 @@ export interface IconLibraries {
 }
 
 export interface IconLibraryIcon {
+  codepoint: string;
   name: string;
   jsName: string;
   path: string;
