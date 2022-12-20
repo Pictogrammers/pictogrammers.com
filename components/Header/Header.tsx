@@ -18,9 +18,8 @@ const Header: FunctionComponent = () => {
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
   const NavButton = ({ href, ...props }: NavButtonProps) => (
-    <Link href={href} passHref>
+    <Link href={href} onClick={() => setMenuOpen(false)} passHref>
       <Button
-        onClick={() => setMenuOpen(false)}
         sx={{
           borderRadius: '50px',
           fontSize: '16px',

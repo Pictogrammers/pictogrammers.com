@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+.libraryMenu {
+  p {
+    font-size: 1.2rem;
+    text-transform: none;
+    margin: 0 0 0 .5rem;
+  }
+}
+
+.menuItem {
+  img {
+    margin: 0 .5rem 0 0;
+  }
+}
+
+
+@media only screen and (max-width: $mobile-width) {
+  .libraryName {
+    display: none;
+  }
+}

@@ -21,7 +21,7 @@ const useProvisionDatabase = (library: string, cb: Function) => {
       const version = allLibraries[library];
   
       // Open the database
-      db.version(version).stores({ icons: '&id, *name, *jsName' });
+      db.version(version).stores({ icons: '&id, &name, &jsName' });
 
       // Check the icons table
       const dbIconCount = await db.table('icons').count();
