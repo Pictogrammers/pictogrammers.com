@@ -1,13 +1,20 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { FunctionComponent } from 'react';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Icon from '@mdi/react';
 import { mdiArrowRight } from '@mdi/js';
 
-import { LibraryCardProps } from './LibraryCardProps';
-
 import classes from './LibraryCard.module.scss';
+
+export interface LibraryCardProps {
+  description: string;
+  image: string;
+  link: string;
+  name: string;
+}
+
 
 const LibraryButton = styled(Button)(({ theme }) => ({
   '&:hover': {
@@ -30,7 +37,9 @@ const LibraryCard: FunctionComponent<LibraryCardProps> = ({
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        {image}
+        <div className={classes.image}>
+          <Image alt={name} fill src={image} />
+        </div>
         <h3>{name}</h3>
         {description && <p>{description}</p>}
       </div>

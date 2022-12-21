@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent, useEffect, useState } from 'react';
+import { Fragment, FunctionComponent, useEffect, useRef, useState } from 'react';
 import getConfig from 'next/config';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -7,8 +7,6 @@ import { VirtuosoGrid } from 'react-virtuoso';
 import dayjs from 'dayjs';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
@@ -18,21 +16,16 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Icon from '@mdi/react';
-import {
-  mdiAlertCircleOutline,
-  mdiApps,
-  mdiCloseCircle,
-  mdiFormatListBulleted,
-  mdiMagnify,
-  mdiViewGrid
-} from '@mdi/js';
+import { mdiAlertCircleOutline, mdiCloseCircle, mdiMagnify } from '@mdi/js';
 
 import { IconLibraryIcon } from '../../interfaces/icons';
 
 import useProvisionDatabase from '../../hooks/useProvisionDatabase';
 import useDebounce from '../../hooks/useDebounce';
+import useWindowSize from '../../hooks/useWindowSize';
 
 import LibraryMenu from './LibraryMenu';
+import LibraryViewMode from './LibraryViewMode';
 
 import iconLibraries from '../../public/libraries/libraries.json';
 
@@ -43,35 +36,23 @@ interface LibraryViewProps {
   slug: string;
 }
 
-const viewModes = {
-  comfortable: {
-    icon: mdiViewGrid,
-    iconSize: 2,
-    name: 'Comfortable'
-  },
-  compact: {
-    icon: mdiApps,
-    iconSize: 1.2,
-    name: 'Compact'
-  },
-  list: {
-    icon: mdiFormatListBulleted,
-    iconSize: .8,
-    name: 'List'
-  }
+const viewSizes = {
+  comfortable: 2,
+  compact: 1.2,
+  list:  .8
 };
 
 const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => { 
-  const [ database, setDatabase ] = useState<any>(null);
   const [ tableLoaded, setTableLoaded ] = useState(false);
   const [ visibleIcons, setVisibleIcons ] = useState([]); 
   const [ categories, setCategories ] = useState<any>({});
   const [ authors, setAuthors ] = useState<any>({});
 
   // Search handling
+  const searchBoxRef = useRef<HTMLInputElement>();
   const [ viewMode, setViewMode ] = useState('comfortable');
   const [ searchTerm, setSearchTerm ] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const debouncedSearchTerm = useDebounce(searchTerm, 250);
 
   // Library config and metadata
   const { publicRuntimeConfig: { libraries } } = getConfig();
@@ -79,8 +60,11 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
   const libraryMeta = iconLibraries[library as keyof typeof iconLibraries];
   const { count: totalIcons, date: libraryReleaseDate, version: libraryVersion } = libraryMeta;
 
-  useProvisionDatabase(library, setDatabase);
+  const database = useProvisionDatabase(library);
+  const windowSize = useWindowSize();
+  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
 
+  // TODO: Break each of these useEffect's into hooks
   useEffect(() => {
     const getIcons = async () => {
       if (!database) {
@@ -136,6 +120,11 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
     setSearchTerm(event.target.value);
   };
 
+  const handleSearchClear = () => {
+    setSearchTerm('');
+    searchBoxRef.current?.focus();
+  };
+
   const isLoading = !!(!database || !tableLoaded);
 
   return (
@@ -156,7 +145,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
         <div className={classes.libraryView}>
           <div className={classes.heading}>
             <div className={classes.libraryInfo}>
-              <LibraryMenu selectedLibrary={libraryConfig} />
+              <LibraryMenu compact={isMobileWidth} selectedLibrary={libraryConfig} />
               <Tooltip title={`Released on ${dayjs(libraryReleaseDate).format('YYYY/MM/DD')}`} placement='left'>
                 <Chip label={`v${libraryVersion}`} />
               </Tooltip>
@@ -167,7 +156,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                 InputProps={{
                   endAdornment: (
                     <InputAdornment
-                      onClick={() => setSearchTerm('')}
+                      onClick={handleSearchClear}
                       position='end'
                       sx={{
                         cursor: searchTerm !== '' ? 'pointer' : 'default'
@@ -177,6 +166,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                       {searchTerm === '' && <Icon path='' size={1} />}
                     </InputAdornment>
                   ),
+                  inputRef: searchBoxRef,
                   startAdornment: (
                     <InputAdornment position='start'>
                       <Icon path={mdiMagnify} size={1} />
@@ -184,7 +174,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                   )
                 }}
                 onChange={handleSearchChange}
-                placeholder={`Search ${totalIcons} icons...`}
+                placeholder={isMobileWidth ? 'Search Icons...' : `Search ${totalIcons} icons...`}
                 size='small'
                 sx={{
                   margin: '0 1rem 0 0'
@@ -192,18 +182,11 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                 value={searchTerm}
                 variant='outlined'
               />
-              <ButtonGroup variant='outlined' aria-label='View Mode'>
-                {Object.keys(viewModes).map((mode) => (
-                  <Tooltip key={mode} title={viewModes[mode as keyof typeof viewModes].name}>
-                    <Button
-                      onClick={() => setViewMode(mode)}
-                      variant={viewMode === mode ? 'contained' : 'outlined'}
-                    >
-                      <Icon path={viewModes[mode as keyof typeof viewModes].icon} size={1} />
-                    </Button>
-                  </Tooltip>
-                ))}
-              </ButtonGroup>
+              <LibraryViewMode
+                currentView={viewMode}
+                compact={isMobileWidth}
+                setViewMode={setViewMode}
+              />
             </div>
           </div>
           <div className={classes.iconLibrary}>
@@ -259,7 +242,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                       listClassName={cx(classes.library, classes[viewMode])}
                       itemContent={(index, icon: IconLibraryIcon) => (
                         <Link className={classes.libraryIcon} href={`/icons/${library}/${icon.n}`}>
-                          <Icon path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
+                          <Icon path={icon.p} size={viewSizes[viewMode as keyof typeof viewSizes]} />
                           <p>{icon.n}</p>
                         </Link>
                       )}

@@ -12,7 +12,7 @@
   text-align: center;
  
   h3 {
-    font-size: 1.9rem;
+    font-size: 1.8rem;
     letter-spacing: -2px;
     margin: 2rem 0 0.5rem;
     text-align: left;
@@ -29,7 +29,16 @@
 }
 
 .content {
-  svg {
+  .image {
+    position: relative;
+    width: 100%;
+  }
+
+  img {
+    height: unset !important;
     max-width: 225px;
+    object-fit: contain;
+    position: relative !important;
+    width: 100% !important;
   }
 }

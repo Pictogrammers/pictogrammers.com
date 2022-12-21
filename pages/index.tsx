@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import getConfig from 'next/config';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -12,14 +13,14 @@ import LibraryCard from '../components/LibraryCard/LibraryCard';
 
 import getRandomArrayValues from '../utils/helpers/getRandomArrayValues';
 
+import { IconLibrary } from '../interfaces/icons';
+
 import AmbrookLogo from '../assets/users/ambrook.svg';
 import AccusoftLogo from '../assets/users/accusoft.svg';
 import HomeAssistantLogo from '../assets/users/home-assistant.svg';
 import KeePassXCLogo from '../assets/users/keepassxc.svg';
 import NabuCasaLogo from '../assets/users/nabu-casa.svg';
 import OnTaskLogo from '../assets/users/ontask.svg';
-import MDILogo from '../assets/libraries/mdi.svg';
-import MDLLogo from '../assets/libraries/mdl.svg';
 
 import contributorsJson from '../public/contributors/contributors.json';
 
@@ -28,24 +29,8 @@ import classes from '../styles/pages/index.module.scss';
 const Home: NextPage = () => {
   const { contributors, totalContributors } = contributorsJson;
   const coreContributors = contributors.filter((contributor) => contributor.core);
-
-  // TODO: Pull from config and remove this
-  const featuredIconLibraries = [
-    {
-      description: 'The original. Following Google\'s Material Design guidelines for system icons, MDI is our largest library, touting over 6500 unique icons!',
-      id: 'mdi',
-      image: <MDILogo />,
-      link: '/icons/mdi',
-      name: 'Material Design Icons',
-    },
-    {
-      description: 'Taking a lighter spin on Google\'s Material Design guidelines, MDL slims down icons to be modern, crisp, and clean.',
-      id: 'mdl',
-      image: <MDLLogo />,
-      link: '/icons/mdil',
-      name: 'Material Design Light'
-    }
-  ];
+  const { publicRuntimeConfig: { libraries: { icons: iconLibraries } } } = getConfig();
+  const featuredIconLibraries = iconLibraries.filter((lib: IconLibrary) => lib.featured === true);
 
   return (
     <Fragment>
@@ -75,8 +60,8 @@ const Home: NextPage = () => {
         <HomeSection className={classes.about} id='about' title='Who are we?'>
           <div>
             {coreContributors?.length && (
-              <AvatarGroup classes={{ root: classes.contributors }} max={13}>
-                {getRandomArrayValues(coreContributors, 12).map((contributor) => (
+              <AvatarGroup classes={{ root: classes.contributors }} max={12}>
+                {getRandomArrayValues(coreContributors, 11).map((contributor) => (
                   <Avatar
                     alt={contributor.name}
                     classes={{ root: classes.contributor }}
@@ -102,13 +87,13 @@ const Home: NextPage = () => {
         </HomeSection>
         <HomeSection title='Featured Icon Libraries' highlight>
           <div className={classes.libraries}>
-            {featuredIconLibraries.map((library) => (
+            {featuredIconLibraries.map((library: IconLibrary) => (
               <LibraryCard
                 key={library.id}
                 name={library.name}
                 description={library.description}
                 image={library.image}
-                link={library.link}
+                link={`/icons/${library.id}`}
               />
             ))}
           </div>

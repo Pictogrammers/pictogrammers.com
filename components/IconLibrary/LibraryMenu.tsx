@@ -14,16 +14,19 @@ import { mdiChevronDown } from '@mdi/js';
 import classes from './LibraryMenu.module.scss';
 
 interface LibraryMenuProps {
+  compact: boolean;
   selectedLibrary: {
-    name: string;
     id: string;
     image: string;
+    name: string;
+    shortName: string;
   }
 };
 
-const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ selectedLibrary }) => {
+const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, selectedLibrary }) => {
   const { publicRuntimeConfig: { libraries } } = getConfig();
   const [ libraryMenuAnchor, setLibraryMenuAnchor ] = useState<null | HTMLElement>(null);
+  const libraryIconSize = compact ? 26 : 38;
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setLibraryMenuAnchor(event.currentTarget);
@@ -94,8 +97,8 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ selectedLibrary }) =
         onClick={handleMenuClick}
         variant='text'
       >
-        <Image alt={selectedLibrary.name} height={38} src={`/${selectedLibrary.image}`} width={38} />
-        <p className={classes.libraryName} data-id={selectedLibrary.id.toUpperCase()}>{selectedLibrary.name}</p>
+        <Image alt={selectedLibrary.name} height={libraryIconSize} src={`/${selectedLibrary.image}`} width={libraryIconSize} />
+        <p className={classes.libraryName} data-id={selectedLibrary.id.toUpperCase()}>{compact ? selectedLibrary.shortName : selectedLibrary.name}</p>
       </Button>
       <Menu
         anchorEl={libraryMenuAnchor}

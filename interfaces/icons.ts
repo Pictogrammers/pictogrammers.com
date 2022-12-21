@@ -4,6 +4,18 @@ export interface IconLibraries {
   };
 }
 
+export interface IconLibrary {
+  description: string;
+  featured?: boolean;
+  git: string;
+  gridSize: number;
+  id: string;
+  image: string;
+  name: string;
+  package: string;
+  shortName: string;
+}
+
 export interface IconLibraryIcon {
   cp: string;
   n: string;

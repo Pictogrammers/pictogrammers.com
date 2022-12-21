@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Dexie from 'dexie';
 
 interface ImportPaths {
@@ -10,7 +10,9 @@ interface ImportPaths {
   }
 }
 
-const useProvisionDatabase = (library: string, cb: Function) => {
+const useProvisionDatabase = (library: string) => {
+  const [ database, setDatabase ] = useState<any>();
+
   useEffect(() => {
     if (!library) {
       return;
@@ -43,11 +45,13 @@ const useProvisionDatabase = (library: string, cb: Function) => {
         console.log(`Populated ${library} library with ${await db.table('icons').count()} icons.`);
       }
 
-      cb && cb(db);
+      setDatabase(db);
     };
 
     provisionDb();
-  }, [ cb, library ]);
+  }, [ library ]);
+  
+  return database;
 };
 
 export default useProvisionDatabase;
