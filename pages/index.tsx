@@ -29,19 +29,20 @@ const Home: NextPage = () => {
   const { contributors, totalContributors } = contributorsJson;
   const coreContributors = contributors.filter((contributor) => contributor.core);
 
+  // TODO: Pull from config and remove this
   const featuredIconLibraries = [
     {
       description: 'The original. Following Google\'s Material Design guidelines for system icons, MDI is our largest library, touting over 6500 unique icons!',
       id: 'mdi',
       image: <MDILogo />,
-      link: 'https://materialdesignicons.com/',
+      link: '/icons/mdi',
       name: 'Material Design Icons',
     },
     {
       description: 'Taking a lighter spin on Google\'s Material Design guidelines, MDL slims down icons to be modern, crisp, and clean.',
       id: 'mdl',
       image: <MDLLogo />,
-      link: 'https://github.com/Templarian/MaterialDesignLight',
+      link: '/icons/mdil',
       name: 'Material Design Light'
     }
   ];

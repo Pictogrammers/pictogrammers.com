@@ -1,15 +1,17 @@
-import { Fragment, FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import getConfig from 'next/config';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
-import Menu, { MenuProps } from '@mui/material/Menu';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
 import Icon from '@mdi/react';
 import { mdiChevronDown } from '@mdi/js';
 
 import classes from './LibraryMenu.module.scss';
-import { textTransform } from '@mui/system';
 
 interface LibraryMenuProps {
   selectedLibrary: {
@@ -52,24 +54,28 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ selectedLibrary }) =
             onClick={() => setLibraryMenuAnchor(null)}
             selected={selectedLibrary.id === lib.id}
           >
-            <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
-            {lib.name}
+            <ListItemIcon>
+              <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
+            </ListItemIcon>
+            <ListItemText>{lib.name}</ListItemText>
           </MenuItem>
         );
       });
 
       return [
-        <MenuItem
-          classes={{ root: classes.menuHeading }}
-          key={type}
-          sx={{
-            fontSize: '.8rem',
-            pointerEvents: 'none',
-            textTransform: 'uppercase'
-          }}
-        >
-          {typeMap[type as keyof typeof typeMap]}
-        </MenuItem>,
+        <ListSubheader key={type}>
+          <ListItemText
+            disableTypography
+            sx={{
+              fontSize: '.9rem',
+              lineHeight: 2,
+              textTransform: 'uppercase',
+              userSelect: 'none'
+            }}
+          >
+            {typeMap[type as keyof typeof typeMap]}
+          </ListItemText>
+        </ListSubheader>,
         ...availableLibraries
       ];
     });

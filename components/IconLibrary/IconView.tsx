@@ -15,10 +15,18 @@ import classes from './IconView.module.scss';
 
 interface IconViewProps {
   icon: IconLibraryIcon;
+  library: string;
   slug: string;
 }
 
-const IconView: FunctionComponent<IconViewProps> = ({ icon, slug }) => {
+const IconView: FunctionComponent<IconViewProps> = ({ icon, library, slug }) => {
+  const {
+    a: author,
+    cp: codepoint,
+    n: name,
+    p: path
+  } = icon;
+
   return (
     <div className={classes.root}>
       <Head>
@@ -28,14 +36,14 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, slug }) => {
       <Paper className={classes.container}>
         <div className={classes.heading}>
           <Tooltip placement='top' title='Copy Icon Name'>
-            <h1>{icon.name}</h1>
+            <h1>{name}</h1>
           </Tooltip>
           <div className={classes.actions}>
             <Tooltip placement='top' title='Copy Codepoint'>
-              <Chip label={icon.codepoint} />
+              <Chip label={codepoint} />
             </Tooltip>
             <Tooltip placement='top' title='Copy Glyph'>
-              <Icon path={icon.path} size={1} />
+              <Icon path={path} size={1} />
             </Tooltip>
             <Tooltip placement='top' title='Copy SVG'>
               <Icon path={mdiSvg} size={1} />
@@ -46,8 +54,8 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, slug }) => {
           </div>
         </div>
         {JSON.stringify(icon)}
-        <IconPreview gridSize={24} path={icon.path} />
-        <Contributors name={icon.author} view='single' />
+        <IconPreview gridSize={library === 'mdil' ? 23 : 24} path={path} />
+        {/* <Contributors name={author} view='single' /> */}
       </Paper>
     </div>
   );

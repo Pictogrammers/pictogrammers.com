@@ -12,7 +12,8 @@ const ToolsLandingPage: NextPage = () => {
         <meta content='Tools - Pictogrammers' name='title' key='title' />
       </Head>
       <Paper className={classes.container}>
-        <p>Tools Landing Page</p>
+        <h1>Tools Landing Page</h1>
+        <p>TODO: Design and build out this page</p>
         <ul>
           <li>GitHub Preview Generator</li>
           <li>Bitmask to SVG</li>

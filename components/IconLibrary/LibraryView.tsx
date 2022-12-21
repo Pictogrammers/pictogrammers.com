@@ -13,6 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
 import Icon from '@mdi/react';
 import {
   mdiAlertCircleOutline,
@@ -61,13 +65,17 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
   const [ database, setDatabase ] = useState<any>(null);
   const [ tableLoaded, setTableLoaded ] = useState(false);
   const [ visibleIcons, setVisibleIcons ] = useState([]); 
+  const [ categories, setCategories ] = useState<any>({});
+  const [ authors, setAuthors ] = useState<any>({});
+
+  // Search handling
   const [ viewMode, setViewMode ] = useState('comfortable');
   const [ searchTerm, setSearchTerm ] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
+  // Library config and metadata
   const { publicRuntimeConfig: { libraries } } = getConfig();
   const libraryConfig = libraries.icons.find((c: any) => c.id === library);
-
   const libraryMeta = iconLibraries[library as keyof typeof iconLibraries];
   const { count: totalIcons, date: libraryReleaseDate, version: libraryVersion } = libraryMeta;
 
@@ -99,6 +107,30 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
     };
     getIcons();
   }, [ database, debouncedSearchTerm ]);
+
+  useEffect(() => {
+    const getAuthors = async () => {
+      if (!database) {
+        return;
+      }
+
+      const result = await database.table('authors').orderBy('name').toArray();
+      setAuthors(result);
+    };
+    getAuthors();
+  }, [ database ]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      if (!database) {
+        return;
+      }
+
+      const result = await database.table('tags').orderBy('name').toArray();
+      setCategories(result);
+    };
+    getCategories();
+  }, [ database ]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -181,7 +213,35 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
             {!isLoading && (
               <Fragment>
                 <aside className={classes.sidebar}>
-                  <p>Side Nav</p>
+                  <List dense>
+                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Icon+Request&template=1_icon_request.yml`}>
+                      <ListItemText>Request an Icon</ListItemText>
+                    </ListItemButton>
+                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Icon+Request%2CContribution&template=2_contribution.yml`}>
+                      <ListItemText>Contribute an Icon</ListItemText>
+                    </ListItemButton>
+                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Alias&template=4_alias.yml`}>
+                      <ListItemText>Suggest an Alias</ListItemText>
+                    </ListItemButton>
+                    <ListSubheader sx={{ marginTop: '1rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
+                    <ListItemButton component={Link} href={`/docs/${library}/changelog`}>
+                      <ListItemText>Changelog</ListItemText>
+                    </ListItemButton>
+                    <ListItemButton component={Link} href={`/docs/${library}/upgrade`}>
+                      <ListItemText>Upgrade Guide</ListItemText>
+                    </ListItemButton>
+                    <ListItemButton component={Link} href={`/history/${library}`}>
+                      <ListItemText>History</ListItemText>
+                    </ListItemButton>
+                    <ListSubheader sx={{ marginTop: '1rem', textTransform: 'uppercase' }}>Categories</ListSubheader>
+                    {Object.keys(categories).map((catId) => (
+                      <ListItemButton key={catId}>
+                        <ListItemText>
+                          {categories[catId as keyof typeof categories].name}
+                        </ListItemText>
+                      </ListItemButton>
+                    ))}
+                  </List>
                 </aside>
                 <div className={classes.libraryContainer}>
                   {!visibleIcons.length ? (

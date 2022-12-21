@@ -25,9 +25,9 @@ const useProvisionDatabase = (library: string, cb: Function) => {
   
       // Open the database
       db.version(count).stores({
-        authors: '&id',
+        authors: '&id, &name',
         icons: '&n, *st',
-        tags: '&id'
+        tags: '&id, &name'
       });
 
       // Check the icons table

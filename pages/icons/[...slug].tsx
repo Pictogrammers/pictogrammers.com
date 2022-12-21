@@ -49,7 +49,7 @@ interface Props {
 
 const IconLibraryPage: NextPage<Props> = ({ icon, library, slug }: Props) => {
   if (icon) {
-    return <IconView icon={icon} slug={slug} />;
+    return <IconView icon={icon} library={library} slug={slug} />;
   }
 
   return <LibraryView library={library} slug={slug} />;

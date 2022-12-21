@@ -26,6 +26,8 @@ const IconsLandingPage: NextPage = () => {
         <meta content='Icons - Pictogrammers' name='title' key='title' />
       </Head>
       <Paper className={classes.container}>
+        <h1>Icon & Font Libraries</h1>
+        <p>TODO: Design and build out this page</p>
         <ul>
         {icons.map((library: IconLibraryProps) => (
           <li key={library.id}><Link href={`/icons/${library.id}`}>{library.name}</Link></li>
