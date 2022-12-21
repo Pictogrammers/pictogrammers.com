@@ -186,6 +186,9 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                 onChange={handleSearchChange}
                 placeholder={`Search ${totalIcons} icons...`}
                 size='small'
+                sx={{
+                  margin: '0 1rem 0 0'
+                }}
                 value={searchTerm}
                 variant='outlined'
               />
