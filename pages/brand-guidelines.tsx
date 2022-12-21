@@ -13,7 +13,7 @@ import Heading from '../components/Docs/Heading';
 
 import PictogrammersLogoSvg from '../assets/brand/logos/pictogrammers-full.svg';
 import MDILogoSvg from '../assets/libraries/mdi.svg';
-import MDLLogoSvg from '../assets/libraries/mdl.svg';
+import MDILLogoSvg from '../assets/libraries/mdil.svg';
 import PictogrammersMonogram from '../assets/brand/logos/pictogrammers-monogram.png';
 import PictogrammersLogo from '../assets/brand/logos/pictogrammers-full.png';
 import PictogrammersLogoBlack from '../assets/brand/logos/pictogrammers-full-black.png';
@@ -270,7 +270,7 @@ const PostPage: NextPage = () => {
                 </div>
               </div>
               <div className={cx(brandClasses.library, brandClasses.mdl)}>
-                <MDLLogoSvg title='Material Design Icons Light logo' />
+                <MDILLogoSvg title='Material Design Icons Light logo' />
                 <div className={brandClasses.swatch}>
                   <h3>Material Design Light</h3>
                   <div className={brandClasses.values}>
