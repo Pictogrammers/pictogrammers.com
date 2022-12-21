@@ -3,7 +3,10 @@ import Dexie from 'dexie';
 
 interface ImportPaths {
   default: {
-    [key: string]: number;
+    [key: string]: {
+      count: number;
+      version: string;
+    };
   }
 }
 
@@ -18,18 +21,25 @@ const useProvisionDatabase = (library: string, cb: Function) => {
 
       // Set the version
       const { default: allLibraries } = await import('../public/libraries/libraries.json') as ImportPaths;
-      const version = allLibraries[library];
+      const { count } = allLibraries[library];
   
       // Open the database
-      db.version(version).stores({ icons: '&id, &name, &jsName' });
+      db.version(count).stores({
+        authors: '&id',
+        icons: '&n, *st',
+        tags: '&id'
+      });
 
       // Check the icons table
       const dbIconCount = await db.table('icons').count();
 
       // If the table count doesn't match the version, fill it
-      if (dbIconCount < version) {
+      if (dbIconCount < count) {
         const { default: fullLibrary } = await import(`../public/libraries/${library}.json`);
-        await db.table('icons').bulkPut(fullLibrary);
+        const { a: authors, i: icons, t: tags } = fullLibrary;
+        await db.table('icons').bulkPut(icons);
+        await db.table('tags').bulkPut(tags.map((tag: string, i: number) => ({ id: i, name: tag })));
+        await db.table('authors').bulkPut(authors.map((author: string, i: number) => ({ id: i, name: author })));
         console.log(`Populated ${library} library with ${await db.table('icons').count()} icons.`);
       }
 

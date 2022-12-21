@@ -27,6 +27,7 @@
     "@mui/material": "^5.10.17",
     "@next/font": "^13.0.6",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.7",
     "dexie": "^3.2.2",
     "dexie-react-hooks": "^1.1.1",
     "next-pwa": "^5.6.0",

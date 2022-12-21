@@ -7,6 +7,21 @@ const createJsName = (name, library) => {
   return `${library}${iconPascal}`;
 };
 
+const tokenizeIcon = (name, aliases = []) => {
+  const nameTokens = name.split('-');
+
+  const aliasTokens = aliases.reduce((output, alias) => {
+    alias.split('-').forEach((alias) => {
+      if (output.indexOf(alias) === -1 && nameTokens.indexOf(alias) === -1) {
+        output.push(alias);
+      }
+    });
+    return output;
+  }, []);
+
+  return [ ...nameTokens, ...aliasTokens ];
+};
+
 const getIconLibraries = async () => {
   const { libraries: { icons: libraries } } = config;
 
@@ -18,52 +33,72 @@ const getIconLibraries = async () => {
 
     console.log(`INFO: Retrieving ${libraryIcons.length} icons for ${library.name} v${libraryVersion}...`);
     
-    const icons = await Promise.all(libraryIcons.map(async (icon) => {
+    const res = await fetch(`https://registry.npmjs.org/${library.package}`);
+    const pkgData = await res.json();
+    const releasedOn = pkgData.time[libraryVersion];
+
+    const libraryData = await libraryIcons.reduce(async (prevPromise, icon) => {
+      const output = await prevPromise;
+
+      const {
+        aliases,
+        author,
+        codepoint,
+        id,
+        name,
+        tags,
+        version
+      } = icon;
+
+      const thisIcon = {
+        al: aliases,
+        cp: codepoint,
+        n: name,
+        v: version
+      };
+
+      // Simplify authors
+      const authorId = output.a.indexOf(author);
+      thisIcon.a = authorId === -1 ? output.a.push(author) : authorId;
+
+      // Simplify tags
+      const tagIds = tags.map((tag) => {
+        const tagId = output.t.indexOf(tag);
+        return tagId === -1 ? output.t.push(tag) : tagId;
+      });
+      thisIcon.t = tagIds;
+
       // Add path data
       const iconSvgPath = await import.meta.resolve(`${library.package}/svg/${icon.name}.svg`);
       const svg = await fs.readFile(iconSvgPath.split('file://')[1], { encoding: 'utf8' });
-      icon.path = svg.match(/ d="([^"]+)"/)[1];
-    
-      // Add jsName
-      icon.jsName = createJsName(icon.name, library.id);
+      thisIcon.p = svg.match(/ d="([^"]+)"/)[1];
 
-      return icon;
+      // Add search tokens
+      thisIcon.st = tokenizeIcon(icon.name, icon.aliases);
+
+      output.i.push(thisIcon);
+      return output;
+    }, Promise.resolve({
+      a: [], // Authors
+      d: releasedOn, // Release Date
+      i: [], // Icons
+      t: [], // Tags
+      v: libraryVersion // Version
     }));
 
-    output[library.id] = { icons, version: libraryVersion };
+    output[library.id] = libraryData;
     return output;
   }, Promise.resolve({}));
 
   const allLibraries = await Object.keys(processedLibraries).reduce(async (prevPromise, libraryId) => {
     const output = await prevPromise;
-    await fs.writeFile(`./public/libraries/${libraryId}.json`, JSON.stringify(processedLibraries[libraryId].icons), { flag: 'w' });
-
-    const TEST_totalIcons = processedLibraries[libraryId].icons.length;
-    const TEST_dexieExport = {
-      formatName: 'dexie',
-      formatVersion: 1,
-      data: {
-        databaseName: `pg-icons-${libraryId}`,
-        databaseVersion: TEST_totalIcons,
-        tables: [
-          {
-            name: 'icons',
-            schema: 'id',
-            rowCount: TEST_totalIcons
-          }
-        ],
-        data: [
-          {
-            tableName: 'icons',
-            inbound: true,
-            rows: processedLibraries[libraryId].icons
-          }
-        ]
-      }
+    await fs.writeFile(`./public/libraries/${libraryId}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
+    
+    output[libraryId] = {
+      count: Number(processedLibraries[libraryId].v.split('.').join('')),
+      date: processedLibraries[libraryId].d.split('.')[0],
+      version: processedLibraries[libraryId].v
     };
-    await fs.writeFile(`./public/libraries/dexie-${libraryId}.json`, JSON.stringify(TEST_dexieExport), { flag: 'w' });
-
-    output[libraryId] = Number(processedLibraries[libraryId].version.split('.').join(''));
     return output;
   }, Promise.resolve({}));
 

@@ -11,8 +11,8 @@ export const getAllIconPaths = async (fields: string[]) => {
   const allIcons = await iconLibraries.reduce(async (prevPromise: Promise<string[]>, library: IconLibraries) => {
     let output = await prevPromise;
 
-    const icons = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library.id}.json`), 'utf-8'));
-    const iconSlugs = icons.map((icon: IconLibraryIcon) => `${library.id}/${icon.name}`);
+    const { i: icons } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library.id}.json`), 'utf-8'));
+    const iconSlugs = icons.map((icon: IconLibraryIcon) => `${library.id}/${icon.n}`);
 
     output = [ ...output, ...iconSlugs ];
     return output;
@@ -24,7 +24,7 @@ export const getAllIconPaths = async (fields: string[]) => {
 };
 
 export const getIcon = async (library: string, icon: string): Promise<IconLibraryIcon> => {
-  const icons = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library}.json`), 'utf-8'));
-  const iconInfo = icons.find((i: IconLibraryIcon) => i.name === icon);
+  const { i: icons } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library}.json`), 'utf-8'));
+  const iconInfo = icons.find((i: IconLibraryIcon) => i.n === icon);
   return iconInfo;
 };

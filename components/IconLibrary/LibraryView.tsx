@@ -3,6 +3,8 @@ import getConfig from 'next/config';
 import Head from 'next/head';
 import Link from 'next/link';
 import cx from 'clsx';
+import { VirtuosoGrid } from 'react-virtuoso';
+import dayjs from 'dayjs';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -11,18 +13,24 @@ import Tooltip from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { VirtuosoGrid } from 'react-virtuoso';
 import Icon from '@mdi/react';
-import { mdiApps, mdiFormatListBulleted, mdiMagnify, mdiViewGrid } from '@mdi/js';
+import {
+  mdiAlertCircleOutline,
+  mdiApps,
+  mdiCloseCircle,
+  mdiFormatListBulleted,
+  mdiMagnify,
+  mdiViewGrid
+} from '@mdi/js';
 
 import { IconLibraryIcon } from '../../interfaces/icons';
 
 import useProvisionDatabase from '../../hooks/useProvisionDatabase';
+import useDebounce from '../../hooks/useDebounce';
 
 import LibraryMenu from './LibraryMenu';
 
 import iconLibraries from '../../public/libraries/libraries.json';
-import pkg from '../../package.json';
 
 import classes from './LibraryView.module.scss';
 
@@ -51,13 +59,17 @@ const viewModes = {
 
 const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => { 
   const [ database, setDatabase ] = useState<any>(null);
+  const [ tableLoaded, setTableLoaded ] = useState(false);
   const [ visibleIcons, setVisibleIcons ] = useState([]); 
   const [ viewMode, setViewMode ] = useState('comfortable');
+  const [ searchTerm, setSearchTerm ] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const { publicRuntimeConfig: { libraries } } = getConfig();
   const libraryConfig = libraries.icons.find((c: any) => c.id === library);
-  const totalIcons = iconLibraries[library as keyof typeof iconLibraries];
-  const libraryVersion = pkg.devDependencies[libraryConfig.package as keyof typeof pkg.devDependencies].replace(/[^\d.]/g, '');
+
+  const libraryMeta = iconLibraries[library as keyof typeof iconLibraries];
+  const { count: totalIcons, date: libraryReleaseDate, version: libraryVersion } = libraryMeta;
 
   useProvisionDatabase(library, setDatabase);
 
@@ -67,17 +79,32 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
         return;
       }
 
-      const rows = await database
-        .table('icons')
-        .orderBy('name')
-        .toArray();
+      const table = await database.table('icons');
+
+      if (debouncedSearchTerm !== '') {
+        const term = debouncedSearchTerm.trim().split(' ');
+        const filtered = await table
+          .where('st').startsWithAnyOfIgnoreCase(term)
+          .distinct()
+          .sortBy('n');
+
+        setVisibleIcons(filtered);
+        setTableLoaded(true);
+        return;
+      }
       
-      setVisibleIcons(rows);
+      const output = await table.orderBy('n').toArray();
+      setVisibleIcons(output);
+      setTableLoaded(true);
     };
     getIcons();
-  }, [ database ]);
+  }, [ database, debouncedSearchTerm ]);
 
-  const isLoading = !!(!database || ! visibleIcons.length);
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const isLoading = !!(!database || !tableLoaded);
 
   return (
     <div className={classes.root}>
@@ -98,20 +125,36 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
           <div className={classes.heading}>
             <div className={classes.libraryInfo}>
               <LibraryMenu selectedLibrary={libraryConfig} />
-              <Chip label={`v${libraryVersion}`} />
+              <Tooltip title={`Released on ${dayjs(libraryReleaseDate).format('YYYY/MM/DD')}`} placement='left'>
+                <Chip label={`v${libraryVersion}`} />
+              </Tooltip>
             </div>
             <div className={classes.controls}>
               <TextField
                 classes={{ root: classes.searchBox }}
                 InputProps={{
+                  endAdornment: (
+                    <InputAdornment
+                      onClick={() => setSearchTerm('')}
+                      position='end'
+                      sx={{
+                        cursor: searchTerm !== '' ? 'pointer' : 'default'
+                      }}
+                    >
+                      {searchTerm !== '' && <Icon path={mdiCloseCircle} size={1} />}
+                      {searchTerm === '' && <Icon path='' size={1} />}
+                    </InputAdornment>
+                  ),
                   startAdornment: (
                     <InputAdornment position='start'>
                       <Icon path={mdiMagnify} size={1} />
                     </InputAdornment>
-                  ),
+                  )
                 }}
+                onChange={handleSearchChange}
                 placeholder={`Search ${totalIcons} icons...`}
                 size='small'
+                value={searchTerm}
                 variant='outlined'
               />
               <ButtonGroup variant='outlined' aria-label='View Mode'>
@@ -141,19 +184,26 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                   <p>Side Nav</p>
                 </aside>
                 <div className={classes.libraryContainer}>
-                  <VirtuosoGrid
-                    data={visibleIcons}
-                    itemClassName={classes.libraryItem}
-                    listClassName={cx(classes.library, classes[viewMode])}
-                    itemContent={(index, icon: IconLibraryIcon) => (
-                      <Link className={classes.libraryIcon} href={`/icons/${library}/${icon.name}`}>
-                        <Icon path={icon.path} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
-                        <p>{icon.name}</p>
-                      </Link>
-                    )}
-                    totalCount={totalIcons}
-                    useWindowScroll
-                  />
+                  {!visibleIcons.length ? (
+                    <div className={classes.noResults}>
+                      <Icon path={mdiAlertCircleOutline} size={3} />
+                      <p>No icons were found based on your search criteria.</p>
+                    </div>
+                  ) : (
+                    <VirtuosoGrid
+                      data={visibleIcons}
+                      itemClassName={classes.libraryItem}
+                      listClassName={cx(classes.library, classes[viewMode])}
+                      itemContent={(index, icon: IconLibraryIcon) => (
+                        <Link className={classes.libraryIcon} href={`/icons/${library}/${icon.n}`}>
+                          <Icon path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
+                          <p>{icon.n}</p>
+                        </Link>
+                      )}
+                      totalCount={totalIcons}
+                      useWindowScroll
+                    />
+                  )}
                 </div>
               </Fragment>
             )}

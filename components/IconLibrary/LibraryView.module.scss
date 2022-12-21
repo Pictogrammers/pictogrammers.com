@@ -45,6 +45,18 @@
     flex: 1;
     margin: 1rem;
   }
+
+  .noResults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    svg {
+      color: hsl(var(--grey));
+    }
+  }
 }
 
 .sidebar {

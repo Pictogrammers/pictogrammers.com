@@ -5,12 +5,11 @@ export interface IconLibraries {
 }
 
 export interface IconLibraryIcon {
-  codepoint: string;
-  name: string;
-  jsName: string;
-  path: string;
-  author: string;
-  version: string;
+  cp: string;
+  n: string;
+  p: string;
+  a: string;
+  v: string;
 }
 
 export interface MdxIconProps {
