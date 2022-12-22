@@ -323,7 +323,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                       open
                       onClose={handleIconModalClose}
                     >
-                      <DialogTitle sx={{ position: 'sticky', top: 0 }}>
+                      <DialogTitle sx={{ position: 'sticky', textAlign: 'right', top: 0 }}>
                         <IconButton
                           aria-label='Close'
                           onClick={handleIconModalClose}
