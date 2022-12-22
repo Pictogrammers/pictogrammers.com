@@ -14,15 +14,13 @@ import {
   mdiViewGrid
 } from '@mdi/js';
 
-import classes from './LibraryViewMode.module.scss';
-
 interface LibraryViewModeMenuProps {
   compact: boolean;
   currentView: string;
   setViewMode: Function;
 };
 
-const viewModes = {
+export const viewModes = {
   comfortable: {
     icon: mdiViewGrid,
     iconSize: 2,

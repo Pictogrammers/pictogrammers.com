@@ -1,6 +1,15 @@
-import { Fragment, FunctionComponent, useEffect, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  Fragment,
+  FunctionComponent,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import getConfig from 'next/config';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'clsx';
 import { VirtuosoGrid } from 'react-virtuoso';
@@ -15,8 +24,11 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { mdiAlertCircleOutline, mdiCloseCircle, mdiMagnify } from '@mdi/js';
+import { mdiAlertCircleOutline, mdiClose, mdiCloseCircle, mdiMagnify } from '@mdi/js';
 
 import { IconLibraryIcon } from '../../interfaces/icons';
 
@@ -25,7 +37,8 @@ import useDebounce from '../../hooks/useDebounce';
 import useWindowSize from '../../hooks/useWindowSize';
 
 import LibraryMenu from './LibraryMenu';
-import LibraryViewMode from './LibraryViewMode';
+import LibraryViewMode, { viewModes } from './LibraryViewMode';
+import IconView from './IconView';
 
 import iconLibraries from '../../public/libraries/libraries.json';
 
@@ -36,29 +49,32 @@ interface LibraryViewProps {
   slug: string;
 }
 
-const viewSizes = {
-  comfortable: 2,
-  compact: 1.2,
-  list:  .8
-};
-
 const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => { 
   const [ tableLoaded, setTableLoaded ] = useState(false);
   const [ visibleIcons, setVisibleIcons ] = useState([]); 
   const [ categories, setCategories ] = useState<any>({});
   const [ authors, setAuthors ] = useState<any>({});
 
+  // Icon viewing
+  const router = useRouter();
+  const [ iconModal, setIconModal ] = useState<IconLibraryIcon | null>(null);
+
   // Search handling
-  const searchBoxRef = useRef<HTMLInputElement>();
+  const searchBoxRef = useRef<HTMLInputElement>(null);
+  const iconLibraryHeadingRef = useRef<HTMLDivElement>(null);
+  const iconLibraryRef = useRef<HTMLDivElement>(null);
   const [ viewMode, setViewMode ] = useState('comfortable');
   const [ searchTerm, setSearchTerm ] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 250);
+  const debouncedSearchTerm = useDebounce(searchTerm.trim(), 250);
 
   // Library config and metadata
   const { publicRuntimeConfig: { libraries } } = getConfig();
   const libraryConfig = libraries.icons.find((c: any) => c.id === library);
-  const libraryMeta = iconLibraries[library as keyof typeof iconLibraries];
-  const { count: totalIcons, date: libraryReleaseDate, version: libraryVersion } = libraryMeta;
+  const {
+    count: totalIcons,
+    date: libraryReleaseDate,
+    version: libraryVersion
+  } = iconLibraries[library as keyof typeof iconLibraries];
 
   const database = useProvisionDatabase(library);
   const windowSize = useWindowSize();
@@ -74,14 +90,23 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
       const table = await database.table('icons');
 
       if (debouncedSearchTerm !== '') {
-        const term = debouncedSearchTerm.trim().split(' ');
+        const replaceLibraryId = new RegExp(`(^${library})`, 'gi');
+        const term = debouncedSearchTerm
+          .replace(/([A-Z][a-z])/g,' $1') // Add a space in front of letters is Pascal-case is used
+          .replace(/(\d+)/g,' $1') // Add a space in front of numbers if Pascal-case is used
+          .replace(replaceLibraryId, '') // Remove a prefix of the library ID
+          .split(/-| /) // Split into chuncks on spaces and dashes
+          .filter((v: string) => v !== ''); // Filter out empty values
+
         const filtered = await table
-          .where('st').startsWithAnyOfIgnoreCase(term)
+          .where('n').equalsIgnoreCase(debouncedSearchTerm)
+          .or('st').startsWithAnyOfIgnoreCase(term)
           .distinct()
-          .sortBy('n');
+          .toArray();
 
         setVisibleIcons(filtered);
         setTableLoaded(true);
+        scrollToTopOfLibrary();
         return;
       }
       
@@ -90,7 +115,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
       setTableLoaded(true);
     };
     getIcons();
-  }, [ database, debouncedSearchTerm ]);
+  }, [ database, debouncedSearchTerm, library ]);
 
   useEffect(() => {
     const getAuthors = async () => {
@@ -116,13 +141,51 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
     getCategories();
   }, [ database ]);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      if (url === `/icons/${library}`) {
+        setIconModal(null);
+      }
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [ library, router ]);
+
+  const scrollToTopOfLibrary = () => {
+    const libraryTop = iconLibraryRef.current?.getBoundingClientRect().top;
+    const headingHeight = iconLibraryHeadingRef.current?.clientHeight;
+
+    if (!libraryTop || !headingHeight) {
+      return;
+    }
+
+    const top = libraryTop + window.pageYOffset - headingHeight;
+    window.scrollTo({ top });
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
   const handleSearchClear = () => {
     setSearchTerm('');
     searchBoxRef.current?.focus();
+    scrollToTopOfLibrary();
+  };
+
+  const handleIconModalOpen = (e: MouseEvent<HTMLAnchorElement>, icon: IconLibraryIcon) => {
+    e.preventDefault();
+    setIconModal(icon);
+    router.push(`/icons/${library}/${icon.n}`, undefined, { shallow: true });
+  };
+
+  const handleIconModalClose = () => {
+    setIconModal(null);
+    router.push(`/icons/${library}`, undefined, { shallow: true });
   };
 
   const isLoading = !!(!database || !tableLoaded);
@@ -143,7 +206,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
       </Head>
       <Paper className={classes.container}>
         <div className={classes.libraryView}>
-          <div className={classes.heading}>
+          <div className={classes.heading} ref={iconLibraryHeadingRef}>
             <div className={classes.libraryInfo}>
               <LibraryMenu compact={isMobileWidth} selectedLibrary={libraryConfig} />
               <Tooltip title={`Released on ${dayjs(libraryReleaseDate).format('YYYY/MM/DD')}`} placement='left'>
@@ -189,7 +252,7 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
               />
             </div>
           </div>
-          <div className={classes.iconLibrary}>
+          <div className={classes.iconLibrary} ref={iconLibraryRef}>
             {isLoading && (
               <div className={classes.loader}>
                 <CircularProgress />
@@ -241,14 +304,35 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
                       itemClassName={classes.libraryItem}
                       listClassName={cx(classes.library, classes[viewMode])}
                       itemContent={(index, icon: IconLibraryIcon) => (
-                        <Link className={classes.libraryIcon} href={`/icons/${library}/${icon.n}`}>
-                          <Icon path={icon.p} size={viewSizes[viewMode as keyof typeof viewSizes]} />
+                        <Link
+                          className={classes.libraryIcon}
+                          href={`/icons/${library}/${icon.n}`}
+                          onClick={(e) => handleIconModalOpen(e, icon)}
+                        >
+                          <Icon path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
                           <p>{icon.n}</p>
                         </Link>
                       )}
                       totalCount={totalIcons}
                       useWindowScroll
                     />
+                  )}
+                  {!!iconModal && (
+                    <Dialog
+                      fullScreen={isMobileWidth}
+                      open
+                      onClose={handleIconModalClose}
+                    >
+                      <DialogTitle sx={{ position: 'sticky', top: 0 }}>
+                        <IconButton
+                          aria-label='Close'
+                          onClick={handleIconModalClose}
+                        >
+                          <Icon path={mdiClose} size={1} />
+                        </IconButton>
+                      </DialogTitle>
+                      <IconView icon={iconModal} library={libraryConfig.id} />
+                    </Dialog>
                   )}
                 </div>
               </Fragment>

@@ -16,10 +16,9 @@ import classes from './IconView.module.scss';
 interface IconViewProps {
   icon: IconLibraryIcon;
   library: string;
-  slug: string;
 }
 
-const IconView: FunctionComponent<IconViewProps> = ({ icon, library, slug }) => {
+const IconView: FunctionComponent<IconViewProps> = ({ icon, library }) => {
   const {
     a: author,
     cp: codepoint,
