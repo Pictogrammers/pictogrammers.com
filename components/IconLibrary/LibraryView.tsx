@@ -53,7 +53,6 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
   const [ tableLoaded, setTableLoaded ] = useState(false);
   const [ visibleIcons, setVisibleIcons ] = useState([]); 
   const [ categories, setCategories ] = useState<any>({});
-  const [ authors, setAuthors ] = useState<any>({});
 
   // Icon viewing
   const router = useRouter();
@@ -116,18 +115,6 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
     };
     getIcons();
   }, [ database, debouncedSearchTerm, library ]);
-
-  useEffect(() => {
-    const getAuthors = async () => {
-      if (!database) {
-        return;
-      }
-
-      const result = await database.table('authors').orderBy('name').toArray();
-      setAuthors(result);
-    };
-    getAuthors();
-  }, [ database ]);
 
   useEffect(() => {
     const getCategories = async () => {

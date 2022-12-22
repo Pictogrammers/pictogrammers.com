@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
@@ -6,7 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mdi/react';
 import { mdiDownload, mdiSvg } from '@mdi/js';
 
-import { IconLibraryIcon } from '../../interfaces/icons';
+import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
 import IconPreview from '../IconPreview/IconPreview';
 import Contributors from '../Docs/Contributors/Contributors';
@@ -25,6 +26,9 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library }) => {
     n: name,
     p: path
   } = icon;
+
+  const { publicRuntimeConfig: { libraries: { icons: iconLibraries } } } = getConfig();
+  const { gridSize = 24 } = iconLibraries.find((lib: IconLibrary) => lib.id === library);
 
   return (
     <div className={classes.root}>
@@ -53,8 +57,8 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library }) => {
           </div>
         </div>
         {JSON.stringify(icon)}
-        <IconPreview gridSize={library === 'mdil' ? 23 : 24} path={path} />
-        {/* <Contributors name={author} view='single' /> */}
+        <IconPreview gridSize={gridSize} path={path} />
+        <Contributors id={author} view='single' />
       </Paper>
     </div>
   );

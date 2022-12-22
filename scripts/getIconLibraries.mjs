@@ -22,7 +22,7 @@ const tokenizeIcon = (name, aliases = []) => {
   return [ ...nameTokens, ...aliasTokens ];
 };
 
-const getIconLibraries = async () => {
+const getIconLibraries = async (contributors = []) => {
   const { libraries: { icons: libraries } } = config;
 
   const processedLibraries = await libraries.reduce(async (prevPromise, library) => {
@@ -57,9 +57,8 @@ const getIconLibraries = async () => {
         v: version
       };
 
-      // Simplify authors
-      const authorId = output.a.indexOf(author);
-      thisIcon.a = authorId === -1 ? output.a.push(author) : authorId;
+      // Map author to their ID
+      thisIcon.a = contributors.find((c) => c.name === author)?.id;
 
       // Simplify tags
       const tagIds = tags.map((tag) => {
@@ -79,7 +78,6 @@ const getIconLibraries = async () => {
       output.i.push(thisIcon);
       return output;
     }, Promise.resolve({
-      a: [], // Authors
       d: releasedOn, // Release Date
       i: [], // Icons
       t: [], // Tags

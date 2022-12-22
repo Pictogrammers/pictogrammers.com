@@ -27,7 +27,6 @@ const useProvisionDatabase = (library: string) => {
   
       // Open the database
       db.version(count).stores({
-        authors: '&id, &name',
         icons: '&n, *st',
         tags: '&id, &name'
       });
@@ -41,7 +40,6 @@ const useProvisionDatabase = (library: string) => {
         const { a: authors, i: icons, t: tags } = fullLibrary;
         await db.table('icons').bulkPut(icons);
         await db.table('tags').bulkPut(tags.map((tag: string, i: number) => ({ id: i, name: tag })));
-        await db.table('authors').bulkPut(authors.map((author: string, i: number) => ({ id: i, name: author })));
         console.log(`Populated ${library} library with ${await db.table('icons').count()} icons.`);
       }
 

@@ -117,10 +117,6 @@ const Contributor = ({
 const Contributors = ({ id, name, view }: ContributorsMdxProps) => {
   const { contributors } = contributorsJson;
   const filteredList = contributors.filter((contributor) => {
-    if (view === 'single' && id) {
-      return contributor.id === id;
-    }
-
     if (view === 'single') {
       if (id) {
         return contributor.id === id;
