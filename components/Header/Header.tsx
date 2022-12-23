@@ -41,9 +41,9 @@ const Header: FunctionComponent = () => {
           <div className={cx(classes.options, {
             [classes.open]: menuOpen
           })}>
-            <NavButton href='/icons/'>Icons</NavButton>
-            <NavButton href='/docs/'>Docs</NavButton>
-            <NavButton href='/tools/'>Tools</NavButton>
+            <NavButton href='/libraries'>Icons & Fonts</NavButton>
+            <NavButton href='/docs'>Docs</NavButton>
+            <NavButton href='/tools'>Tools</NavButton>
             <NavButton href='/docs/about'>About</NavButton>
             <NavButton href='/docs/contribute'>Join Us</NavButton>
           </div>

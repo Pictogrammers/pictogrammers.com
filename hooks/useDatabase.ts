@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Dexie from 'dexie';
+import slugify from 'slugify';
 
 interface ImportPaths {
   default: {
@@ -10,25 +11,25 @@ interface ImportPaths {
   }
 }
 
-const useProvisionDatabase = (library: string) => {
+const useProvisionDatabase = (libraryId: string) => {
   const [ database, setDatabase ] = useState<any>();
 
   useEffect(() => {
-    if (!library) {
+    if (!libraryId) {
       return;
     }
 
     const provisionDb = async () => {
-      const db = new Dexie(`pg-icons-${library}`);
+      const db = new Dexie(`pg-icons-${libraryId}`);
 
       // Set the version
       const { default: allLibraries } = await import('../public/libraries/libraries.json') as ImportPaths;
-      const { count } = allLibraries[library];
+      const { count } = allLibraries[libraryId];
   
       // Open the database
       db.version(count).stores({
         icons: '&n, v, *t, *st',
-        tags: '&id, &name'
+        tags: '&id, &name, &slug'
       });
 
       // Check the icons table
@@ -36,18 +37,18 @@ const useProvisionDatabase = (library: string) => {
 
       // If the table count doesn't match the version, fill it
       if (dbIconCount < count) {
-        const { default: fullLibrary } = await import(`../public/libraries/${library}.json`);
-        const { a: authors, i: icons, t: tags } = fullLibrary;
+        const { default: fullLibrary } = await import(`../public/libraries/${libraryId}.json`);
+        const { i: icons, t: tags } = fullLibrary;
         await db.table('icons').bulkPut(icons);
-        await db.table('tags').bulkPut(tags.map((tag: string, i: number) => ({ id: i, name: tag })));
-        console.log(`Populated ${library} library with ${await db.table('icons').count()} icons.`);
+        await db.table('tags').bulkPut(tags.map((tag: string, i: number) => ({ id: i, name: tag, slug: slugify(tag, { lower: true }) })));
+        console.log(`Populated ${libraryId} library with ${await db.table('icons').count()} icons.`);
       }
 
       setDatabase(db);
     };
 
     provisionDb();
-  }, [ library ]);
+  }, [ libraryId ]);
   
   return database;
 };

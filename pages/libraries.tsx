@@ -1,11 +1,10 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import getConfig from 'next/config';
 import Paper from '@mui/material/Paper';
 
-import getConfig from 'next/config';
-
-import classes from '../../styles/pages/landing.module.scss';
+import classes from '../styles/pages/landing.module.scss';
 
 interface IconLibraryProps {
   description: string;
@@ -22,7 +21,7 @@ const IconsLandingPage: NextPage = () => {
   return (
     <div className={classes.root}>
       <Head>
-        <title>Icons - Pictogrammers</title>
+        <title>Icon & Font Libraries - Pictogrammers</title>
         <meta content='Icons - Pictogrammers' name='title' key='title' />
       </Head>
       <Paper className={classes.container}>
@@ -30,7 +29,7 @@ const IconsLandingPage: NextPage = () => {
         <p>TODO: Design and build out this page</p>
         <ul>
         {icons.map((library: IconLibraryProps) => (
-          <li key={library.id}><Link href={`/icons/${library.id}`}>{library.name}</Link></li>
+          <li key={library.id}><Link href={`/library/${library.id}`}>{library.name}</Link></li>
         ))}
         </ul>
       </Paper>
