@@ -28,7 +28,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { mdiAlertCircleOutline, mdiClose, mdiCloseCircle, mdiMagnify } from '@mdi/js';
+import { mdiAlertCircleOutline, mdiClose, mdiCloseCircle, mdiMagnify, mdiOpenInNew } from '@mdi/js';
 
 import { IconLibraryIcon } from '../../interfaces/icons';
 
@@ -250,16 +250,22 @@ const LibraryView: FunctionComponent<LibraryViewProps> = ({ library, slug }) => 
               <Fragment>
                 <aside className={classes.sidebar}>
                   <List dense>
-                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Icon+Request&template=1_icon_request.yml`}>
+                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Icon+Request&template=1_icon_request.yml`} target='_blank'>
                       <ListItemText>Request an Icon</ListItemText>
+                      <Icon color='hsl(var(--grey))' path={mdiOpenInNew} size={.6} />
                     </ListItemButton>
-                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Icon+Request%2CContribution&template=2_contribution.yml`}>
+                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Icon+Request%2CContribution&template=2_contribution.yml`} target='_blank'>
                       <ListItemText>Contribute an Icon</ListItemText>
+                      <Icon color='hsl(var(--grey))' path={mdiOpenInNew} size={.6} />
                     </ListItemButton>
-                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Alias&template=4_alias.yml`}>
+                    <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Alias&template=4_alias.yml`} target='_blank'>
                       <ListItemText>Suggest an Alias</ListItemText>
+                      <Icon color='hsl(var(--grey))' path={mdiOpenInNew} size={.6} />
                     </ListItemButton>
                     <ListSubheader sx={{ marginTop: '1rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
+                    <ListItemButton component={Link} href={`/docs/${library}/changelog`}>
+                      <ListItemText>New in v{libraryVersion}</ListItemText>
+                    </ListItemButton>
                     <ListItemButton component={Link} href={`/docs/${library}/changelog`}>
                       <ListItemText>Changelog</ListItemText>
                     </ListItemButton>
