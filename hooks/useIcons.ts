@@ -51,6 +51,7 @@ const useIcons = (libraryId: string, filter: FilterProps = {}) => {
           .replace(/([A-Z][a-z])/g,' $1') // Add a space in front of letters is Pascal-case is used
           .replace(/(\d+)/g,' $1') // Add a space in front of numbers if Pascal-case is used
           .replace(new RegExp(`(^${libraryId})`, 'gi'), '') // Remove a prefix of the library ID
+          .toLowerCase()
           .split(/-| /) // Split into chuncks on spaces and dashes
           .filter((v: string) => v !== ''); // Filter out empty values
 

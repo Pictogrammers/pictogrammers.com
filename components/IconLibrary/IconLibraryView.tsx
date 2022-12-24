@@ -66,7 +66,6 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const { publicRuntimeConfig: { libraries } } = getConfig();
   const libraryConfig = libraries.icons.find((c: any) => c.id === library);
   const {
-    count: totalIcons,
     date: libraryReleaseDate,
     version: libraryVersion
   } = iconLibraries[library as keyof typeof iconLibraries];
@@ -131,7 +130,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
   const handleIconModalClose = () => {
     setIconModal(null);
-    router.push(`/library/${library}`, undefined, { shallow: true });
+    router.push(`/library/${slug}`, undefined, { shallow: true });
   };
 
   const handleChipDelete = () => {
