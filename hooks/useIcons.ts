@@ -18,8 +18,6 @@ const useIcons = (libraryId: string, filter: FilterProps = {}) => {
   const [ visibleIcons, setVisibleIcons ] = useState([]);
 
   useEffect(() => {
-    console.log('=>', filter.term);
-
     const getIcons = async () => {
       if (!database) {
         return;

@@ -16,8 +16,11 @@ import { VirtuosoGrid } from 'react-virtuoso';
 import dayjs from 'dayjs';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Tooltip from '@mui/material/Tooltip';
-import Chip from '@mui/material/Chip';
+import Chip, { ChipProps } from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import List from '@mui/material/List';
@@ -28,7 +31,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { mdiAlertCircleOutline, mdiClose, mdiCloseCircle, mdiMagnify, mdiOpenInNew } from '@mdi/js';
+import { mdiAlertCircleOutline, mdiClose, mdiCloseCircle, mdiCreation, mdiMagnify, mdiShape } from '@mdi/js';
 
 import { IconLibraryIcon } from '../../interfaces/icons';
 
@@ -144,7 +147,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
     return (
       <Fragment>
-        <ListSubheader sx={{ marginTop: '1rem', textTransform: 'uppercase' }}>Categories</ListSubheader>
+        <ListSubheader sx={{ background: 'transparent', marginTop: '1rem', textTransform: 'uppercase' }}>Categories</ListSubheader>
         {categories?.length && Object.keys(categories).map((catId) => {
           const categorySlug = categories[catId as any].slug;
           return (
@@ -164,20 +167,35 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     );
   };
 
-  const renderFilteredByChip = () => {
+  const renderFilteredByChip = (size: ChipProps['size'] = undefined) => {
     if (version) {
-      return <Chip label={`New in v${version}`} onDelete={handleChipDelete} size='small' />;
+      return <Chip icon={<Icon path={mdiCreation} size={.7} />} label={`New in v${version}`} onDelete={handleChipDelete} size={size} />;
     }
 
     if (category) {
       const categoryName = categories.find((cat) => cat.slug === category)?.name || category;
-      return <Chip label={categoryName} onDelete={handleChipDelete} size='small' />;
+      return <Chip icon={<Icon path={mdiShape} size={.7} />} label={categoryName} onDelete={handleChipDelete} size={size} />;
     }
     
     if (author) {
       const { contributors } = allContributors;
-      const authorName = contributors.find((contributor) => contributor.github === author)?.name || author;
-      return <Chip label={`By ${authorName}`} onDelete={handleChipDelete} size='small' />;
+      const authorInfo = contributors.find((contributor) => contributor.github === author);
+      if (authorInfo) {
+        return <Chip avatar={<Avatar alt={authorInfo.name} src={`/contributors/${authorInfo.id}.jpg`} />} label={`By ${authorInfo.name}`} onDelete={handleChipDelete} size={size} />;
+      }
+
+      return <Chip label={`By ${author}`} onDelete={handleChipDelete} size={size} />;
+    }
+  };
+
+  const renderInformationBox = () => {
+    if (version && !debouncedSearchTerm) {
+      return (
+        <Alert severity='info' sx={{ marginBottom: '1rem' }}>
+          <AlertTitle>New Icons in v{version}</AlertTitle>
+          Please be sure to check the <Link href={`/docs/${library}/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here.
+        </Alert>
+      );
     }
   };
 
@@ -207,6 +225,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
             <div className={classes.controls}>
               <TextField
                 classes={{ root: classes.searchBox }}
+                fullWidth
                 InputProps={{
                   endAdornment: (
                     <InputAdornment
@@ -224,7 +243,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   startAdornment: (
                     <InputAdornment position='start'>
                       <Icon path={mdiMagnify} size={1} />
-                      {renderFilteredByChip()}
+                      {!isMobileWidth && renderFilteredByChip('small')}
                     </InputAdornment>
                   )
                 }}
@@ -243,30 +262,25 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                 setViewMode={setViewMode}
               />
             </div>
+            {isMobileWidth && (author || category || version) && (
+              <div className={classes.mobileControls}>
+                <strong>Filter:</strong> {renderFilteredByChip()}
+              </div>
+            )}
           </div>
           <div className={classes.iconLibrary} ref={iconLibraryRef}>
             <aside className={classes.sidebar}>
               <List dense>
-                <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Icon+Request&template=1_icon_request.yml`} target='_blank'>
-                  <ListItemText>Request an Icon</ListItemText>
-                  <Icon color='hsl(var(--grey))' path={mdiOpenInNew} size={.6} />
-                </ListItemButton>
-                <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Icon+Request%2CContribution&template=2_contribution.yml`} target='_blank'>
-                  <ListItemText>Contribute an Icon</ListItemText>
-                  <Icon color='hsl(var(--grey))' path={mdiOpenInNew} size={.6} />
-                </ListItemButton>
-                <ListItemButton component={Link} href={`${libraryConfig.git}/issues/new?assignees=&labels=Alias&template=4_alias.yml`} target='_blank'>
-                  <ListItemText>Suggest an Alias</ListItemText>
-                  <Icon color='hsl(var(--grey))' path={mdiOpenInNew} size={.6} />
-                </ListItemButton>
-                <ListSubheader sx={{ marginTop: '1rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
                 <ListItemButton
                   component={Link}
                   href={`/library/${library}/version/${libraryVersion}`}
                   selected={version === libraryVersion}
                 >
-                  <ListItemText>New in v{libraryVersion}</ListItemText>
+                  <Icon path={mdiCreation} size={.8} />
+                  <ListItemText sx={{ marginLeft: '.2rem' }}>New in v{libraryVersion}</ListItemText>
                 </ListItemButton>
+                {renderCategories()}
+                <ListSubheader sx={{ background: 'transparent', marginTop: '1rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
                 <ListItemButton component={Link} href={`/docs/${library}/changelog`}>
                   <ListItemText>Changelog</ListItemText>
                 </ListItemButton>
@@ -276,7 +290,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                 <ListItemButton component={Link} href={`/history/${library}`}>
                   <ListItemText>History</ListItemText>
                 </ListItemButton>
-                {renderCategories()}
+                
               </List>
             </aside>
             <div className={classes.libraryContainer}>
@@ -291,23 +305,26 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   Gathering up the icons...
                 </div>
               ) : (
-                <VirtuosoGrid
-                  data={visibleIcons}
-                  itemClassName={classes.libraryItem}
-                  listClassName={cx(classes.library, classes[viewMode])}
-                  itemContent={(index, icon: IconLibraryIcon) => (
-                    <Link
-                      className={classes.libraryIcon}
-                      href={`/library/${library}/icon/${icon.n}`}
-                      onClick={(e) => handleIconModalOpen(e, icon)}
-                    >
-                      <Icon path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
-                      <p>{icon.n}</p>
-                    </Link>
-                  )}
-                  totalCount={visibleIcons.length}
-                  useWindowScroll
-                />
+                <Fragment>
+                  {renderInformationBox()}
+                  <VirtuosoGrid
+                    data={visibleIcons}
+                    itemClassName={classes.libraryItem}
+                    listClassName={cx(classes.library, classes[viewMode])}
+                    itemContent={(index, icon: IconLibraryIcon) => (
+                      <Link
+                        className={classes.libraryIcon}
+                        href={`/library/${library}/icon/${icon.n}`}
+                        onClick={(e) => handleIconModalOpen(e, icon)}
+                      >
+                        <Icon path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
+                        <p>{icon.n}</p>
+                      </Link>
+                    )}
+                    totalCount={visibleIcons.length}
+                    useWindowScroll
+                  />
+                </Fragment>
               )}
               {!!iconModal && (
                 <Dialog

@@ -56,6 +56,14 @@
   background-color: hsl(var(--white));
 }
 
+.mobileControls {
+  margin-top: 1rem;
+  
+  strong {
+    font-size: .9rem;
+  }
+}
+
 .iconLibrary {
   display: flex;
   min-height: 50vh;
@@ -79,6 +87,7 @@
 }
 
 .sidebar {
+  background-color: hsl(var(--light-grey) / 30%);
   flex: 1;
   max-width: 210px;
   padding: 1rem;
