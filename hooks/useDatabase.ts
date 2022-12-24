@@ -28,7 +28,7 @@ const useProvisionDatabase = (libraryId: string) => {
   
       // Open the database
       db.version(count).stores({
-        icons: '&n, v, *t, *st',
+        icons: '&n, v, a, *t, *st',
         tags: '&id, &name, &slug'
       });
 

@@ -60,10 +60,10 @@ const getIconLibraries = async (contributors = []) => {
       // Map author to their ID
       thisIcon.a = contributors.find((c) => c.name === author)?.id;
 
-      // Simplify tags
+      // Simplify tags     
       const tagIds = tags.map((tag) => {
         const tagId = output.t.indexOf(tag);
-        return tagId === -1 ? output.t.push(tag) : tagId;
+        return tagId === -1 ? output.t.push(tag) - 1 : tagId;
       });
       thisIcon.t = tagIds;
 

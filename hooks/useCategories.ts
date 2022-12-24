@@ -3,16 +3,14 @@ import { useEffect, useState } from 'react';
 import useDatabase from './useDatabase';
 
 export interface CategoryProps {
-  [key: string]: {
-    id: number;
-    name: string;
-    slug: string;
-  }
+  id: number;
+  name: string;
+  slug: string;
 }
 
 const useCategories = (libraryId: string) => {
   const database = useDatabase(libraryId);
-  const [ categories, setCategories ] = useState<CategoryProps>();
+  const [ categories, setCategories ] = useState<CategoryProps[]>([]);
 
   useEffect(() => {
     const getCategories = async () => {

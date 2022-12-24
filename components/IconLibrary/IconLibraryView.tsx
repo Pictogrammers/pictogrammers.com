@@ -42,6 +42,7 @@ import LibraryViewMode, { viewModes } from './LibraryViewMode';
 import IconView from './IconView';
 
 import iconLibraries from '../../public/libraries/libraries.json';
+import allContributors from '../../public/contributors/contributors.json';
 
 import classes from './IconLibraryView.module.scss';
 
@@ -133,6 +134,10 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     router.push(`/library/${library}`, undefined, { shallow: true });
   };
 
+  const handleChipDelete = () => {
+    router.push(`/library/${library}`);
+  };
+
   const renderCategories = () => {
     if (!categories?.length) {
       return null;
@@ -141,15 +146,40 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     return (
       <Fragment>
         <ListSubheader sx={{ marginTop: '1rem', textTransform: 'uppercase' }}>Categories</ListSubheader>
-        {categories?.length && Object.keys(categories).map((catId) => (
-          <ListItemButton component={Link} href={`/library/${library}/category/${categories[catId as keyof typeof categories].slug}`} key={catId}>
-            <ListItemText>
-              {categories[catId as keyof typeof categories].name}
-            </ListItemText>
-          </ListItemButton>
-        ))}
+        {categories?.length && Object.keys(categories).map((catId) => {
+          const categorySlug = categories[catId as any].slug;
+          return (
+            <ListItemButton
+              component={Link}
+              href={`/library/${library}/category/${categorySlug}`}
+              key={catId}
+              selected={categorySlug === category}
+            >
+              <ListItemText>
+                {categories[catId as any].name}
+              </ListItemText>
+            </ListItemButton>
+          );
+        })}
       </Fragment>
     );
+  };
+
+  const renderFilteredByChip = () => {
+    if (version) {
+      return <Chip label={`New in v${version}`} onDelete={handleChipDelete} size='small' />;
+    }
+
+    if (category) {
+      const categoryName = categories.find((cat) => cat.slug === category)?.name || category;
+      return <Chip label={categoryName} onDelete={handleChipDelete} size='small' />;
+    }
+    
+    if (author) {
+      const { contributors } = allContributors;
+      const authorName = contributors.find((contributor) => contributor.github === author)?.name || author;
+      return <Chip label={`By ${authorName}`} onDelete={handleChipDelete} size='small' />;
+    }
   };
 
   return (
@@ -172,7 +202,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
             <div className={classes.libraryInfo}>
               <LibraryMenu compact={isMobileWidth} selectedLibrary={libraryConfig} />
               <Tooltip title={`Released on ${dayjs(libraryReleaseDate).format('YYYY/MM/DD')}`} placement='left'>
-                <Chip label={`v${libraryVersion}`} />
+                <Chip color='secondary' label={`v${libraryVersion}`} />
               </Tooltip>
             </div>
             <div className={classes.controls}>
@@ -195,11 +225,12 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   startAdornment: (
                     <InputAdornment position='start'>
                       <Icon path={mdiMagnify} size={1} />
+                      {renderFilteredByChip()}
                     </InputAdornment>
                   )
                 }}
                 onChange={handleSearchChange}
-                placeholder={isMobileWidth ? 'Search Icons...' : `Search ${totalIcons} icons...`}
+                placeholder={`Seach ${!isMobileWidth && visibleIcons.length > 0 ? `${visibleIcons.length} ` : ''}Icons...`}
                 size='small'
                 sx={{
                   margin: '0 1rem 0 0'
@@ -230,7 +261,11 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   <Icon color='hsl(var(--grey))' path={mdiOpenInNew} size={.6} />
                 </ListItemButton>
                 <ListSubheader sx={{ marginTop: '1rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
-                <ListItemButton component={Link} href={`/library/${library}/version/${libraryVersion}`}>
+                <ListItemButton
+                  component={Link}
+                  href={`/library/${library}/version/${libraryVersion}`}
+                  selected={version === libraryVersion}
+                >
                   <ListItemText>New in v{libraryVersion}</ListItemText>
                 </ListItemButton>
                 <ListItemButton component={Link} href={`/docs/${library}/changelog`}>
@@ -271,7 +306,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                       <p>{icon.n}</p>
                     </Link>
                   )}
-                  totalCount={totalIcons}
+                  totalCount={visibleIcons.length}
                   useWindowScroll
                 />
               )}

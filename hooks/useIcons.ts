@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 
 import useDatabase from './useDatabase';
 
+import { IconLibraryIcon } from '../interfaces/icons';
+
+import allContributors from '../public/contributors/contributors.json';
+
 interface FilterProps {
   author?: string;
   category?: string;
@@ -21,9 +25,26 @@ const useIcons = (libraryId: string, filter: FilterProps = {}) => {
         return;
       }
 
-      const table = database.table('icons');
+      let table = database.table('icons');
 
-      // Probably going to need to do a transaction here: https://dexie.org/docs/API-Reference#query-items
+      if (filter.author) {
+        const { contributors } = allContributors;
+        const authorInfo = contributors.find((contributor) => contributor.github === filter.author);
+        if (authorInfo) {
+          table = table.where('a').equals(authorInfo.id);
+        }
+      }
+
+      if (filter.category) {
+        const catTable = await database.table('tags').where('slug').equals(filter.category).toArray();
+        if (catTable.length === 1) {
+          table = table.where('t').anyOf(catTable[0].id);
+        }
+      }
+
+      if (filter.version) {
+        table = table.where('v').equals(filter.version);
+      }
 
       if (filter.term && filter?.term !== '') {
         const processedTerm = filter.term
@@ -33,17 +54,14 @@ const useIcons = (libraryId: string, filter: FilterProps = {}) => {
           .split(/-| /) // Split into chuncks on spaces and dashes
           .filter((v: string) => v !== ''); // Filter out empty values
 
-        const filtered = await table
-          .where('n').equalsIgnoreCase(filter.term)
-          .or('st').startsWithAnyOfIgnoreCase(processedTerm)
-          .distinct()
-          .toArray();
-
-        setVisibleIcons(filtered);
-        return;
+        table = table.filter((icon: IconLibraryIcon) => {
+          const iconSet = new Set(icon.st);
+          const match = [...new Set(processedTerm)].filter((x) => iconSet.has(x));
+          return icon.n === filter.term || !!match.length;
+        });
       }
       
-      const output = await table.orderBy('n').toArray();
+      const output = await table.toArray();
       setVisibleIcons(output);
     };
 

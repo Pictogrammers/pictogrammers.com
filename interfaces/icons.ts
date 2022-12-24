@@ -22,6 +22,7 @@ export interface IconLibraryIcon {
   p: string;
   a: string;
   v: string;
+  st: string[];
 }
 
 export interface MdxIconProps {

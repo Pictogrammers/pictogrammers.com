@@ -52,7 +52,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
           <MenuItem
             classes={{ root: classes.menuItem }}
             component={Link}
-            href={`/icons/${lib.id}`}
+            href={`/library/${lib.id}`}
             key={lib.id}
             onClick={() => setLibraryMenuAnchor(null)}
             selected={selectedLibrary.id === lib.id}

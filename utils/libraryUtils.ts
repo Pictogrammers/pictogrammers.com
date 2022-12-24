@@ -32,7 +32,7 @@ export const getAllLibraryPaths = async () => {
 
       const contributor = allContributors.contributors.find((contributor: ContributorProps) => contributor.id === icon.a);
       if (contributor) {
-        const contributorSlug = `${library.id}/author/${slugify(contributor.github, { lower: true })}`;
+        const contributorSlug = `${library.id}/author/${slugify(contributor.github)}`;
         if (!output.contributorSlugs.includes(contributorSlug)) {
           output.contributorSlugs.push(contributorSlug);
         }
