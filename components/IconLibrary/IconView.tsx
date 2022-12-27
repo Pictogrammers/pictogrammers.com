@@ -41,7 +41,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
   const isModal = !!onClose;
 
   const glyph = String.fromCodePoint(parseInt(icon.cp, 16));
-  const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
+  const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${gridSize} ${gridSize}"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
   const svgDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgCode)}`;
 
   const renderTitle = () => {
@@ -58,7 +58,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
           }}
         >
           <Link href='/libraries/'>Icons & Fonts</Link>
-          <Link href={`/libraries/${library}`}>{libraryName}</Link>
+          <Link href={`/library/${library}`}>{libraryName}</Link>
         </Breadcrumbs>
         <div className={classes.iconName}>
           <Icon path={icon.p} size={2} />

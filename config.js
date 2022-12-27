@@ -23,7 +23,7 @@ module.exports = {
         description: 'Taking a lighter spin on Google\'s Material Design guidelines, MDI Light slims down icons to be modern, crisp, and clean.',
         featured: true,
         git: 'https://github.com/Templarian/MaterialDesignLight',
-        gridSize: 23,
+        gridSize: 24,
         id: 'mdil',
         image: 'assets/libraries/mdil.svg',
         name: 'Material Design Icons Light',
