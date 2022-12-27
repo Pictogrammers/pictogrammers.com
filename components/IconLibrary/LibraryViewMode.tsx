@@ -99,7 +99,7 @@ const LibraryViewMode: FunctionComponent<LibraryViewModeMenuProps> = ({ compact,
   return (
     <ButtonGroup variant='outlined' aria-label='View Mode'>
       {Object.keys(viewModes).map((mode) => (
-        <Tooltip key={mode} title={viewModes[mode as keyof typeof viewModes].name}>
+        <Tooltip arrow key={mode} title={viewModes[mode as keyof typeof viewModes].name}>
           <Button
             onClick={() => setViewMode(mode)}
             variant={currentView === mode ? 'contained' : 'outlined'}

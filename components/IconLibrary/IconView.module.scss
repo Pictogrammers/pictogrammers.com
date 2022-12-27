@@ -2,6 +2,10 @@
 
 .root {
   padding: 0 1rem;
+
+  &.modal {
+    padding: 0;
+  }
 }
 
 .container {
@@ -10,7 +14,65 @@
   position: relative;
 }
 
-.heading {
+.breadcrumb {
+  font-size: .9rem;
+}
+
+.modalTitle {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+
+  @media only screen and (max-width: $mobile-width) {
+    align-items: initial;
+    flex-direction: column-reverse;
+  }
+}
+
+.modalActions {
+  padding-right: 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+
+  @media only screen and (max-width: $mobile-width) {
+    justify-content: flex-end;
+    padding-top: 1rem;
+  }
+}
+
+.iconName {
+  align-items: center;
+  display: flex;
+  padding: 1rem 1.5rem;
+
+  h1 {
+    display: inline-block;
+    font-size: 2rem;
+    margin: 0 0 0 1rem;
+
+    &:hover {
+      color: hsl(var(--primary-color));
+      cursor: pointer;
+    }
+  }
+
+  @media only screen and (max-width: $mobile-width) {
+    justify-content: center;
+
+    svg {
+      display: none;
+    }
+
+    h1 {
+      font-size: 3.5vh;
+      margin: 0;
+    }
+  }
+}
+
+.infoBar {
   align-items: center;
   background-color: hsl(var(--light-grey));
   border-bottom: 1px solid hsl(var(--medium-grey));
@@ -19,8 +81,7 @@
   justify-content: space-between;
   padding: .5rem;
 
-  h1 {
-    display: inline-block;
-    margin: 0;
+  .actions {
+    color: black;
   }
 }

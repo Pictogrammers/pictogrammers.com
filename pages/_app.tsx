@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Manrope } from '@next/font/google';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { SnackbarProvider } from 'notistack';
 
 import Layout from '../components/Layout/Layout';
 
@@ -10,9 +11,28 @@ import '../styles/defaults.scss';
 
 const manrope = Manrope({ subsets: ['latin'] });
 const theme = createTheme({
+  components: {
+    MuiDialog: {
+      styleOverrides: {
+        root: {
+          fontFamily: manrope.style.fontFamily
+        }
+      }
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        arrow: {
+          color: 'black'
+        },
+        tooltip: {
+          backgroundColor: 'black'
+        }
+      }
+    }
+  },
   palette: {
     primary: {
-      contrastText: 'white',
+      contrastText: '#fff',
       main: themeVars['primary-color']
     },
     secondary: {
@@ -47,9 +67,11 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
         <meta content='twitter-card.png' name='twitter:image' key='twitter:image' />
       </Head>
-      <Layout className={manrope.className}>
-        <Component {...pageProps} />
-      </Layout>
+      <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+        <Layout className={manrope.className}>
+          <Component {...pageProps} />
+        </Layout>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };

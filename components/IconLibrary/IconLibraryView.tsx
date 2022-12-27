@@ -28,10 +28,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { mdiAlertCircleOutline, mdiClose, mdiCloseCircle, mdiCreation, mdiMagnify, mdiShape } from '@mdi/js';
+import { mdiAlertCircleOutline, mdiCloseCircle, mdiCreation, mdiMagnify, mdiShape } from '@mdi/js';
 
 import { IconLibraryIcon } from '../../interfaces/icons';
 
@@ -218,7 +216,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
           <div className={classes.heading} ref={iconLibraryHeadingRef}>
             <div className={classes.libraryInfo}>
               <LibraryMenu compact={isMobileWidth} selectedLibrary={libraryConfig} />
-              <Tooltip title={`Released on ${dayjs(libraryReleaseDate).format('YYYY/MM/DD')}`} placement='left'>
+              <Tooltip arrow title={`Released on ${dayjs(libraryReleaseDate).format('YYYY/MM/DD')}`} placement='left'>
                 <Chip color='secondary' label={`v${libraryVersion}`} />
               </Tooltip>
             </div>
@@ -329,18 +327,12 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
               {!!iconModal && (
                 <Dialog
                   fullScreen={isMobileWidth}
+                  fullWidth
+                  maxWidth={'lg'}
                   open
                   onClose={handleIconModalClose}
                 >
-                  <DialogTitle sx={{ position: 'sticky', textAlign: 'right', top: 0 }}>
-                    <IconButton
-                      aria-label='Close'
-                      onClick={handleIconModalClose}
-                    >
-                      <Icon path={mdiClose} size={1} />
-                    </IconButton>
-                  </DialogTitle>
-                  <IconView icon={iconModal} library={libraryConfig.id} />
+                  <IconView icon={iconModal} library={libraryConfig.id} onClose={handleIconModalClose} />
                 </Dialog>
               )}
             </div>
