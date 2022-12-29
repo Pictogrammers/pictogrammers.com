@@ -18,17 +18,11 @@
 - Build landing page.
 - Build History pages.
   - "History" pages should be tied to each font in the "Icons" view and not via Markdown.
-- Wire up Categories.
-- Add authors filter.
-- Tie categories and author to the URL somehow.
-- Open a Modal for icons showing the icon page.
-  - Should update the URL's history state so if it's copy and pasted, they come to the icon page.
 
 ## Icon View
 
-- Build this page.
-- Need to get the database here for author and tag lookups.
-- Something is up with MDIL previews being pushed down 1dp.
+- Non-Modal should have a section showing the icon again.
+- Eventually, the `baseIconId` will show all related icons.
 
 ## Docs View
 

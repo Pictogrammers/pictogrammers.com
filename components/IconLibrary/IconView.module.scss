@@ -10,9 +10,26 @@
   &.modal {
     padding: 0;
   }
+
+  @media only screen and (max-width: $mobile-width) {
+    padding: 0;
+
+    &.modal {
+      .iconName {
+        justify-content: center;
+        padding-bottom: 0;
+      }
+    }
+
+    .iconName {
+      justify-content: initial;
+      padding-bottom: 1rem;
+    }
+  }
 }
 
 .container {
+  border-radius: 0;
   max-width: $width-max;
   margin: 1rem auto;
   position: relative;
