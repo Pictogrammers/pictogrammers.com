@@ -6,18 +6,22 @@ import Link from 'next/link';
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { mdiArrowExpand, mdiCheck, mdiClose, mdiDownload, mdiSvg } from '@mdi/js';
+import { mdiArrowExpand, mdiCheck, mdiClose, mdiDotsHorizontalCircleOutline, mdiDownload, mdiSvg, mdiTag } from '@mdi/js';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
 import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
 import IconPreview from '../IconPreview/IconPreview';
-import Contributors from '../Docs/Contributors/Contributors';
+import IconUsageExamples from '../IconUsageExamples/IconUsageExamples';
 
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
+import useWindowSize from '../../hooks/useWindowSize';
+
+import contributorsJson from '../../public/contributors/contributors.json';
 
 import classes from './IconView.module.scss';
 
@@ -28,18 +32,14 @@ interface IconViewProps {
 }
 
 const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) => {
-  const {
-    a: author,
-    cp: codepoint,
-    n: name,
-    p: path
-  } = icon;
-
   const { publicRuntimeConfig: { libraries: { icons: iconLibraries } } } = getConfig();
-  const { gridSize = 24, name: libraryName } = iconLibraries.find((lib: IconLibrary) => lib.id === library);
+  const { exampleTypes, gridSize = 24, name: libraryName } = iconLibraries.find((lib: IconLibrary) => lib.id === library);
   const copy = useCopyToClipboard();
+  const windowSize = useWindowSize();
+  const isTabletWidth = windowSize.width <= parseInt(classes['tablet-width']);
   const isModal = !!onClose;
 
+  const contributor = contributorsJson?.contributors?.find((c) => c.id === icon.a);
   const glyph = String.fromCodePoint(parseInt(icon.cp, 16));
   const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${gridSize} ${gridSize}"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
   const svgDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgCode)}`;
@@ -49,21 +49,17 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
       <div className={classes.title}>
         <Breadcrumbs
           aria-label='breadcrumb'
-          classes={{
-            ol: classes.breadcrumb
-          }}
           sx={{
             display: isModal ? 'none' : 'block',
-            padding: '2rem 0 0 2rem'
+            fontSize: '.9rem'
           }}
         >
           <Link href='/libraries/'>Icons & Fonts</Link>
           <Link href={`/library/${library}`}>{libraryName}</Link>
         </Breadcrumbs>
         <div className={classes.iconName}>
-          <Icon path={icon.p} size={2} />
-          <Tooltip arrow placement='top' title='Copy Icon Name'>
-            <h1 onClick={() => copy(name, 'icon name')}>{name}</h1>
+          <Tooltip arrow placement='right' title='Copy Icon Name'>
+            <h1 onClick={() => copy(icon.n, 'icon name')}>{icon.n}</h1>
           </Tooltip>
         </div>           
       </div>
@@ -112,10 +108,32 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
           )}
           {!isModal && renderTitle()}
           <div className={classes.infoBar}>
-            <Chip color='primary' icon={<Icon path={mdiCheck} size={.8} />} label={`Added in v${icon.v}`} />
+            <div className={classes.info}>
+              <Tooltip arrow placement='top' title={`View the v${icon.v} release`}>
+                <Link href={`/library/${library}/version/${icon.v}`} onClick={() => onClose?.()}>
+                  <Chip
+                    color='primary'
+                    icon={<Icon path={mdiCheck} size={.8} />}
+                    label={isTabletWidth ? icon.v : `Added in v${icon.v}`}
+                    sx={{ cursor: 'pointer' }}
+                  />
+                </Link>
+              </Tooltip>
+              {contributor && (
+                <Tooltip arrow placement='top' title={`View icons created by ${contributor.name}`}>
+                  <Link href={`/library/${library}/author/${contributor.github}`} onClick={() => onClose?.()}>
+                    <Chip
+                      icon={<Avatar src={`/contributors/${contributor.id}.jpg`} sx={{ height: 24, width: 24 }}/>}
+                      label={isTabletWidth ? contributor.name : `Created by ${contributor.name}`}
+                      sx={{ cursor: 'pointer' }}
+                    />
+                  </Link>
+                </Tooltip>
+              )}
+            </div>
             <div className={classes.actions}>
               <Tooltip arrow placement='top' title='Copy Codepoint'>
-                <Chip label={codepoint} onClick={() => copy(codepoint, 'codepoint')} />
+                <Chip label={icon.cp} onClick={() => copy(icon.cp, 'codepoint')} />
               </Tooltip>
               <Tooltip arrow placement='top' title='Copy Glyph'>
                 <IconButton
@@ -123,7 +141,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
                   color='inherit'
                   onClick={() => copy(glyph, 'glyph')}
                 >
-                  <Icon path={path} size={1} />
+                  <Icon path={icon.p} size={1} />
                 </IconButton>
               </Tooltip>
               <Tooltip arrow placement='top' title='Copy SVG'>
@@ -147,8 +165,26 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
               </Tooltip>
             </div>
           </div>
-          <IconPreview gridSize={gridSize} path={path} />
-          <Contributors id={author} view='single' />
+          <div className={classes.usage}>
+            <IconPreview gridSize={gridSize} path={icon.p} />
+            <IconUsageExamples exampleTypes={exampleTypes} library={library} iconName={icon.n} />
+          </div>
+          <div className={classes.tags}>
+            <div className={classes.categories}>
+              {icon?.categories?.map((tag) => {
+                return (
+                  <Tooltip arrow key={tag.id} placement='top' title={`View all ${tag.name} icons`}>
+                    <Link href={`/library/${library}/category/${tag.slug}`} onClick={() => onClose?.()}>
+                      <Chip icon={<Icon path={mdiTag} size={.7} />} label={tag.name} sx={{ backgroundColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--white))', cursor: 'pointer' }} />
+                    </Link>
+                  </Tooltip>
+                );
+              })}
+            </div>
+            <div className={classes.aliases}>
+              {icon.al.map((alias) => <Chip icon={<Icon path={mdiDotsHorizontalCircleOutline} size={.8} />} key={alias} label={alias} />)}
+            </div>              
+          </div>
         </Fragment>
       </ConditionalWrapper>
     </div>

@@ -90,6 +90,8 @@
 
 .github {
   a {
+    text-decoration: none;
+
     &:hover {
       color: hsl(var(--white));
     }

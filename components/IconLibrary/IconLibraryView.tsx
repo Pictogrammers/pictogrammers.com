@@ -29,11 +29,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Dialog from '@mui/material/Dialog';
 import Icon from '@mdi/react';
-import { mdiAlertCircleOutline, mdiCloseCircle, mdiCreation, mdiMagnify, mdiShape } from '@mdi/js';
+import { mdiAlertCircleOutline, mdiCloseCircle, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
 
 import { IconLibraryIcon } from '../../interfaces/icons';
 
-import useCategories from '../../hooks/useCategories';
+import useCategories, { CategoryProps } from '../../hooks/useCategories';
 import useIcons from '../../hooks/useIcons';
 import useDebounce from '../../hooks/useDebounce';
 import useWindowSize from '../../hooks/useWindowSize';
@@ -125,6 +125,11 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
   const handleIconModalOpen = (e: MouseEvent<HTMLAnchorElement>, icon: IconLibraryIcon) => {
     e.preventDefault();
+
+    const cats = icon.t.map((tag) => categories.find((cat) => cat.id === Number(tag)));
+    if (cats) {
+      icon.categories = cats as CategoryProps[];
+    }
     setIconModal(icon);
     router.push(`/library/${library}/icon/${icon.n}`, undefined, { shallow: true });
   };
@@ -167,19 +172,19 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
   const renderFilteredByChip = (size: ChipProps['size'] = undefined) => {
     if (version) {
-      return <Chip icon={<Icon path={mdiCreation} size={.7} />} label={`New in v${version}`} onDelete={handleChipDelete} size={size} />;
+      return <Chip color='primary' icon={<Icon path={mdiCreation} size={.7} />} label={`Added in v${version}`} onDelete={handleChipDelete} size={size} sx={{ margin: '0 .25rem 0 .5rem' }} />;
     }
 
     if (category) {
       const categoryName = categories.find((cat) => cat.slug === category)?.name || category;
-      return <Chip icon={<Icon path={mdiShape} size={.7} />} label={categoryName} onDelete={handleChipDelete} size={size} />;
+      return <Chip color='secondary' icon={<Icon path={mdiTag} size={.7} />} label={categoryName} onDelete={handleChipDelete} size={size} sx={{ margin: '0 .25rem 0 .5rem' }} />;
     }
     
     if (author) {
       const { contributors } = allContributors;
       const authorInfo = contributors.find((contributor) => contributor.github === author);
       if (authorInfo) {
-        return <Chip avatar={<Avatar alt={authorInfo.name} src={`/contributors/${authorInfo.id}.jpg`} />} label={`By ${authorInfo.name}`} onDelete={handleChipDelete} size={size} />;
+        return <Chip avatar={<Avatar alt={authorInfo.name} src={`/contributors/${authorInfo.id}.jpg`} />} label={`Created by ${authorInfo.name}`} onDelete={handleChipDelete} size={size} />;
       }
 
       return <Chip label={`By ${author}`} onDelete={handleChipDelete} size={size} />;

@@ -196,6 +196,11 @@
     background-color: hsl(var(--light-cyan));
   }
 
+  &:focus {
+    background-color: hsl(var(--light-cyan));
+    outline: 1px solid hsl(var(--cyan));
+  }
+
   p {
     margin: 1rem 0 0;
   }

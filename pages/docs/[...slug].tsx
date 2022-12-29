@@ -22,7 +22,7 @@ import { getAllDocs, getDoc } from '../../utils/mdxUtils';
 import Contributors from '../../components/Docs/Contributors/Contributors';
 import TableOfContents from '../../components/Docs/TableOfContents/TableOfContents';
 import Heading from '../../components/Docs/Heading';
-import Code from '../../components/Docs/Code';
+import CodeHighlighter from '../../components/CodeHighlighter/CodeHighlighter';
 import Icon from '../../components/Docs/Icon';
 import Button from '../../components/Docs/Button';
 import Note from '../../components/Docs/Note';
@@ -137,7 +137,7 @@ const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, readingTime, s
             <MDXRemote
               components={{
                 Button: (props: IButton) => Button({...props, availableIcons }),
-                code: Code,
+                code: CodeHighlighter,
                 Contributors,
                 h1: Heading(1),
                 h2: Heading(2),

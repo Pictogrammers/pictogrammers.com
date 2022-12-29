@@ -12,6 +12,15 @@ import '../styles/defaults.scss';
 const manrope = Manrope({ subsets: ['latin'] });
 const theme = createTheme({
   components: {
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          '&:hover': {
+            color: '#fff'
+          }
+        }
+      }
+    },
     MuiDialog: {
       styleOverrides: {
         root: {

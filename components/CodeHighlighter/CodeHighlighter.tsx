@@ -2,23 +2,24 @@ import cx from 'clsx';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark as CodeStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-import classes from './components.module.scss';
+import classes from './CodeHighlighter.module.scss';
 
 interface CodeProps {
   children?: string;
   className?: string;
+  displayAsBlock?: boolean;
 }
 
-const Code = ({ children, className }: CodeProps) => {
+const Code = ({ children, className, displayAsBlock }: CodeProps) => {
   const language = /language-(\w+)/.exec(className || '') || ['language-text', 'text'];
-  const inline = !(/\r|\n/.exec(children || ''));
+  const inline = !(/\r|\n/.exec(children || '')) && !displayAsBlock;
 
   return (
     <SyntaxHighlighter
       style={CodeStyle}
       language={language[1]}
       PreTag={inline ? 'span' : 'div'}
-      className={cx({
+      className={cx(classes.code, className, {
         [classes.inlineCode]: inline
       })}
       wrapLines={!!inline}

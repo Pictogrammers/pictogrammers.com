@@ -4,6 +4,7 @@ import getConfig from 'next/config';
 import slugify from 'slugify';
 
 import { IconLibraries, IconLibraryIcon } from '../interfaces/icons';
+import { CategoryProps } from '../hooks/useCategories';
 import { ContributorProps } from '../interfaces/contributor';
 
 import allContributors from '../public/contributors/contributors.json';
@@ -59,7 +60,14 @@ export const getAllLibraryPaths = async () => {
 };
 
 export const getIcon = async (library: string, icon: string): Promise<IconLibraryIcon> => {
-  const { i: icons } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library}.json`), 'utf-8'));
+  const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library}.json`), 'utf-8'));
   const iconInfo = icons.find((i: IconLibraryIcon) => i.n === icon);
+  iconInfo.categories = iconInfo.t.map((tag: number) => {
+    return {
+      id: tag,
+      name: categories[tag],
+      slug: slugify(categories[tag], { lower: true })
+    };
+  });
   return iconInfo;
 };

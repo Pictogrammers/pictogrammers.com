@@ -1,3 +1,5 @@
+import { CategoryProps } from '../hooks/useCategories';
+
 export interface IconLibraries {
   [key: string]: {
     [key: string]: any; // 'any' used to solve descrenpencies with third-party libraries
@@ -17,12 +19,15 @@ export interface IconLibrary {
 }
 
 export interface IconLibraryIcon {
+  a: string;
+  al: string[];
+  categories?: CategoryProps[];
   cp: string;
   n: string;
   p: string;
-  a: string;
-  v: string;
   st: string[];
+  t: string[];
+  v: string;
 }
 
 export interface MdxIconProps {

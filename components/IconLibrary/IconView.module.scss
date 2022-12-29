@@ -1,5 +1,9 @@
 @import '../../styles/variables.scss';
 
+:export {
+  tablet-width: $tablet-width;
+}
+
 .root {
   padding: 0 1rem;
 
@@ -12,18 +16,27 @@
   max-width: $width-max;
   margin: 1rem auto;
   position: relative;
-}
+  padding: 2rem;
 
-.breadcrumb {
-  font-size: .9rem;
+  .infoBar {
+    margin: 0 -2rem;
+  }
+
+  .usage {
+    padding: 2rem 0;
+  }
 }
 
 .modalTitle {
   align-items: center;
+  background-color: hsl(var(--white));
+  border-bottom: 1px solid hsl(var(--medium-grey));
   display: flex;
   justify-content: space-between;
+  padding: 1rem 2rem;
   position: sticky;
   top: 0;
+  z-index: 5;
 
   @media only screen and (max-width: $mobile-width) {
     align-items: initial;
@@ -32,25 +45,23 @@
 }
 
 .modalActions {
-  padding-right: 1rem;
   display: flex;
   flex-wrap: nowrap;
 
   @media only screen and (max-width: $mobile-width) {
     justify-content: flex-end;
-    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 }
 
 .iconName {
   align-items: center;
   display: flex;
-  padding: 1rem 1.5rem;
 
   h1 {
     display: inline-block;
     font-size: 2rem;
-    margin: 0 0 0 1rem;
+    margin: 0;
 
     &:hover {
       color: hsl(var(--primary-color));
@@ -61,7 +72,7 @@
   @media only screen and (max-width: $mobile-width) {
     justify-content: center;
 
-    svg {
+    .iconPreview {
       display: none;
     }
 
@@ -76,12 +87,75 @@
   align-items: center;
   background-color: hsl(var(--light-grey));
   border-bottom: 1px solid hsl(var(--medium-grey));
-  border-radius: 5px 5px 0 0;
+  border-top: 1px solid hsl(var(--medium-grey));
   display: flex;
   justify-content: space-between;
-  padding: .5rem;
+  margin-top: -1px;
+  padding: .5rem 2rem;
+
+  a {
+    text-decoration: none;
+  }
+
+  .info {
+    & > a {
+      margin-right: .5rem;
+    }
+  }
 
   .actions {
     color: black;
+
+    & > div, & > button {
+      margin: 0 .25rem;
+    }
+  }
+
+  @media only screen and (max-width: $tablet-width) {
+    flex-direction: column;
+    padding: 1rem;
+
+    .actions {
+      padding-top: .5rem;
+
+      & > div, & > button {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.usage {
+  align-items: center;
+  display: flex;
+  padding: 1rem;
+  justify-content: space-around;
+
+  @media only screen and (max-width: $tablet-width) {
+    flex-direction: column;
+  }
+}
+
+.tags {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 1rem 2rem;
+
+  @media only screen and (max-width: $tablet-width) {
+    display: block;
+  }
+
+  .categories, .aliases {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    & > div, & > a {
+      margin: .25rem;
+    }
+  }
+
+  a {
+    text-decoration: none;
   }
 }
