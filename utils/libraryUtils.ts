@@ -57,7 +57,12 @@ export const getAllLibraryPaths = async () => {
     return output;
   }, Promise.resolve([]));
 
-  const libraries = iconLibraries.map((library: IconLibraries) => library.id);
+  const libraries = iconLibraries.reduce((output: any[], library: IconLibraries) => {
+    if (!library.unreleased) {
+      output.push(library.id);
+    }
+    return output;
+  }, []);
 
   return [ ...libraries, ...allIcons ];
 };
