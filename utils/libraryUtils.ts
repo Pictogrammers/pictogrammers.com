@@ -21,6 +21,10 @@ export const getAllLibraryPaths = async () => {
   const allIcons = await iconLibraries.reduce(async (prevPromise: Promise<string[]>, library: IconLibraries) => {
     let output = await prevPromise;
 
+    if (library.unreleased) {
+      return output;
+    }
+
     const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library.id}.json`), 'utf-8'));
     const { contributorSlugs, iconSlugs, versionSlugs } = icons.reduce((output: SlugInterface, icon: IconLibraryIcon) => {
       output.iconSlugs.push(`${library.id}/icon/${icon.n}`);

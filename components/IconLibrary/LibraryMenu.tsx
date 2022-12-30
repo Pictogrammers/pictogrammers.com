@@ -48,6 +48,10 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
 
     return availableTypes.map((type) => {
       const availableLibraries = libraries[type].map((lib: any) => {
+        if (lib.unreleased) {
+          return null;
+        }
+
         return (
           <MenuItem
             classes={{ root: classes.menuItem }}
