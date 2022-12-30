@@ -36,6 +36,7 @@ module.exports = {
         git: 'https://github.com/Pictogrammers/Memory',
         gridSize: 22,
         id: 'memory',
+        image: 'assets/libraries/memory.svg',
         name: 'Memory Icons',
         package: '@pictogrammers/memory',
         shortName: 'Memory',
