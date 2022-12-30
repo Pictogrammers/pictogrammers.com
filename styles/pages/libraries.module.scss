@@ -128,10 +128,10 @@
 @media only screen and (max-width: $mobile-width) {
   .root {
     padding: 0;
-  }
 
-  .container {
-    border-radius: 0;
+    .container {
+      border-radius: 0;
+    }
   }
 
   .heading {
