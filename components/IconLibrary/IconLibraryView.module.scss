@@ -1,15 +1,5 @@
-@import '../../styles/variables.scss';
-
-:export {
-  mobile-width: $mobile-width;
-}
-
 .root {
   padding: 0 1rem;
-
-  @media only screen and (max-width: $mobile-width) {
-    padding: 0;
-  }
 }
 
 .container {
@@ -29,10 +19,6 @@
   position: sticky;
   top: 0;
   z-index: 10;
-
-  @media only screen and (max-width: $mobile-width) {
-    border-radius: 0;
-  }
 }
 
 .libraryInfo {
@@ -46,10 +32,6 @@
   align-items: center;
   display: flex;
   justify-content: flex-end;
-
-  @media only screen and (max-width: $mobile-width) {
-    justify-content: space-between;
-  }
 }
 
 .searchBox {
@@ -91,10 +73,6 @@
   flex: 1;
   max-width: 210px;
   padding: 1rem;
-
-  @media only screen and (max-width: $tablet-width) {
-    display: none;
-  }
 }
 
 .library {
@@ -213,4 +191,24 @@
   justify-content: center;
   padding: 3rem 0;
   width: 100%;
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .root {
+    padding: 0;
+  }
+
+  .heading {
+    border-radius: 0;
+  }
+
+  .controls {
+    justify-content: space-between;
+  }
+}
+
+@media only screen and (max-width: $tablet-width) {
+  .sidebar {
+    display: none;
+  }
 }

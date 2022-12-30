@@ -10,7 +10,17 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { mdiArrowExpand, mdiCheck, mdiClose, mdiDotsHorizontalCircleOutline, mdiDownload, mdiSvg, mdiTag } from '@mdi/js';
+import {
+  mdiArrowExpand,
+  mdiCheck,
+  mdiClose,
+  mdiDotsHorizontal,
+  mdiDotsHorizontalCircleOutline,
+  mdiDownload,
+  mdiSvg,
+  mdiTag,
+  mdiTagOutline
+} from '@mdi/js';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
@@ -33,7 +43,7 @@ interface IconViewProps {
 
 const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) => {
   const { publicRuntimeConfig: { libraries: { icons: iconLibraries } } } = getConfig();
-  const { exampleTypes, gridSize = 24, name: libraryName } = iconLibraries.find((lib: IconLibrary) => lib.id === library);
+  const { exampleTypes, git, gridSize = 24, name: libraryName } = iconLibraries.find((lib: IconLibrary) => lib.id === library);
   const copy = useCopyToClipboard();
   const windowSize = useWindowSize();
   const isTabletWidth = windowSize.width <= parseInt(classes['tablet-width']);
@@ -66,13 +76,25 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
     );
   };
 
+  const pageTitle = `${icon.n} - ${libraryName} - Pictogrammers`;
+  const pageDescription = `The icon "${icon.n}" was added in v${icon.v} of the ${libraryName} icon library.`;
+
   return (
     <div className={cx(classes.root, {
       [classes.modal]: isModal
     })}>
       <Head>
-        <title>Icons - Pictogrammers</title>
-        <meta content='Icons - Pictogrammers' name='title' key='title' />
+        <title>{pageTitle}</title>
+        <meta content={pageTitle} name='title' key='title' />
+        <meta content={pageDescription} name='description' key='description' />
+
+        <meta content={pageTitle} property='og:title' key='og:title' />
+        <meta content={pageDescription} property='og:description' key='og:description' />
+        <meta content='website' property='og:type' key='og:type' />
+        <meta content={`https://pictogrammers.com/library/${library}/icon/${icon.n}`} property='og:url' key='og:url' />
+
+        <meta content={pageTitle} name='twitter:title' key='twitter:title' />
+        <meta content={pageDescription} name='twitter:description' key='twitter:description' />
       </Head>
       <ConditionalWrapper
         condition={!onClose}
@@ -183,8 +205,24 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
             </div>
             <div className={classes.aliases}>
               {icon.al.map((alias) => <Chip icon={<Icon path={mdiDotsHorizontalCircleOutline} size={.8} />} key={alias} label={alias} />)}
-            </div>              
+            </div>       
           </div>
+          <div className={classes.tags}>
+            <div className={classes.categories}>
+              <Tooltip arrow placement='top' title='Suggest a tag'>
+                <Link href={`${git}/issues/new?labels=Tag&template=5_tag.md&title=Tag%20%22${encodeURIComponent(icon.n)}%22%20with%20%3Ctag%3E`} onClick={() => onClose?.()}>
+                  <Chip icon={<Icon path={mdiTagOutline} size={.7} />} label='Suggest a tag' sx={{ borderColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--dark-cyan))', cursor: 'pointer' }} variant='outlined' />
+                </Link>
+              </Tooltip>
+            </div>
+            <div className={classes.aliases}>
+              <Tooltip arrow placement='top' title='Suggest an alias'>
+                <Link href={`${git}/issues/new?labels=Alias&template=4_alias.md&title=Alias%20%22${encodeURIComponent(icon.n)}%22%20with%20%3Calias%3E`} onClick={() => onClose?.()}>
+                  <Chip icon={<Icon path={mdiDotsHorizontal} size={.7} />} label='Suggest an alias' sx={{ borderColor: 'hsl(var(--dark-grey))', color: 'hsl(var(--dark-grey))', cursor: 'pointer' }} variant='outlined' />
+                </Link>
+              </Tooltip>
+            </div>
+          </div>  
         </Fragment>
       </ConditionalWrapper>
     </div>

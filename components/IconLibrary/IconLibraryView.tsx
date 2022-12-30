@@ -40,7 +40,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 
 import LibraryMenu from './LibraryMenu';
 import LibraryViewMode, { viewModes } from './LibraryViewMode';
-import IconView from './IconView';
+import IconView from '../IconView/IconView';
 
 import iconLibraries from '../../public/libraries/libraries.json';
 import allContributors from '../../public/contributors/contributors.json';

@@ -6,7 +6,7 @@ import { getAllLibraryPaths, getIcon } from '../../utils/libraryUtils';
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
 import IconLibraryView from '../../components/IconLibrary/IconLibraryView';
-import IconView from '../../components/IconLibrary/IconView';
+import IconView from '../../components/IconView/IconView';
 
 interface ContextProps extends ParsedUrlQuery {
   slug: string[]

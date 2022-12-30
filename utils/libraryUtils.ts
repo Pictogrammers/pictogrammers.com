@@ -4,7 +4,6 @@ import getConfig from 'next/config';
 import slugify from 'slugify';
 
 import { IconLibraries, IconLibraryIcon } from '../interfaces/icons';
-import { CategoryProps } from '../hooks/useCategories';
 import { ContributorProps } from '../interfaces/contributor';
 
 import allContributors from '../public/contributors/contributors.json';

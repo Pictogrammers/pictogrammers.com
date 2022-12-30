@@ -21,6 +21,13 @@ const theme = createTheme({
         }
       }
     },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          lineHeight: 2
+        }
+      }
+    },
     MuiDialog: {
       styleOverrides: {
         root: {

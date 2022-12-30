@@ -2,3 +2,9 @@
 $tablet-width: 910px;
 $mobile-width: 736px;
 $width-max: 96rem;
+
+:export {
+  mobile-width: $mobile-width;
+  tablet-width: $tablet-width;
+  width-max: $width-max;
+}

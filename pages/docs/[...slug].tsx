@@ -101,19 +101,21 @@ const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, readingTime, s
     title
   } = frontMatter;
 
+  const pageTitle = `${title} - Docs - Pictogrammers`;
+
   return (
     <div className={classes.root}>
       <Head>
-        <title>{`${title} - Docs - Pictogrammers`}</title>
-        <meta content={`${title} - Docs - Pictogrammers`} name='title' key='title' />
+        <title>{pageTitle}</title>
+        <meta content={pageTitle} name='title' key='title' />
         {description && <meta content={description} name='description' key='description' />}
 
-        <meta content={`${title} - Docs - Pictogrammers`} property='og:title' key='og:title' />
+        <meta content={pageTitle} property='og:title' key='og:title' />
         {description && <meta content={description} property='og:description' key='og:description' />}
         <meta content='article' property='og:type' key='og:type' />
         <meta content={`https://pictogrammers.com/${path}`} property='og:url' key='og:url' />
 
-        <meta content={`${title} - Docs - Pictogrammers`} name='twitter:title' key='twitter:title' />
+        <meta content={pageTitle} name='twitter:title' key='twitter:title' />
         {description && <meta content={description} name='twitter:description' key='twitter:description' />}
         {readingTime && <meta content='Reading Time' name='twitter:label1' key='twitter:label1' />}
         {readingTime && <meta content={readingTime} name='twitter:data1' key='twitter:data1' />}

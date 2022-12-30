@@ -1,3 +1,4 @@
+const path = require('path');
 const config = require('./config');
 
 const withPWA = require('next-pwa')({
@@ -24,6 +25,10 @@ const nextConfig = {
         source: '/library/:libraryId/(author|category|icon|version)'
       }
     ];
+  },
+  sassOptions: {
+    includePaths: [ path.join(__dirname, 'styles') ],
+    prependData: '@import "variables.scss";'
   },
   swcMinify: true,
   webpack(config, { isServer }) {
