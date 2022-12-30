@@ -32,11 +32,15 @@ module.exports = {
         package: '@mdi/light-svg',
         shortName: 'MDI Light'
       },
-      // TODO: Memory meta.json and SVG package don't exist yet
-      // {
-      //   id: 'memory',
-      //   package: '@pictogrammers/memory'
-      // }
+      {
+        git: 'https://github.com/Pictogrammers/Memory',
+        gridSize: 22,
+        id: 'memory',
+        name: 'Memory Icons',
+        package: '@pictogrammers/memory',
+        shortName: 'Memory',
+        unreleased: true
+      }
     ]
   }
 };

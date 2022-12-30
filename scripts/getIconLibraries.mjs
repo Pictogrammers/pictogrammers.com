@@ -28,6 +28,10 @@ const getIconLibraries = async (contributors = []) => {
   const processedLibraries = await libraries.reduce(async (prevPromise, library) => {
     const output = await prevPromise;
 
+    if (library.unreleased) {
+      return output;
+    }
+
     const { default: { version: libraryVersion } } = await import(`${library.package}/package.json`, { assert: { type: 'json' } });
     const { default: libraryIcons } = await import(`${library.package}/meta.json`, { assert: { type: 'json' } });
 

@@ -2,9 +2,9 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 2rem 3rem;
+  padding: 1.5rem 2rem;
   margin: 0 auto;
-  max-height: 120px;
+  max-height: 100px;
   max-width: $width-max;
 }
 
@@ -49,10 +49,10 @@
   background-color: transparent;
   border: 0;
   display: none;
-  height: 2.5rem;
+  height: 2.75rem;
   margin: 0;
   outline: 0;
-  width: 2.5rem;
+  width: 2.75rem;
 
   svg {
     fill: hsl(var(--primary-color));
@@ -129,7 +129,7 @@
     flex-direction: column;
     position: absolute;
     top: 40px;
-    width: calc(100% + 40px);
+    width: calc(100% + 44px);
     z-index: 999;
 
     & :not(:last-child) {
@@ -137,6 +137,7 @@
     }
     > * {
       border-radius: 0 !important;
+      padding: .5rem 0;
     }
 
     &.open {
