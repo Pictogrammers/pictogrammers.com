@@ -64,11 +64,22 @@ const IconsLandingPage: NextPage = () => {
   const { publicRuntimeConfig: config } = getConfig();
   const { libraries: { icons } } = config;
 
+  const pageTitle = 'Icon & Font Libraries - Pictogrammers';
+  const pageDesc = 'Our libraries are beautifully crafted and completely open-source, so you can focus on your designs and development.';
+
   return (
     <div className={classes.root}>
       <Head>
-        <title>Icon & Font Libraries - Pictogrammers</title>
-        <meta content='Icons & Font Libraries - Pictogrammers' name='title' key='title' />
+        <title>{pageTitle}</title>
+        <meta content={pageTitle} name='title' key='title' />
+        <meta content={pageDesc} name='description' key='description' />
+
+        <meta content={pageTitle} property='og:title' key='og:title' />
+        <meta content={pageDesc} property='og:description' key='og:description' />
+        <meta content='https://pictogrammers.com/libraries' property='og:url' key='og:url' />
+
+        <meta content={pageTitle} name='twitter:title' key='twitter:title' />
+        <meta content={pageDesc} name='twitter:description' key='twitter:description' />
       </Head>
       <Paper className={classes.container}>
         <div className={classes.heading}>
