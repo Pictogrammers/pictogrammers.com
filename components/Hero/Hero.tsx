@@ -5,8 +5,6 @@ import Button from '@mui/material/Button';
 import Icon from '@mdi/react';
 import { mdiArrowDownCircle } from '@mdi/js';
 
-import { HeroProps } from './HeroProps';
-
 import classes from './Hero.module.scss';
 
 const ScrollButton = styled(Button)({
@@ -16,6 +14,13 @@ const ScrollButton = styled(Button)({
   padding: '.5rem 1rem',
   textTransform: 'none'
 });
+
+interface HeroProps {
+  fullHeight?: boolean;
+  heading: string;
+  showScrollCta?: boolean;
+  subHeading: string;
+}
 
 const Hero: FunctionComponent<HeroProps> = ({
   fullHeight = false,

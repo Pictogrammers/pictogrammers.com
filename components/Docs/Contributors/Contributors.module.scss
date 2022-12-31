@@ -20,18 +20,19 @@
 }
 
 .content {
-  display: flex;
   align-items: center;
+  display: flex;
   padding: 1rem 1rem .5rem;
 
-  h2, p {
+  h2,
+  p {
     margin: 0;
   }
 
   h2 {
     font-size: 1rem;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -53,7 +54,7 @@
 
 .sponsor {
   &:hover {
-    color: hsl(305, 100%, 40%);
+    color: hsl(305deg 100% 40%);
   }
 }
 

@@ -4,13 +4,13 @@
 }
 
 .container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  max-width: $width-max;
   margin: 1rem 1rem 2rem;
+  max-width: $width-max;
   padding: .25rem 1.5rem 1rem;
   position: relative;
-  align-items: center;
   text-align: center;
 
   h1 {

@@ -4,8 +4,8 @@
 
 .container {
   display: flex;
-  max-width: $width-max;
   margin: 0 auto;
+  max-width: $width-max;
   position: relative;
 
   aside {
@@ -15,11 +15,11 @@
 }
 
 .sidenav {
-  padding: 2rem 1.5rem;
-  position: sticky;
   max-width: 275px;
   min-width: 243px;
-  top: 0px;
+  padding: 2rem 1.5rem;
+  position: sticky;
+  top: 0;
 }
 
 .improvehead {
@@ -30,8 +30,8 @@
 .edits {
   a {
     display: block;
-    margin: .5rem 0;
     justify-content: left;
+    margin: .5rem 0;
     text-decoration: none;
   }
 }
@@ -44,8 +44,8 @@
   flex: 1;
   margin-top: 1rem;
   min-width: 0;
-  word-wrap: break-word;
   padding: 1rem 2rem;
+  word-wrap: break-word;
 
   h1 {
     font-size: 2rem;
@@ -71,7 +71,7 @@
           border-top: 1px solid hsl(var(--dark-cyan));
 
           &:first-child {
-            border-radius: .25rem 0 0 0;
+            border-radius: .25rem 0 0;
           }
 
           &:last-child {
@@ -98,7 +98,7 @@
           }
 
           &:last-child {
-            border-radius: 0 0 .25rem 0;
+            border-radius: 0 0 .25rem;
           }
         }
       }
@@ -121,8 +121,8 @@
 
   blockquote {
     background-color: hsl(var(--light-grey));
-    border-radius: 5px;
     border: 1px solid hsl(var(--grey));
+    border-radius: 5px;
     margin: 0;
     padding: .1rem 1rem .1rem 2rem;
   }

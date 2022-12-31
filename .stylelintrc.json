@@ -1,0 +1,26 @@
+{
+  "customSyntax": "postcss-scss",
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-css-modules"
+  ],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "color-named": "never",
+    "color-no-hex": true,
+    "custom-property-empty-line-before": null,
+    "declaration-no-important": [ true, { "severity": "warning" } ],
+    "import-notation": "string",
+    "max-line-length": null,
+    "no-descending-specificity": null,
+    "number-leading-zero": "never",
+    "order/properties-alphabetical-order": true,
+    "selector-class-pattern": null,
+    "selector-max-id": [ 0, { "severity": "warning" } ],
+    "shorthand-property-no-redundant-values": true,
+    "string-quotes": "single"
+  }
+}

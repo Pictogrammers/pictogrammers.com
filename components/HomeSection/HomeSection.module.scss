@@ -25,10 +25,10 @@
   padding-top: 2rem;
 
   &::after {
+    background-image: url('../../assets/white-wave.svg');
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: contain;
-    background-image: url('../../assets/white-wave.svg');
     content: '';
     height: 200px;
     left: 0;
@@ -47,11 +47,11 @@
 
   &::before,
   &::after {
+    background-color: hsl(var(--primary-color));
     content: '';
     height: 100px;
-    background-color: hsl(var(--primary-color));
-    width: 100%;
     position: absolute;
+    width: 100%;
     z-index: 1;
   }
 
@@ -61,28 +61,28 @@
   }
 
   &::after {
-    clip-path: ellipse(75% 100% at 50% 0%);
     bottom: -30px;
+    clip-path: ellipse(75% 100% at 50% 0%);
   }
 }
 
 @media only screen and (max-width: $mobile-width) {
   .root {
     h2 {
-      text-align: center;
       line-height: 1.1;
+      text-align: center;
     }
   }
 
   .container {
-    padding-top: 0.5rem;
+    padding-top: .5rem;
   }
 
   .highlight {
     &::before {
       clip-path: ellipse(100% 100% at 50% 100%);
     }
-  
+
     &::after {
       clip-path: ellipse(100% 100% at 50% 0%);
     }

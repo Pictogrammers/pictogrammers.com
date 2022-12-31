@@ -1,6 +1,6 @@
 .root {
   color: hsl(var(--dark-grey));
-  font-size: 0.9rem;
+  font-size: .9rem;
   padding: 2rem;
 
   .logo {
@@ -8,11 +8,11 @@
       width: 62px;
 
       [id='keycap-top'] {
-        transition: transform 0.1s;
         transform: translate(0, 0);
+        transition: transform .1s;
       }
     }
-  
+
     &:hover {
       svg {
         [id='keycap-top'] {
@@ -31,12 +31,12 @@
     max-width: $width-max;
     padding: 0;
   }
-  
+
   li {
     align-items: center;
     display: flex;
   }
-  
+
   a:hover {
     color: hsl(var(--primary-color));
   }
@@ -53,13 +53,13 @@
     }
 
     a {
-      padding: 0.5rem 0;
+      padding: .5rem 0;
     }
   }
 
   .copyright {
     flex-direction: column;
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
   }
 
   .connectText {
@@ -67,6 +67,6 @@
   }
 
   .connect {
-    padding-top: 0.5rem;
+    padding-top: .5rem;
   }
 }

@@ -5,8 +5,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  max-width: $width-max;
   margin: 0 auto;
+  max-width: $width-max;
   position: relative;
 }
 
@@ -40,7 +40,7 @@
 
 .mobileControls {
   margin-top: 1rem;
-  
+
   strong {
     font-size: .9rem;
   }
@@ -77,8 +77,8 @@
 
 .library {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
   grid-gap: 20px;
+  grid-template-columns: repeat(6, 1fr);
 
   p {
     font-size: .9rem;

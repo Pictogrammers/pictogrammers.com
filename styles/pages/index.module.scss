@@ -9,8 +9,8 @@
   flex-direction: column;
 
   p {
-    max-width: 800px;
     margin: 3rem auto;
+    max-width: 800px;
     padding: 0 1rem;
     text-align: center;
   }
@@ -18,9 +18,8 @@
   .logos {
     align-items: center;
     display: grid;
+    grid-gap: 3rem 5rem;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    grid-column-gap: 3rem;
-    grid-row-gap: 5rem;
     justify-items: center;
     max-width: 1080px;
     width: 100%;
@@ -41,7 +40,7 @@
     padding: 2rem 0;
     text-align: center;
   }
-  
+
   .contributors {
     flex-wrap: wrap-reverse;
     justify-content: center;
@@ -59,12 +58,11 @@
 .libraries {
   align-items: center;
   display: grid;
+  grid-gap: 2rem 3rem;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-column-gap: 2rem;
-  grid-row-gap: 3rem;
   justify-items: center;
-  max-width: 1080px;
   margin: 3rem auto;
+  max-width: 1080px;
 }
 
 .join {
@@ -81,8 +79,8 @@
 
 @media only screen and (max-width: $mobile-width) {
   .users {
-    margin-top: -3rem;
     flex-direction: column-reverse;
+    margin-top: -3rem;
 
     br {
       display: none;
@@ -111,8 +109,8 @@
   }
 
   .crowd {
-    margin: 0 auto;
     height: 10rem !important;
+    margin: 0 auto;
     width: 10rem !important;
   }
 }

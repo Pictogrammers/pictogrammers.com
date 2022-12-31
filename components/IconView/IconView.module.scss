@@ -2,16 +2,16 @@
   padding: 1rem;
 
   &.modal {
-    padding: 0 0 2rem 0;
+    padding: 0 0 2rem;
   }
 }
 
 .container {
   border-radius: 0;
-  max-width: $width-max;
   margin: 1rem auto;
-  position: relative;
+  max-width: $width-max;
   padding: 2rem;
+  position: relative;
 
   .infoBar {
     margin: 0 -2rem;
@@ -76,9 +76,10 @@
   }
 
   .actions {
-    color: black;
+    color: hsl(var(--black));
 
-    & > div, & > button {
+    & > div,
+    & > button {
       margin: 0 .25rem;
     }
   }
@@ -87,8 +88,8 @@
 .usage {
   align-items: center;
   display: flex;
-  padding: 1rem;
   justify-content: space-around;
+  padding: 1rem;
 }
 
 .tags {
@@ -96,12 +97,14 @@
   justify-content: center;
   padding: .25rem;
 
-  .categories, .aliases {
+  .categories,
+  .aliases {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
 
-    & > div, & > a {
+    & > div,
+    & > a {
       margin: .25rem;
     }
   }
@@ -156,11 +159,12 @@
   .infoBar {
     flex-direction: column;
     padding: 1rem;
-  
+
     .actions {
       padding-top: .5rem;
-  
-      & > div, & > button {
+
+      & > div,
+      & > button {
         margin: 0;
       }
     }

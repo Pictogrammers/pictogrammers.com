@@ -1,9 +1,17 @@
 import { FunctionComponent } from 'react';
 import cx from 'clsx';
 
-import { HomeSectionProps } from './HomeSectionProps';
-
 import classes from './HomeSection.module.scss';
+
+interface HomeSectionProps {
+  children: string | JSX.Element;
+  className?: string;
+  highlight?: boolean;
+  id?: string;
+  initialWave?: boolean;
+  title?: string;
+}
+
 
 const HomeSection: FunctionComponent<HomeSectionProps> = ({
   children,

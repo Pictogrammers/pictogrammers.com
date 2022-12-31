@@ -2,10 +2,10 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 1.5rem 2rem;
   margin: 0 auto;
   max-height: 100px;
   max-width: $width-max;
+  padding: 1.5rem 2rem;
 }
 
 .logo {
@@ -17,8 +17,8 @@
     width: 35px;
 
     [id='keycap-top'] {
-      transition: transform 0.1s;
       transform: translate(0, -2px);
+      transition: transform .1s;
     }
   }
 
@@ -32,8 +32,8 @@
 }
 
 .nav {
-  display: flex;
   align-items: center;
+  display: flex;
   width: 100%;
 
   a {
@@ -59,7 +59,7 @@
 
     path {
       opacity: 1;
-      transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+      transition: transform .3s ease-in-out, opacity .2s ease-in-out;
     }
 
     [id='line-1'] {
@@ -133,8 +133,9 @@
     z-index: 999;
 
     & :not(:last-child) {
-      border-bottom: 1px solid hsl(var(--light-grey))
+      border-bottom: 1px solid hsl(var(--light-grey));
     }
+
     > * {
       border-radius: 0 !important;
       padding: .5rem 0;

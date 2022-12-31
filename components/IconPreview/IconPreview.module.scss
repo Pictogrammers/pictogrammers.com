@@ -1,9 +1,9 @@
 .root {
   background-image: repeating-linear-gradient(hsl(var(--medium-grey)) 0 2px, transparent 2px 100%), repeating-linear-gradient(90deg, hsl(var(--medium-grey)) 0 2px, transparent 2px 100%);
-  background-size: var(--dp-width, 4px) var(--dp-width, 4px);
   background-position: calc(var(--dp-width, 4px) - 1px) calc(var(--dp-width, 4px) - 1px);
-  outline: 5px solid hsl(var(--light-cyan));
+  background-size: var(--dp-width, 4px) var(--dp-width, 4px);
   margin: 1rem;
+  outline: 5px solid hsl(var(--light-cyan));
   position: relative;
 
   svg {
