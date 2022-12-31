@@ -14,7 +14,8 @@
     "dev": "next-remote-watch ./docs",
     "build": "next build && next export",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint && npm run lint:style",
+    "lint:style": "stylelint \"./**/*.{css,scss}\"",
     "prebuild": "node --experimental-import-meta-resolve scripts/prebuild.mjs",
     "predev": "node --experimental-import-meta-resolve scripts/prebuild.mjs"
   },
