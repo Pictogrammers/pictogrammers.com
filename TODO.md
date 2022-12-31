@@ -3,7 +3,6 @@
 ## General
 
 - Expand footer with links to docs, icon libraries, etc.
-- Global variables of the current versions of each icon pack that can be referenced anywhere, including documentation, via a variable.
 - Generate sitemap.xml.
   - https://nextjs.org/learn/seo/crawling-and-indexing/xml-sitemaps
 - Fuse.js client-side search (docs and icons).
@@ -21,7 +20,7 @@
 
 ## Icon View
 
-- Non-Modal should have a section showing the icon again.
+- Non-Modal should have a section showing examples of the icon in use.
 - Eventually, the `baseIconId` will show all related icons.
 
 ## Docs View
@@ -41,4 +40,3 @@
 - Write README.
 - Google Analytics.
 - Create clever 404 page.
-- Need a markdown linter in place.

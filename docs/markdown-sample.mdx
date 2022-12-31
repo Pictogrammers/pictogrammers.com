@@ -4,37 +4,74 @@ description: This document outlines all the different capabilities of Markdown w
 hidden: true
 ---
 
-# Testing
+All normal markdown syntax is acceptable. There are several enhancements that you can use to make your documentation more interactive.
 
-This is a `test`.
+## Displaying Icons
+
+You can display icons from the Material Design Icons, Material Design Icons Light, and Simple Icons libraries.
+
+```jsx
+<Icon name='mdi:account' size='2' color='red' />
+<Icon name='mdil:account' />
+<Icon name='si:simpleicons' />
+````
 
 <Icon name='mdi:account' size='2' color='red' />
-
 <Icon name='mdil:account' />
-
-<Icon name='mdi:crowd' size='5' color='blue' />
-
-<Icon name='mdi:circle' />
-
-<Icon name='mdi:crowd' />
-
 <Icon name='si:simpleicons' />
 
-Test
+## Using Library Versions
 
-<Button href='https://www.google.com' startIcon='mdi:clock'>I Wonder</Button>
+You can use the latest library versions by using the `{{version:LIBRARY_ID}}` syntax. For example...
 
-<Button href='https://www.google.com' startIcon='mdi:clock' variant='text'>I Wonder</Button>
+```html
+<a href="https://pictogrammers.com/library/mdi/version/{{version:mdì}}">MDI</a>
+```
 
-<Button href='https://www.google.com' startIcon='mdi:clock' variant='contained'>I Wonder</Button>
+Will translate to...
+
+```html
+<a href="https://pictogrammers.com/library/mdi/version/{{version:mdi}}">MDI</a>
+```
+
+## Custom UI Elements
+
+### Notes
+
+Notes offer unique ways to bring attention to important tidbit of information. You can use `info`, `warning`, `error`, or `success` for the "type".
+
+```jsx
+<Note title='Here is a note' type='info'>
+  Don't forget to do the things.
+</Note>
+```
+
+Will render:
 
 <Note title='Here is a note' type='info'>
   Don't forget to do the things.
 </Note>
 
+### Tabs
+
+Tabs can segment information without displaying it all at once.
+
+```jsx
+<Tabs>
+  <Tab title='Tab 1'>
+    ### Tab 1 Content
+
+    This is some content here.
+  </Tab>
+  <Tab title='Tab 2'>
+    ### Tab 2 Content
+
+    This is some more content here.
+  </Tab>
+</Tabs>
 ```
-Single line of code.
-```
+
+Will render:
 
 <Tabs>
   <Tab title='Tab 1'>
@@ -49,22 +86,22 @@ Single line of code.
   </Tab>
 </Tabs>
 
-Some more text here.
+### Buttons
 
-<Tabs>
-  <Tab title='Tab A'>
-    ### Tab A Content
+To display buttons that are consistent with the UX patterns of our site, use the button element.
 
-    This is some content here.
-  </Tab>
-  <Tab title='Tab B'>
-    ### Tab B Content
+```jsx
+<Button href='https://www.google.com' startIcon='si:google' variant='text'>Google</Button>
+```
 
-    This is some more content here.
-  </Tab>
-</Tabs>
+Will render:
+<Button href='https://www.google.com' startIcon='si:google' variant='text'>Google</Button>
 
-## Projects
+You can use most of the props available to the [Button](https://mui.com/material-ui/api/button/) element in MUI.
+
+### Tables
+
+Tables are supported for showing tabular information.
 
 | Project                                 | License                   |
 |-----------------------------------------|---------------------------|
@@ -78,9 +115,9 @@ Some more text here.
 | Material Design Icons @mdi/vue          | MIT License               |
 | Icon Templates                          | WTFPL                     |
 
-## Heading 2
+### Code Blocks
 
-Something.
+All code blocks will render with syntax highlighting.
 
 ```jsx
 import React, { Component } from 'react'
@@ -102,42 +139,3 @@ class App extends Component {
   }
 } 
 ```
-
-### Heading 3
-
-Something More
-
-## Heading 2 again
-
-Something.
-
-### Heading 3 again
-
-Something More
-
-### Heading 3 and again
-
-Something More
-
-#### Header 4
-
-Hi
-
-##### Heading 5
-
-- A list.
-- More list.
-  - Sub-bullet
-- More list.
-
-Then a new list.
-
-1. Yes.
-2. Something.
-  - Something.
-  - Yes.
-3. More.
-
-> blockquote
-
-Yeah.

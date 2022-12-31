@@ -6,6 +6,7 @@ import toc from 'markdown-toc';
 import readingTime from 'reading-time';
 
 import handleImportStatements from './helpers/handleImportStatements';
+import handleVersionReplacements from './helpers/handleVersionReplacements';
 import getUsedIcons from './helpers/getUsedIcons';
 
 import { Doc, DocData } from '../interfaces/doc';
@@ -18,7 +19,7 @@ export const getDoc = (slug: string): Doc => {
   const docContents = fs.readFileSync(docPath, 'utf-8');
   const { content, data } = matter(docContents);
 
-  const processedContent = handleImportStatements(content, DOCS_PATH);
+  const processedContent = handleVersionReplacements(handleImportStatements(content, DOCS_PATH));
 
   const { text: articleReadTime } = readingTime(processedContent);
   const docToc = toc(processedContent).json;
