@@ -93,7 +93,7 @@ const Home: NextPage = () => {
                 name={library.name}
                 description={library.description}
                 image={library.image}
-                link={`/icons/${library.id}`}
+                link={`/library/${library.id}`}
               />
             ))}
           </div>
