@@ -69,7 +69,7 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='Pictogrammers' name='title' key='title' />
         <meta content='Open-source iconography for designers and developers' name='description' key='description' />
         <meta content='en_US' property='og:locale' key='og:locale' />
-        <meta content='Pictogrammers Icon Group' property='og:title' key='og:title' />
+        <meta content='Pictogrammers' property='og:title' key='og:title' />
         <meta content='website' property='og:type' key='og:type' />
         <meta content='https://pictogrammers.com/' property='og:url' key='og:url' />
         <meta content='Open-source iconography for designers and developers' property='og:description' key='og:description' />
@@ -79,7 +79,7 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='summary' name='twitter:card' key='twitter:card' />
         <meta content='@pictogrammers' name='twitter:creator' key='twitter:creator' />
         <meta content='@pictogrammers' name='twitter:site' key='twitter:site' />
-        <meta content='Pictogrammers Icon Group' name='twitter:title' key='twitter:title' />
+        <meta content='Pictogrammers' name='twitter:title' key='twitter:title' />
         <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
         <meta content='twitter-card.png' name='twitter:image' key='twitter:image' />
       </Head>

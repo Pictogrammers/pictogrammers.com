@@ -35,6 +35,7 @@ import {
   TableHead,
   TableRow
 } from '../../components/Docs/Table';
+import CarbonAd from '../../components/CarbonAd/CarbonAd';
 
 import classes from '../../styles/pages/docs.module.scss';
 
@@ -165,6 +166,7 @@ const PostPage: NextPage<Props> = ({ availableIcons, frontMatter, readingTime, s
         </article>
         <aside>
           <div className={classes.sidenav}>
+            <CarbonAd />
             <TableOfContents toc={toc} />
             <div className={classes.edits}>
               <p className={classes.improvehead}>Improve This Article</p>

@@ -18,7 +18,7 @@ const Footer: FunctionComponent = () => {
           <Link aria-label='Return to the Pictogrammers Home' className={classes.logo} href='#top'>
             <PictogrammersLogo />
           </Link>
-          © {year} Pictogrammers Icon Group.
+          © {year} Pictogrammers
         </li>
         <li>
           <Link href='/docs/about/code-of-conduct/'>Code of Conduct</Link>

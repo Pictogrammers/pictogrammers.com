@@ -41,6 +41,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 import LibraryMenu from './LibraryMenu';
 import LibraryViewMode, { viewModes } from './LibraryViewMode';
 import IconView from '../IconView/IconView';
+import CarbonAd from '../CarbonAd/CarbonAd';
 
 import iconLibraries from '../../public/libraries/libraries.json';
 import allContributors from '../../public/contributors/contributors.json';
@@ -194,12 +195,29 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const renderInformationBox = () => {
     if (version && !debouncedSearchTerm) {
       return (
-        <Alert severity='info' sx={{ marginBottom: '1rem' }}>
+        <Alert severity='warning' sx={{ marginBottom: '1rem' }}>
           <AlertTitle>New Icons in v{version}</AlertTitle>
           Please be sure to check the <Link href={`/docs/${library}/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here.
         </Alert>
       );
     }
+  };
+
+  const renderInformationGrid = () => {
+    return (
+      <Fragment>
+        {renderInformationBox()}
+        <div className={cx(classes.infoGrid, {
+          [classes.hide]: isMobileWidth
+        })}>
+          <Alert classes={{ root: classes.infoAlert }} severity='info'>
+            <AlertTitle>Not finding it?</AlertTitle>
+            Head over to our GitHub repo and <Link href={`${libraryConfig.git}/issues/new?labels=Icon+Request&template=1_icon_request.yml`}>suggest it</Link>. You can also <Link href={`${libraryConfig.git}/issues/new?labels=Icon+Request%2CContribution&template=2_contribution.yml`}>contribute</Link> your idea if you&apos;re feeling creative!
+          </Alert>
+          <CarbonAd />
+        </div>
+      </Fragment>
+    );
   };
 
   return (
@@ -309,7 +327,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                 </div>
               ) : (
                 <Fragment>
-                  {renderInformationBox()}
+                  {renderInformationGrid()}
                   <VirtuosoGrid
                     data={visibleIcons}
                     itemClassName={classes.libraryItem}

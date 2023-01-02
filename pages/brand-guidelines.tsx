@@ -74,7 +74,7 @@ const PostPage: NextPage = () => {
             <section className={brandClasses.logo}>
               <Heading2>Logo</Heading2>
               <PictogrammersLogoSvg className={brandClasses.pictogrammers} />
-              <p>The Pictogrammers logo is the central visual identity for the Pictogrammers Icon Group. The monogram was created by <Link href='https://fosstodon.org/@templarian'>Austin Andrews</Link> in 2020. The following year, the wordmark was added by <Link href='https://hachyderm.io/@mririgoyen'>Michael Irigoyen</Link>, completing the logo.</p>
+              <p>The Pictogrammers logo is the central visual identity for the Pictogrammers group. The monogram was created by <Link href='https://fosstodon.org/@templarian'>Austin Andrews</Link> in 2020. The following year, the wordmark was added by <Link href='https://hachyderm.io/@mririgoyen'>Michael Irigoyen</Link>, completing the logo.</p>
               <Link href='/pictogrammers-brand-assets.zip' passHref>
                 <Button
                   className={brandClasses.button}

@@ -38,7 +38,7 @@ const Home: NextPage = () => {
         fullHeight
         heading='Open-source iconography for designers and developers'
         showScrollCta
-        subHeading="We're a collective of passionate individuals creating beautiful icon libraries for drop-in use in your designs and development."
+        subHeading="We're a collective of passionate individuals creating beautiful icon and font libraries for drop-in use in your designs and development."
       />
       <main className={classes.main}>
         <HomeSection id='users' initialWave>
@@ -73,8 +73,8 @@ const Home: NextPage = () => {
               </AvatarGroup>
             )}
             <p>
-              The Pictogrammers Icon Group is a diverse group of {totalContributors}+ collaborators
-              from all walks of life. Hailing from all corners of the globe, we come
+              The Pictogrammers are a diverse group of {totalContributors}+ collaborators
+              from all walks of life. Hailing from nearly ever corner of the globe, we come
               together to express ideas in a universal language so that all may
               benefit. Icons may be small, but they are powerful forms of
               communication in today&apos;s digital age. Built on our passion for beautiful
@@ -85,7 +85,7 @@ const Home: NextPage = () => {
             </p>
           </div>
         </HomeSection>
-        <HomeSection title='Featured Icon Libraries' highlight>
+        <HomeSection title='Featured Libraries' highlight>
           <div className={classes.libraries}>
             {featuredIconLibraries.map((library: IconLibrary) => (
               <LibraryCard
@@ -101,7 +101,7 @@ const Home: NextPage = () => {
         <HomeSection id='join' title='Join Us'>
           <div className={classes.join}>
             <p>
-              If you&apos;re looking to get involved with the Pictogrammers Icon Group, there are many ways you can help! You can tackle <a href='https://github.com/Templarian/MaterialDesign/issues'>issues and icon requests</a> on one of our libraries. You can <a href='https://github.com/Pictogrammers/pictogrammers.com/tree/main/src/docs'>write and update documentation</a> to help those looking to get started. Interested in writing an integration we don&apos;t have... <Link href='/docs/contribute/third-party'>Go for it!</Link>
+              If you&apos;re looking to get involved with the Pictogrammers, there are many ways you can help! You can tackle <Link href='/docs/contribute'>issues and icon requests</Link> on one of our libraries. You can <a href='https://github.com/Pictogrammers/pictogrammers.com/tree/main/src/docs'>write and update documentation</a> to help those looking to get started. Interested in writing an integration we don&apos;t have... <Link href='/docs/contribute/third-party'>Go for it!</Link>
               <br />
               <br />
               If you have any questions about how you can make an impact, reach out to us on <a href='https://fosstodon.org/@pictogrammers' rel='me'>Mastodon</a> or open a <a href='https://github.com/Templarian/MaterialDesign/issues/new?assignees=&labels=Question&template=6_question.yml'>GitHub issue</a>. We look forward to meeting you!

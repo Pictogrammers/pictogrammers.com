@@ -15,11 +15,10 @@
 }
 
 .sidenav {
-  max-width: 275px;
-  min-width: 243px;
   padding: 2rem 1.5rem;
   position: sticky;
   top: 0;
+  width: calc(315px + 3rem);
 }
 
 .improvehead {

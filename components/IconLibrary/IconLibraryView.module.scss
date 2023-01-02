@@ -75,6 +75,20 @@
   padding: 1rem;
 }
 
+.infoGrid {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  &.hide {
+    display: none;
+  }
+
+  .infoAlert {
+    flex: 1;
+  }
+}
+
 .library {
   display: grid;
   grid-gap: 20px;

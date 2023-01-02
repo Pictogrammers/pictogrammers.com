@@ -1,0 +1,29 @@
+.root {
+  background-color: hsl(var(--light-grey));
+  border-radius: 5px;
+  box-shadow: inset 0 0 10px hsl(var(--grey));
+  min-height: 100px;
+  position: relative;
+  width: 315px;
+
+  &.hide {
+    display: none;
+  }
+
+  &::after {
+    align-items: center;
+    color: hsl(var(--grey));
+    content: 'Please consider whitelisting our ads. They help support the work we do!';
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    line-height: 1.4;
+    padding: 0 1rem;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    user-select: none;
+    width: calc(100% - 2rem);
+  }
+}
