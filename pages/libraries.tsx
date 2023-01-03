@@ -10,6 +10,8 @@ import dayjs from 'dayjs';
 import Icon from '@mdi/react';
 import { mdiFormatFont, mdiRobotExcited } from '@mdi/js';
 
+import LandingPageHeading from '../components/LandingPageHeading/LandingPageHeading';
+
 import iconLibraries from '../public/libraries/libraries.json';
 
 import pictoLibraries from '../assets/libraries/picto-libraries.png';
@@ -82,13 +84,16 @@ const IconsLandingPage: NextPage = () => {
         <meta content={pageDesc} name='twitter:description' key='twitter:description' />
       </Head>
       <Paper className={classes.container}>
-        <div className={classes.heading}>
-          <div className={classes.title}>
-            <h1>Icons & Fonts</h1>
-            <p>Our libraries are beautifully crafted and completely open-source, so you can focus on your designs and development.</p>
-          </div>
-          <Image alt='Pictogrammers Libraries' height={275} src={pictoLibraries} width={275} />
-        </div>
+        <LandingPageHeading
+          title='Icons & Fonts'
+          description='Our libraries are beautifully crafted and completely open-source, so you can focus on your designs and development.'
+          image={{
+            alt: 'Pictogrammers Libraries',
+            height: 275,
+            src: pictoLibraries,
+            width: 275
+          }}
+        />
   
         <div className={classes.typeHeading}>
           Icon Libraries

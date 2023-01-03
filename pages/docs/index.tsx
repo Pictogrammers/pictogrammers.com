@@ -2,18 +2,22 @@ import { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import Paper from '@mui/material/Paper';
+import { mdiBookOpenPageVariantOutline } from '@mdi/js';
+
+import LandingPageHeading from '../../components/LandingPageHeading/LandingPageHeading';
 
 import { getAllDocs } from '../../utils/mdxUtils';
 
-import classes from '../../styles/pages/landing.module.scss';
+import classes from '../../styles/pages/docs.module.scss';
 
 interface DocumentIndex {
   [key: string]: {
     [key: string]: [
       {
-        title: string,
-        description?: string,
-        hidden?: boolean
+        description?: string;
+        hidden?: boolean;
+        slug: string;
+        title: string;
       }
     ]
   }
@@ -65,16 +69,35 @@ const DocsLandingPage: NextPage<DocsLandingPageProps> = ({ docs }: DocsLandingPa
         <title>Documentation - Pictogrammers</title>
         <meta content='Documentation - Pictogrammers' name='title' key='title' />
       </Head>
-      <Paper className={classes.container}>
-        <h1>Welcome to the Pictogrammers Docs</h1>
-        <p>Learn how to get started with our icon and font libraries in your project.</p>
-        <p>TODO: Design and style this page</p>
+      <Paper className={classes.landing}>
+        <LandingPageHeading
+          title='Welcome to the Pictogrammers Docs'
+          description='Learn how to get started with our icon and font libraries in your projects.'
+          icon={mdiBookOpenPageVariantOutline}
+        />
+
         <p>TODO: Show stylized cards for each category: Getting Started, Contributing, Library-specific Guides, etc dynamicly from generated MDX files</p>
-        <p>Examples:</p>
-        <ul>
-          <li><Link href='/docs/mdi/getting-started'>MDI Getting Started</Link></li>
-          <li><Link href='/docs/mdi/guides/home-assistant'>MDI Home Assistant Guide</Link></li>
-        </ul>
+        {Object.keys(docs).map((library, i) => {
+          return (
+            <div key={i}>
+              <h2>Library: {library}</h2>
+              {Object.keys(docs[library]).map((category, c) => {
+                return (
+                  <div key={`c-${c}`}>
+                    <h3>Category: {category}</h3>
+                    <ul>
+                    {docs[library][category].map((doc) => {
+                      return (
+                        <li key={doc.slug}><Link href={`/docs/${doc.slug}`}>{doc.title}</Link></li>
+                      );
+                    })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
       </Paper>
     </div>
   );
