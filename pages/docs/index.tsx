@@ -1,11 +1,64 @@
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import Paper from '@mui/material/Paper';
 
+import { getAllDocs } from '../../utils/mdxUtils';
+
 import classes from '../../styles/pages/landing.module.scss';
 
-const DocsLandingPage: NextPage = () => {
+interface DocumentIndex {
+  [key: string]: {
+    [key: string]: [
+      {
+        title: string,
+        description?: string,
+        hidden?: boolean
+      }
+    ]
+  }
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const docs = getAllDocs(['title', 'description', 'category', 'library', 'hidden', 'slug']);
+  const groupedDocs = docs.reduce((output, doc) => {
+    const {
+      category = 'General',
+      hidden,
+      library = 'General',
+      ...rest
+    } = doc;
+
+    if (hidden) {
+      return output;
+    }
+
+    if (!output[library]) {
+      output[library] = {};
+    }
+
+    if (!output[library][category]) {
+      output[library][category] = [];
+    }
+
+    output[library][category].push({ ...rest });
+    return output;
+  }, {} as DocumentIndex);
+
+  return {
+    props: {
+      docs: groupedDocs
+    }
+  };
+};
+
+interface DocsLandingPageProps {
+  docs: DocumentIndex
+};
+
+const DocsLandingPage: NextPage<DocsLandingPageProps> = ({ docs }: DocsLandingPageProps) => {
+  console.log(docs);
+
   return (
     <div className={classes.root}>
       <Head>

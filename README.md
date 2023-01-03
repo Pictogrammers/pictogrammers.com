@@ -26,4 +26,4 @@ The site will hot-reload as you make changes.
 
 ## Legal
 
-&copy; Copyright 2022 Pictogrammers. All company logos are copyrighted by their respective owners.
+&copy; Copyright 2023 Pictogrammers. All company logos are copyrighted by their respective owners.
