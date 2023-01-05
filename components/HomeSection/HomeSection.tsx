@@ -1,10 +1,10 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 import cx from 'clsx';
 
 import classes from './HomeSection.module.scss';
 
 interface HomeSectionProps {
-  children: string | JSX.Element;
+  children: ReactNode;
   className?: string;
   highlight?: boolean;
   id?: string;
@@ -12,15 +12,7 @@ interface HomeSectionProps {
   title?: string;
 }
 
-
-const HomeSection: FunctionComponent<HomeSectionProps> = ({
-  children,
-  className,
-  highlight,
-  id,
-  initialWave = false,
-  title
-}: HomeSectionProps) => {
+const HomeSection: FunctionComponent<HomeSectionProps> = ({ children, className, highlight, id, initialWave = false, title }) => {
   return (
     <section
       className={cx(classes.root, className, {

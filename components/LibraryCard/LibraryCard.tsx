@@ -15,7 +15,6 @@ export interface LibraryCardProps {
   name: string;
 }
 
-
 const LibraryButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     backgroundColor: 'white',

@@ -22,12 +22,7 @@ interface HeroProps {
   subHeading: string;
 }
 
-const Hero: FunctionComponent<HeroProps> = ({
-  fullHeight = false,
-  heading,
-  showScrollCta = false,
-  subHeading
-}) => {
+const Hero: FunctionComponent<HeroProps> = ({ fullHeight = false, heading, showScrollCta = false, subHeading }) => {
   return (
     <section className={cx(classes.root, {
       [classes.full]: fullHeight

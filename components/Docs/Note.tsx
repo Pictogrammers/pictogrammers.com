@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import { ReactNode } from 'react';
 import Alert, { AlertColor } from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -10,9 +11,7 @@ interface NoteProps {
   type?: AlertColor;
 }
 
-const Note = (props: NoteProps) => {
-  const { children, title, type = 'info' } = props;
-
+const Note: FunctionComponent<NoteProps> = ({ children, title, type = 'info' }) => {
   return (
     <Alert className={classes.alert} severity={type}>
       {title && <AlertTitle>{title}</AlertTitle>}

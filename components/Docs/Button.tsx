@@ -1,5 +1,5 @@
+import { FunctionComponent, ReactNode } from 'react';
 import Link from 'next/link';
-import { ReactNode } from 'react';
 import cx from 'clsx';
 import { ButtonProps, Button as MuiButton } from '@mui/material';
 
@@ -9,7 +9,7 @@ import Icon from './Icon';
 
 import classes from './components.module.scss';
 
-interface IButton extends ButtonProps {
+interface CustomButtonProps extends ButtonProps {
   availableIcons?: IconLibraries;
   endIcon?: string | ReactNode;
   href: string;
@@ -17,9 +17,16 @@ interface IButton extends ButtonProps {
   startIcon?: string | ReactNode;
 }
 
-const Button = (props: IButton) => {
-  const { availableIcons, children, endIcon, href, node, startIcon, variant = 'outlined', ...rest } = props;
-
+const Button: FunctionComponent<CustomButtonProps> = ({
+  availableIcons,
+  children,
+  endIcon,
+  href,
+  node,
+  startIcon,
+  variant = 'outlined',
+...rest
+}) => {
   const renderIcon = (icon: string | ReactNode) => {
     if (typeof icon === 'string') {
       const size = icon.startsWith('si') ? .9 : 1;

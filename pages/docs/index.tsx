@@ -8,7 +8,7 @@ import LandingPageHeading from '../../components/LandingPageHeading/LandingPageH
 
 import { getAllDocs } from '../../utils/mdxUtils';
 
-import classes from '../../styles/pages/docs.module.scss';
+import classes from '../../styles/pages/landing.module.scss';
 
 interface DocumentIndex {
   [key: string]: {
@@ -60,7 +60,7 @@ interface DocsLandingPageProps {
   docs: DocumentIndex
 };
 
-const DocsLandingPage: NextPage<DocsLandingPageProps> = ({ docs }: DocsLandingPageProps) => {
+const DocsLandingPage: NextPage<DocsLandingPageProps> = ({ docs }) => {
   console.log(docs);
 
   return (

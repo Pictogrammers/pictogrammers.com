@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import cx from 'clsx';
 import Button from '@mui/material/Button';
@@ -16,7 +17,7 @@ interface ExampleVueProps {
   visible: boolean;
 }
 
-const ExampleVue = ({ iconName, library, visible }: ExampleVueProps) => {
+const ExampleVue: FunctionComponent<ExampleVueProps> = ({ iconName, library, visible }) => {
   const jsName = `${library}${kebabToPascal(iconName)}`;
 
   return (

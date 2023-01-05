@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import cx from 'clsx';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark as CodeStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -10,7 +11,7 @@ interface CodeProps {
   displayAsBlock?: boolean;
 }
 
-const Code = ({ children, className, displayAsBlock }: CodeProps) => {
+const Code: FunctionComponent<CodeProps> = ({ children, className, displayAsBlock }) => {
   const language = /language-(\w+)/.exec(className || '') || ['language-text', 'text'];
   const inline = !(/\r|\n/.exec(children || '')) && !displayAsBlock;
 

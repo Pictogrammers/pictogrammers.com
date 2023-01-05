@@ -55,7 +55,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { fallback: false, paths };
 };
 
-interface Props {
+interface LibraryPageProps {
   author?: string;
   category?: string;
   icon?: IconLibraryIcon;
@@ -65,7 +65,7 @@ interface Props {
   version?: string;
 }
 
-const LibraryPage: NextPage<Props> = ({ icon, libraryType, ...props }: Props) => {
+const LibraryPage: NextPage<LibraryPageProps> = ({ icon, libraryType, ...props }) => {
   if (libraryType === 'icons') {
     if (icon) {
       return <IconView icon={icon} {...props} />;

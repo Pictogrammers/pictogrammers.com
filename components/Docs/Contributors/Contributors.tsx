@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import cx from 'clsx';
 import Card from '@mui/material/Card';
 import Avatar from '@mui/material/Avatar';
@@ -13,7 +14,7 @@ import { ContributorProps, ContributorsMdxProps } from '../../../interfaces/cont
 
 import classes from './Contributors.module.scss';
 
-const Contributor = ({
+const Contributor: FunctionComponent<ContributorProps> = ({
   core,
   github,
   iconCount,
@@ -23,7 +24,7 @@ const Contributor = ({
   sponsored,
   twitter,
   website
-}: ContributorProps) => {
+}) => {
   return (
     <Card
       classes={{ 
@@ -114,7 +115,7 @@ const Contributor = ({
   );
 };
 
-const Contributors = ({ id, name, view }: ContributorsMdxProps) => {
+const Contributors: FunctionComponent<ContributorsMdxProps> = ({ id, name, view }) => {
   const { contributors } = contributorsJson;
   const filteredList = contributors.filter((contributor) => {
     if (view === 'single') {

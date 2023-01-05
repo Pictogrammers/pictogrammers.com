@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import cx from 'clsx';
 import Button from '@mui/material/Button';
@@ -15,7 +16,7 @@ interface ExampleWebfontProps {
   visible: boolean;
 }
 
-const ExampleWebfont = ({ iconName, library, visible }: ExampleWebfontProps) => {
+const ExampleWebfont: FunctionComponent<ExampleWebfontProps> = ({ iconName, library, visible }) => {
   return (
     <div
       aria-labelledby='example-tab-webfont'

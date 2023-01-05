@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import cx from 'clsx';
 import Button from '@mui/material/Button';
@@ -14,7 +15,7 @@ interface ExampleHomeAssistantProps {
   visible: boolean;
 }
 
-const ExampleHomeAssistant = ({ iconName, library, visible }: ExampleHomeAssistantProps) => {
+const ExampleHomeAssistant: FunctionComponent<ExampleHomeAssistantProps> = ({ iconName, library, visible }) => {
   return (
     <div
       aria-labelledby='example-tab-home-assistant'

@@ -1,4 +1,4 @@
-import { ReactNode, useId, useState } from 'react';
+import { FunctionComponent, ReactNode, useId, useState } from 'react';
 import { Tab as MuiTab, Tabs as MuiTabs } from '@mui/material';
 
 import classes from './components.module.scss';
@@ -21,9 +21,7 @@ interface TabPanelProps {
   value: number;
 }
 
-const Tab = (props: TabPanelProps) => {
-  const { children, index, tabId, value, ...rest } = props;
-
+const Tab: FunctionComponent<TabPanelProps> = ({ children, index, tabId, value, ...rest }) => {
   return (
     <div
       role='tabpanel'
@@ -41,7 +39,7 @@ const Tab = (props: TabPanelProps) => {
   );
 };
 
-const Tabs = (attr: TabsProps) => {
+const Tabs: FunctionComponent<TabsProps> = ({ children }) => {
   const tabId = useId();
   const [ value, setValue ] = useState(0);
 
@@ -49,8 +47,8 @@ const Tabs = (attr: TabsProps) => {
     setValue(newValue);
   };
 
-  if (!attr?.children?.length) {
-    return;
+  if (!children?.length) {
+    return null;
   }
 
   return (
@@ -63,7 +61,7 @@ const Tabs = (attr: TabsProps) => {
         variant='scrollable'
       >
         {
-          attr.children.map((child, i) => (
+          children.map((child, i) => (
             <MuiTab
               aria-controls={`tabpanel-${tabId}-${i}`}
               id={`tab-${tabId}-${i}`}
@@ -74,7 +72,7 @@ const Tabs = (attr: TabsProps) => {
         }
       </MuiTabs>
       {
-        attr.children.map((child, i) => (
+        children.map((child, i) => (
           <Tab
             index={i}
             tabId={tabId}

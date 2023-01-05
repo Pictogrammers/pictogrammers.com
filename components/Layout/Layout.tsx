@@ -1,14 +1,14 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-type Props = {
-  children: React.ReactNode;
+interface LayoutProps {
+  children: ReactNode;
   className?: string;
 }
 
-const Layout: FunctionComponent<Props> = ({ children, className }: Props) => {
+const Layout: FunctionComponent<LayoutProps> = ({ children, className }) => {
   return (
     <div className={className}>
       <Header />

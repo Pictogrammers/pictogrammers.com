@@ -1,9 +1,10 @@
+import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import { TableOfContentsItemProps, TableOfContentsProps } from '../../../interfaces/tableOfContents';
 
 import classes from './TableOfContents.module.scss';
 
-const TableOfContents = ({ toc }: TableOfContentsProps) => {
+const TableOfContents: FunctionComponent<TableOfContentsProps> = ({ toc }) => {
   if (!toc.length) {
     return null;
   }

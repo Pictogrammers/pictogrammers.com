@@ -1,30 +1,54 @@
+import { Fragment } from 'react';
 import { NextPage } from 'next';
+import Link from 'next/link';
 import Head from 'next/head';
-import Paper from '@mui/material/Paper';
+import Alert from '@mui/material/Alert';
 
-import classes from '../../styles/pages/landing.module.scss';
+import Layout from '../../components/Docs/Layout/Layout';
+import CodeHighlighter from '../../components/CodeHighlighter/CodeHighlighter';
 
 const ToolsGitHub: NextPage = () => {
-  return (
-    <div className={classes.root}>
-      <Head>
-        <title>GitHub Tools - Pictogrammers</title>
-        <meta content='GitHub Tools - Pictogrammers' name='title' key='title' />
-      </Head>
-      <Paper className={classes.container}>
-        <p>GitHub Tools Landing Page</p>
-        Use the GitHub tool below to generate preview images. Note you must combine all vector items into a single vector.
+  const title = 'GitHub Preview Generator';
+  const path = 'pages/tools/github.tsx';
 
-- SVG should be 24x24
-- Select all vector objects
-- Then unite or combine the paths
-- Export as an SVG
-- Upload the file below.
-- Or open the `.svg` in a text editor.
-  - Find the `&lt;path d=&quot;&quot;&gt;` in the `.svg`
-  - Copy the `d` attribute&apos;s contents into the path data field below
-      </Paper>
-    </div>
+  return (
+    <Fragment>
+      <Head>
+        <title>{title} - Tools - Pictogrammers</title>
+        <meta content={`${title} - Tools - Pictogrammers`} name='title' key='title' />
+      </Head>
+      <Layout
+        breadcrumbs={<Link href='/tools'>Tools</Link>}
+        improvePage={{
+          gitHubUrl: `https://github.com/Pictogrammers/pictogrammers.com/blob/main/${path}`,
+          suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent(`Suggested Change to "${title}"`)}&body=${encodeURIComponent(`*URL:* https://pictogrammers.com/${path}\n\n<!-- Describe how you would improve the page here -->`)}`
+        }}
+        title='GitHub Preview Generator'
+      >
+        <Alert severity='info'>
+          You <strong>must</strong> combine all vector paths and shapes into a single, compound path.
+        </Alert>
+
+        <p>[GITHUB PREVIEW GENERATOR HERE]</p>
+        
+        <div>
+          <h2>Instructions</h2>
+          <ul>
+            <li>The SVG artboard should be 24dp x 24dp.</li>
+            <li>When you&apos;ve completed your design, select all shapes and paths. Then unite or combine paths.</li>
+            <li>Export as an SVG.</li>
+            <li>Upload the file above <i>or...</i></li>
+            <li>
+              Open then exported SVG file in a text editor.
+              <ul>
+                <li>Find the <CodeHighlighter>path d=&quot;&quot;</CodeHighlighter> in the source.</li>
+                <li>Copy the contents of the <CodeHighlighter>d</CodeHighlighter> attribute into the path field above.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </Layout>
+    </Fragment>
   );
 };
 

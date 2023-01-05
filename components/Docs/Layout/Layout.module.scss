@@ -14,15 +14,6 @@
   }
 }
 
-.landing {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  max-width: $width-max;
-  overflow: hidden;
-  position: relative;
-}
-
 .sidenav {
   padding: 2rem 1.5rem;
   position: sticky;

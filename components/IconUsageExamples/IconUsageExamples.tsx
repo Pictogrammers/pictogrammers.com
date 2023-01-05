@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { FunctionComponent, SyntheticEvent, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
@@ -34,7 +34,7 @@ interface IconUsageExamplesProps {
   iconName: string;
 }
 
-const IconUsageExamples = ({ exampleTypes = [], library, iconName }: IconUsageExamplesProps) => {
+const IconUsageExamples: FunctionComponent<IconUsageExamplesProps> = ({ exampleTypes = [], library, iconName }) => {
   const [ activeExample, setActiveExample ] = useState(0);
 
   if (!exampleTypes.length) {

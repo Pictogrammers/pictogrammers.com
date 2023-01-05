@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import cx from 'clsx';
 
 import useWindowSize from '../../hooks/useWindowSize';
@@ -8,7 +9,7 @@ interface CarbonAdProps {
   displayOnMobile?: boolean;
 }
 
-const CarbonAd = ({ displayOnMobile = false }: CarbonAdProps) => {
+const CarbonAd: FunctionComponent<CarbonAdProps> = ({ displayOnMobile = false }) => {
   const windowSize = useWindowSize();
   const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
 

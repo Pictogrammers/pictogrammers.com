@@ -1,10 +1,9 @@
+import { FunctionComponent } from 'react';
 import { Icon as MDIcon } from '@mdi/react';
 
 import { MdxIconProps } from '../../interfaces/icons';
 
-const Icon = (props: MdxIconProps) => {
-  const { availableIcons, name, path, size = 1, ...rest } = props;
-
+const Icon: FunctionComponent<MdxIconProps> = ({ availableIcons, name, path, size = 1, ...rest }) => {
   if (path) {
     return <MDIcon path={path} size={size * 1} {...rest} />;
   }

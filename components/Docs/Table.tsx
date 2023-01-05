@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import {
   Table,
   TableBody,
@@ -25,9 +26,7 @@ interface ITableCell extends TableCellProps {
   isHeader?: boolean;
 }
 
-const TableWrapper = (props: ITable) => {
-  const { children, node, ...rest } = props;
-
+const TableWrapper: FunctionComponent<ITable> = ({ children, node, ...rest } ) => {
   return (
     <TableContainer>
       <Table {...rest}>{children}</Table>
@@ -35,13 +34,11 @@ const TableWrapper = (props: ITable) => {
   );
 };
 
-const TableRowWrapper = (props: ITableRow) => {
-  const { children, isHeader, node, ...rest } = props;
+const TableRowWrapper: FunctionComponent<ITableRow> = ({ children, isHeader, node, ...rest }) => {
   return <TableRow {...rest}>{children}</TableRow>;
 };
 
-const TableCellWrapper = (props: ITableCell) => {
-  const { children, isHeader, node, ...rest } = props;
+const TableCellWrapper: FunctionComponent<ITableCell> = ({ children, isHeader, node, ...rest }) => {
   return <TableCell variant={isHeader ? 'head' : 'body'} {...rest}>{children}</TableCell>;
 };
 
