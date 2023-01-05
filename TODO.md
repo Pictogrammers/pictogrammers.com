@@ -10,11 +10,9 @@
 ## Homepage
 
 - "Get Started" call to action in the homepage Hero.
-- Update About/Join sections to include links to internal documentation.
 
 ## Icon Library View
 
-- Build landing page.
 - Build History pages.
   - "History" pages should be tied to each font in the "Icons" view and not via Markdown.
 
@@ -37,6 +35,6 @@
 
 ## Meta
 
-- Write README.
+- Expand README.
 - Google Analytics.
 - Create clever 404 page.

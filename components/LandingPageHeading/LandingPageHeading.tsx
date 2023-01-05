@@ -1,11 +1,11 @@
-import { NextPage } from 'next';
+import { FunctionComponent } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import Icon from '@mdi/react';
 import { mdiCloudOutline } from '@mdi/js';
 
 import classes from './LandingPageHeading.module.scss';
 
-interface Props {
+interface LandingPageHeadingProps {
   description: string;
   icon?: string;
   image?: {
@@ -17,7 +17,7 @@ interface Props {
   title: string;
 }
 
-const LandingPageHeading: NextPage<Props> = ({ description, icon, image, title }: Props) => {
+const LandingPageHeading: FunctionComponent<LandingPageHeadingProps> = ({ description, icon, image, title }) => {
   return (
     <div className={classes.root}>
       <div className={classes.title}>
