@@ -69,7 +69,7 @@ const DocsLandingPage: NextPage<DocsLandingPageProps> = ({ docs }) => {
         <title>Documentation - Pictogrammers</title>
         <meta content='Documentation - Pictogrammers' name='title' key='title' />
       </Head>
-      <Paper className={classes.landing}>
+      <Paper className={classes.container}>
         <LandingPageHeading
           title='Welcome to the Pictogrammers Docs'
           description='Learn how to get started with our icon and font libraries in your projects.'
