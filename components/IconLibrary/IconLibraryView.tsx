@@ -72,18 +72,18 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     version: libraryVersion
   } = iconLibraries[library as keyof typeof iconLibraries];
 
+  // Responsive concerns
+  const windowSize = useWindowSize();
+  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+
   // Library viewing
-  const [ viewMode, setViewMode ] = useState('comfortable');
+  const [ viewMode, setViewMode ] = useState(isMobileWidth ? 'compact' : 'comfortable');
   const categories = useCategories(library);
   const visibleIcons = useIcons(library, { author, category, term: debouncedSearchTerm, version });
 
   // Individual icon viewing
   const router = useRouter();
   const [ iconModal, setIconModal ] = useState<IconLibraryIcon | null>(null);
-  
-  // Responsive concerns
-  const windowSize = useWindowSize();
-  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -195,28 +195,34 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const renderInformationBox = () => {
     if (version && !debouncedSearchTerm) {
       return (
-        <Alert severity='warning' sx={{ marginBottom: '1rem' }}>
+        <Alert classes={{ root: classes.infoAlert }} severity='warning'>
           <AlertTitle>New Icons in v{version}</AlertTitle>
           Please be sure to check the <Link href={`/docs/${library}/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here.
         </Alert>
       );
     }
+
+    return (
+      <Alert
+        classes={{
+          root: cx(classes.infoAlert, {
+            [classes.hide]: isMobileWidth
+          })
+        }}
+        severity='info'
+      >
+        <AlertTitle>Not finding it?</AlertTitle>
+        Head over to our GitHub repo and <Link href={`${libraryConfig.git}/issues/new?labels=Icon+Request&template=1_icon_request.yml`}>suggest it</Link>. You can also <Link href={`${libraryConfig.git}/issues/new?labels=Icon+Request%2CContribution&template=2_contribution.yml`}>contribute</Link> your idea if you&apos;re feeling creative!
+      </Alert>
+    );
   };
 
   const renderInformationGrid = () => {
     return (
-      <Fragment>
+      <div className={classes.infoGrid}>
         {renderInformationBox()}
-        <div className={cx(classes.infoGrid, {
-          [classes.hide]: isMobileWidth
-        })}>
-          <Alert classes={{ root: classes.infoAlert }} severity='info'>
-            <AlertTitle>Not finding it?</AlertTitle>
-            Head over to our GitHub repo and <Link href={`${libraryConfig.git}/issues/new?labels=Icon+Request&template=1_icon_request.yml`}>suggest it</Link>. You can also <Link href={`${libraryConfig.git}/issues/new?labels=Icon+Request%2CContribution&template=2_contribution.yml`}>contribute</Link> your idea if you&apos;re feeling creative!
-          </Alert>
-          <CarbonAd />
-        </div>
-      </Fragment>
+        <CarbonAd displayOnMobile={false} />
+      </div>
     );
   };
 
@@ -269,7 +275,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   )
                 }}
                 onChange={handleSearchChange}
-                placeholder={`Seach ${!isMobileWidth && visibleIcons.length > 0 ? `${visibleIcons.length} ` : ''}Icons...`}
+                placeholder={`Seach ${visibleIcons.length} Icons...`}
                 size='small'
                 sx={{
                   margin: '0 1rem 0 0'

@@ -7,6 +7,7 @@ import { siGithub } from 'simple-icons/icons';
 
 import MdiHamburger from '../../assets/hamburger.svg';
 import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
+import PictogrammersWordmark from '../../assets/brand/logos/pictogrammers-wordmark.svg';
 
 import classes from './Header.module.scss';
 
@@ -36,7 +37,8 @@ const Header: FunctionComponent = () => {
       <nav className={classes.nav}>
         <div className={classes.main}>
           <Link className={classes.logo} href='/'>
-            <PictogrammersLogo title='Pictogrammers' />
+            <PictogrammersLogo className={classes.monogram} title='Pictogrammers Monogram' />
+            <PictogrammersWordmark className={classes.wordmark} title='Pictogrammers' />
           </Link>
           <div className={cx(classes.options, {
             [classes.open]: menuOpen

@@ -9,11 +9,16 @@
 }
 
 .logo {
+  align-items: center;
   border: none;
   display: flex;
   margin-right: 1rem;
 
-  svg {
+  .wordmark {
+    display: none;
+  }
+
+  .monogram {
     width: 35px;
 
     [id='keycap-top'] {
@@ -23,7 +28,7 @@
   }
 
   &:hover {
-    svg {
+    .monogram {
       [id='keycap-top'] {
         transform: translate(0, 10px);
       }
@@ -102,17 +107,23 @@
   }
 
   .logo {
-    display: block;
-    text-align: center;
+    margin: 0;
+
+    .wordmark {
+      display: block;
+      margin: 2px 0 0 -8px;
+      width: 140px;
+    }
   }
 
   .main {
-    flex: 1;
+    flex: 2;
     position: relative;
   }
 
   .hamburger {
     display: block;
+    min-width: 2.75rem;
 
     &.open {
       background-color: hsl(var(--white));
