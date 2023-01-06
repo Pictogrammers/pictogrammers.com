@@ -1,0 +1,30 @@
+.root {
+  display: flex;
+  margin: 1rem 0;
+}
+
+.form {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  padding: 1rem 2rem 1rem 1rem;
+  row-gap: 1rem;
+}
+
+.preview {
+  flex: 1;
+  margin: 1rem;
+}
+
+@media only screen and (max-width: ($tablet-width + 200)) {
+  .root {
+    flex-direction: column;
+  }
+
+  .preview {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+}

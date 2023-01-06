@@ -23,6 +23,7 @@
 
 .improvehead {
   font-size: .8rem;
+  margin-top: 2rem;
   text-transform: uppercase;
 }
 
@@ -137,16 +138,21 @@
   }
 
   .sidenav {
-    max-width: 100%;
-    padding: 2rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem 0;
+    text-align: center;
+    width: 100%;
   }
 
   .improvehead {
-    margin-top: 0;
+    display: none;
   }
 
   .edits {
-    padding: 0;
+    padding: 1rem;
+    width: 100%;
   }
 }
 
@@ -157,5 +163,9 @@
     .container {
       border-radius: 0;
     }
+  }
+
+  .sidenav {
+    padding: 0;
   }
 }

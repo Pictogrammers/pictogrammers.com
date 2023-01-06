@@ -35,7 +35,7 @@ const ToolsLandingPage: NextPage = () => {
               color: 'secondary',
               label: 'Coming Soon!'
             }}
-            description='Use the preview generator to generate images of your contribution.'
+            description='Easily convert bitmask images into SVG paths.'
             disabled
             icon={{ color: 'hsl(var(--primary-color))', path: mdiCheckerboard }}
             title='Bitmask to SVG'

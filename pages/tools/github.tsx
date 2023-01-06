@@ -6,6 +6,7 @@ import Alert from '@mui/material/Alert';
 
 import Layout from '../../components/Docs/Layout/Layout';
 import CodeHighlighter from '../../components/CodeHighlighter/CodeHighlighter';
+import IconPreviewGenerator from '../../components/IconPreviewGenerator/IconPreviewGenerator';
 
 const ToolsGitHub: NextPage = () => {
   const title = 'GitHub Preview Generator';
@@ -25,12 +26,7 @@ const ToolsGitHub: NextPage = () => {
         }}
         title='GitHub Preview Generator'
       >
-        <Alert severity='info'>
-          You <strong>must</strong> combine all vector paths and shapes into a single, compound path.
-        </Alert>
-
-        <p>[GITHUB PREVIEW GENERATOR HERE]</p>
-        
+        <IconPreviewGenerator />
         <div>
           <h2>Instructions</h2>
           <ul>
