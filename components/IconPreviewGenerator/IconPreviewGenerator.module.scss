@@ -16,6 +16,10 @@
   margin: 1rem;
 }
 
+.hiddenInput {
+  display: none;
+}
+
 @media only screen and (max-width: ($tablet-width + 200)) {
   .root {
     flex-direction: column;

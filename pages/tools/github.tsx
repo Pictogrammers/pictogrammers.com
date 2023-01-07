@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
-import Alert from '@mui/material/Alert';
 
 import Layout from '../../components/Docs/Layout/Layout';
 import CodeHighlighter from '../../components/CodeHighlighter/CodeHighlighter';
