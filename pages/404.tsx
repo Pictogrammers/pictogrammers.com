@@ -1,19 +1,16 @@
 import { NextPage } from 'next';
-import Head from 'next/head';
 import Paper from '@mui/material/Paper';
 import Icon from '@mdi/react';
 import { mdiEmoticonConfusedOutline } from '@mdi/js';
+
+import Head from '../components/Head/Head';
 
 import classes from '../styles/pages/404.module.scss';
 
 const ErrorBoundary: NextPage = () => {
   return (
     <div className={classes.root}>
-      <Head>
-        <title>404 - Page Not Found - Pictogrammers</title>
-        <meta content='404 - Page Not Found - Pictogrammers' name='title' key='title' />
-        <meta name='robots' content='noindex' />
-      </Head>
+      <Head noIndex title='404 - Page Not Found' />
       <Paper className={classes.container}>
         <Icon path={mdiEmoticonConfusedOutline} size={10} />
         <div>

@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
-import Head from 'next/head';
 import { serialize } from 'next-mdx-remote/serialize';
 import gfm from 'remark-gfm';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -13,6 +12,7 @@ import { IconLibraries, MdxIconProps } from '../../interfaces/icons';
 import { TableOfContentsItemProps } from '../../interfaces/tableOfContents';
 import { getAllDocs, getDoc } from '../../utils/mdxUtils';
 
+import Head from '../../components/Head/Head';
 import Layout from '../../components/Docs/Layout/Layout';
 import Contributors from '../../components/Docs/Contributors/Contributors';
 import Heading from '../../components/Docs/Heading';
@@ -93,8 +93,6 @@ const DocsPage: NextPage<DocsPageProps> = ({ availableIcons, frontMatter, readin
     title
   } = frontMatter;
 
-  const pageTitle = `${title} - Docs - Pictogrammers`;
-
   // TODO: Break this into a helper and actually link things up
   const breadcrumbs = [ <Link key='docs' href='/docs/'>Docs</Link> ];
   if (library) {
@@ -106,23 +104,13 @@ const DocsPage: NextPage<DocsPageProps> = ({ availableIcons, frontMatter, readin
 
   return (
     <Fragment>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta content={pageTitle} name='title' key='title' />
-        {description && <meta content={description} name='description' key='description' />}
-
-        <meta content={pageTitle} property='og:title' key='og:title' />
-        {description && <meta content={description} property='og:description' key='og:description' />}
-        <meta content='article' property='og:type' key='og:type' />
-        <meta content={`https://pictogrammers.com/${path}`} property='og:url' key='og:url' />
-
-        <meta content={pageTitle} name='twitter:title' key='twitter:title' />
-        {description && <meta content={description} name='twitter:description' key='twitter:description' />}
-        {readingTime && <meta content='Reading Time' name='twitter:label1' key='twitter:label1' />}
-        {readingTime && <meta content={readingTime} name='twitter:data1' key='twitter:data1' />}
-
-        {hidden && <meta name='robots' content='noindex' />}
-      </Head>
+      <Head
+        description={description}
+        noIndex={hidden}
+        readingTime={readingTime}
+        title={`${title} - Docs`}
+        type='article'
+      />
       <Layout
         breadcrumbs={breadcrumbs}
         improvePage={{

@@ -8,7 +8,6 @@ import {
   useState
 } from 'react';
 import getConfig from 'next/config';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'clsx';
@@ -38,6 +37,7 @@ import useIcons from '../../hooks/useIcons';
 import useDebounce from '../../hooks/useDebounce';
 import useWindowSize from '../../hooks/useWindowSize';
 
+import Head from '../Head/Head';
 import LibraryMenu from './LibraryMenu';
 import LibraryViewMode, { viewModes } from './LibraryViewMode';
 import IconView from '../IconView/IconView';
@@ -228,18 +228,10 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
   return (
     <div className={classes.root}>
-      <Head>
-        <title>{`${libraryConfig.name} - Icon Library - Pictogrammers`}</title>
-        <meta content={`${libraryConfig.name} - Icon Library - Pictogrammers`} name='title' key='title' />
-        {libraryConfig.description && <meta content={libraryConfig.description} name='description' key='description' />}
-
-        <meta content={`${libraryConfig.name} - Icon Library - Pictogrammers`} property='og:title' key='og:title' />
-        {libraryConfig.description && <meta content={libraryConfig.description} property='og:description' key='og:description' />}
-        <meta content={`https://pictogrammers.com/${slug}`} property='og:url' key='og:url' />
-
-        <meta content={`${libraryConfig.name} - Icon Library - Pictogrammers`} name='twitter:title' key='twitter:title' />
-        {libraryConfig.description && <meta content={libraryConfig.description} name='twitter:description' key='twitter:description' />}
-      </Head>
+      <Head
+        description={libraryConfig.description}
+        title={`${libraryConfig.name} - Icon Library`}
+      />
       <Paper className={classes.container}>
         <div className={classes.libraryView}>
           <div className={classes.heading} ref={iconLibraryHeadingRef}>

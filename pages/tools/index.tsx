@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
-import Head from 'next/head';
 import Paper from '@mui/material/Paper';
 import { mdiHammerScrewdriver } from '@mdi/js';
 import { mdiCheckerboard, mdiGrid } from '@mdi/js';
 
+import Head from '../../components/Head/Head';
 import LandingPageHeading from '../../components/LandingPageHeading/LandingPageHeading';
 import LandingPageCard from '../../components/LandingPageCard/LandingPageCard';
 
@@ -12,10 +12,10 @@ import classes from '../../styles/pages/landing.module.scss';
 const ToolsLandingPage: NextPage = () => {
   return (
     <div className={classes.root}>
-      <Head>
-        <title>Tools - Pictogrammers</title>
-        <meta content='Tools - Pictogrammers' name='title' key='title' />
-      </Head>
+      <Head
+        description='If you are looking to contribute to a Pictogrammers project, many of these tools may be of assistance.'
+        title='Tools'
+      />
       <Paper className={classes.container}>
         <LandingPageHeading
           title='Pictogrammers Tools'

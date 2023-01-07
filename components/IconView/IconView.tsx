@@ -1,7 +1,6 @@
 import { Fragment, FunctionComponent } from 'react';
 import cx from 'clsx';
 import getConfig from 'next/config';
-import Head from 'next/head';
 import Link from 'next/link';
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -24,6 +23,7 @@ import {
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
+import Head from '../Head/Head';
 import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
 import IconPreview from '../IconPreview/IconPreview';
 import IconUsageExamples from '../IconUsageExamples/IconUsageExamples';
@@ -76,26 +76,14 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
     );
   };
 
-  const pageTitle = `${icon.n} - ${libraryName} - Pictogrammers`;
-  const pageDescription = `The icon "${icon.n}" was added in v${icon.v} of the ${libraryName} icon library.`;
-
   return (
     <div className={cx(classes.root, {
       [classes.modal]: isModal
     })}>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta content={pageTitle} name='title' key='title' />
-        <meta content={pageDescription} name='description' key='description' />
-
-        <meta content={pageTitle} property='og:title' key='og:title' />
-        <meta content={pageDescription} property='og:description' key='og:description' />
-        <meta content='website' property='og:type' key='og:type' />
-        <meta content={`https://pictogrammers.com/library/${library}/icon/${icon.n}`} property='og:url' key='og:url' />
-
-        <meta content={pageTitle} name='twitter:title' key='twitter:title' />
-        <meta content={pageDescription} name='twitter:description' key='twitter:description' />
-      </Head>
+      <Head
+        description={`The icon "${icon.n}" was added in v${icon.v} of the ${libraryName} icon library.`}
+        title={`${icon.n} - ${libraryName}`}
+      />
       <ConditionalWrapper
         condition={!onClose}
         wrapper={(children: any) => (

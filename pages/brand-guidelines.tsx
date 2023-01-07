@@ -2,14 +2,13 @@ import { Fragment } from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import Head from 'next/head';
 import cx from 'clsx';
 import Button from '@mui/material/Button';
 import Icon from '@mdi/react';
 import { mdiArrowDown } from '@mdi/js';
 
+import Head from '../components/Head/Head';
 import Layout from '../components/Docs/Layout/Layout';
-
 import Heading from '../components/Docs/Heading';
 
 import PictogrammersLogoSvg from '../assets/brand/logos/pictogrammers-full.svg';
@@ -54,19 +53,11 @@ const PostPage: NextPage = () => {
 
   return (
     <Fragment>
-      <Head>
-        <title>{`${title} - Docs - Pictogrammers`}</title>
-        <meta content={`${title} - Pictogrammers`} name='title' key='title' />
-        {description && <meta content={description} name='description' key='description' />}
-
-        <meta content={`${title} - Pictogrammers`} property='og:title' key='og:title' />
-        {description && <meta content={description} property='og:description' key='og:description' />}
-        <meta content='article' property='og:type' key='og:type' />
-        <meta content={`https://pictogrammers.com/${path}`} property='og:url' key='og:url' />
-
-        <meta content={`${title} - Docs - Pictogrammers`} name='twitter:title' key='twitter:title' />
-        {description && <meta content={description} name='twitter:description' key='twitter:description' />}
-      </Head>
+      <Head
+        description={description}
+        title={`${title} - Docs`}
+        type='article'
+      />
       <Layout
         title='Brand Guidelines'
         toc={toc}

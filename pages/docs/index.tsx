@@ -1,9 +1,9 @@
 import { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
-import Head from 'next/head';
 import Paper from '@mui/material/Paper';
 import { mdiBookOpenPageVariantOutline } from '@mdi/js';
 
+import Head from '../../components/Head/Head';
 import LandingPageHeading from '../../components/LandingPageHeading/LandingPageHeading';
 
 import { getAllDocs } from '../../utils/mdxUtils';
@@ -65,10 +65,10 @@ const DocsLandingPage: NextPage<DocsLandingPageProps> = ({ docs }) => {
 
   return (
     <div className={classes.root}>
-      <Head>
-        <title>Documentation - Pictogrammers</title>
-        <meta content='Documentation - Pictogrammers' name='title' key='title' />
-      </Head>
+      <Head
+        description='Learn how to get started with our icon and font libraries in your projects.'
+        title='Documentation'
+      />
       <Paper className={classes.container}>
         <LandingPageHeading
           title='Welcome to the Pictogrammers Docs'

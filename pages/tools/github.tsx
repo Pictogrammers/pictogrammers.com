@@ -1,27 +1,21 @@
 import { Fragment } from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import Head from 'next/head';
 
+import Head from '../../components/Head/Head';
 import Layout from '../../components/Docs/Layout/Layout';
 import CodeHighlighter from '../../components/CodeHighlighter/CodeHighlighter';
 import IconPreviewGenerator from '../../components/IconPreviewGenerator/IconPreviewGenerator';
 
 const ToolsGitHub: NextPage = () => {
-  const title = 'GitHub Preview Generator';
-  const path = 'pages/tools/github.tsx';
-
   return (
     <Fragment>
-      <Head>
-        <title>{title} - Tools - Pictogrammers</title>
-        <meta content={`${title} - Tools - Pictogrammers`} name='title' key='title' />
-      </Head>
+      <Head title='GitHub Preview Generator - Tools' />
       <Layout
         breadcrumbs={<Link href='/tools'>Tools</Link>}
         improvePage={{
-          gitHubUrl: `https://github.com/Pictogrammers/pictogrammers.com/blob/main/${path}`,
-          suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent(`Suggested Change to "${title}"`)}&body=${encodeURIComponent(`*URL:* https://pictogrammers.com/${path}\n\n<!-- Describe how you would improve the page here -->`)}`
+          gitHubUrl: 'https://github.com/Pictogrammers/pictogrammers.com/blob/main/pages/tools/github.tsx',
+          suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent('Suggested Change to "GitHub Preview Generator"')}&body=${encodeURIComponent('*URL:* https://pictogrammers.com/pages/tools/github.tsx\n\n<!-- Describe how you would improve the page here -->')}`
         }}
         title='GitHub Preview Generator'
       >

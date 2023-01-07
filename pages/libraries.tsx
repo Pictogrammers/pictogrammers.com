@@ -1,11 +1,10 @@
-import { FunctionComponent } from 'react';
 import { NextPage } from 'next';
-import Head from 'next/head';
 import getConfig from 'next/config';
 import Paper from '@mui/material/Paper';
 import dayjs from 'dayjs';
 import { mdiFormatFont, mdiRobotExcited } from '@mdi/js';
 
+import Head from '../components/Head/Head';
 import LandingPageHeading from '../components/LandingPageHeading/LandingPageHeading';
 import LandingPageCard from '../components/LandingPageCard/LandingPageCard';
 
@@ -49,23 +48,12 @@ const IconsLandingPage: NextPage = () => {
   const { publicRuntimeConfig: config } = getConfig();
   const { libraries: { icons } } = config;
 
-  const pageTitle = 'Icon & Font Libraries - Pictogrammers';
-  const pageDesc = 'Our libraries are beautifully crafted and completely open-source, so you can focus on your designs and development.';
-
   return (
     <div className={classes.root}>
-      <Head>
-        <title>{pageTitle}</title>
-        <meta content={pageTitle} name='title' key='title' />
-        <meta content={pageDesc} name='description' key='description' />
-
-        <meta content={pageTitle} property='og:title' key='og:title' />
-        <meta content={pageDesc} property='og:description' key='og:description' />
-        <meta content='https://pictogrammers.com/libraries' property='og:url' key='og:url' />
-
-        <meta content={pageTitle} name='twitter:title' key='twitter:title' />
-        <meta content={pageDesc} name='twitter:description' key='twitter:description' />
-      </Head>
+      <Head
+        description='Our libraries are beautifully crafted and completely open-source, so you can focus on your designs and development.'
+        title='Icon & Font Libraries'
+      />
       <Paper className={classes.container}>
         <LandingPageHeading
           title='Icons & Fonts'

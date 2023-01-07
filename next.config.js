@@ -7,9 +7,9 @@ const withPWA = require('next-pwa')({
 });
 
 const nextConfig = {
-  images: {
-    unoptimized: true
-  },
+  // images: {
+  //   unoptimized: true
+  // },
   publicRuntimeConfig: config,
   reactStrictMode: true,
   async redirects() {
