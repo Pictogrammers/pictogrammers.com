@@ -25,19 +25,21 @@ const ToolsLandingPage: NextPage = () => {
 
         <div className={classes.cards}>
           <LandingPageCard
+            color='--primary-color'
             description='Use the preview generator to generate images of your contribution.'
             href='/tools/github'
-            icon={{ color: 'hsl(var(--primary-color))', path: mdiGrid }}
+            icon={mdiGrid}
             title='GitHub Preview Generator'
           />
           <LandingPageCard
+            color='--primary-color'
             chip={{
               color: 'secondary',
               label: 'Coming Soon!'
             }}
             description='Easily convert bitmask images into SVG paths.'
             disabled
-            icon={{ color: 'hsl(var(--primary-color))', path: mdiCheckerboard }}
+            icon={mdiCheckerboard}
             title='Bitmask to SVG'
           />
         </div>

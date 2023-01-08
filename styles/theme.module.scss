@@ -13,6 +13,20 @@
   --primary-color: var(--purple);
   --secondary-color: var(--cyan);
 
+  // Library colors
+  --mdi-color: 207deg 90% 54%;
+  --mdil-color: 207deg 34% 52%;
+  --memory-color: var(--purple);
+  --jun-color: var(--cyan);
+
+  // Documentation type colors
+  --general-color: 27deg 70% 62%;
+  --getting-started-color: 162deg 50% 65%;
+  --contribute-color: 255deg 94% 79%;
+  --guides-color: 206deg 96% 72%;
+  --releases-color: 0deg 100% 76%;
+
+  // Width of 1dp in pixels
   --dp-width: 10px;
 }
 

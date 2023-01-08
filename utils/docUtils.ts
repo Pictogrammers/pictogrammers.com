@@ -14,10 +14,26 @@ import { Doc, DocData } from '../interfaces/doc';
 const DOCS_PATH = join(process.cwd(), 'docs');
 const getDocPaths = (): string[] => glob.sync('**/*.mdx', { cwd: DOCS_PATH });
 
+const getSlugPieces = (slug: string) => {
+  const slugPieces = slug.split('/');
+  if (slugPieces[0] === 'library') {
+    return {
+      category: slugPieces[2],
+      library: slugPieces[1]
+    };
+  }
+
+  return {
+    category: slugPieces[0],
+    library: null
+  };
+};
+
 export const getDoc = (slug: string): Doc => {
   const docPath = join(DOCS_PATH, `${slug}.mdx`);
   const docContents = fs.readFileSync(docPath, 'utf-8');
   const { content, data } = matter(docContents);
+  const { category, library } = getSlugPieces(slug);
 
   const processedContent = handleVersionReplacements(handleImportStatements(content, DOCS_PATH));
 
@@ -27,8 +43,10 @@ export const getDoc = (slug: string): Doc => {
 
   return {
     availableIcons,
+    category,
     content: processedContent,
     data,
+    library,
     readingTime: articleReadTime,
     toc: docToc
   };
@@ -46,6 +64,10 @@ export const getDocItems = (filePath: string, fields: string[] = []): DocData =>
   ) {
     return { disabled: true };
   }
+
+  const { category, library } = getSlugPieces(slug);
+  data.category = category;
+  data.library = library;
 
   const items = fields.reduce((output, field) => {
     output[field] = field === 'slug' ? slug : field === 'content' ? content : data[field];

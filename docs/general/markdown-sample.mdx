@@ -106,14 +106,7 @@ Tables are supported for showing tabular information.
 | Project                                 | License                   |
 |-----------------------------------------|---------------------------|
 | Material Design Icons Community         | Apache License 2.0        |
-| Material Design Icons Google            | Apache License 2.0[^1]    |
 | Material Design Icons SVG               | MIT License               |
-| Material Design Icons SCSS/CSS          | MIT License               |
-| Material Design Icons Site              | MIT License               |
-| Material Design Icons @mdi/js           | Apache License 2.0        |
-| Material Design Icons @mdi/react        | MIT License               |
-| Material Design Icons @mdi/vue          | MIT License               |
-| Icon Templates                          | WTFPL                     |
 
 ### Code Blocks
 
@@ -123,19 +116,45 @@ All code blocks will render with syntax highlighting.
 import React, { Component } from 'react'
 import Icon from '@mdi/react'
 import { mdiAccount } from '@mdi/js'
+```
 
-class App extends Component {
-  render() {
-    return (
-      <Icon path={mdiAccount}
-        title="User Profile"
-        size={1}
-        horizontal
-        vertical
-        rotate={90}
-        color="red"
-        spin/>
-    )
-  }
-} 
+## Front Matter
+
+All markdown files must begin with Front Matter to be picked up by the build scripts. Typical front matter looks something like...
+
+```md
+---
+title: A Nice Title
+description: A short description about the article's contents.
+---
+````
+
+The supported values in front matter are:
+
+```
+// The title of the article, used as the `h1` and title tags for the page.
+title: string; 
+
+// A short description, used in the meta tags for the page.
+description: string;
+
+// Whether or not to hide the article from view and search engines.
+// The only way to view the article is with a direct link.
+hidden?: boolean;
+
+// Completely disables the article. Useful to remove the article without
+// removing the source for the article.
+disabled?: boolean;
+```
+
+The only occassion to omit front matter is if you are creating a partial MDX file for inclusion into another.
+
+## Including Other MDX Files
+
+You may include markdown files into another. This is useful for larger, more complex articles that it makes sense to segment portions of the article in seperate files.
+
+To do so, use `import:`, followed by the path to the MDX file.
+
+```md
+import(colon)/path/to/document.mdx
 ```

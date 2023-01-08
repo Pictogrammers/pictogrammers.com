@@ -46,7 +46,7 @@ const Header: FunctionComponent = () => {
             <NavButton href='/libraries'>Icons & Fonts</NavButton>
             <NavButton href='/docs'>Docs</NavButton>
             <NavButton href='/tools'>Tools</NavButton>
-            <NavButton href='/docs/about'>About</NavButton>
+            <NavButton href='/docs/general/about'>About</NavButton>
             <NavButton href='/docs/contribute'>Join Us</NavButton>
           </div>
         </div>

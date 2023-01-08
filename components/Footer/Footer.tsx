@@ -21,7 +21,7 @@ const Footer: FunctionComponent = () => {
           © {year} Pictogrammers
         </li>
         <li>
-          <Link href='/docs/about/code-of-conduct/'>Code of Conduct</Link>
+          <Link href='/docs/contribute/code-of-conduct/'>Code of Conduct</Link>
         </li>
         <li>
           <Link href='/brand-guidelines/'>Logo & Assets</Link>

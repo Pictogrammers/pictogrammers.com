@@ -34,20 +34,26 @@
   }
 }
 
-.typeHeading {
-  background-color: hsl(var(--primary-color));
-  color: hsl(var(--white));
-  font-size: .8rem;
-  letter-spacing: .2rem;
-  padding: .3rem 2rem;
-  text-transform: uppercase;
+.cardGroup {
+  & > h2 {
+    background-color: hsl(var(--primary-color));
+    color: hsl(var(--white));
+    font-size: .8rem;
+    letter-spacing: .2rem;
+    margin: 0;
+    padding: .3rem 2rem;
+    text-transform: uppercase;
+  }
 }
 
 .cards {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 1rem;
+
+  @media only screen and (max-width: ($tablet-width + 400)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   @media only screen and (max-width: ($tablet-width + 200)) {
     grid-template-columns: repeat(2, 1fr);

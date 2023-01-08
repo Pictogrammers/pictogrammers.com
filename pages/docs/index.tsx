@@ -1,12 +1,13 @@
 import { GetStaticProps, NextPage } from 'next';
-import Link from 'next/link';
+import getConfig from 'next/config';
 import Paper from '@mui/material/Paper';
 import { mdiBookOpenPageVariantOutline } from '@mdi/js';
 
 import Head from '../../components/Head/Head';
 import LandingPageHeading from '../../components/LandingPageHeading/LandingPageHeading';
+import LandingPageCard from '../../components/LandingPageCard/LandingPageCard';
 
-import { getAllDocs } from '../../utils/mdxUtils';
+import { getAllDocs } from '../../utils/docUtils';
 
 import classes from '../../styles/pages/landing.module.scss';
 
@@ -27,9 +28,9 @@ export const getStaticProps: GetStaticProps = async () => {
   const docs = getAllDocs(['title', 'description', 'category', 'library', 'hidden', 'slug']);
   const groupedDocs = docs.reduce((output, doc) => {
     const {
-      category = 'General',
+      category,
       hidden,
-      library = 'General',
+      library,
       ...rest
     } = doc;
 
@@ -61,7 +62,7 @@ interface DocsLandingPageProps {
 };
 
 const DocsLandingPage: NextPage<DocsLandingPageProps> = ({ docs }) => {
-  console.log(docs);
+  const { publicRuntimeConfig: { docs: { categories }, libraries } } = getConfig();
 
   return (
     <div className={classes.root}>
@@ -75,27 +76,33 @@ const DocsLandingPage: NextPage<DocsLandingPageProps> = ({ docs }) => {
           description='Learn how to get started with our icon and font libraries in your projects.'
           icon={mdiBookOpenPageVariantOutline}
         />
-
-        <p>TODO: Show stylized cards for each category: Getting Started, Contributing, Library-specific Guides, etc dynamicly from generated MDX files</p>
         {Object.keys(docs).map((library, i) => {
+          const libraryInfo = libraries.icons.find((i: any) => i.id === library);
           return (
-            <div key={i}>
-              <h2>Library: {library}</h2>
-              {Object.keys(docs[library]).map((category, c) => {
-                return (
-                  <div key={`c-${c}`}>
-                    <h3>Category: {category}</h3>
-                    <ul>
-                    {docs[library][category].map((doc) => {
-                      return (
-                        <li key={doc.slug}><Link href={`/docs/${doc.slug}`}>{doc.title}</Link></li>
-                      );
-                    })}
-                    </ul>
-                  </div>
-                );
-              })}
-            </div>
+            <section className={classes.cardGroup} key={i}>
+              {libraryInfo && <h2 id={libraryInfo.id}>{libraryInfo.name} Docs</h2>}
+              <div className={classes.cards}>
+                {Object.keys(docs[library])
+                  .sort((a, b) => {
+                    const aIndex = categories.findIndex((c: any) => c.id === a);
+                    const bIndex = categories.findIndex((c: any) => c.id === b);
+                    return aIndex < bIndex ? -1 : aIndex > bIndex ? 1 : 0;
+                  })
+                  .map((category) => {
+                    const categoryInfo = categories.find((c: any) => c.id === category);
+                    return (
+                      <LandingPageCard
+                        color={`--${categoryInfo.id}-color`}
+                        description={categoryInfo.description}
+                        href={`/docs/${libraryInfo ? `${library}/` : ''}${categoryInfo.id}`}
+                        icon={categoryInfo.icon}
+                        key={categoryInfo.id}
+                        title={categoryInfo.name}
+                      />
+                    );
+                  })}
+              </div>
+            </section>
           );
         })}
       </Paper>

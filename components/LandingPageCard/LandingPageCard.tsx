@@ -9,18 +9,16 @@ import classes from './LandingPageCard.module.scss';
 
 interface LandingPageCardProps {
   chip?: ChipTypeMap['props'];
+  color?: string;
   description: string;
   disabled?: boolean;
   href?: string;
-  icon?: {
-    color?: string;
-    path: string;
-  };
+  icon?: string;
   image?: string;
   title: string;
 };
 
-const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({ chip, description, disabled, href, icon, image, title }) => {
+const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({ chip, color, description, disabled, href, icon, image, title }) => {
   const Wrapper = !href ? 'div' : Link;
 
   return (
@@ -32,11 +30,11 @@ const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({ chip, descri
     >
       <div className={classes.images}>
         {image && <Image alt={`${title} Image`} height={64} src={`/${image}`} width={64} />}
-        {icon && <Icon className={classes.noImage} color={icon.color} path={icon.path} size={2.667} />}
+        {icon && <Icon className={classes.noImage} color={`hsl(var(${color}))`} path={icon} size={2.667} style={{ backgroundColor: `hsl(var(${color}) / 10%)` }} />}
         {chip && <Chip label={chip.label} color={chip.color} />}
       </div>
-      <div>
-        <h2>{title}</h2>
+      <div className={classes.info}>
+        <h3>{title}</h3>
         <p className={classes.subtext}>{description}</p>
       </div>
     </Wrapper>

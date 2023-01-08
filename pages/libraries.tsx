@@ -15,6 +15,7 @@ import pictoLibraries from '../assets/libraries/picto-libraries.png';
 import classes from '../styles/pages/landing.module.scss';
 
 interface IconLibraryProps {
+  color?: string;
   description?: string;
   id: string;
   image?: string;
@@ -32,12 +33,11 @@ const LibraryCard = (props: { library: IconLibraryProps, type: string }) => {
         color: library.unreleased ? 'primary' : 'secondary',
         label: library.unreleased ? 'Coming Soon!' : `${libraryStats.count} Icons`
       }}
+      color={`--${library.id}-color`}
       description={library.unreleased ? 'Unreleased' : `v${libraryStats.version} | Released on ${dayjs(libraryStats.date).format('MMM DD, YYYY')}`}
       disabled={!!library.unreleased}
       href={library.unreleased ? undefined : `/library/${library.id}`}
-      icon={!library.image ? {
-        path: type === 'font' ? mdiFormatFont : mdiRobotExcited
-      } : undefined}
+      icon={!library.image ? type === 'font' ? mdiFormatFont : mdiRobotExcited : undefined}
       image={library.image}
       title={library.name}
     />
@@ -65,27 +65,25 @@ const IconsLandingPage: NextPage = () => {
             width: 275
           }}
         />
-  
-        <div className={classes.typeHeading}>
-          Icon Libraries
-        </div>
-        <div className={classes.cards}>
-          {icons.map((library: IconLibraryProps) => <LibraryCard key={library.id} library={library} type='icon' />)}
-        </div>
-
-        <div className={classes.typeHeading}>
-          Font Libraries
-        </div>
-        <div className={classes.cards}>
-          <LibraryCard
-            library={{
-              id: 'jun',
-              name: 'Jun Mono',
-              unreleased: true
-            }}
-            type='font'
-          />
-        </div>
+        <section className={classes.cardGroup}>
+          <h2>Icon Libraries</h2>
+          <div className={classes.cards}>
+            {icons.map((library: IconLibraryProps) => <LibraryCard key={library.id} library={library} type='icon' />)}
+          </div>
+        </section>
+        <section className={classes.cardGroup}>
+          <h2>Font Libraries</h2>
+          <div className={classes.cards}>
+            <LibraryCard
+              library={{
+                id: 'jun',
+                name: 'Jun Mono',
+                unreleased: true
+              }}
+              type='font'
+            />
+          </div>
+        </section>
       </Paper>
     </div>
   );

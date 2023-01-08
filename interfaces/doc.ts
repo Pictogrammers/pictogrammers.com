@@ -7,8 +7,10 @@ export interface DocData {
 
 export interface Doc {
   availableIcons: IconLibraries;
+  category: string;
   content: string;
-  data: DocData;  
+  data: DocData;
+  library: string | null;
   readingTime?: string;
   toc: object[];
 }

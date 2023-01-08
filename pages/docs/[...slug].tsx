@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import getConfig from 'next/config';
 import Link from 'next/link';
 import { serialize } from 'next-mdx-remote/serialize';
 import gfm from 'remark-gfm';
@@ -10,7 +11,7 @@ import { ButtonProps } from '@mui/material/Button';
 import { DocData } from '../../interfaces/doc';
 import { IconLibraries, MdxIconProps } from '../../interfaces/icons';
 import { TableOfContentsItemProps } from '../../interfaces/tableOfContents';
-import { getAllDocs, getDoc } from '../../utils/mdxUtils';
+import { getAllDocs, getDoc } from '../../utils/docUtils';
 
 import Head from '../../components/Head/Head';
 import Layout from '../../components/Docs/Layout/Layout';
@@ -40,7 +41,7 @@ interface IButton extends ButtonProps {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as IParams;
-  const { availableIcons, content, data, readingTime, toc } = getDoc(slug.join('/'));
+  const { availableIcons, category, content, data, library, readingTime, toc } = getDoc(slug.join('/'));
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [ gfm ]
@@ -51,7 +52,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       availableIcons,
+      category,
       frontMatter: data,
+      library,
       readingTime,
       slug: slug.join('/'),
       source: mdxSource,
@@ -76,30 +79,28 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 interface DocsPageProps {
   availableIcons: IconLibraries;
+  category: string;
   frontMatter: DocData;
+  library: string | null;
   readingTime?: string;
   slug: string;
   source: MDXRemoteSerializeResult;
   toc: Array<TableOfContentsItemProps>;
 }
 
-const DocsPage: NextPage<DocsPageProps> = ({ availableIcons, frontMatter, readingTime, slug, source, toc }) => {
+const DocsPage: NextPage<DocsPageProps> = ({ availableIcons, category, frontMatter, library, readingTime, slug, source, toc }) => {
+  const { publicRuntimeConfig: { docs: { categories }, libraries } } = getConfig();
+
   const path = `docs/${slug}`;
-  const {
-    category,
-    description,
-    hidden,
-    library,
-    title
-  } = frontMatter;
+  const { description, hidden, title } = frontMatter;
 
   // TODO: Break this into a helper and actually link things up
   const breadcrumbs = [ <Link key='docs' href='/docs/'>Docs</Link> ];
   if (library) {
-    breadcrumbs.push(<span key='library'>{library}</span>);
+    breadcrumbs.push(<Link href={`/docs/#${library}`} key='library'>{libraries.icons.find((l: any) => l.id === library)?.name}</Link>);
   }
   if (category) {
-    breadcrumbs.push(<span key='category'>{category}</span>);
+    breadcrumbs.push(<Link href={`/docs${library ? `/library/${library}` : ''}/${category}`} key='category'>{categories.find((c: any) => c.id === category)?.name}</Link>);
   }
 
   return (

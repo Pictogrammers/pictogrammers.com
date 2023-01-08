@@ -29,8 +29,6 @@
 
 ## Tools View
 
-- Build out Tools landing page.
-- Build GitHub preview generator.
 - Build page for Bitmask to SVG.
 
 ## Meta
