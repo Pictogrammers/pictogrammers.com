@@ -20,7 +20,7 @@ const ToolsLandingPage: NextPage = () => {
         <LandingPageHeading
           title='Pictogrammers Tools'
           description='If you are looking to contribute to a Pictogrammers project, many of these tools may be of assistance.'
-          icon={mdiHammerScrewdriver}
+          icon={{ path: mdiHammerScrewdriver }}
         />
 
         <div className={classes.cards}>

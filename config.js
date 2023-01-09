@@ -38,10 +38,12 @@ module.exports = {
   libraries: {
     fonts: [
       // TODO: Support fonts
-      // {
-      //   font: 'https://raw.githubusercontent.com/Pictogrammers/Jun/main/JunMono.otf',
-      //   name: 'Jun Mono'
-      // }
+      {
+        font: 'https://raw.githubusercontent.com/Pictogrammers/Jun/main/JunMono.otf',
+        id: 'jun',
+        name: 'Jun Mono',
+        unreleased: true
+      }
     ],
     icons: [
       {

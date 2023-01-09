@@ -7,10 +7,20 @@ export interface DocData {
 
 export interface Doc {
   availableIcons: IconLibraries;
-  category: string;
+  category: any;
   content: string;
   data: DocData;
-  library: string | null;
+  disabled?: boolean;
+  landingPage?: boolean;
+  library: any;
   readingTime?: string;
+  slug: string;
   toc: object[];
+}
+
+export interface DocCategory {
+  description: string;
+  icon: string;
+  id: string;
+  name: string;
 }

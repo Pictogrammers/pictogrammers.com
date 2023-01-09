@@ -19,6 +19,12 @@
 
 .title {
   max-width: 40%;
+
+  span {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+  }
 }
 
 .iconContainer {
