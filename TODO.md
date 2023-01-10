@@ -3,8 +3,6 @@
 ## General
 
 - Expand footer with links to docs, icon libraries, etc.
-- Generate sitemap.xml.
-  - https://nextjs.org/learn/seo/crawling-and-indexing/xml-sitemaps
 - Fuse.js client-side search (docs and icons).
 
 ## Homepage
