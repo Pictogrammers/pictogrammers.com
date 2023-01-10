@@ -29,12 +29,14 @@ const getSlugPieces = (slug: string) => {
   if (slugPieces[0] === 'library') {
     return {
       category: slugPieces[2],
-      library: slugPieces[1]
+      library: slugPieces[1],
+      rest: [ ...slugPieces.slice(3) ].join('/')
     };
   }
 
   return {
-    category: slugPieces[0]
+    category: slugPieces[0],
+    rest: [ ...slugPieces.slice(1) ].join('/')
   };
 };
 
@@ -84,8 +86,8 @@ const getDocPaths = async (pattern?: string | string[], includeDirectories: bool
   });
 
   return paths.reduce((output: string[], path: string) => {
-    const { category, library } = getSlugPieces(path);
-    if (!category && !library || !category && !!library) {
+    const { category, rest } = getSlugPieces(path);
+    if (!category || rest?.endsWith('/')) {
       return output;
     }
     output.push(path);
@@ -101,15 +103,46 @@ const getDoc = async (slug: string[]) => {
   const categoryInfo = categories.find((c) => c.id === category);
   const libraryInfo = libraries.icons.find((l) => l.id === library) || libraries.fonts.find((l) => l.id === library) || {};
 
-  const isDirectory = await pathIsDir(filePath);
-  if (isDirectory) {
-    const dirDocPaths = await getDocPaths(`${filePath}/*.mdx`, false);
+  try {
+    const docContents = await readFile(join(DOCS_PATH, `${filePath}.mdx`), 'utf-8');
+    const { content, data } = matter(docContents);
+  
+    if (
+      // Disable any MDX file that does not contain required front matter
+      !(data?.title && data?.description) ||
+      // Disable any MDX that explicitly defines to
+      data?.disabled === true
+    ) {
+      return { disabled: true };
+    }
+  
+    const processedContent = handleVersionReplacements(handleImportStatements(content, DOCS_PATH));
+    const { text: articleReadTime } = readingTime(processedContent);
+    const docToc = toc(processedContent).json;
+    const availableIcons = getUsedIcons(processedContent);
+  
+    return {
+      availableIcons,
+      category: categoryInfo,
+      content: processedContent,
+      data,
+      library: libraryInfo,
+      readingTime: articleReadTime,
+      slug: filePath,
+      toc: docToc
+    } as Doc;
+  } catch (err) {
+    const isDirectory = await pathIsDir(filePath);
+    if (!isDirectory) {
+      return { disabled: true };
+    }
 
+    const dirDocPaths = await getDocPaths(`${filePath}/*.mdx`, false);
     const dirDocs = await dirDocPaths.reduce(async (prevPromise: Promise<object[]>, docPath: string) => {
       const output = await prevPromise;
       const doc = await getDoc(docPath.replace('.mdx', '').split('/')) as Doc;
 
-      if (doc.data?.hidden) {
+      if (!doc.data || doc.data?.hidden) {
         return output;
       }
 
@@ -129,34 +162,6 @@ const getDoc = async (slug: string[]) => {
       slug
     };
   }
-
-  const docContents = await readFile(join(DOCS_PATH, `${filePath}.mdx`), 'utf-8');
-  const { content, data } = matter(docContents);
-
-  if (
-    // Disable any MDX file that does not contain required front matter
-    !(data?.title && data?.description) ||
-    // Disable any MDX that explicitly defines to
-    data?.disabled === true
-  ) {
-    return { disabled: true };
-  }
-
-  const processedContent = handleVersionReplacements(handleImportStatements(content, DOCS_PATH));
-  const { text: articleReadTime } = readingTime(processedContent);
-  const docToc = toc(processedContent).json;
-  const availableIcons = getUsedIcons(processedContent);
-
-  return {
-    availableIcons,
-    category: categoryInfo,
-    content: processedContent,
-    data,
-    library: libraryInfo,
-    readingTime: articleReadTime,
-    slug: filePath,
-    toc: docToc
-  } as Doc;
 };
 
 export {

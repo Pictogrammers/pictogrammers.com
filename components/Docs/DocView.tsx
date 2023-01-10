@@ -45,11 +45,11 @@ const DocView: FunctionComponent<DocViewProps> = ({ availableIcons, category, fr
   const { description, hidden, title } = frontMatter;
 
   const breadcrumbs = [ <Link key='docs' href='/docs/'>Docs</Link> ];
-  if (library) {
+  if (library?.id) {
     breadcrumbs.push(<Link href={`/docs/#${library.id}`} key='library'>{library.name}</Link>);
   }
-  if (category) {
-    breadcrumbs.push(<Link href={`/docs${library ? `/library/${library.id}` : ''}/${category.id}`} key='category'>{category.name}</Link>);
+  if (category?.id) {
+    breadcrumbs.push(<Link href={`/docs${library?.id ? `/library/${library.id}` : ''}/${category.id}`} key='category'>{category.name}</Link>);
   }
 
   return (
