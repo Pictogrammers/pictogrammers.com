@@ -77,11 +77,20 @@ const getCategoriesAndLibraries = async () => {
 
 const getDocPaths = async (pattern?: string | string[], includeDirectories: boolean = true) => {
   const globPattern = pattern ? pattern : ['**/*.mdx', '**/*/'];
-  return glob(globPattern, {
+  const paths = await glob(globPattern, {
     cwd: DOCS_PATH,
     markDirectories: includeDirectories,
     onlyFiles: !includeDirectories
   });
+
+  return paths.reduce((output: string[], path: string) => {
+    const { category, library } = getSlugPieces(path);
+    if (!category && !library || !category && !!library) {
+      return output;
+    }
+    output.push(path);
+    return output;
+  }, []);
 };
 
 const getDoc = async (slug: string[]) => {
@@ -100,7 +109,7 @@ const getDoc = async (slug: string[]) => {
       const output = await prevPromise;
       const doc = await getDoc(docPath.replace('.mdx', '').split('/')) as Doc;
 
-      if (doc.data.hidden) {
+      if (doc.data?.hidden) {
         return output;
       }
 
