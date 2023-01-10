@@ -54,7 +54,7 @@ export default {
         color='secondary'
         component={Link}
         fullWidth
-        href={`/docs/${library}/getting-started/vuejs`}
+        href={`/docs/library/${library}/getting-started/vuejs`}
         size='large'
         startIcon={<Icon path={mdiArrowRight} size={1} />}
         sx={{ textDecoration: 'none' }}

@@ -16,6 +16,8 @@ import classes from './Layout.module.scss';
 interface LayoutProps {
   breadcrumbs?: Array<ReactNode> | ReactNode;
   children: ReactNode;
+  color?: string;
+  icon?: string;
   improvePage?: {
     gitHubUrl?: string;
     suggestUrl?: string;
@@ -27,6 +29,8 @@ interface LayoutProps {
 const Layout: FunctionComponent<LayoutProps> = ({
   breadcrumbs,
   children,
+  color = '--grey',
+  icon,
   improvePage,
   title,
   toc
@@ -35,6 +39,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
     <div className={classes.root}>
       <Paper className={classes.container}>
         <article className={classes.main} role='main'>
+          {icon && <Icon className={classes.articleIcon} path={icon} size={4} color={`hsl(var(${color}))`} />}
           {breadcrumbs && (
             <Breadcrumbs
               aria-label='breadcrumb'

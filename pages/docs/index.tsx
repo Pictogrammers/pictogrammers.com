@@ -55,7 +55,7 @@ const DocsLandingPage: NextPage<any> = ({ docs }) => {
         <LandingPageHeading
           title='Welcome to the Pictogrammers Docs'
           description='Learn how to get started with our icon and font libraries in your projects.'
-          icon={{ path: mdiBookOpenPageVariantOutline }}
+          icon={mdiBookOpenPageVariantOutline}
         />
         {renderLibrariesAndCategories(docs)}
       </Paper>

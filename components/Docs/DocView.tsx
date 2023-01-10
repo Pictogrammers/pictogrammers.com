@@ -55,6 +55,8 @@ const DocView: FunctionComponent<DocViewProps> = ({ availableIcons, category, fr
   return (
       <Layout
         breadcrumbs={breadcrumbs}
+        color={`--${category.id}-color`}
+        icon={frontMatter.iconPath ? frontMatter.iconPath : category.icon}
         improvePage={{
           gitHubUrl: `https://github.com/Pictogrammers/pictogrammers.com/blob/main/${path}.mdx`,
           suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent(`Suggested Change to "${title}"`)}&body=${encodeURIComponent(`*URL:* https://pictogrammers.com/${path}\n\n<!-- Describe how you would improve the page here -->`)}`

@@ -45,10 +45,19 @@
   margin-top: 1rem;
   min-width: 0;
   padding: 1rem 2rem;
+  position: relative;
   word-wrap: break-word;
+
+  .articleIcon {
+    opacity: .2;
+    position: absolute;
+    right: 1rem;
+    top: 0;
+  }
 
   h1 {
     font-size: 2rem;
+    margin-right: 4.75rem;
     margin-top: 0;
   }
 
@@ -137,6 +146,10 @@
     }
   }
 
+  .main {
+    margin-top: 0;
+  }
+
   .sidenav {
     align-items: center;
     display: flex;
@@ -153,6 +166,10 @@
   .edits {
     padding: 1rem;
     width: 100%;
+  }
+
+  .articleIcon {
+    display: none;
   }
 }
 

@@ -12,18 +12,20 @@ interface LandingPageCardProps {
   color?: string;
   description: string;
   disabled?: boolean;
+  fullWidth?: boolean;
   href?: string;
   icon?: string;
   image?: string;
   title: string;
 };
 
-const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({ chip, color, description, disabled, href, icon, image, title }) => {
+const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({ chip, color, description, disabled, fullWidth, href, icon, image, title }) => {
   const Wrapper = !href ? 'div' : Link;
 
   return (
     <Wrapper
       className={cx(classes.root, {
+        [classes.full]: fullWidth,
         [classes.disabled]: disabled
       })}
       href={!href ? '#' : href}

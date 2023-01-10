@@ -28,22 +28,26 @@ const DocCategoryList: FunctionComponent<DocCategoryListProps> = ({ category, do
       />
       <Paper className={classes.container}>
         <LandingPageHeading
+          color={`--${category.id}-color`}
           title={category.name}
           superTitle={library?.name}
           description={category.description}
-          icon={{ color: `hsl(var(--${category.id}-color))`, path: category.icon }}
+          icon={category.icon}
         />
-        {docs.map((doc, d) => {
-          return (
+        {docs
+          .sort((a, b) => a.title.localeCompare(b.title))
+          .map((doc, d) => (
             <LandingPageCard
+              color={`--${category.id}-color`}
               description={doc.description}
+              fullWidth
               href={`/docs/${doc.slug}`}
-              // icon={categoryInfo.icon}
+              icon={doc.iconPath || category.icon}
               key={d}
               title={doc.title}
             />
-          );
-        })}
+          ))
+        }
       </Paper>
     </div>
   );

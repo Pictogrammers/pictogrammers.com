@@ -106,6 +106,12 @@ const getDoc = async (slug: string[]) => {
   try {
     const docContents = await readFile(join(DOCS_PATH, `${filePath}.mdx`), 'utf-8');
     const { content, data } = matter(docContents);
+
+    if (data.icon) {
+      const [ iconLibrary, iconName ] = data.icon.split(':');
+      const iconData = getUsedIcons(data.icon);
+      data.iconPath = iconData?.[iconLibrary]?.[iconName] || null;
+    }
   
     if (
       // Disable any MDX file that does not contain required front matter

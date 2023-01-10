@@ -10,6 +10,28 @@
   text-decoration: none;
   transition: box-shadow .2s ease-in-out;
 
+  &.full {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0;
+
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+
+    .images {
+      flex: 0;
+    }
+
+    .info {
+      flex: 1;
+
+      h3 {
+        margin-top: .5rem;
+      }
+    }
+  }
+
   h3 {
     margin-bottom: 0;
   }

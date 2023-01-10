@@ -11,6 +11,8 @@ export interface Doc {
   content: string;
   data: DocData;
   disabled?: boolean;
+  icon?: string;
+  iconPath?: string;
   landingPage?: boolean;
   library: any;
   readingTime?: string;

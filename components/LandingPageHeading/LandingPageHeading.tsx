@@ -6,11 +6,9 @@ import { mdiCloudOutline } from '@mdi/js';
 import classes from './LandingPageHeading.module.scss';
 
 interface LandingPageHeadingProps {
+  color?: string;
   description: string;
-  icon?: {
-    color?: string;
-    path: string;
-  };
+  icon?: string;
   image?: {
     alt: string;
     height: number;
@@ -21,11 +19,15 @@ interface LandingPageHeadingProps {
   title: string;
 }
 
-const LandingPageHeading: FunctionComponent<LandingPageHeadingProps> = ({ description, icon, image, superTitle, title }) => {
+const LandingPageHeading: FunctionComponent<LandingPageHeadingProps> = ({ color, description, icon, image, superTitle, title }) => {
   return (
     <div className={classes.root}>
       <div className={classes.title}>
-        <h1>
+        <h1
+          style={{
+            borderImage: color ? `linear-gradient(to right, hsl(var(${color})) 1%, hsl(var(--white)) 70%) 0 0 100% 0/1px 0 1px 0 stretch` : undefined
+          }}
+        >
           {superTitle && <span>{superTitle}</span>}
           {title}
         </h1>
@@ -39,7 +41,7 @@ const LandingPageHeading: FunctionComponent<LandingPageHeadingProps> = ({ descri
             <Icon path={mdiCloudOutline} size={3} horizontal />
             <Icon path={mdiCloudOutline} size={4} />
           </div>
-          <Icon path={icon.path} size={7} color={icon.color ? icon.color : 'hsl(var(--primary-color))'} />
+          <Icon path={icon} size={7} color={`hsl(var(${color ? color : '--primary-color'}))`} />
         </div>
       )}
     </div>

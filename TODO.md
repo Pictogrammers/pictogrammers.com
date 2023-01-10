@@ -23,7 +23,6 @@
 
 ## Docs View
 
-- Build out Docs landing page.
 - Table of Contents needs some style lovin'.
   - Look at the MUI <List> stuff.
 

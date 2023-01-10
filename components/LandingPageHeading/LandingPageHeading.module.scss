@@ -1,10 +1,10 @@
 .root {
   align-items: center;
-  background: linear-gradient(0deg, hsl(var(--light-grey)) -40%, hsl(var(--white)) 60%);
+  background: linear-gradient(0deg, hsl(var(--light-grey) / 100%) -40%, hsl(var(--white) / 70%) 30%);
   border-bottom: 1px solid hsl(var(--light-grey));
   display: flex;
   justify-content: space-around;
-  padding: 1rem;
+  padding: 1rem 5rem;
 
   h1 {
     border-image: linear-gradient(to right, hsl(var(--primary-color)) 1%, hsl(var(--white)) 70%) 0 0 100% 0/1px 0 1px 0 stretch;
@@ -18,18 +18,20 @@
 }
 
 .title {
-  max-width: 40%;
+  flex: 2;
 
   span {
     display: block;
     font-size: 1rem;
     font-weight: 500;
+    margin-bottom: .5rem;
   }
 }
 
 .iconContainer {
   align-items: center;
   display: flex;
+  flex: 1;
   height: 275px;
   justify-content: center;
   position: relative;
@@ -86,6 +88,7 @@
 @media only screen and (max-width: $mobile-width) {
   .root {
     flex-direction: column-reverse;
+    padding: 1rem 2.5rem;
 
     img,
     .iconContainer {
@@ -94,11 +97,7 @@
 
     h1 {
       font-size: 2rem;
-      padding-top: .75rem;
-    }
-
-    .title {
-      max-width: 90%;
+      padding-top: 1rem;
     }
   }
 }
