@@ -13,6 +13,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18
+
+      - name: Setup Caching
+        with:
+          path: |
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
       
       - name: Install Dependencies
         run: npm ci
