@@ -26,6 +26,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: .5rem;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .controls {

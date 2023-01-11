@@ -1,6 +1,7 @@
 @mixin defaults {
   --white: 0deg 0% 100%;
   --black: 0deg 0% 0%;
+  --light-purple: 255deg 100% 67%;
   --purple: 289deg 100% 20%;
   --light-cyan: 194deg 64% 92%;
   --cyan: 194deg 64% 75%;
@@ -9,6 +10,10 @@
   --medium-grey: 0deg 0% 84%;
   --grey: 0deg 0% 56%;
   --dark-grey: 0deg 0% 20%;
+  --orange: 27deg 70% 62%;
+  --red: 0deg 100% 61%;
+  --green: 162deg 100% 37%;
+  --blue: 206deg 100% 50%;
 
   --primary-color: var(--purple);
   --secondary-color: var(--cyan);
@@ -20,11 +25,11 @@
   --jun-color: var(--cyan);
 
   // Documentation type colors
-  --general-color: 27deg 70% 62%;
-  --getting-started-color: 162deg 100% 37%;
-  --contribute-color: 255deg 100% 67%;
-  --guides-color: 206deg 100% 50%;
-  --releases-color: 0deg 100% 61%;
+  --general-color: var(--orange);
+  --getting-started-color: var(--green);
+  --contribute-color: var(--light-purple);
+  --guides-color: var(--blue);
+  --releases-color: var(--red);
 
   // Width of 1dp in pixels
   --dp-width: 10px;

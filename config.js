@@ -40,8 +40,16 @@ module.exports = {
       // TODO: Support fonts
       {
         font: 'https://raw.githubusercontent.com/Pictogrammers/Jun/main/JunMono.otf',
-        id: 'jun',
+        id: 'jun-mono',
         name: 'Jun Mono',
+        packageId: '08c8f6ed-3c55-11ed-8ca4-1209440c2141',
+        unreleased: true
+      },
+      {
+        font: 'https://raw.githubusercontent.com/Pictogrammers/Jun/main/JunSans.otf',
+        id: 'jun-sans',
+        name: 'Jun Sans',
+        packageId: 'aa662e27-45cb-11ed-a513-1209440c2141',
         unreleased: true
       }
     ],
@@ -56,6 +64,7 @@ module.exports = {
         image: 'assets/libraries/mdi.svg',
         name: 'Material Design Icons',
         package: '@mdi/svg',
+        packageId: '38EF63D0-4744-11E4-B3CF-842B2B6CFE1B',
         shortName: 'MDI'
       },
       {
@@ -68,6 +77,7 @@ module.exports = {
         image: 'assets/libraries/mdil.svg',
         name: 'Material Design Icons Light',
         package: '@mdi/light-svg',
+        packageId: '531A9B44-1962-11E5-89CC-842B2B6CFE1B',
         shortName: 'MDI Light'
       },
       {
@@ -77,6 +87,7 @@ module.exports = {
         image: 'assets/libraries/memory.svg',
         name: 'Memory Icons',
         package: '@pictogrammers/memory',
+        packageId: '2764ae46-20c1-11ed-8ca4-1209440c2141',
         shortName: 'Memory',
         unreleased: true
       }

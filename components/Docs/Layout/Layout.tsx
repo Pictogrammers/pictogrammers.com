@@ -22,6 +22,7 @@ interface LayoutProps {
     gitHubUrl?: string;
     suggestUrl?: string;
   };
+  sidebarContent?: Array<ReactNode> | ReactNode;
   title: string;
   toc?: Array<TableOfContentsItemProps>;
 }
@@ -32,6 +33,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
   color = '--grey',
   icon,
   improvePage,
+  sidebarContent,
   title,
   toc
 }) => {
@@ -59,6 +61,7 @@ const Layout: FunctionComponent<LayoutProps> = ({
           <div className={classes.sidenav}>
             <CarbonAd />
             {toc && <TableOfContents toc={toc} />}
+            {sidebarContent}
             {!!improvePage && (
               <div className={classes.edits}>
                 <p className={classes.improvehead}>Improve This Page</p>

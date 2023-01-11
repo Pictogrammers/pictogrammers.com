@@ -6,6 +6,7 @@ import { getAllLibraryPaths, getIcon } from '../../utils/libraryUtils';
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
 import IconLibraryView from '../../components/IconLibrary/IconLibraryView';
+import IconLibraryHistoryView from '../../components/IconLibrary/IconLibraryHistoryView';
 import IconView from '../../components/IconView/IconView';
 
 interface ContextProps extends ParsedUrlQuery {
@@ -21,13 +22,28 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return libraries[libType].find((lib: IconLibrary) => lib.id === library);
   });
 
+  if (!libraryType) {
+    return { notFound: true };
+  }
+
+  const libraryInfo = libraries[libraryType].find((lib: IconLibrary) => lib.id === library);
+
   switch (viewType) {
     case 'icon':
       const iconInfo = await getIcon(library, viewName);
       return {
         props: {
           icon: iconInfo,
-          library,
+          libraryInfo,
+          libraryType,
+          slug: slug.join('/')
+        }
+      };
+    case 'history':
+      return {
+        props: {
+          historyView: true,
+          libraryInfo,
           libraryType,
           slug: slug.join('/')
         }
@@ -35,7 +51,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     default:
       const output = {
         props: {
-          library,
+          libraryInfo,
           libraryType,
           slug: slug.join('/')
         }
@@ -58,17 +74,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 interface LibraryPageProps {
   author?: string;
   category?: string;
+  historyView?: boolean;
   icon?: IconLibraryIcon;
-  library: string;
+  libraryInfo: IconLibrary;
   libraryType: string;
   slug: string;
   version?: string;
 }
 
-const LibraryPage: NextPage<LibraryPageProps> = ({ icon, libraryType, ...props }) => {
+const LibraryPage: NextPage<LibraryPageProps> = ({ historyView, icon, libraryType, ...props }) => {
   if (libraryType === 'icons') {
     if (icon) {
       return <IconView icon={icon} {...props} />;
+    }
+
+    if (historyView) {
+      return <IconLibraryHistoryView {...props} />;
     }
 
     return <IconLibraryView {...props} />;

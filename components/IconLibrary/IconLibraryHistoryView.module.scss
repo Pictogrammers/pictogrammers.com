@@ -1,0 +1,192 @@
+.loader {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 0;
+  width: 100%;
+}
+
+.historyList {
+  margin: 1rem 0 .5rem;
+
+  h3 {
+    margin: 2rem 0 0;
+  }
+
+  .loadMore {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+
+    button {
+      min-width: 25%;
+    }
+  }
+}
+
+.typeCard {
+  align-items: center;
+  border: 1px solid hsl(var(--light-grey));
+  border-radius: 5px;
+  display: flex;
+  line-height: 1;
+  margin: .5rem 0;
+  padding: 1rem;
+
+  .avatar {
+    background-color: hsl(var(--primary-color));
+    color: hsl(var(--white));
+    height: 48px;
+    margin: 0 .5rem;
+    width: 48px;
+  }
+}
+
+.iconCreated {
+  border-color: hsl(var(--green) / 40%);
+
+  .iconContainer {
+    svg {
+      background-color: hsl(var(--green) / 10%);
+      border-color: hsl(var(--green) / 20%);
+    }
+  }
+}
+
+.iconModified {
+  border-color: hsl(var(--orange) / 40%);
+
+  .iconContainer {
+    svg {
+      background-color: hsl(var(--orange) / 10%);
+      border-color: hsl(var(--orange) / 20%);
+    }
+
+    .arrow {
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+.iconRenamed {
+  border-color: hsl(var(--light-purple) / 40%);
+
+  .iconContainer {
+    svg {
+      background-color: hsl(var(--light-purple) / 10%);
+      border-color: hsl(var(--light-purple) / 20%);
+    }
+  }
+}
+
+.iconDeleted {
+  border-color: hsl(var(--red) / 40%);
+
+  .iconContainer {
+    svg {
+      background-color: hsl(var(--red) / 10%);
+      border-color: hsl(var(--red) / 20%);
+    }
+  }
+}
+
+.iconAlias {
+  border-color: hsl(var(--blue) / 40%);
+
+  .iconContainer {
+    svg {
+      background-color: hsl(var(--blue) / 10%);
+      border-color: hsl(var(--blue) / 20%);
+    }
+  }
+}
+
+.iconTag {
+  border-color: hsl(var(--orange) / 40%);
+
+  .iconContainer {
+    svg {
+      background-color: hsl(var(--orange) / 10%);
+      border-color: hsl(var(--orange) / 20%);
+    }
+  }
+}
+
+.iconContainer {
+  align-items: center;
+  display: flex;
+  padding: 0 1rem;
+
+  svg {
+    border: 1px solid hsl(var(--light-grey));
+    border-radius: 5px;
+    margin: 0 .25rem;
+  }
+
+  .arrow {
+    border: 0;
+    color: hsl(var(--grey));
+  }
+}
+
+.modDesc {
+  flex: 1;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .subDesc {
+    color: hsl(var(--grey));
+    font-size: .8rem;
+    padding: .25rem 0;
+
+    .avatar {
+      display: none;
+    }
+  }
+}
+
+.githubLink {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .typeCard {
+    flex-direction: column;
+
+    .avatar {
+      display: none;
+    }
+  }
+
+  .modDesc {
+    padding-top: 1rem;
+    text-align: center;
+
+    .subDesc {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding-top: .5rem;
+
+      .avatar {
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+      }
+    }
+  }
+}
+
+.filter {
+  padding-top: 1rem;
+}
+
+.filterHead {
+  font-size: .8rem;
+  text-transform: uppercase;
+}

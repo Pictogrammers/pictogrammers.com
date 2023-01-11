@@ -1,6 +1,5 @@
 import { Fragment, FunctionComponent } from 'react';
 import cx from 'clsx';
-import getConfig from 'next/config';
 import Link from 'next/link';
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -37,13 +36,12 @@ import classes from './IconView.module.scss';
 
 interface IconViewProps {
   icon: IconLibraryIcon;
-  library: string;
+  libraryInfo: IconLibrary;
   onClose?: Function;
 }
 
-const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) => {
-  const { publicRuntimeConfig: { libraries: { icons: iconLibraries } } } = getConfig();
-  const { exampleTypes, git, gridSize = 24, name: libraryName } = iconLibraries.find((lib: IconLibrary) => lib.id === library);
+const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose }) => {
+  const { exampleTypes, git, gridSize = 24, name: libraryName } = libraryInfo;
   const copy = useCopyToClipboard();
   const windowSize = useWindowSize();
   const isTabletWidth = windowSize.width <= parseInt(classes['tablet-width']);
@@ -65,7 +63,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
           }}
         >
           <Link href='/libraries/'>Icons & Fonts</Link>
-          <Link href={`/library/${library}`}>{libraryName}</Link>
+          <Link href={`/library/${libraryInfo.id}`}>{libraryName}</Link>
         </Breadcrumbs>
         <div className={classes.iconName}>
           <Tooltip arrow placement='right' title='Copy Icon Name'>
@@ -100,7 +98,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
                 <Tooltip arrow placement='top' title='View Details'>
                   <IconButton
                     aria-label='View Details'
-                    href={`/library/${library}/icon/${icon.n}`}
+                    href={`/library/${libraryInfo.id}/icon/${icon.n}`}
                   >
                     <Icon path={mdiArrowExpand} size={1} />
                   </IconButton>
@@ -120,7 +118,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
           <div className={classes.infoBar}>
             <div className={classes.info}>
               <Tooltip arrow placement='top' title={`View the v${icon.v} release`}>
-                <Link href={`/library/${library}/version/${icon.v}`} onClick={() => onClose?.()}>
+                <Link href={`/library/${libraryInfo.id}/version/${icon.v}`} onClick={() => onClose?.()}>
                   <Chip
                     color='primary'
                     icon={<Icon path={mdiCheck} size={.8} />}
@@ -131,7 +129,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
               </Tooltip>
               {contributor && (
                 <Tooltip arrow placement='top' title={`View icons created by ${contributor.name}`}>
-                  <Link href={`/library/${library}/author/${contributor.github}`} onClick={() => onClose?.()}>
+                  <Link href={`/library/${libraryInfo.id}/author/${contributor.github}`} onClick={() => onClose?.()}>
                     <Chip
                       icon={<Avatar src={`/contributors/${contributor.id}.jpg`} sx={{ height: 24, width: 24 }}/>}
                       label={isTabletWidth ? contributor.name : `Created by ${contributor.name}`}
@@ -177,14 +175,14 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, library, onClose }) 
           </div>
           <div className={classes.usage}>
             <IconPreview gridSize={gridSize} path={icon.p} />
-            <IconUsageExamples exampleTypes={exampleTypes} library={library} iconName={icon.n} />
+            <IconUsageExamples exampleTypes={exampleTypes} library={libraryInfo.id} iconName={icon.n} />
           </div>
           <div className={classes.tags}>
             <div className={classes.categories}>
               {icon?.categories?.map((tag) => {
                 return (
                   <Tooltip arrow key={tag.id} placement='top' title={`View all ${tag.name} icons`}>
-                    <Link href={`/library/${library}/category/${tag.slug}`} onClick={() => onClose?.()}>
+                    <Link href={`/library/${libraryInfo.id}/category/${tag.slug}`} onClick={() => onClose?.()}>
                       <Chip icon={<Icon path={mdiTag} size={.7} />} label={tag.name} sx={{ backgroundColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--white))', cursor: 'pointer' }} />
                     </Link>
                   </Tooltip>

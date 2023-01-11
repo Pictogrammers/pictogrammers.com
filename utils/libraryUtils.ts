@@ -52,7 +52,8 @@ export const getAllLibraryPaths = async () => {
       ...versionSlugs,
       ...categorySlugs,
       ...contributorSlugs,
-      ...iconSlugs
+      ...iconSlugs,
+      `${library.id}/history`
     ];
     return output;
   }, Promise.resolve([]));

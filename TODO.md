@@ -9,11 +9,6 @@
 
 - "Get Started" call to action in the homepage Hero.
 
-## Icon Library View
-
-- Build History pages.
-  - "History" pages should be tied to each font in the "Icons" view and not via Markdown.
-
 ## Icon View
 
 - Non-Modal should have a section showing examples of the icon in use.
@@ -27,6 +22,10 @@
 ## Tools View
 
 - Build page for Bitmask to SVG.
+
+## Contributor View
+
+- Create individual pages for each contributor.
 
 ## Meta
 

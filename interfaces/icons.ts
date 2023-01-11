@@ -8,6 +8,7 @@ export interface IconLibraries {
 
 export interface IconLibrary {
   description: string;
+  exampleTypes: string[];
   featured?: boolean;
   git: string;
   gridSize: number;
@@ -15,19 +16,20 @@ export interface IconLibrary {
   image: string;
   name: string;
   package: string;
+  packageId: string;
   shortName: string;
 }
 
 export interface IconLibraryIcon {
-  a: string;
-  al: string[];
-  categories?: CategoryProps[];
-  cp: string;
-  n: string;
-  p: string;
-  st: string[];
-  t: string[];
-  v: string;
+  a: string; // Author
+  al: string[]; // Aliases
+  categories?: CategoryProps[]; // Categories
+  cp: string; // Codepoint
+  n: string; // Name
+  p: string; // Path
+  st: string[]; // Search Terms (Combined Index)
+  t: string[]; // Tags
+  v: string; // Version
 }
 
 export interface MdxIconProps {

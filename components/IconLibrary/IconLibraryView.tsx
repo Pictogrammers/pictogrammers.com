@@ -7,7 +7,6 @@ import {
   useRef,
   useState
 } from 'react';
-import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'clsx';
@@ -30,7 +29,7 @@ import Dialog from '@mui/material/Dialog';
 import Icon from '@mdi/react';
 import { mdiAlertCircleOutline, mdiCloseCircle, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
 
-import { IconLibraryIcon } from '../../interfaces/icons';
+import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
 import useCategories, { CategoryProps } from '../../hooks/useCategories';
 import useIcons from '../../hooks/useIcons';
@@ -51,12 +50,12 @@ import classes from './IconLibraryView.module.scss';
 interface IconLibraryViewProps {
   author?: string;
   category?: string;
-  library: string;
+  libraryInfo: IconLibrary;
   slug: string;
   version?: string;
 }
 
-const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, category, library, slug, version }) => { 
+const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, category, libraryInfo, slug, version }) => { 
   // Filter handling
   const searchBoxRef = useRef<HTMLInputElement>(null);
   const iconLibraryHeadingRef = useRef<HTMLDivElement>(null);
@@ -64,13 +63,11 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const [ searchTerm, setSearchTerm ] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm.trim(), 250);
 
-  // Library config and metadata
-  const { publicRuntimeConfig: { libraries } } = getConfig();
-  const libraryConfig = libraries.icons.find((c: any) => c.id === library);
+  // Library release info
   const {
     date: libraryReleaseDate,
     version: libraryVersion
-  } = iconLibraries[library as keyof typeof iconLibraries];
+  } = iconLibraries[libraryInfo.id as keyof typeof iconLibraries];
 
   // Responsive concerns
   const windowSize = useWindowSize();
@@ -78,8 +75,8 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
   // Library viewing
   const [ viewMode, setViewMode ] = useState(isMobileWidth ? 'compact' : 'comfortable');
-  const categories = useCategories(library);
-  const visibleIcons = useIcons(library, { author, category, term: debouncedSearchTerm, version });
+  const categories = useCategories(libraryInfo.id);
+  const visibleIcons = useIcons(libraryInfo.id, { author, category, term: debouncedSearchTerm, version });
 
   // Individual icon viewing
   const router = useRouter();
@@ -93,14 +90,14 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
-      if (url === `/library/${library}`) {
+      if (url === `/library/${libraryInfo.id}`) {
         setIconModal(null);
       }
     };
 
     router.events.on('routeChangeStart', handleRouteChange);
     return () => router.events.off('routeChangeStart', handleRouteChange);
-  }, [ library, router ]);
+  }, [ libraryInfo.id, router ]);
 
   const scrollToTopOfLibrary = () => {
     const libraryTop = iconLibraryRef.current?.getBoundingClientRect().top;
@@ -132,7 +129,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
       icon.categories = cats as CategoryProps[];
     }
     setIconModal(icon);
-    router.push(`/library/${library}/icon/${icon.n}`, undefined, { shallow: true });
+    router.push(`/library/${libraryInfo.id}/icon/${icon.n}`, undefined, { shallow: true });
   };
 
   const handleIconModalClose = () => {
@@ -141,7 +138,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   };
 
   const handleChipDelete = () => {
-    router.push(`/library/${library}`);
+    router.push(`/library/${libraryInfo.id}`);
   };
 
   const renderCategories = () => {
@@ -157,7 +154,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
           return (
             <ListItemButton
               component={Link}
-              href={`/library/${library}/category/${categorySlug}`}
+              href={`/library/${libraryInfo.id}/category/${categorySlug}`}
               key={catId}
               selected={categorySlug === category}
             >
@@ -197,7 +194,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
       return (
         <Alert classes={{ root: classes.infoAlert }} severity='warning'>
           <AlertTitle>New Icons in v{version}</AlertTitle>
-          Please be sure to check the <Link href={`/docs/${library}/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here.
+          Please be sure to check the <Link href={`/docs/${libraryInfo.id}/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here.
         </Alert>
       );
     }
@@ -212,7 +209,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
         severity='info'
       >
         <AlertTitle>Not finding it?</AlertTitle>
-        Head over to our GitHub repo and <Link href={`${libraryConfig.git}/issues/new?labels=Icon+Request&template=1_icon_request.yml`}>suggest it</Link>. You can also <Link href={`${libraryConfig.git}/issues/new?labels=Icon+Request%2CContribution&template=2_contribution.yml`}>contribute</Link> your idea if you&apos;re feeling creative!
+        Head over to our GitHub repo and <Link href={`${libraryInfo.git}/issues/new?labels=Icon+Request&template=1_icon_request.yml`}>suggest it</Link>. You can also <Link href={`${libraryInfo.git}/issues/new?labels=Icon+Request%2CContribution&template=2_contribution.yml`}>contribute</Link> your idea if you&apos;re feeling creative!
       </Alert>
     );
   };
@@ -229,16 +226,22 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   return (
     <div className={classes.root}>
       <Head
-        description={libraryConfig.description}
-        title={`${libraryConfig.name} - Icon Library`}
+        description={libraryInfo.description}
+        title={`${libraryInfo.name} - Icon Library`}
       />
       <Paper className={classes.container}>
         <div className={classes.libraryView}>
           <div className={classes.heading} ref={iconLibraryHeadingRef}>
             <div className={classes.libraryInfo}>
-              <LibraryMenu compact={isMobileWidth} selectedLibrary={libraryConfig} />
+              <LibraryMenu compact={isMobileWidth} selectedLibrary={libraryInfo} />
               <Tooltip arrow title={`Released on ${dayjs(libraryReleaseDate).format('YYYY/MM/DD')}`} placement='left'>
-                <Chip color='secondary' label={`v${libraryVersion}`} />
+                <Link href={`/library/${libraryInfo.id}/history`}>
+                  <Chip
+                    color='secondary'
+                    label={`v${libraryVersion}`}
+                    sx={{ cursor: 'pointer' }}
+                  />
+                </Link>
               </Tooltip>
             </div>
             <div className={classes.controls}>
@@ -292,7 +295,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
               <List dense>
                 <ListItemButton
                   component={Link}
-                  href={`/library/${library}/version/${libraryVersion}`}
+                  href={`/library/${libraryInfo.id}/version/${libraryVersion}`}
                   selected={version === libraryVersion}
                 >
                   <Icon path={mdiCreation} size={.8} />
@@ -300,13 +303,13 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                 </ListItemButton>
                 {renderCategories()}
                 <ListSubheader sx={{ background: 'transparent', marginTop: '1rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
-                <ListItemButton component={Link} href={`/docs/${library}/changelog`}>
+                <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/changelog`}>
                   <ListItemText>Changelog</ListItemText>
                 </ListItemButton>
-                <ListItemButton component={Link} href={`/docs/${library}/upgrade`}>
+                <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/upgrade`}>
                   <ListItemText>Upgrade Guide</ListItemText>
                 </ListItemButton>
-                <ListItemButton component={Link} href={`/history/${library}`}>
+                <ListItemButton component={Link} href={`/library/${libraryInfo.id}/history`}>
                   <ListItemText>History</ListItemText>
                 </ListItemButton>
                 
@@ -328,12 +331,11 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   {renderInformationGrid()}
                   <VirtuosoGrid
                     data={visibleIcons}
-                    itemClassName={classes.libraryItem}
                     listClassName={cx(classes.library, classes[viewMode])}
                     itemContent={(index, icon: IconLibraryIcon) => (
                       <Link
                         className={classes.libraryIcon}
-                        href={`/library/${library}/icon/${icon.n}`}
+                        href={`/library/${libraryInfo.id}/icon/${icon.n}`}
                         onClick={(e) => handleIconModalOpen(e, icon)}
                       >
                         <Icon path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
@@ -353,7 +355,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   open
                   onClose={handleIconModalClose}
                 >
-                  <IconView icon={iconModal} library={libraryConfig.id} onClose={handleIconModalClose} />
+                  <IconView icon={iconModal} libraryInfo={libraryInfo} onClose={handleIconModalClose} />
                 </Dialog>
               )}
             </div>
