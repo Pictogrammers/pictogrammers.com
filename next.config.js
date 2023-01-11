@@ -1,6 +1,8 @@
 const path = require('path');
 const config = require('./config');
 
+const withTM = require('next-transpile-modules')(['pixel-editor']);
+
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV !== 'production'
@@ -48,4 +50,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withPWA(nextConfig);
+module.exports = withTM(withPWA(nextConfig));

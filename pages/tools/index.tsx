@@ -33,14 +33,10 @@ const ToolsLandingPage: NextPage = () => {
           />
           <LandingPageCard
             color='--primary-color'
-            chip={{
-              color: 'secondary',
-              label: 'Coming Soon!'
-            }}
-            description='Easily convert bitmask images into SVG paths.'
-            disabled
+            description='Created pixel-based icons in your browser.'
+            href='/tools/pixel-editor'
             icon={mdiCheckerboard}
-            title='Bitmask to SVG'
+            title='Pixel Editor'
           />
         </div>
       </Paper>

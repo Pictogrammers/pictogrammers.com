@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0 2rem;
+}
+
+.editor {
+  border: 5px solid hsl(var(--cyan));
+  border-radius: 5px;
+  display: inline-flex;
+  height: 230px;
+  width: 230px;
+}
+
+.code {
+  background-color: hsl(var(--dark-grey));
+  border-radius: 5px;
+  color: hsl(var(--white));
+  flex: 1;
+  font-size: 1rem;
+  max-height: 230px;
+  overflow-y: scroll;
+  padding: 1rem;
+  position: relative;
+  width: 100%;
+  word-wrap: break-word;
+
+  .copy {
+    background-color: hsl(var(--dark-grey) / 80%);
+    bottom: .5rem;
+    position: absolute;
+    right: .5rem;
+
+    &:hover {
+      background-color: hsl(var(--dark-grey));
+    }
+  }
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .container {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .code {
+    max-height: 100px;
+  }
+}
