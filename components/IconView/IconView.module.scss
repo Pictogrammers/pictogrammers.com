@@ -77,10 +77,20 @@
 
   .actions {
     color: hsl(var(--black));
+    display: flex;
 
     & > div,
     & > button {
+      align-self: center;
       margin: 0 .25rem;
+    }
+
+    .separator {
+      align-self: auto;
+      background-color: hsl(var(--medium-grey));
+      margin: 0 1rem;
+      min-height: 100%;
+      width: 1px;
     }
   }
 }

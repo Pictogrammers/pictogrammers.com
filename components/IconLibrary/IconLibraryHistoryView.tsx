@@ -138,7 +138,7 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
       return output;
     }, { items: [], lastDate: '' });
 
-    if (!items.length) {
+    if (!items.length && !error) {
       return (
         <Alert severity='warning'>
           <AlertTitle>No History Records Found</AlertTitle>
@@ -150,7 +150,7 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
     return (
       <Fragment>
         {items}
-        {!noMoreData && (
+        {!noMoreData && !error && (
           <div className={classes.loadMore}>
             <Button
               disabled={loadingMore}
@@ -226,14 +226,8 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
         description={`View historical data for ${libraryInfo.name}.`}
         title={`History - ${libraryInfo.name}`}
       />
-      {error && (
-      <Alert severity='error'>
-        <AlertTitle>Unable to Retrieve Library History</AlertTitle>
-        An error occurred attempting to retrieve the history for {libraryInfo.name}. Please try again.
-      </Alert>
-      )}
       <Alert severity='info'>
-        History information provided here happens in real-time. Changes you see below may have occurred after the release of {libraryInfo.name} v{version}. Check the <Link href={`/docs/library/${libraryInfo.id}/changelog`}>changelog</Link> for more information.
+        History information provided here happens in real-time. Changes you see below may have occurred after the release of {libraryInfo.name} v{version}. Check the <Link href={`/docs/library/${libraryInfo.id}/releases/changelog`}>changelog</Link> for more information.
       </Alert>
       {initialLoading ? (
         <div className={classes.loader}>
@@ -242,6 +236,12 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
         </div>
       ) : (
         <div className={classes.historyList}>
+          {error && (
+            <Alert severity='error'>
+              <AlertTitle>Unable to Retrieve Library History</AlertTitle>
+              An error occurred attempting to retrieve the history for {libraryInfo.name}. Please try again.
+            </Alert>
+          )}
           {displayItems()}
         </div>
       )}

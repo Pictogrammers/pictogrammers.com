@@ -47,44 +47,47 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
     };
 
     return availableTypes.map((type) => {
-      const availableLibraries = libraries[type].map((lib: any) => {
-        if (lib.unreleased) {
-          return null;
+      const availableLibraries = libraries[type].reduce((output: any, lib: any) => {
+        if (!lib.unreleased) {
+          output.push(
+            <MenuItem
+              classes={{ root: classes.menuItem }}
+              component={Link}
+              href={`/library/${lib.id}`}
+              key={lib.id}
+              onClick={() => setLibraryMenuAnchor(null)}
+              selected={selectedLibrary.id === lib.id}
+            >
+              <ListItemIcon>
+                <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
+              </ListItemIcon>
+              <ListItemText>{lib.name}</ListItemText>
+            </MenuItem>
+          );
         }
+        return output;
+      }, []);
 
-        return (
-          <MenuItem
-            classes={{ root: classes.menuItem }}
-            component={Link}
-            href={`/library/${lib.id}`}
-            key={lib.id}
-            onClick={() => setLibraryMenuAnchor(null)}
-            selected={selectedLibrary.id === lib.id}
-          >
-            <ListItemIcon>
-              <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
-            </ListItemIcon>
-            <ListItemText>{lib.name}</ListItemText>
-          </MenuItem>
-        );
-      });
+      if (availableLibraries.length) {
+        return [
+          <ListSubheader key={type}>
+            <ListItemText
+              disableTypography
+              sx={{
+                fontSize: '.9rem',
+                lineHeight: 2,
+                textTransform: 'uppercase',
+                userSelect: 'none'
+              }}
+            >
+              {typeMap[type as keyof typeof typeMap]}
+            </ListItemText>
+          </ListSubheader>,
+          ...availableLibraries
+        ];
+      }
 
-      return [
-        <ListSubheader key={type}>
-          <ListItemText
-            disableTypography
-            sx={{
-              fontSize: '.9rem',
-              lineHeight: 2,
-              textTransform: 'uppercase',
-              userSelect: 'none'
-            }}
-          >
-            {typeMap[type as keyof typeof typeMap]}
-          </ListItemText>
-        </ListSubheader>,
-        ...availableLibraries
-      ];
+      return null;
     });
   };
 

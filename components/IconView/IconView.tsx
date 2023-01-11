@@ -15,9 +15,9 @@ import {
   mdiDotsHorizontal,
   mdiDotsHorizontalCircleOutline,
   mdiDownload,
-  mdiSvg,
   mdiTag,
-  mdiTagOutline
+  mdiTagOutline,
+  mdiXml
 } from '@mdi/js';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
@@ -158,9 +158,10 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                   color='inherit'
                   onClick={() => copy(svgCode, 'SVG')}
                 >
-                  <Icon path={mdiSvg} size={1} />
+                  <Icon path={mdiXml} size={1} />
                 </IconButton>
               </Tooltip>
+              <div className={classes.separator} />
               <Tooltip arrow placement='top' title='Download SVG'>
                 <IconButton
                   aria-label='Download SVG'

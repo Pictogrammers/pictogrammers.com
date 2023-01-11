@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from 'react';
+import { CSSProperties, FunctionComponent, ReactNode } from 'react';
 import cx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -37,6 +37,9 @@ const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({ badge, chip,
         [classes.disabled]: disabled
       })}
       href={!href ? '#' : href}
+      style={{
+        '--hover-color': `var(${color})`
+      } as CSSProperties}
     >
       <div className={classes.images}>
         <ConditionalWrapper

@@ -104,6 +104,7 @@
   }
 
   &.compact {
+    grid-gap: 10px;
     grid-template-columns: repeat(9, 1fr);
 
     p {
@@ -112,6 +113,7 @@
   }
 
   &.list {
+    grid-gap: 5px;
     grid-template-columns: repeat(5, 1fr);
 
     .libraryIcon {
@@ -143,7 +145,7 @@
     }
   }
 
-  @media only screen and (max-width: ($tablet-width + 300)) {
+  @media only screen and (max-width: ($tablet-width + 400)) {
     grid-template-columns: repeat(4, 1fr);
 
     &.compact {

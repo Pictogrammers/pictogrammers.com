@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'clsx';
 import { VirtuosoGrid } from 'react-virtuoso';
-import dayjs from 'dayjs';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
@@ -28,6 +27,9 @@ import ListSubheader from '@mui/material/ListSubheader';
 import Dialog from '@mui/material/Dialog';
 import Icon from '@mdi/react';
 import { mdiAlertCircleOutline, mdiCloseCircle, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+dayjs.extend(advancedFormat);
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
@@ -108,7 +110,9 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     }
 
     const top = libraryTop + window.pageYOffset - headingHeight;
-    window.scrollTo({ top });
+    if (window.scrollY > top) {
+      window.scrollTo({ top });
+    }
   };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -234,7 +238,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
           <div className={classes.heading} ref={iconLibraryHeadingRef}>
             <div className={classes.libraryInfo}>
               <LibraryMenu compact={isMobileWidth} selectedLibrary={libraryInfo} />
-              <Tooltip arrow title={`Released on ${dayjs(libraryReleaseDate).format('YYYY/MM/DD')}`} placement='left'>
+              <Tooltip arrow title={`Released on ${dayjs(libraryReleaseDate).format('MMMM Do, YYYY')}`} placement='left'>
                 <Link href={`/library/${libraryInfo.id}/history`}>
                   <Chip
                     color='secondary'
@@ -303,10 +307,10 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                 </ListItemButton>
                 {renderCategories()}
                 <ListSubheader sx={{ background: 'transparent', marginTop: '1rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
-                <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/changelog`}>
+                <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/changelog`}>
                   <ListItemText>Changelog</ListItemText>
                 </ListItemButton>
-                <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/upgrade`}>
+                <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/upgrade`}>
                   <ListItemText>Upgrade Guide</ListItemText>
                 </ListItemButton>
                 <ListItemButton component={Link} href={`/library/${libraryInfo.id}/history`}>

@@ -14,7 +14,7 @@ import pictoLibraries from '../assets/libraries/picto-libraries.png';
 
 import classes from '../styles/pages/landing.module.scss';
 
-interface IconLibraryProps {
+interface LibraryProps {
   color?: string;
   description?: string;
   id: string;
@@ -23,7 +23,7 @@ interface IconLibraryProps {
   unreleased?: boolean;
 }
 
-const LibraryCard = (props: { library: IconLibraryProps, type: string }) => {
+const LibraryCard = (props: { library: LibraryProps, type: string }) => {
   const { library, type } = props;
   const libraryStats = iconLibraries?.[library.id as keyof typeof iconLibraries] || {};
 
@@ -46,7 +46,7 @@ const LibraryCard = (props: { library: IconLibraryProps, type: string }) => {
 
 const IconsLandingPage: NextPage = () => {
   const { publicRuntimeConfig: config } = getConfig();
-  const { libraries: { icons } } = config;
+  const { libraries: { fonts, icons } } = config;
 
   return (
     <div className={classes.root}>
@@ -68,20 +68,13 @@ const IconsLandingPage: NextPage = () => {
         <section className={classes.cardGroup}>
           <h2>Icon Libraries</h2>
           <div className={classes.cards}>
-            {icons.map((library: IconLibraryProps) => <LibraryCard key={library.id} library={library} type='icon' />)}
+            {icons.map((library: LibraryProps) => <LibraryCard key={library.id} library={library} type='icon' />)}
           </div>
         </section>
         <section className={classes.cardGroup}>
           <h2>Font Libraries</h2>
           <div className={classes.cards}>
-            <LibraryCard
-              library={{
-                id: 'jun',
-                name: 'Jun Mono',
-                unreleased: true
-              }}
-              type='font'
-            />
+            {fonts.map((library: LibraryProps) => <LibraryCard key={library.id} library={library} type='font' />)}
           </div>
         </section>
       </Paper>

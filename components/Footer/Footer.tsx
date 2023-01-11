@@ -35,7 +35,7 @@ const Footer: FunctionComponent = () => {
               </Link>
             </IconButton>
             <IconButton>
-              <Link aria-label='Follow Pictogrammers on Mastodon' href='https://github.com/Pictogrammers' rel='me'>
+              <Link aria-label='Follow Pictogrammers on Mastodon' href='https://fosstodon.org/@pictogrammers' rel='me'>
                 <Icon path={siMastodon.path} size={1.25} />
               </Link>
             </IconButton>

@@ -23,7 +23,7 @@ const renderLibrariesAndCategories = (docs: any) => {
     const libraryInfo = docs[library];
     return (
       <section className={classes.cardGroup} key={library}>
-        {libraryInfo?.name && <h2 id={libraryInfo.id}>{libraryInfo.name} Docs</h2>}
+        <h2 id={libraryInfo.id}>{libraryInfo?.name ? libraryInfo.name : 'General'} Docs</h2>
         <div className={classes.cards}>
           {Object.keys(docs[library].categories)
             .map((category) => {

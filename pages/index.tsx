@@ -73,7 +73,7 @@ const Home: NextPage = () => {
               </AvatarGroup>
             )}
             <p>
-              The Pictogrammers are a diverse group of {totalContributors}+ collaborators
+              The Pictogrammers are a dedicated group of {totalContributors}+ collaborators
               from all walks of life. Hailing from nearly every part of the globe, we come
               together to express ideas in a universal language so that all may
               benefit. Icons may be small, but they are powerful forms of
