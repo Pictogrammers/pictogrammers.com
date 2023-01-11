@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch, { SwitchProps } from '@mui/material/Switch';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { mdiHistory } from '@mdi/js';
 
 import dayjs from 'dayjs';
@@ -18,6 +18,7 @@ import { ModificationType } from '../../interfaces/enums/modificationTypes';
 import { IconLibrary } from '../../interfaces/icons';
 import { IconChangeRecord } from '../../interfaces/history';
 
+import Head from '../Head/Head';
 import Layout from '../Docs/Layout/Layout';
 import IconHistoryCard from './IconHistoryCard';
 
@@ -221,6 +222,10 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
       sidebarContent={displayFilterControls()}
       title='History'
     >
+      <Head
+        description={`View historical data for ${libraryInfo.name}.`}
+        title={`History - ${libraryInfo.name}`}
+      />
       {error && (
       <Alert severity='error'>
         <AlertTitle>Unable to Retrieve Library History</AlertTitle>
