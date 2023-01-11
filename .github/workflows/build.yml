@@ -15,6 +15,7 @@ jobs:
           node-version: 18
 
       - name: Setup Caching
+        uses: actions/cache@v2
         with:
           path: |
             ${{ github.workspace }}/node_modules
