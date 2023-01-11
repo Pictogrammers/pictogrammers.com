@@ -74,7 +74,7 @@ const Home: NextPage = () => {
             )}
             <p>
               The Pictogrammers are a diverse group of {totalContributors}+ collaborators
-              from all walks of life. Hailing from nearly ever corner of the globe, we come
+              from all walks of life. Hailing from nearly every part of the globe, we come
               together to express ideas in a universal language so that all may
               benefit. Icons may be small, but they are powerful forms of
               communication in today&apos;s digital age. Built on our passion for beautiful
