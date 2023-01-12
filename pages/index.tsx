@@ -101,7 +101,7 @@ const Home: NextPage = () => {
         <HomeSection id='join' title='Join Us'>
           <div className={classes.join}>
             <p>
-              If you&apos;re looking to get involved with the Pictogrammers, there are many ways you can help! You can tackle <Link href='/docs/contribute'>issues and icon requests</Link> on one of our libraries. You can <a href='https://github.com/Pictogrammers/pictogrammers.com/tree/main/src/docs'>write and update documentation</a> to help those looking to get started. Interested in writing an integration we don&apos;t have... <Link href='/docs/contribute/third-party'>Go for it!</Link>
+              If you&apos;re looking to get involved with the Pictogrammers, there are many ways you can help! You can tackle <Link href='/docs/contribute'>issues and icon requests</Link> on one of our libraries. You can <a href='https://github.com/Pictogrammers/pictogrammers.com/tree/main/docs'>write and update documentation</a> to help those looking to get started. Interested in writing an integration we don&apos;t have... <Link href='/docs/contribute/third-party'>Go for it!</Link>
               <br />
               <br />
               If you have any questions about how you can make an impact, reach out to us on <a href='https://fosstodon.org/@pictogrammers' rel='me'>Mastodon</a> or open a <a href='https://github.com/Templarian/MaterialDesign/issues/new?assignees=&labels=Question&template=6_question.yml'>GitHub issue</a>. We look forward to meeting you!

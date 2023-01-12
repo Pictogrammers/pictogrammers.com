@@ -1,0 +1,27 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  major:
+    type: integer
+    example: 3
+  minor:
+    type: integer
+    example: 0
+  patch:
+    type: integer
+    example: 0
+  iconCount:
+    type: integer
+    example: 99
+  description:
+    type: string
+    example: "October release."
+  date:
+    type: string
+    format: date
+    example: 0
+  released:
+    type: boolean
+    example: true

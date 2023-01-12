@@ -1,0 +1,36 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  name:
+    type: string
+    example: Material Design Icons
+  description:
+    type: string
+    example: Material Design Icons is...
+  prefix:
+    type: string
+    example: mdi
+  fontName:
+    type: string
+    example: Material Design Icons
+  fileName:
+    type: string
+    example: materialdesignicons
+  fontFamily:
+    type: string
+    example: materialdesignicons
+  fontWeight:
+    type: string
+    example: normal
+  price:
+    type: number
+    example: 0.0
+  iconCount:
+    type: integer
+    example: 42
+  versions:
+    type: array
+    items:
+      $ref: '#/api/model/fontVersion'

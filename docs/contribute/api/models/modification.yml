@@ -1,0 +1,41 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  modificationId:
+    type: string
+    format: uuid
+  packageId:
+    type: string
+    format: uuid
+  nameBefore:
+    type: string
+    example: account-locks
+  nameAfter:
+    type: string
+    example: account-lock
+  dataBefore:
+    type: string
+    example: M...Z
+  dataAfter:
+    type: string
+    example: M...Z
+  descriptionBefore:
+    type: string
+  descriptionAfter:
+    type: string
+  text:
+    type: string
+  date:
+    type: string
+    format: date
+  issue:
+    type: string
+  isVisible:
+    type: boolean
+    auth: Contributor
+  user:
+    $ref: '#/api/model/user'
+  icon:
+    $ref: '#/api/model/icon'

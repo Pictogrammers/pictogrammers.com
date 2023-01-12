@@ -1,0 +1,13 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    example: bb5d615c-d404-11e8-a666-94188269ec50
+  name:
+    type: string
+    pattern: /$[a-z0-9-]+^/
+    example: outline
+  count:
+    type: integer
+    example: 42

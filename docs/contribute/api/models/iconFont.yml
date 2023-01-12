@@ -1,0 +1,8 @@
+type: object
+properties:
+  codepoint:
+    type: string
+  version:
+    $ref: '#/api/model/version'
+  font:
+    $ref: '#/api/model/font'

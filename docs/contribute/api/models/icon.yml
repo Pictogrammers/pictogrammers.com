@@ -1,0 +1,43 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    example: E76EC23F-AB71-49B3-9173-841544527A20
+  baseIconId:
+    type: string
+    format: uuid
+    example: E76EC23F-AB71-49B3-9173-841544527A20
+    description: Base icon id or self referenced if it is a base icon.
+  packageId:
+    type: string
+    format: uuid
+    example: 38EF63D0-4744-11E4-B3CF-842B2B6CFE1B
+  name:
+    type: string
+    example: account
+  description:
+    type: string
+    example: Used to represent an account or user.
+  data:
+    type: string
+    format: string
+    example: M...Z
+  user:
+    $ref: '#/api/model/user'
+  aliases:
+    type: array
+    items:
+      $ref: '#/api/model/alias'
+  tags:
+    type: array
+    items:
+      $ref: '#/api/model/tag'
+  fonts:
+    type: array
+    items:
+      $ref: '#/api/model/iconFont'
+  styles:
+    type: array
+    items:
+      $ref: '#/api/model/style'
