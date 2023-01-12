@@ -33,6 +33,7 @@ const nextConfig = {
     prependData: '@import "variables.scss";'
   },
   swcMinify: true,
+  trailingSlash: true,
   webpack(config, { isServer }) {
     config.module.rules.push({
       issuer: { and: [/\.(js|ts)x?$/] },
