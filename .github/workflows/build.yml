@@ -34,7 +34,7 @@ jobs:
         uses: trendyminds/github-actions-rsync@master
         with:
           RSYNC_OPTIONS: -avzr --delete
-          RSYNC_TARGET: /opt/${{ secrets.SSH_USER }}/pictogrammersdev
+          RSYNC_TARGET: /opt/${{ secrets.SSH_USER }}/pictogrammers
           RSYNC_SOURCE: /out/
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
