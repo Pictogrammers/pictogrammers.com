@@ -11,7 +11,7 @@ POST api/admin/user
     <Note type='warning'>This API requires elevated `core` access.</Note>
   </Tab>
   <Tab title='Request'>
-    ```yaml
+    ```yaml-to-json
     type: object
     properties:
       user:
@@ -38,8 +38,8 @@ POST api/admin/user
     ```
   </Tab>
   <Tab title='Response'>
-    ```yaml
-    $ref: '#/api/model/user'
+    ```yaml-to-json
+    $ref: '#/contribute/api/models/user'
     ```
   </Tab>
 </Tabs>

@@ -9,10 +9,10 @@ GET api/packages
     A package is a named grouping of icons. Example: `Material Design Icons`. This endpoint lists the packages, but leaves off the `icons` object for performance reasons.
   </Tab>
   <Tab title='Response'>
-    ```yaml
+    ```yaml-to-json
     type: array
     items:
-      $ref: '#/api/model/package'
+      $ref: '#/contribute/api/models/package'
     ```
   </Tab>
 </Tabs>

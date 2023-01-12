@@ -3,6 +3,6 @@ properties:
   codepoint:
     type: string
   version:
-    $ref: '#/api/model/version'
+    $ref: '#/contribute/api/models/version'
   font:
-    $ref: '#/api/model/font'
+    $ref: '#/contribute/api/models/font'

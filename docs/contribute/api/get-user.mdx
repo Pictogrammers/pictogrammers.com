@@ -11,10 +11,10 @@ GET api/package/:packageId/user/core
     Retrieve all users. An alternative is to get users for only a single package or just the core users assigned to maintain that package.
   </Tab>
   <Tab title='Response'>
-    ```yaml
+    ```yaml-to-json
     type: array
     items:
-      $ref: '#/api/model/user'
+      $ref: '#/contribute/api/models/user'
     ```
   </Tab>
 </Tabs>

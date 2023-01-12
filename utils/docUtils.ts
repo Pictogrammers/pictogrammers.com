@@ -6,6 +6,7 @@ import toc from 'markdown-toc';
 import readingTime from 'reading-time';
 
 import handleImportStatements from './helpers/handleImportStatements';
+import handleYamlToJson from './helpers/handleYamlToJson';
 import handleVersionReplacements from './helpers/handleVersionReplacements';
 import getUsedIcons from './helpers/getUsedIcons';
 
@@ -122,7 +123,7 @@ const getDoc = async (slug: string[]) => {
       return { disabled: true };
     }
   
-    const processedContent = handleVersionReplacements(handleImportStatements(content, DOCS_PATH));
+    const processedContent = handleVersionReplacements(handleYamlToJson(handleImportStatements(content, DOCS_PATH), DOCS_PATH));
     const { text: articleReadTime } = readingTime(processedContent);
     const docToc = toc(processedContent).json;
     const availableIcons = getUsedIcons(processedContent);

@@ -9,7 +9,7 @@ POST api/admin/icon/alias
     Aliasing icons with alternative names allows others to find them. For example `account` may also be known as `user` or `person`.
   </Tab>
   <Tab title='Request'>
-    ```yaml
+    ```yaml-to-json
     type: object
     properties:
       icon:
@@ -27,8 +27,8 @@ POST api/admin/icon/alias
     ```
   </Tab>
   <Tab title='Response'>
-    ```yaml
-    $ref: '#/api/model/icon'
+    ```yaml-to-json
+    $ref: '#/contribute/api/models/icon'
     ```
   </Tab>
 </Tabs>

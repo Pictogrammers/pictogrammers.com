@@ -36,6 +36,6 @@ properties:
     type: boolean
     auth: Contributor
   user:
-    $ref: '#/api/model/user'
+    $ref: '#/contribute/api/models/user'
   icon:
-    $ref: '#/api/model/icon'
+    $ref: '#/contribute/api/models/icon'

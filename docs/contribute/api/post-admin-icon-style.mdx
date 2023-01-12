@@ -9,7 +9,7 @@ POST api/admin/icon/style
     Toggle `icon.styles` on or off. For instance an icon called `account-outline` should have the `outline` style.
   </Tab>
   <Tab title='Request'>
-    ```yaml
+    ```yaml-to-json
     type: object
     properties:
       icon:
@@ -27,8 +27,8 @@ POST api/admin/icon/style
     ```
   </Tab>
   <Tab title='Response'>
-    ```yaml
-    $ref: '#/api/model/icon'
+    ```yaml-to-json
+    $ref: '#/contribute/api/models/icon'
     ```
   </Tab>
 </Tabs>

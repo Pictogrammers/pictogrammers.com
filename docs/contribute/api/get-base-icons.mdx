@@ -9,10 +9,10 @@ GET api/icon/:baseIconId/base
     A base icon is the most primative version of an icon. For instance `account-plus` has the base icon of `account`. This endpoint will retrieve all the icons with the same `baseIconId`.
   </Tab>
   <Tab title='Response'>
-    ```yaml
+    ```yaml-to-json
     type: array
     items:
-      $ref: '#/api/model/icon'
+      $ref: '#/contribute/api/models/icon'
     ```
   </Tab>
 </Tabs>

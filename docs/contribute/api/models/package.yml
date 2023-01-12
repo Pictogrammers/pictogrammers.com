@@ -16,8 +16,8 @@ properties:
   fonts:
     type: array
     items:
-      $ref: '#/api/model/font'
+      $ref: '#/contribute/api/models/font'
   icons:
     type: array
     items:
-      $ref: '#/api/model/icon'
+      $ref: '#/contribute/api/models/icon'

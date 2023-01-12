@@ -9,10 +9,10 @@ GET api/:packageId/style
     Styles are documented in the icon naming guidelines. Examples include `box`, `circle`, `outline`, `off`. This endpoint requires the `packageId` so that it can return the count of each style.
   </Tab>
   <Tab title='Response'>
-    ```yaml
+    ```yaml-to-json
     type: array
     items:
-      $ref: '#/api/model/style'
+      $ref: '#/contribute/api/models/style'
     ```
   </Tab>
 </Tabs>

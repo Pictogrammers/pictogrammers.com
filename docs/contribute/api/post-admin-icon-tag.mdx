@@ -9,7 +9,7 @@ POST api/admin/icon/tag
     Inserts `tag` into the database for an icon.
   </Tab>
   <Tab title='Request'>
-    ```yaml
+    ```yaml-to-json
     type: object
     properties:
       icon:
@@ -27,8 +27,8 @@ POST api/admin/icon/tag
     ```
   </Tab>
   <Tab title='Response'>
-    ```yaml
-    $ref: '#/api/model/icon'
+    ```yaml-to-json
+    $ref: '#/contribute/api/models/icon'
     ```
   </Tab>
 </Tabs>
