@@ -8,7 +8,7 @@ This guide will outline some alternatives of the Webfont and why other solutions
 
 ## What is the webfont?
 
-The webfont is several font files that your browser can pick from. All modern browsers will pick the `woff2` font file to download. This font as of `v6.8.96` is **377 KB** and the CSS is **51.2 KB** compressed and growing with each release.
+The webfont is several font files that your browser can pick from. All modern browsers will pick the `woff2` font file to download. This font as of `v7.1.96` is **392 KB** and the CSS is **53.1 KB** compressed and growing with each release.
 
 - Large Size (larger than any modern web framework)
 - Use only 10 Icons and it includes all.
@@ -25,7 +25,7 @@ Instead of using the webfont, you can use the Iconify SVG framework. It is as ea
 
 ### React
 
-For those using the React framework there is a first party provided component `@mdi/react`.
+For those using the React framework, there is a first party provided component `@mdi/react`.
 
 <Button href='/docs/mdi/getting-started/react' startIcon='si:react'>View the React Guide</Button>
 
@@ -39,7 +39,7 @@ For those using the React framework there is a first party provided component `@
 
 ### Other
 
-The `@mdi/js` library contains all the icon path data. By using this library in your JavaScript, you ensure you're only including the icons that are needed.
+The `@mdi/js` library contains all the icon path data. Due to tree-shaking, you ensure you're only including the icons that are needed.
 
 ```javascript
 import { mdiAccount } from '@mdi/js';

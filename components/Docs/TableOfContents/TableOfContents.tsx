@@ -1,5 +1,8 @@
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import { TableOfContentsItemProps, TableOfContentsProps } from '../../../interfaces/tableOfContents';
 
 import classes from './TableOfContents.module.scss';
@@ -10,16 +13,18 @@ const TableOfContents: FunctionComponent<TableOfContentsProps> = ({ toc }) => {
   }
 
   const output = toc.map((item: TableOfContentsItemProps) => (
-    <li className={classes[`lvl-${item.lvl}`]} key={item.slug}>
-      <Link href={`#${item.slug}`}>{item.content}</Link>
-    </li>
+    <ListItemButton component={Link} href={`#${item.slug}`} key={item.slug}>
+      <ListItemText classes={{ root: classes[`lvl-${item.lvl}`] }}>{item.content}</ListItemText>
+    </ListItemButton>
   ));
 
   return (
     <div className={classes.tableOfContents}>
       <p className={classes.tochead}>Table of Contents</p>
       <div className={classes.toc}>
-        <ul>{output}</ul>
+        <List dense>
+          {output}
+        </List>
       </div>
     </div>
   );

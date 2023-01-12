@@ -1,0 +1,134 @@
+---
+title: Getting Started with the Webfont
+description: Material Design Icon Light can be implemented into web sites using a webfont.
+icon: mdi:format-font
+---
+
+<Note type='warning'>
+  Due to size, the **webfont may harm app/web performance**. Please read the *[Webfont Alternatives Guide](/docs/guides/webfont-alternatives/)* to determine if it is right for your project.
+</Note>
+
+The webfont is a quick way to integrate the icons into your application.
+
+## Setup
+
+```bash
+npm install @mdi/light-font
+```
+
+```
+https://cdn.jsdelivr.net/npm/@mdi/light-font@{{version:mdil}}/css/materialdesignicons-light.min.css
+```
+
+## Basic Example
+
+Each icon can be referenced by their name prefixed with `mdil-`. For instance to get the home icon `mdil-home`.
+
+```html
+Bob lives in a <span class="mdil mdil-home"></span>.
+```
+
+## Helper Classes
+
+Material Design Icons Light (MDIL) contains many helper classes to quickly modify the look of the icons.
+
+### Rotate
+
+- `mdil-rotate-45` - Rotates 45 Degrees.
+- `mdil-rotate-90` - Rotates 90 Degrees.
+- `mdil-rotate-135` - Rotates 135 Degrees.
+- `mdil-rotate-180` - Rotates 180 Degrees.
+- `mdil-rotate-225` - Rotates 225 Degrees.
+- `mdil-rotate-270` - Rotates 270 Degrees.
+- `mdil-rotate-315` - Rotates 315 Degrees.
+
+```html
+<span class="mdil mdil-account mdil-rotate-45"></span>
+```
+
+### Flip
+
+- `mdil-flip-h` - Flip horizontal.
+- `mdil-flip-v` - Flip vertical.
+
+```html
+<span class="mdil mdil-account mdil-flip-h"></span>
+```
+
+<Note>
+  `mdil-flip-*` and `mdil-rotate-*` classes cannot be used on the same element at the same time.
+</Note>
+
+### Spin
+
+- `mdil-spin` - Spinning icon.
+
+```html
+<span class="mdil mdil-loading mdil-spin">Processing</span>
+```
+
+### Sets of Icons
+
+```html
+<div class="mdil-set">
+    <span class="mdil-star"></span>
+    <span class="mdil-star"></span>
+    <span class="mdil-star"></span>
+    <span class="mdil-star-outline"></span>
+    <span class="mdil-star-outline"></span>
+</div>
+```
+
+## Accessibility
+
+There are a few `aria-` attributes that can be added to the icon's tag or the parent's element to make things easier for screen readers.
+
+### Decoration Icons
+
+Many times, an icon has text next to it that explains the things. The icon is just for decoration so the screen reader can ignore it.
+
+```html
+<span class="mdil mdil-bookmark" aria-hidden> Bookmark Item
+```
+
+## File Descriptions
+
+- `fonts/`
+  - `materialdesignicons-light-webfont.eot`
+  - `materialdesignicons-light-webfont.ttf`
+  - `materialdesignicons-light-webfont.woff`
+  - `materialdesignicons-light-webfont.woff2`
+- `css/`
+  - `materialdesignicons-light.min.css` - Minified CSS
+  - `materialdesignicons-light.min.css.map` - Developer Tools Map
+- `sass`
+  - `_animated.scss` - Animations
+  - `_core.scss` - The base `.mdil` class
+  - `_extras.scss` - Rotate / Flip / Colors
+  - `_functions.scss` - Helpers
+  - `_icons.scss` - Icon data
+  - `_path.scss` - Webfont paths
+  - `_variables` - All available variables
+  - `materialdesignicons-light.sass` - Main
+- `preview.html` - Preview all icons
+
+<Note>
+  `preview.html` is renamed to `index.html` on the CDN.
+</Note>
+
+## Build Webfont
+
+The webfont can be built with the contents of the `@mdi/light-svg` and `@mdi/font-build`.
+
+```bash
+# Extract https://github.com/Templarian/MaterialDesignLight-SVG/archive/master.zip
+# Inside of the folder run
+npx @mdi/font-build
+# The /dist folder contains the generated files
+```
+
+Learn more: [@mdi/font-build](http://npmjs.com/package/@mdi/font-build)
+
+<Note>
+  Using the `--fontSvg` flag will generate the `.svg` font. This was removed in 4.0+ as no modern browser uses it.
+</Note>

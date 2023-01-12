@@ -14,15 +14,6 @@
 - Non-Modal should have a section showing examples of the icon in use.
 - Eventually, the `baseIconId` will show all related icons.
 
-## Docs View
-
-- Table of Contents needs some style lovin'.
-  - Look at the MUI <List> stuff.
-
-## Tools View
-
-- Build page for Bitmask to SVG.
-
 ## Contributor View
 
 - Create individual pages for each contributor.

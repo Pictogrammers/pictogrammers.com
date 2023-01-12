@@ -1,13 +1,13 @@
 ---
 title: Getting Started with React
-description: Material Design Icons can be used in React with our first-party module.
+description: Material Design Icons Light can be used in React with our first-party module.
 icon: si:react
 ---
 
-Material Design Icons can be used in React with our first-party `@mdi/react` module.
+Material Design Icons Light can be used in React with our first-party `@mdi/react` module.
 
 ```bash
-npm install @mdi/react @mdi/js
+npm install @mdi/react @mdi/light-js
 ```
 
 <Button href='https://templarian.github.io/@mdi/react/' startIcon='mdi:human-male-board'>Demo</Button>
@@ -19,12 +19,12 @@ npm install @mdi/react @mdi/js
 ```jsx
 import React, { Component } from 'react';
 import Icon from '@mdi/react';
-import { mdiAccount } from '@mdi/js';
+import { mdilAccount } from '@mdi/light-js';
 
 class App extends Component {
   render() {
     return (
-      <Icon path={mdiAccount}
+      <Icon path={mdilAccount}
         title="User Profile"
         size={1}
         horizontal
@@ -99,7 +99,7 @@ Making icons accessible can be done through the `title` prop. If for some rare r
 By leaving off the `title` prop an icon is assumed to be presentation only. These will be ignored by screen readers. This is ideal for icon buttons or areas where text next to the icon suffices.
 
 ```jsx
-<p><Icon path={mdiAccount} /> User Profile</p>
-<p><Icon path={mdiAccount} title="User Profile" /></p>
-<button aria-label="User Profile"><Icon path={mdiAccount} /></button>
+<p><Icon path={mdilAccount} /> User Profile</p>
+<p><Icon path={mdilAccount} title="User Profile" /></p>
+<button aria-label="User Profile"><Icon path={mdilAccount} /></button>
 ```

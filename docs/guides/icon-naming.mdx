@@ -16,40 +16,52 @@ Examples: `comment`, `folder`, or `flask`
 
 All naming must be in the exact order below.
 
-| Position         | Weight    | Shape        | Overlay         | Modifier     |
-|------------------|-----------|--------------|-----------------|--------------|
-| `*-top-left`     | `*-bold`  | `*-box`      | `*-account`     | `*-variant`  |
-| `*-top-right`    | `*-thick` | `*-circle`   | `*-alert`       | `*-multiple` |
-| `*-bottom-left`  |           | `*-decagram` | `*-arrow-*`     | `*-off`      |
-| `*-bottom-right` |           | `*-octagram` | `*-cancel`      | `*-outline`  |
-| `*-up`           |           | `*-rhombus`  | `*-check`       |              |
-| `*-down`         |           | `*-shield`   | `*-clock`       |              |
-| `*-left`         |           |              | `*-cog`         |              |
-| `*-right`        |           |              | `*-edit`        |              |
-|                  |           |              | `*-eye`         |              |
-|                  |           |              | `*-heart`       |              |
-|                  |           |              | `*-information` |              |
-|                  |           |              | `*-image`       |              |
-|                  |           |              | `*-key`         |              |
-|                  |           |              | `*-lock`        |              |
-|                  |           |              | `*-marker`      |              |
-|                  |           |              | `*-minus`       |              |
-|                  |           |              | `*-music`       |              |
-|                  |           |              | `*-network`     |              |
-|                  |           |              | `*-percent`     |              |
-|                  |           |              | `*-plus`        |              |
-|                  |           |              | `*-question`    |              |
-|                  |           |              | `*-refresh`     |              |
-|                  |           |              | `*-remove`      |              |
-|                  |           |              | `*-search`      |              |
-|                  |           |              | `*-settings`    |              |
-|                  |           |              | `*-star`        |              |
-|                  |           |              | `*-sync`        |              |
-|                  |           |              | `*-text`        |              |
+| Position         | Weight     | Shape        | Overlay         | Modifier     |
+|------------------|------------|--------------|-----------------|--------------|
+| `*-top-left`     | `*-bold`   | `*-box`      | `*-account`     | `*-variant`  |
+| `*-top-right`    | `*-thick`  | `*-circle`   | `*-alert`       | `*-multiple` |
+| `*-bottom-left`  | `*-light`  | `*-decagram` | `*-arrow-*`     | `*-off`      |
+| `*-bottom-right` | `*-heavy`  | `*-octagram` | `*-cancel`      | `*-outline`  |
+| `*-up`           | `*-double` | `*-rhombus`  | `*-check`       |              |
+| `*-up-left`      |            | `*-shield`   | `*-clock`       |              |
+| `*-up-right`     |            |              | `*-cog`         |              |
+| `*-down`         |            |              | `*-edit`        |              |
+| `*-down-left`    |            |              | `*-eye`         |              |
+| `*-down-right`   |            |              | `*-heart`       |              |
+| `*-left`         |            |              | `*-information` |              |
+| `*-right`        |            |              | `*-image`       |              |
+|                  |            |              | `*-key`         |              |
+|                  |            |              | `*-lock`        |              |
+|                  |            |              | `*-marker`      |              |
+|                  |            |              | `*-minus`       |              |
+|                  |            |              | `*-music`       |              |
+|                  |            |              | `*-network`     |              |
+|                  |            |              | `*-percent`     |              |
+|                  |            |              | `*-plus`        |              |
+|                  |            |              | `*-question`    |              |
+|                  |            |              | `*-refresh`     |              |
+|                  |            |              | `*-remove`      |              |
+|                  |            |              | `*-search`      |              |
+|                  |            |              | `*-settings`    |              |
+|                  |            |              | `*-star`        |              |
+|                  |            |              | `*-sync`        |              |
+|                  |            |              | `*-text`        |              |
 
 ### Position
 
-All position modifiers should be used to describe the direction an icon is pointing.
+The `top` and `bottom` position modifiers denote direction pointing. Ex: diagonal arrow.
+
+- `top-left`
+- `top-right`
+- `bottom-left`
+- `bottom-right`
+
+Alternatively the position modifiers `up` and `down` would be used for corners. These can still have arrows, but must **never** point diagonally.
+
+- `up-left`
+- `up-right`
+- `down-left`
+- `down-right`
 
 ### Weight
 
@@ -235,4 +247,4 @@ Modifiers are consistent across all icons in their representation.
 
 ## Notice a Bug?
 
-If you ever notice a bug in a name or think it does not follow these guidelines please open an [issue](https://github.com/Templarian/MaterialDesign/issues).
+If you notice a bug in a name, or think it does not follow these guidelines, please open an [issue](https://github.com/Templarian/MaterialDesign/issues).

@@ -1,6 +1,6 @@
 ---
 title: Getting Started with Vue.js
-description: Material Design Icons can be used with the Vue Icon Component.
+description: Material Design Icon Light can be used with the Vue Icon Component.
 icon: si:vuedotjs
 ---
 
@@ -20,14 +20,14 @@ MDI can be used in conjunction with the [Vue Icon Component](https://www.npmjs.c
 1. Install from NPM.
 
    ```bash
-   npm install @mdi/js @jamescoyle/vue-icon
+   npm install @mdi/light-js @jamescoyle/vue-icon
    ```
 
 2. Import into your project.
 
    ```js
    import SvgIcon from '@jamescoyle/vue-icon'
-   import { mdiAccount } from '@mdi/js'
+   import { mdilAccount } from '@mdi/light-js'
    ```
 
 ### SFC Example
@@ -35,13 +35,13 @@ The following example shows how you might use an icon within a single file compo
 
 ```html
 <template>
-  <svg-icon type="mdi" :path="path"></svg-icon>
+  <svg-icon type="mdil" :path="path"></svg-icon>
 </template>
 
 
 <script>
 import SvgIcon from '@jamescoyle/vue-icon';
-import { mdiAccount } from '@mdi/js';
+import { mdilAccount } from '@mdi/light-js';
 
 export default {
 	name: "my-cool-component",
@@ -52,7 +52,7 @@ export default {
 
 	data() {
 		return {
-	  		path: mdiAccount,
+	  		path: mdilAccount,
 		}
 	}
 }

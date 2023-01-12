@@ -2,6 +2,7 @@
 title: Contribute to the Pictogrammers Site
 description: This guide contains information on how to contribute to the web site.
 icon: mdi:web
+sticky: true
 ---
 
 Similar to the libraries we provide, this site is open-source.
@@ -14,6 +15,8 @@ Similar to the libraries we provide, this site is open-source.
 | *Source* | [View](https://github.com/Pictogrammers/pictogrammers.com) | [View](https://github.com/Pictogrammers/Icon-Site/tree/master/src) |
 
 ## Public Site
+
+The public Pictogrammers site is 99% prebuilt and prerendered using Next.js.
 
 ### Tech Stack
 
@@ -35,13 +38,13 @@ To know if your feature is going to be merged into production, it is highly reco
 
 #### Feature Requires New Endpoints
 
-This is common that new features need a new endpoint, but please review the current open issues tagged `API` before requesting. The API is still closed source, but if the feature is needed the endpoint(s) can be added.
+If a feature you would like to add requires additional data from an existing or new API endpoint, you will need to request that functionality. The API is still closed-source, so a core team member will have to implement the changes.
 
-Please also read through the API documentation, many of the existing endpoints have optional parameters.
+Please review the current open issues tagged `API` before making your request. Please also read through the API documentation, many of the existing endpoints have optional parameters.
 
 ### Tips for Feature Development
 
-- Let us know early on if your feature needs a API to work.
+- Let us know early on if your feature needs API changes to work.
 - Look at the existing code base and follow consistent patterns.
 - Use existing services where it makes sense instead of wrapping your own.
 - Break up features into smaller components when possible.

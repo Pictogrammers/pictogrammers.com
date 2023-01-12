@@ -35,7 +35,7 @@ const DocCategoryList: FunctionComponent<DocCategoryListProps> = ({ category, do
           icon={category.icon}
         />
         {docs
-          .sort((a, b) => a.title.localeCompare(b.title))
+          .sort((a, b) => a.sticky === b.sticky ? a.title.localeCompare(b.title) : a.sticky ? -1 : 1)
           .map((doc, d) => (
             <LandingPageCard
               color={`--${category.id}-color`}

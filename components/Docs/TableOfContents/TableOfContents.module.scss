@@ -3,36 +3,28 @@
 }
 
 .tochead {
-  font-size: .8rem;
+  border-bottom: 1px solid hsl(var(--medium-grey));
+  font-size: .9rem;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+  padding: 0 .5rem;
   text-transform: uppercase;
 }
 
 .toc {
+  background-color: hsl(var(--white) / 50%);
+  border-radius: 0 0 5px 5px;
   max-height: 50vh;
   overflow-y: auto;
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .lvl-1 {
+    display: none;
   }
 
-  li {
-    &.lvl-1 {
-      display: none;
-    }
-
-    @for $i from 3 through 6 {
-      &.lvl-#{$i} {
-        font-size: .95rem;
-        padding-left: #{$i - 2}rem;
-      }
-    }
-  }
-
-  a {
-    &:hover {
-      color: hsl(var(--primary-color));
+  @for $i from 3 through 6 {
+    .lvl-#{$i} {
+      font-size: .95rem;
+      padding-left: #{$i - 2}rem;
     }
   }
 }
