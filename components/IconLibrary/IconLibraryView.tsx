@@ -198,7 +198,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
       return (
         <Alert classes={{ root: classes.infoAlert }} severity='warning'>
           <AlertTitle>New Icons in v{version}</AlertTitle>
-          Please be sure to check the <Link href={`/docs/${libraryInfo.id}/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here.
+          Please be sure to check the <Link href={`/docs/library/${libraryInfo.id}/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here. For real-time updates, check the <Link href={`/library/${libraryInfo.id}/history`}>history</Link> page.
         </Alert>
       );
     }
