@@ -1,6 +1,7 @@
 import { Fragment, FunctionComponent } from 'react';
 import { default as NextHead } from 'next/head';
 import { useRouter } from 'next/router';
+import { useAnalytics } from 'use-analytics';
 
 interface HeadProps {
   description?: string;
@@ -18,6 +19,10 @@ const Head: FunctionComponent<HeadProps> = ({
   type = 'website'
 }) => {
   const router = useRouter();
+
+  // Register page view in analytics
+  const { page } = useAnalytics();
+  page({ url: `https://pictogrammers.com${router.pathname}` });
 
   // This has to be set as variable to avoid console warnings.
   // See: https://github.com/vercel/next.js/discussions/38256#discussioncomment-3070196

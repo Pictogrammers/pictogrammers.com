@@ -1,6 +1,10 @@
 const { mdiBookOpenPageVariantOutline, mdiCodeTags, mdiFormatListNumbered, mdiPackageVariant, mdiRocketLaunch } = require('@mdi/js');
 
 module.exports = {
+  analytics: {
+    consentCookie: 'pg-analytics-consent',
+    googleTrackingId: 'G-0Y6PK9LKLT'
+  },
   carbonAds: {
     placement: 'pictogrammerscom',
     serve: 'CWYD42QY'

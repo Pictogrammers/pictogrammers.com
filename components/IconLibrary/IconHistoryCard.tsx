@@ -76,7 +76,7 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
         <div className={classes.subDesc}>{userAvatar}By {user.name} at {dayjs(date, dayjs.tz.guess()).format('h:mma')}</div>
       </div>
       {!!issue?.toString() && (
-        <Tooltip placement='top' title='View GitHub Issue'>
+        <Tooltip arrow placement='top' title='View GitHub Issue'>
           <Link className={classes.githubLink} href={`${library.git}/issues/${issue}`}>
             <Chip label={`#${issue.toString()}`} color='secondary' sx={{ cursor: 'pointer' }} />
           </Link>            

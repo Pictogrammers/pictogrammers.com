@@ -1,0 +1,14 @@
+.root {
+  width: 500px;
+
+  h2 {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
+  }
+}

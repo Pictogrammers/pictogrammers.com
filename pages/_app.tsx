@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Manrope } from '@next/font/google';
+import Analytics from 'analytics';
+import { AnalyticsProvider } from 'use-analytics';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 
 import Layout from '../components/Layout/Layout';
+import CookieConsent from '../components/CookieConsent/CookieConsent';
 
 import themeVars from '../styles/theme.module.scss';
 import '../styles/defaults.scss';
@@ -62,34 +66,45 @@ const theme = createTheme({
 });
 
 const Pictogrammers = ({ Component, pageProps }: AppProps) => {
+  const [ enabledAnalyticsPlugins, setEnabledAnalyticsPlugins ] = useState([]);
+  const isDevelopment = process?.env?.NODE_ENV === 'development';
+  const analyticsInstance = Analytics({
+    app: 'Pictogrammers',
+    debug: isDevelopment,
+    plugins: enabledAnalyticsPlugins
+  });
+
   return (
-    <ThemeProvider theme={theme}>
-      <Head>
-        <title>Pictogrammers - Open-source iconography for designers and developers</title>
-        <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover' />
-        <meta content='Pictogrammers' name='title' key='title' />
-        <meta content='Open-source iconography for designers and developers' name='description' key='description' />
-        <meta content='en_US' property='og:locale' key='og:locale' />
-        <meta content='Pictogrammers' property='og:title' key='og:title' />
-        <meta content='website' property='og:type' key='og:type' />
-        <meta content='https://pictogrammers.com/' property='og:url' key='og:url' />
-        <meta content='Open-source iconography for designers and developers' property='og:description' key='og:description' />
-        <meta content='/og-card.png' property='og:image' key='og:image' />
-        <meta content='630' property='og:image:height' key='og:image:height' />
-        <meta content='1200' property='og:image:width' key='og:image:width' />
-        <meta content='summary' name='twitter:card' key='twitter:card' />
-        <meta content='@pictogrammers' name='twitter:creator' key='twitter:creator' />
-        <meta content='@pictogrammers' name='twitter:site' key='twitter:site' />
-        <meta content='Pictogrammers' name='twitter:title' key='twitter:title' />
-        <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
-        <meta content='twitter-card.png' name='twitter:image' key='twitter:image' />
-      </Head>
-      <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-        <Layout className={manrope.className}>
-          <Component {...pageProps} />
-        </Layout>
-      </SnackbarProvider>
-    </ThemeProvider>
+    <AnalyticsProvider instance={analyticsInstance}>
+      <ThemeProvider theme={theme}>
+        <Head>
+          <title>Pictogrammers - Open-source iconography for designers and developers</title>
+          <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover' />
+          <meta content='Pictogrammers' name='title' key='title' />
+          <meta content='Open-source iconography for designers and developers' name='description' key='description' />
+          <meta content='en_US' property='og:locale' key='og:locale' />
+          <meta content='Pictogrammers' property='og:title' key='og:title' />
+          <meta content='website' property='og:type' key='og:type' />
+          <meta content='https://pictogrammers.com/' property='og:url' key='og:url' />
+          <meta content='Open-source iconography for designers and developers' property='og:description' key='og:description' />
+          <meta content='/og-card.png' property='og:image' key='og:image' />
+          <meta content='630' property='og:image:height' key='og:image:height' />
+          <meta content='1200' property='og:image:width' key='og:image:width' />
+          <meta content='summary' name='twitter:card' key='twitter:card' />
+          <meta content='@pictogrammers' name='twitter:creator' key='twitter:creator' />
+          <meta content='@pictogrammers' name='twitter:site' key='twitter:site' />
+          <meta content='Pictogrammers' name='twitter:title' key='twitter:title' />
+          <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
+          <meta content='twitter-card.png' name='twitter:image' key='twitter:image' />
+        </Head>
+        <CookieConsent setEnabledAnalyticsPlugins={isDevelopment ? () => {} : setEnabledAnalyticsPlugins} />
+        <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+          <Layout className={manrope.className}>
+            <Component {...pageProps} />
+          </Layout>
+        </SnackbarProvider>
+      </ThemeProvider>
+    </AnalyticsProvider>
   );
 };
 
