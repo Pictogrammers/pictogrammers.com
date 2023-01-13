@@ -8,6 +8,7 @@ import Layout from '../components/Layout/Layout';
 
 import themeVars from '../styles/theme.module.scss';
 import '../styles/defaults.scss';
+import '../components/CarbonAd/Carbon.scss';
 
 const manrope = Manrope({ subsets: ['latin'] });
 const theme = createTheme({

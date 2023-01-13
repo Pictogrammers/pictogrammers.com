@@ -1,8 +1,10 @@
 .root {
   background-color: hsl(var(--light-grey));
+  border: 1px solid hsl(var(--medium-grey));
   border-radius: 5px;
   box-shadow: inset 0 0 10px hsl(var(--grey));
-  min-height: 100px;
+  height: 102px;
+  overflow: hidden;
   position: relative;
   width: 315px;
 
@@ -10,8 +12,11 @@
     display: none;
   }
 
-  &::after {
+  &::before {
     align-items: center;
+    animation: fade-in 1s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
     color: hsl(var(--grey));
     content: 'Please consider whitelisting our ads. They help support the work we do!';
     display: flex;
@@ -19,11 +24,18 @@
     justify-content: center;
     left: 0;
     line-height: 1.4;
+    opacity: 0;
     padding: 0 1rem;
     position: absolute;
     text-align: center;
     top: 0;
     user-select: none;
     width: calc(100% - 2rem);
+    z-index: 1;
   }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

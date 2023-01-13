@@ -1,0 +1,74 @@
+/* stylelint-disable selector-max-id */
+#carbonads {
+  --carbon-font-family: -apple-system, 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  --carbon-font-size: 12px;
+  --carbon-padding: 1.5ch;
+  --carbon-max-char: 20ch;
+  --carbon-bg-primary: hsl(0deg 0% 98%);
+  --carbon-bg-secondary: hsl(0deg 0% 92%);
+  --carbon-text-color: hsl(0deg 0% 20%);
+
+  font-family: var(--carbon-font-family);
+  font-size: var(--carbon-font-size);
+  position: relative;
+  z-index: 10;
+
+  * {
+    line-height: initial;
+    margin: initial;
+    padding: initial;
+  }
+
+  & > span {
+    background-color: var(--carbon-bg-primary);
+    display: flex;
+    flex-direction: row;
+    max-inline-size: calc(130px + var(--carbon-max-char) + 8ch);
+    min-inline-size: 130px;
+  }
+
+  a {
+    color: var(--carbon-text-color);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--carbon-text-color);
+    }
+  }
+
+  .carbon-wrap {
+    display: flex;
+    gap: 1.5ex;
+  }
+
+  .carbon-img {
+    flex: 0 0 130px;
+
+    img {
+      display: block;
+    }
+  }
+
+  .carbon-text {
+    align-self: center;
+    flex-basis: var(--carbon-max-char);
+    flex-grow: 1;
+    line-height: 1.4;
+    padding-right: .5rem;
+    text-align: left;
+  }
+
+  .carbon-poweredby {
+    background: var(--carbon-bg-secondary);
+    color: var(--carbon-text-color);
+    font-size: .7em;
+    font-weight: 600;
+    letter-spacing: .2ch;
+    line-height: 1.4;
+    padding: 6px 8px;
+    text-align: center;
+    text-orientation: mixed;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+}

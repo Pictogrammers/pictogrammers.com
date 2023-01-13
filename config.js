@@ -1,6 +1,10 @@
 const { mdiBookOpenPageVariantOutline, mdiCodeTags, mdiFormatListNumbered, mdiPackageVariant, mdiRocketLaunch } = require('@mdi/js');
 
 module.exports = {
+  carbonAds: {
+    placement: 'pictogrammerscom',
+    serve: 'CWYD42QY'
+  },
   docs: {
     categories: [
       {

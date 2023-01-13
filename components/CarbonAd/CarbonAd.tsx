@@ -1,4 +1,5 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useRef } from 'react';
+import getConfig from 'next/config';
 import cx from 'clsx';
 
 import useWindowSize from '../../hooks/useWindowSize';
@@ -10,17 +11,33 @@ interface CarbonAdProps {
 }
 
 const CarbonAd: FunctionComponent<CarbonAdProps> = ({ displayOnMobile = false }) => {
+  const carbonAdsRef = useRef<HTMLDivElement | null>(null);
+  const { publicRuntimeConfig: { carbonAds } } = getConfig();
   const windowSize = useWindowSize();
   const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
 
-  const shouldHide = isMobileWidth && !displayOnMobile;
+  useEffect(() => {
+    if (carbonAdsRef.current && !carbonAdsRef.current.childNodes.length) {
+      console.log('==>', );
+      const carbonScript = document.createElement('script');
+      carbonScript.src = `//cdn.carbonads.com/carbon.js?serve=${carbonAds.serve}&placement=${carbonAds.placement}`;
+      carbonScript.id = '_carbonads_js';
+      carbonScript.async = true;
+      carbonAdsRef.current.appendChild(carbonScript);
+    }
+
+    return () => {
+      carbonAdsRef.current = null;
+    };
+  }, [ carbonAds ]);
 
   return (
-    <div className={cx(classes.root, {
-      [classes.hide]: shouldHide
-    })}>
-      &nbsp;
-    </div>
+    <div
+      className={cx(classes.root, {
+        [classes.hide]: isMobileWidth && !displayOnMobile
+      })}
+      ref={carbonAdsRef}
+    />
   );
 };
 

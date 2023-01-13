@@ -24,7 +24,7 @@
   @for $i from 3 through 6 {
     .lvl-#{$i} {
       font-size: .95rem;
-      padding-left: #{$i - 2}rem;
+      padding-left: #{$i - 2.25}rem;
     }
   }
 }
