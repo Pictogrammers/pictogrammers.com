@@ -174,7 +174,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
   const renderFilteredByChip = (size: ChipProps['size'] = undefined) => {
     if (version) {
-      return <Chip color='primary' icon={<Icon path={mdiCreation} size={.7} />} label={`Added in v${version}`} onDelete={handleChipDelete} size={size} sx={{ margin: '0 .25rem 0 .5rem' }} />;
+      return <Chip color='primary' icon={<Icon path={mdiCreation} size={.7} />} label={`New in v${version}`} onDelete={handleChipDelete} size={size} sx={{ margin: '0 .25rem 0 .5rem' }} />;
     }
 
     if (category) {
@@ -198,7 +198,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
       return (
         <Alert classes={{ root: classes.infoAlert }} severity='warning'>
           <AlertTitle>New Icons in v{version}</AlertTitle>
-          Please be sure to check the <Link href={`/docs/library/${libraryInfo.id}/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here. For real-time updates, check the <Link href={`/library/${libraryInfo.id}/history`}>history</Link> page.
+          Please be sure to check the <Link href={`/docs/library/${libraryInfo.id}/releases/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here. For real-time updates, check the <Link href={`/library/${libraryInfo.id}/history`}>history</Link> page.
         </Alert>
       );
     }
