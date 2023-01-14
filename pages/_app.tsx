@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import { AppProps } from 'next/app';
+import getConfig from 'next/config';
 import Head from 'next/head';
 import { Manrope } from '@next/font/google';
 import Analytics from 'analytics';
+import googleAnalytics from '@analytics/google-analytics';
 import { AnalyticsProvider } from 'use-analytics';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
@@ -66,12 +67,16 @@ const theme = createTheme({
 });
 
 const Pictogrammers = ({ Component, pageProps }: AppProps) => {
-  const [ enabledAnalyticsPlugins, setEnabledAnalyticsPlugins ] = useState([]);
-  const isDevelopment = process?.env?.NODE_ENV === 'development';
+  const { publicRuntimeConfig: { analytics } } = getConfig();
   const analyticsInstance = Analytics({
     app: 'Pictogrammers',
-    debug: isDevelopment,
-    plugins: enabledAnalyticsPlugins
+    debug: process?.env?.NODE_ENV === 'development',
+    plugins: [
+      googleAnalytics({
+        enabled: false,
+        measurementIds: [ analytics.googleTrackingId ]
+      })
+    ]
   });
 
   return (
@@ -97,7 +102,7 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
           <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
           <meta content='twitter-card.png' name='twitter:image' key='twitter:image' />
         </Head>
-        <CookieConsent setEnabledAnalyticsPlugins={isDevelopment ? () => {} : setEnabledAnalyticsPlugins} />
+        <CookieConsent />
         <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
           <Layout className={manrope.className}>
             <Component {...pageProps} />

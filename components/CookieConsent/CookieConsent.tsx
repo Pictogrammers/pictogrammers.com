@@ -1,26 +1,27 @@
 import { Fragment, FunctionComponent, useEffect, useState } from 'react';
 import getConfig from 'next/config';
 import Cookies from 'js-cookie';
-import googleAnalytics from '@analytics/google-analytics';
+import { useAnalytics } from 'use-analytics';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 
 import classes from './CookieConsent.module.scss';
 
-interface CookieConsentProps {
-  setEnabledAnalyticsPlugins: Function
-};
-
-const CookieConsent: FunctionComponent<CookieConsentProps> = ({ setEnabledAnalyticsPlugins }) => {
+const CookieConsent: FunctionComponent = () => {
   const { publicRuntimeConfig: { analytics: config } } = getConfig();
   const [ showConsentModal, setShowConsentModal ] = useState(false);
+  const { page, plugins } = useAnalytics();
 
   useEffect(() => {
     const cookieValue = Cookies.get(config.consentCookie);
     if (!cookieValue) {
-      setShowConsentModal(true);
+      return setShowConsentModal(true);
     }
-  }, [ config.consentCookie ]);
+
+    if (cookieValue === 'agreed') {
+      plugins.enable('google-analytics');
+    }
+  }, [ config.consentCookie, page, plugins ]);
 
   const handleDoNotTrack = () => {
     Cookies.set(config.consentCookie, 'do-not-track');
@@ -29,9 +30,7 @@ const CookieConsent: FunctionComponent<CookieConsentProps> = ({ setEnabledAnalyt
 
   const handleAgreement = () => {
     Cookies.set(config.consentCookie, 'agreed');
-    setEnabledAnalyticsPlugins([
-      googleAnalytics({ measurementIds: [ config.googleTrackingId ] })
-    ]);
+    plugins.enable('google-analytics').then(() => page());;
     setShowConsentModal(false);
   };
 

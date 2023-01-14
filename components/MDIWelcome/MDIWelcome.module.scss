@@ -1,0 +1,25 @@
+.meet {
+  border-bottom: 1px solid hsl(var(--cyan));
+  padding-top: 2rem;
+  text-align: center;
+
+  svg {
+    animation: wave 1s infinite linear alternate;
+    display: inline-block;
+    transform-origin: bottom left;
+  }
+}
+
+.issues {
+  font-size: .8rem;
+}
+
+@keyframes wave {
+  from {
+    transform: rotate(10deg);
+  }
+
+  to {
+    transform: rotate(-10deg);
+  }
+}

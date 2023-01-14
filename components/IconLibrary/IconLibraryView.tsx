@@ -43,6 +43,7 @@ import LibraryMenu from './LibraryMenu';
 import LibraryViewMode, { viewModes } from './LibraryViewMode';
 import IconView from '../IconView/IconView';
 import CarbonAd from '../CarbonAd/CarbonAd';
+import MDIWelcome from '../MDIWelcome/MDIWelcome';
 
 import iconLibraries from '../../public/libraries/libraries.json';
 import allContributors from '../../public/contributors/contributors.json';
@@ -83,6 +84,15 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   // Individual icon viewing
   const router = useRouter();
   const [ iconModal, setIconModal ] = useState<IconLibraryIcon | null>(null);
+
+  // Temporary welcome from the old MDI site
+  const [ showMDIWelcome, setShowMDIWelcome ] = useState(false);
+  useEffect(() => {
+    if ('welcome' in router.query) {
+      setShowMDIWelcome(true);
+      router.replace(slug);
+    }
+  }, [ router, slug ]);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -233,6 +243,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
         description={libraryInfo.description}
         title={`${libraryInfo.name} - Icon Library`}
       />
+      {showMDIWelcome && <MDIWelcome handleClose={setShowMDIWelcome} />}
       <Paper className={classes.container}>
         <div className={classes.libraryView}>
           <div className={classes.heading} ref={iconLibraryHeadingRef}>

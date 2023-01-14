@@ -18,7 +18,6 @@ const CarbonAd: FunctionComponent<CarbonAdProps> = ({ displayOnMobile = false })
 
   useEffect(() => {
     if (carbonAdsRef.current && !carbonAdsRef.current.childNodes.length) {
-      console.log('==>', );
       const carbonScript = document.createElement('script');
       carbonScript.src = `//cdn.carbonads.com/carbon.js?serve=${carbonAds.serve}&placement=${carbonAds.placement}`;
       carbonScript.id = '_carbonads_js';
