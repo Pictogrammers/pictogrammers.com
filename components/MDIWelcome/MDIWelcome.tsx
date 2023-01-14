@@ -39,7 +39,6 @@ const MDIWelcome: FunctionComponent<MDIWelcomeProps> = ({ handleClose }) => {
       <DialogContent>
         <div className={classes.meet}>
           <Icon path={mdiHandWaveOutline} size={2} />
-          <p><strong>Nice to meet you, we&apos;re the Pictogrammers!</strong></p>
         </div>
         <p>The group of people who have brought you Material Design Icons over the years have formed an open-source collective. You can learn all about us on our <Link href='/docs/general/about'>About</Link> page.</p>
         <p>Please update your bookmarks. We&apos;re glad you&apos;re here!</p>
