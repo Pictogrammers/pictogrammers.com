@@ -37,6 +37,7 @@ export const DatabaseProvider: FunctionComponent<DatabaseProviderProps> = ({ chi
         if (task === 'provision' && status === 'complete') {
           setLibraries(libraries);
           setProvisioned(true);
+          workerRef?.current?.terminate();
         }
       };
 
