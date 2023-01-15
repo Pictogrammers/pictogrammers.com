@@ -24,7 +24,7 @@ const CookieConsent: FunctionComponent = () => {
   }, [ config.consentCookie, page, plugins ]);
 
   const handleDoNotTrack = () => {
-    Cookies.set(config.consentCookie, 'do-not-track');
+    Cookies.set(config.consentCookie, 'do-not-track', { expires: 182 });
     setShowConsentModal(false);
   };
 
