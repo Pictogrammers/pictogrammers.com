@@ -54,6 +54,8 @@ const useIcons = (libraryId: string, filter: FilterProps = {}) => {
           .filter((v: string) => v !== ''); // Filter out empty values
 
         table = table.filter((icon: IconLibraryIcon) => {
+          // TODO: Finish this
+          // table = table.filter((icon: IconLibraryIcon) => icon.st.some((terms) => terms.includes(processedTerm || '')));
           const iconSet = new Set(icon.st);
           const match = [...new Set(processedTerm)].filter((x) => iconSet.has(x));
           return icon.n === filter.term || !!match.length;
