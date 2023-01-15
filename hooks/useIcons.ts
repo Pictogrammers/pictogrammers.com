@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import useDatabase from './useDatabase';
+import { useDatabase } from '../providers/DatabaseProvider';
 
 import { IconLibraryIcon } from '../interfaces/icons';
 
@@ -14,16 +14,16 @@ interface FilterProps {
 }
 
 const useIcons = (libraryId: string, filter: FilterProps = {}) => {
-  const database = useDatabase(libraryId);
   const [ visibleIcons, setVisibleIcons ] = useState([]);
+  const database = useDatabase();
 
   useEffect(() => {
     const getIcons = async () => {
-      if (!database) {
+      if (!database[libraryId]) {
         return;
       }
 
-      let table = database.table('icons');
+      let table = database[libraryId].table('icons');
 
       if (filter.author) {
         const { contributors } = allContributors;
@@ -34,7 +34,7 @@ const useIcons = (libraryId: string, filter: FilterProps = {}) => {
       }
 
       if (filter.category) {
-        const catTable = await database.table('tags').where('slug').equals(filter.category).toArray();
+        const catTable = await database[libraryId].table('tags').where('slug').equals(filter.category).toArray();
         if (catTable.length === 1) {
           table = table.where('t').anyOf(catTable[0].id);
         }
@@ -54,8 +54,6 @@ const useIcons = (libraryId: string, filter: FilterProps = {}) => {
           .filter((v: string) => v !== ''); // Filter out empty values
 
         table = table.filter((icon: IconLibraryIcon) => {
-          // TODO: Finish this
-          // table = table.filter((icon: IconLibraryIcon) => icon.st.some((terms) => terms.includes(processedTerm || '')));
           const iconSet = new Set(icon.st);
           const match = [...new Set(processedTerm)].filter((x) => iconSet.has(x));
           return icon.n === filter.term || !!match.length;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import useDatabase from './useDatabase';
+import { useDatabase } from '../providers/DatabaseProvider';
 
 export interface CategoryProps {
   id: number;
@@ -9,22 +9,23 @@ export interface CategoryProps {
 }
 
 const useCategories = (libraryId: string) => {
-  const database = useDatabase(libraryId);
+  const database = useDatabase();
   const [ categories, setCategories ] = useState<CategoryProps[]>([]);
 
   useEffect(() => {
     const getCategories = async () => {
-      if (!database) {
+      if (!database[libraryId]) {
         return;
       }
 
-      const result = await database.table('tags').orderBy('name').toArray();
+      const result = await database[libraryId].table('tags').orderBy('name').toArray();
       setCategories(result);
     };
     getCategories();
-  }, [ database ]);
+  }, [ database, libraryId ]);
 
   return categories;
+  return [];
 };
 
 export default useCategories;
