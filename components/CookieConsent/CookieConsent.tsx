@@ -29,7 +29,7 @@ const CookieConsent: FunctionComponent = () => {
   };
 
   const handleAgreement = () => {
-    Cookies.set(config.consentCookie, 'agreed');
+    Cookies.set(config.consentCookie, 'agreed', { expires: 182 });
     plugins.enable('google-analytics').then(() => page());;
     setShowConsentModal(false);
   };
