@@ -3,6 +3,7 @@ const { mdiBookOpenPageVariantOutline, mdiCodeTags, mdiFormatListNumbered, mdiPa
 module.exports = {
   analytics: {
     consentCookie: 'pg-analytics-consent',
+    consentCookieExpiration: 182,
     googleTrackingId: 'G-0Y6PK9LKLT'
   },
   carbonAds: {

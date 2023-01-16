@@ -24,12 +24,12 @@ const CookieConsent: FunctionComponent = () => {
   }, [ config.consentCookie, page, plugins ]);
 
   const handleDoNotTrack = () => {
-    Cookies.set(config.consentCookie, 'do-not-track', { expires: 182 });
+    Cookies.set(config.consentCookie, 'do-not-track', { expires: config.consentCookieExpiration });
     setShowConsentModal(false);
   };
 
   const handleAgreement = () => {
-    Cookies.set(config.consentCookie, 'agreed', { expires: 182 });
+    Cookies.set(config.consentCookie, 'agreed', { expires: config.consentCookieExpiration });
     plugins.enable('google-analytics').then(() => page());;
     setShowConsentModal(false);
   };
