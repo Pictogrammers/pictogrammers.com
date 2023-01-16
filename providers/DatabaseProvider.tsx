@@ -1,5 +1,7 @@
 import { FunctionComponent, createContext, useContext, useEffect, useRef, useState } from 'react';
 import Dexie from 'dexie';
+import { useSnackbar } from 'notistack';
+import { useAnalytics } from 'use-analytics';
 
 interface DatabaseProviderProps {
   children: any;
@@ -27,25 +29,33 @@ export const DatabaseProvider: FunctionComponent<DatabaseProviderProps> = ({ chi
   const [ libraries, setLibraries ] = useState<string[]>([]);
   const [ databases, setDatabases ] = useState<DatabaseDirectoryProps>({});
   const workerRef = useRef<Worker>();
+  const { enqueueSnackbar } = useSnackbar();
+  const { track } = useAnalytics();
 
   useEffect(() => {
     if (!provisioned) {
       workerRef.current = new Worker(new URL('../workers/indexeddb.worker', import.meta.url));
       workerRef.current.postMessage('provision');
       workerRef.current.onmessage = (event) => {
-        const { libraries, status, task } = event.data;
+        const { error, libraries, status, task } = event.data;
+        
+        if (status === 'error' && error) {
+          enqueueSnackbar('Fatal Error: Unable to provision library databases.', { variant: 'error' });
+          track('provisionDatabaseError');
+          console.error('Error Provisioning Databases', error);
+          return workerRef?.current?.terminate();
+        }
+
         if (task === 'provision' && status === 'complete') {
           setLibraries(libraries);
           setProvisioned(true);
-          workerRef?.current?.terminate();
+          return workerRef?.current?.terminate();
         }
       };
 
-      return () => {
-        workerRef?.current?.terminate();
-      };
+      return () => workerRef?.current?.terminate();
     }
-  }, [ provisioned ]);
+  }, [ enqueueSnackbar, provisioned, track ]);
 
   useEffect(() => {
     const openDatabases = async () => {
