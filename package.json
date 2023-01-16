@@ -24,6 +24,7 @@
     "@analytics/google-analytics": "^1.0.5",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@leeoniya/ufuzzy": "^0.9.1",
     "@mdi/js": "^7.1.96",
     "@mdi/light-js": "^0.2.63",
     "@mdi/react": "^1.6.1",

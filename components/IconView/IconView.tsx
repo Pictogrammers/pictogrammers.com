@@ -182,7 +182,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
             <div className={classes.categories}>
               {icon?.categories?.map((tag) => {
                 return (
-                  <Tooltip arrow key={tag.id} placement='top' title={`View all ${tag.name} icons`}>
+                  <Tooltip arrow key={tag.slug} placement='top' title={`View all ${tag.name} icons`}>
                     <Link href={`/library/${libraryInfo.id}/category/${tag.slug}`} onClick={() => onClose?.()}>
                       <Chip icon={<Icon path={mdiTag} size={.7} />} label={tag.name} sx={{ backgroundColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--white))', cursor: 'pointer' }} />
                     </Link>

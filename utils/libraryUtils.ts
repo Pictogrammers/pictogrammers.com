@@ -3,8 +3,9 @@ import { join } from 'node:path';
 import getConfig from 'next/config';
 import slugify from 'slugify';
 
-import { IconLibraries, IconLibraryIcon } from '../interfaces/icons';
+import { IconLibraries, IconLibrary, IconLibraryIcon } from '../interfaces/icons';
 import { ContributorProps } from '../interfaces/contributor';
+import { CategoryProps } from '../hooks/useCategories';
 
 import allContributors from '../public/contributors/contributors.json';
 
@@ -25,7 +26,7 @@ export const getAllLibraryPaths = async () => {
       return output;
     }
 
-    const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library.id}.json`), 'utf-8'));
+    const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library.id}-${library.version}.json`), 'utf-8'));
     const { contributorSlugs, iconSlugs, versionSlugs } = icons.reduce((output: SlugInterface, icon: IconLibraryIcon) => {
       output.iconSlugs.push(`${library.id}/icon/${icon.n}`);
 
@@ -45,7 +46,7 @@ export const getAllLibraryPaths = async () => {
       return output;
     }, { contributorSlugs: [], iconSlugs: [], versionSlugs: [] });
   
-    const categorySlugs = categories.map((category: string) => `${library.id}/category/${slugify(category, { lower: true })}`);
+    const categorySlugs = categories.map((category: CategoryProps) => `${library.id}/category/${category.slug}`);
 
     output = [
       ...output,
@@ -69,14 +70,9 @@ export const getAllLibraryPaths = async () => {
 };
 
 export const getIcon = async (library: string, icon: string): Promise<IconLibraryIcon> => {
-  const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library}.json`), 'utf-8'));
+  const libraryMeta = iconLibraries.find((lib: IconLibrary) => lib.id === library);
+  const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library}-${libraryMeta.version}.json`), 'utf-8'));
   const iconInfo = icons.find((i: IconLibraryIcon) => i.n === icon);
-  iconInfo.categories = iconInfo.t.map((tag: number) => {
-    return {
-      id: tag,
-      name: categories[tag],
-      slug: slugify(categories[tag], { lower: true })
-    };
-  });
+  iconInfo.categories = iconInfo.t.map((tag: number) => ({ id: tag, ...categories[tag] }));
   return iconInfo;
 };

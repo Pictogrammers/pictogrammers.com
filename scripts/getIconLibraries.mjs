@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import slugify from 'slugify';
 
 import config from '../config.js';
 
@@ -66,9 +67,12 @@ const getIconLibraries = async (contributors = []) => {
 
       // Simplify tags     
       const tagIds = tags.map((tag) => {
-        const tagId = output.t.indexOf(tag);
-        return tagId === -1 ? output.t.push(tag) - 1 : tagId;
+        const tagSlug = slugify(tag, { lower: true });
+        const existingId = output.t.findIndex((t) => t.slug === tagSlug);
+        const tagMeta = { name: tag, slug: tagSlug };
+        return existingId === -1 ? output.t.push(tagMeta) - 1: existingId;
       });
+
       thisIcon.t = tagIds;
 
       // Add path data
@@ -94,7 +98,7 @@ const getIconLibraries = async (contributors = []) => {
 
   const allLibraries = await Object.keys(processedLibraries).reduce(async (prevPromise, libraryId) => {
     const output = await prevPromise;
-    await fs.writeFile(`./public/libraries/${libraryId}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
+    await fs.writeFile(`./public/libraries/${libraryId}-${processedLibraries[libraryId].v}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
     
     output[libraryId] = {
       count: Number(processedLibraries[libraryId].v.split('.').join('')),
