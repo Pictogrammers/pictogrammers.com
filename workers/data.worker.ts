@@ -1,21 +1,11 @@
 import { IconLibraries } from '../interfaces/icons';
 
-interface LibraryDirectory {
-  default: {
-    [key: string]: {
-      date: string;
-      count: number;
-      version: string;
-    };
-  }
-}
-
 const importLibraries = async () => {
-  const { default: allLibraries } = await import('../public/libraries/libraries.json') as LibraryDirectory;
+  const { default: allLibraries } = await import('../public/libraries/libraries.json');
 
   const libraries = await Object.keys(allLibraries).reduce(async (prevPromise, libraryId) => {
     const output = await prevPromise;
-    const { date: releaseDate, version } = allLibraries[libraryId];
+    const { date: releaseDate, version } = allLibraries[libraryId as keyof typeof allLibraries];
     const { default: fullLibrary } = await import(`../public/libraries/${libraryId}-${version}.json`);
     const { i: icons, t: tags } = fullLibrary;
     output[libraryId] = { icons, releaseDate, tags, version };
@@ -24,13 +14,21 @@ const importLibraries = async () => {
   postMessage({ data: libraries, status: 'complete', type: 'libraries' });
 };
 
+const importDocSearchIndex = async () => {
+  const { default: docIndex } = await import('../public/docs/docs.json');
+  postMessage({ data: docIndex, status: 'complete', type: 'docs' });
+};
+
 addEventListener('message', async (event) => {
   if (event.data !== 'load') {
     return;
   }
 
   try {
-    await importLibraries();
+    await Promise.all([
+      importLibraries(),
+      importDocSearchIndex()
+    ]);
 
     postMessage({ status: 'complete' });
   } catch (error) {

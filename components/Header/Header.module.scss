@@ -91,17 +91,7 @@
   }
 }
 
-.github {
-  a {
-    text-decoration: none;
-
-    &:hover {
-      color: hsl(var(--white));
-    }
-  }
-}
-
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (max-width: ($mobile-width + 50)) {
   .root {
     justify-content: center;
   }
@@ -155,9 +145,5 @@
     &.open {
       display: flex;
     }
-  }
-
-  .github {
-    display: none;
   }
 }

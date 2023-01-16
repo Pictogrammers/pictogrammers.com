@@ -1,0 +1,31 @@
+.group {
+  svg {
+    color: hsl(var(--grey));
+    margin-right: 1rem;
+    min-width: 2rem;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.groupHeader {
+  border-bottom: 1px solid hsl(var(--medium-grey));
+  font-size: .9rem;
+  letter-spacing: 1px;
+  margin: 0 0 .5rem;
+  padding: 0 .5rem;
+  text-transform: uppercase;
+}
+
+.menu {
+  padding: 0 1rem;
+  width: 100%;
+}
+
+@media only screen and (max-width: ($mobile-width + 50)) {
+  .root {
+    display: none;
+  }
+}
