@@ -1,31 +1,33 @@
 import { useEffect, useState } from 'react';
 
-import { useDatabase } from '../providers/DatabaseProvider';
+import { useData } from '../providers/DataProvider';
 
 export interface CategoryProps {
-  id: number;
+  id: Number;
   name: string;
   slug: string;
 }
 
 const useCategories = (libraryId: string) => {
-  const database = useDatabase();
   const [ categories, setCategories ] = useState<CategoryProps[]>([]);
+  const { libraries } = useData();
 
   useEffect(() => {
     const getCategories = async () => {
-      if (!database[libraryId]) {
+      if (!libraries[libraryId]) {
         return;
       }
 
-      const result = await database[libraryId].table('tags').orderBy('name').toArray();
+      const result = [...libraries[libraryId].tags]
+        .map((tag, i) => ({ id: i, ...tag }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+
       setCategories(result);
     };
     getCategories();
-  }, [ database, libraryId ]);
+  }, [ libraries, libraryId ]);
 
   return categories;
-  return [];
 };
 
 export default useCategories;

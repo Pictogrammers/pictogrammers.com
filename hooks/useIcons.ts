@@ -1,78 +1,65 @@
 import { useEffect, useState } from 'react';
+import uFuzzy from '@leeoniya/ufuzzy';
 
-import { useDatabase } from '../providers/DatabaseProvider';
+import { useData } from '../providers/DataProvider';
 
 import { IconLibraryIcon } from '../interfaces/icons';
+import { CategoryProps } from '../hooks/useCategories';
 
 import allContributors from '../public/contributors/contributors.json';
 
 interface FilterProps {
   author?: string;
   category?: string;
-  term?: string;
+  term: string;
   version?: string;
 }
 
-const useIcons = (libraryId: string, filter: FilterProps = {}) => {
-  const [ visibleIcons, setVisibleIcons ] = useState([]);
-  const database = useDatabase();
+const useIcons = (libraryId: string, filter: FilterProps) => {
+  const [ visibleIcons, setVisibleIcons ] = useState<IconLibraryIcon[]>([]);
+  const { libraries } = useData();
 
   useEffect(() => {
-    const getIcons = async () => {
-      if (!database[libraryId]) {
-        return;
+    if (!libraries?.[libraryId]) {
+      return;
+    }
+
+    const uf = new uFuzzy({});
+    const { icons: iconLibrary, tags: iconTags } = libraries[libraryId];
+
+    const results = Object.keys(filter).reduce((output: any, filterType) => {
+      if (!filter[filterType as keyof typeof filter] || filter[filterType as keyof typeof filter] === '') {
+        return output;
       }
 
-      let table = database[libraryId].table('icons');
+      switch (filterType) {
+        case 'author':
+          const { contributors } = allContributors;
+          const authorInfo = contributors.find((contributor) => contributor.github === filter.author);
+          return output.filter((icon: IconLibraryIcon) => icon.a === authorInfo?.id);
+        case 'category':
+          const categoryId = iconTags.findIndex((cat: CategoryProps) => cat.slug === filter.category);
+          return output.filter((icon: IconLibraryIcon) => icon.t.includes(categoryId));
+        case 'version':
+          return output.filter((icon: IconLibraryIcon) => icon.v === filter.version);
+        case 'term':
+          const haystack = output.map((icon: IconLibraryIcon) => icon.st.join('¦'));
+          const needle = filter.term
+            .replace(/([A-Z][a-z])/g,' $1') // Add a space in front of letters is Pascal-case is used
+            .replace(/(\d+)/g,' $1') // Add a space in front of numbers if Pascal-case is used
+            .replace(new RegExp(`(^${libraryId})`, 'gi'), '') // Remove a prefix of the library ID
+            .toLowerCase();
 
-      if (filter.author) {
-        const { contributors } = allContributors;
-        const authorInfo = contributors.find((contributor) => contributor.github === filter.author);
-        if (authorInfo) {
-          table = table.where('a').equals(authorInfo.id);
-        }
-      }
-
-      if (filter.category) {
-        const catTable = await database[libraryId].table('tags').where('slug').equals(filter.category).toArray();
-        if (catTable.length === 1) {
-          table = table.where('t').anyOf(catTable[0].id);
-        }
-      }
-
-      if (filter.version) {
-        table = table.where('v').equals(filter.version);
-      }
-
-      if (filter.term && filter?.term !== '') {
-        const processedTerm = filter.term
-          .replace(/([A-Z][a-z])/g,' $1') // Add a space in front of letters is Pascal-case is used
-          .replace(/(\d+)/g,' $1') // Add a space in front of numbers if Pascal-case is used
-          .replace(new RegExp(`(^${libraryId})`, 'gi'), '') // Remove a prefix of the library ID
-          .toLowerCase()
-          .split(/-| /) // Split into chuncks on spaces and dashes
-          .filter((v: string) => v !== ''); // Filter out empty values
-
-        table = table.filter((icon: IconLibraryIcon) => {
-          const iconSet = new Set(icon.st);
-          const match = [...new Set(processedTerm)].filter((x) => iconSet.has(x));
-          return icon.n === filter.term || !!match.length;
-        });
-      }
-      
-      const output = await table.toArray();
-      setVisibleIcons(output);
-    };
-
-    getIcons();
-  }, [
-    database,
-    filter.author,
-    filter.category,
-    filter.term,
-    filter.version,
-    libraryId
-  ]);
+          const idxs = uf.filter(haystack, needle);
+          const info = uf.info(idxs, haystack, needle);
+          const order = uf.sort(info, haystack, needle);
+          return order.map((position) => output[info.idx[position]]);
+        default:
+          return output;
+      };
+    }, iconLibrary);
+    setVisibleIcons(results);
+  }, [ filter, libraries, libraryId ]);
 
   return visibleIcons;
 };

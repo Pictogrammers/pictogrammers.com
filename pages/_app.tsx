@@ -8,7 +8,7 @@ import { AnalyticsProvider } from 'use-analytics';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 
-import { DatabaseProvider } from '../providers/DatabaseProvider';
+import { DataProvider } from '../providers/DataProvider';
 import Layout from '../components/Layout/Layout';
 import CookieConsent from '../components/CookieConsent/CookieConsent';
 
@@ -104,12 +104,12 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
       </Head>
       <AnalyticsProvider instance={analyticsInstance}>
         <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-          <DatabaseProvider>
+          <DataProvider>
             <CookieConsent />
             <Layout className={manrope.className}>
               <Component {...pageProps} />
             </Layout>
-          </DatabaseProvider>
+          </DataProvider>
         </SnackbarProvider>
       </AnalyticsProvider>
     </ThemeProvider>

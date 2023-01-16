@@ -1,4 +1,12 @@
+const fs = require('fs');
+const { join } = require('path');
 const { mdiBookOpenPageVariantOutline, mdiCodeTags, mdiFormatListNumbered, mdiPackageVariant, mdiRocketLaunch } = require('@mdi/js');
+
+const getLibraryVersion = (packageName) => {
+  const { version: libraryVersion } = JSON.parse(fs.readFileSync(join(process.cwd(), `node_modules/${packageName}/package.json`), 'utf-8'));
+  return libraryVersion;
+};
+
 
 module.exports = {
   analytics: {
@@ -74,7 +82,8 @@ module.exports = {
         name: 'Material Design Icons',
         package: '@mdi/svg',
         packageId: '38EF63D0-4744-11E4-B3CF-842B2B6CFE1B',
-        shortName: 'MDI'
+        shortName: 'MDI',
+        version: getLibraryVersion('@mdi/svg')
       },
       {
         description: 'Taking a lighter spin on Google\'s Material Design guidelines, MDI Light slims down icons to be modern, crisp, and clean.',
@@ -87,7 +96,8 @@ module.exports = {
         name: 'Material Design Icons Light',
         package: '@mdi/light-svg',
         packageId: '531A9B44-1962-11E5-89CC-842B2B6CFE1B',
-        shortName: 'MDI Light'
+        shortName: 'MDI Light',
+        version: getLibraryVersion('@mdi/light-svg')
       },
       {
         git: 'https://github.com/Pictogrammers/Memory',

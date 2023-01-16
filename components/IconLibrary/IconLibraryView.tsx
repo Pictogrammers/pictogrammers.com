@@ -4,6 +4,7 @@ import {
   FunctionComponent,
   MouseEvent,
   useEffect,
+  useMemo,
   useRef,
   useState
 } from 'react';
@@ -78,7 +79,8 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   // Library viewing
   const [ viewMode, setViewMode ] = useState(isMobileWidth ? 'compact' : 'comfortable');
   const categories = useCategories(libraryInfo.id);
-  const visibleIcons = useIcons(libraryInfo.id, { author, category, term: debouncedSearchTerm, version });
+  const filter = useMemo(() => ({ author, category, term: debouncedSearchTerm, version }), [ author, category, debouncedSearchTerm, version ]);
+  const visibleIcons = useIcons(libraryInfo.id, filter);
 
   // Individual icon viewing
   const router = useRouter();
