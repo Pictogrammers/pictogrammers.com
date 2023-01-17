@@ -27,7 +27,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Dialog from '@mui/material/Dialog';
 import Icon from '@mdi/react';
-import { mdiAlertCircleOutline, mdiCloseCircle, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
+import { mdiAlertCircleOutline, mdiClose, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 dayjs.extend(advancedFormat);
@@ -59,12 +59,14 @@ interface IconLibraryViewProps {
 }
 
 const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, category, libraryInfo, slug, version }) => { 
+  const router = useRouter();
+
   // Filter handling
   const searchBoxRef = useRef<HTMLInputElement>(null);
   const iconLibraryHeadingRef = useRef<HTMLDivElement>(null);
   const iconLibraryRef = useRef<HTMLDivElement>(null);
-  const [ searchTerm, setSearchTerm ] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm.trim(), 250);
+  const [ searchTerm, setSearchTerm ] = useState(router.query.q as string || '');
+  const debouncedSearchTerm = useDebounce(searchTerm, 250);
 
   // Library release info
   const {
@@ -83,8 +85,11 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const visibleIcons = useIcons(libraryInfo.id, filter);
 
   // Individual icon viewing
-  const router = useRouter();
   const [ iconModal, setIconModal ] = useState<IconLibraryIcon | null>(null);
+
+  useEffect(() => {
+    setSearchTerm(router.query.q as string);
+  }, [ router.query.q ]);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -263,7 +268,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                         cursor: searchTerm !== '' ? 'pointer' : 'default'
                       }}
                     >
-                      {searchTerm !== '' && <Icon path={mdiCloseCircle} size={1} />}
+                      {searchTerm !== '' && <Icon path={mdiClose} size={.9} />}
                       {searchTerm === '' && <Icon path='' size={1} />}
                     </InputAdornment>
                   ),

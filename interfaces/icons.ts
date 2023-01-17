@@ -18,6 +18,7 @@ export interface IconLibrary {
   package: string;
   packageId: string;
   shortName: string;
+  version: string;
 }
 
 export interface IconLibraryIcon {

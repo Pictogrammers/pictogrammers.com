@@ -2,6 +2,9 @@ import { FunctionComponent, useState } from 'react';
 import cx from 'clsx';
 import Link from 'next/link';
 import Button, { ButtonProps } from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Icon from '@mdi/react';
+import { siGithub } from 'simple-icons/icons';
 
 import MdiHamburger from '../../assets/hamburger.svg';
 import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
@@ -66,6 +69,11 @@ const Header: FunctionComponent = () => {
         </button>
       </nav>
       <SiteSearch />
+      <div className={classes.github}>
+        <IconButton href='https://github.com/Pictogrammers'>
+          <Icon path={siGithub.path} color='hsl(var(--primary-color))' size={.9} />
+        </IconButton>
+      </div>
     </header>
   );
 };
