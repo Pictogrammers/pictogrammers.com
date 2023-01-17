@@ -70,7 +70,7 @@ const Header: FunctionComponent = () => {
       </nav>
       <SiteSearch />
       <div className={classes.github}>
-        <IconButton href='https://github.com/Pictogrammers'>
+        <IconButton aria-label='Pictogrammers on GitHub' href='https://github.com/Pictogrammers'>
           <Icon path={siGithub.path} color='hsl(var(--primary-color))' size={.9} />
         </IconButton>
       </div>
