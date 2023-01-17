@@ -225,6 +225,12 @@
   width: 100%;
 }
 
+@media only screen and (max-width: $tablet-width) {
+  .sidebar {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: $mobile-width) {
   .root {
     padding: 0;
@@ -237,10 +243,10 @@
   .controls {
     justify-content: space-between;
   }
-}
 
-@media only screen and (max-width: $tablet-width) {
-  .sidebar {
-    display: none;
+  .iconLibrary {
+    .libraryContainer {
+      margin-top: 0;
+    }
   }
 }

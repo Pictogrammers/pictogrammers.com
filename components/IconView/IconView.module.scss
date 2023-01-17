@@ -1,5 +1,5 @@
 .root {
-  padding: 1rem;
+  padding: 0 1rem;
 
   &.modal {
     padding: 0 0 2rem;
@@ -7,8 +7,8 @@
 }
 
 .container {
-  border-radius: 0;
-  margin: 1rem auto;
+  // border-radius: 0;
+  margin: 0 auto;
   max-width: $width-max;
   padding: 2rem;
   position: relative;
@@ -32,6 +32,14 @@
   position: sticky;
   top: 0;
   z-index: 5;
+}
+
+.pageTitle {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-height: 134px;
+  padding-bottom: 2rem;
 }
 
 .modalActions {
@@ -124,6 +132,39 @@
   }
 }
 
+@media only screen and (max-width: $tablet-width) {
+  .infoBar {
+    flex-direction: column;
+    padding: 1rem;
+
+    .actions {
+      padding-top: .5rem;
+
+      & > div,
+      & > button {
+        margin: 0;
+      }
+    }
+  }
+
+  .usage {
+    flex-direction: column;
+  }
+
+  .tags {
+    display: block;
+  }
+
+  .pageTitle {
+    min-height: auto;
+    padding-bottom: 1rem;
+
+    .ad {
+      display: none;
+    }
+  }
+}
+
 @media only screen and (max-width: $mobile-width) {
   .root {
     padding: 0;
@@ -162,28 +203,8 @@
       margin: 0;
     }
   }
-}
 
-@media only screen and (max-width: $tablet-width) {
-  .infoBar {
-    flex-direction: column;
-    padding: 1rem;
-
-    .actions {
-      padding-top: .5rem;
-
-      & > div,
-      & > button {
-        margin: 0;
-      }
-    }
-  }
-
-  .usage {
-    flex-direction: column;
-  }
-
-  .tags {
-    display: block;
+  .pageTitle {
+    padding-bottom: 0;
   }
 }

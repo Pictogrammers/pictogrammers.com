@@ -26,6 +26,7 @@ import Head from '../Head/Head';
 import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
 import IconPreview from '../IconPreview/IconPreview';
 import IconUsageExamples from '../IconUsageExamples/IconUsageExamples';
+import CarbonAd from '../CarbonAd/CarbonAd';
 
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
 import useWindowSize from '../../hooks/useWindowSize';
@@ -91,7 +92,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
         )}
       >
         <Fragment>
-          {isModal && (
+          {isModal ? (
             <div className={classes.modalTitle}>
               {renderTitle()}
               <div className={classes.modalActions}>
@@ -113,8 +114,14 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                 </Tooltip>
               </div>
             </div>
+          ) : (
+            <div className={classes.pageTitle}>
+              {renderTitle()}
+              <div className={classes.ad}>
+                <CarbonAd />
+              </div>
+            </div>
           )}
-          {!isModal && renderTitle()}
           <div className={classes.infoBar}>
             <div className={classes.info}>
               <Tooltip arrow placement='top' title={`View the v${icon.v} release`}>

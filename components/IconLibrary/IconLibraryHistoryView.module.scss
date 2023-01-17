@@ -175,10 +175,9 @@
       padding-top: .5rem;
 
       .avatar {
-        border: none;
+        border: 1px solid hsl(var(--primary-color));
         display: inline-block;
         height: 18px;
-        outline: 1px solid hsl(var(--primary-color));
         width: 18px;
       }
     }
