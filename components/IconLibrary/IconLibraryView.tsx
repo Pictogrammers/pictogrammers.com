@@ -65,7 +65,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const searchBoxRef = useRef<HTMLInputElement>(null);
   const iconLibraryHeadingRef = useRef<HTMLDivElement>(null);
   const iconLibraryRef = useRef<HTMLDivElement>(null);
-  const [ searchTerm, setSearchTerm ] = useState(router.query.q as string || '');
+  const [ searchTerm, setSearchTerm ] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 250);
 
   // Library release info
@@ -88,8 +88,11 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const [ iconModal, setIconModal ] = useState<IconLibraryIcon | null>(null);
 
   useEffect(() => {
-    setSearchTerm(router.query.q as string);
-  }, [ router.query.q ]);
+    if (router.query.q) {
+      setSearchTerm(router.query.q as string);
+      router.push(`/library/${slug}`, undefined, { shallow: true });
+    }
+  }, [ router, slug ]);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -260,16 +263,13 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                 classes={{ root: classes.searchBox }}
                 fullWidth
                 InputProps={{
-                  endAdornment: (
+                  endAdornment: searchTerm && searchTerm !== '' && (
                     <InputAdornment
                       onClick={handleSearchClear}
                       position='end'
-                      sx={{
-                        cursor: searchTerm !== '' ? 'pointer' : 'default'
-                      }}
+                      sx={{ cursor: 'pointer' }}
                     >
-                      {searchTerm !== '' && <Icon path={mdiClose} size={.9} />}
-                      {searchTerm === '' && <Icon path='' size={1} />}
+                      <Icon path={mdiClose} size={.9} />
                     </InputAdornment>
                   ),
                   inputRef: searchBoxRef,

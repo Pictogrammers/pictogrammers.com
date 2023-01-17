@@ -39,7 +39,6 @@ const Heading2 = Heading(2);
 const PostPage: NextPage = () => {
   const title = 'Brand Guidelines';
   const description = 'When using the Pictogrammers name and logo, follow these important guidelines.';
-  const path = 'brand-guidelines';
   const toc = [
     { content: 'Logo', lvl: 2, slug: 'logo' },
     { content: 'Color', lvl: 2, slug: 'color' },
