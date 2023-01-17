@@ -17,6 +17,7 @@ export const useData = (): DataProps => useContext(DataContext);
 export const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
   const [ initialLoad, setInitialLoad ] = useState(true);
   const [ libraries, setLibraries ] = useState({});
+  const [ docs, setDocs ] = useState([]);
 
   const workerRef = useRef<Worker>();
   const { enqueueSnackbar } = useSnackbar();
@@ -42,8 +43,9 @@ export const DataProvider: FunctionComponent<DataProviderProps> = ({ children })
       if (status === 'complete') {
         switch(type) {
           case 'libraries':
-            setLibraries(data);
-            break;
+            return setLibraries(data);
+          case 'docs':
+            return setDocs(data);
           default:
             setInitialLoad(false);
         }
@@ -55,5 +57,5 @@ export const DataProvider: FunctionComponent<DataProviderProps> = ({ children })
     return () => workerRef?.current?.terminate();
   }, [ enqueueSnackbar, initialLoad, track ]);
 
-  return <DataContext.Provider value={{ libraries }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ docs, libraries }}>{children}</DataContext.Provider>;
 };

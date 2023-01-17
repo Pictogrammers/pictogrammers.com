@@ -5,7 +5,21 @@
   margin: 0 auto;
   max-height: 100px;
   max-width: $width-max;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem;
+}
+
+.options {
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+
+  & > a {
+    white-space: nowrap;
+  }
+}
+
+.github {
+  margin-left: 1rem;
 }
 
 .logo {
@@ -91,17 +105,13 @@
   }
 }
 
-.github {
-  a {
-    text-decoration: none;
-
-    &:hover {
-      color: hsl(var(--white));
-    }
+@media only screen and (max-width: ($mobile-width + 150)) {
+  .github {
+    display: none;
   }
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (max-width: ($mobile-width + 50)) {
   .root {
     justify-content: center;
   }
@@ -155,9 +165,5 @@
     &.open {
       display: flex;
     }
-  }
-
-  .github {
-    display: none;
   }
 }

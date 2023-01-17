@@ -3,7 +3,6 @@
 ## General
 
 - Expand footer with links to docs, icon libraries, etc.
-- Fuse.js client-side search (docs and icons).
 
 ## Homepage
 
@@ -21,5 +20,4 @@
 ## Meta
 
 - Expand README.
-- Google Analytics.
 - Create clever 404 page.

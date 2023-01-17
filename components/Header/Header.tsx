@@ -2,12 +2,15 @@ import { FunctionComponent, useState } from 'react';
 import cx from 'clsx';
 import Link from 'next/link';
 import Button, { ButtonProps } from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
 import { siGithub } from 'simple-icons/icons';
 
 import MdiHamburger from '../../assets/hamburger.svg';
 import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
 import PictogrammersWordmark from '../../assets/brand/logos/pictogrammers-wordmark.svg';
+
+import SiteSearch from '../SiteSearch/SiteSearch';
 
 import classes from './Header.module.scss';
 
@@ -65,14 +68,11 @@ const Header: FunctionComponent = () => {
           />
         </button>
       </nav>
+      <SiteSearch />
       <div className={classes.github}>
-        <NavButton
-          href='https://github.com/Pictogrammers'
-          startIcon={<Icon path={siGithub.path} size={.9} />}
-          variant='contained'
-        >
-          GitHub
-        </NavButton>
+        <IconButton href='https://github.com/Pictogrammers'>
+          <Icon path={siGithub.path} color='hsl(var(--primary-color))' size={.9} />
+        </IconButton>
       </div>
     </header>
   );
