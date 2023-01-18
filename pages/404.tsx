@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import Paper from '@mui/material/Paper';
 import Icon from '@mdi/react';
-import { mdiEmoticonConfusedOutline } from '@mdi/js';
+import { mdiCrop, mdiNumeric4 } from '@mdi/js';
 
 import Head from '../components/Head/Head';
 
@@ -12,11 +12,15 @@ const ErrorBoundary: NextPage = () => {
     <div className={classes.root}>
       <Head noIndex title='404 - Page Not Found' />
       <Paper className={classes.container}>
-        <Icon path={mdiEmoticonConfusedOutline} size={10} />
+        <div className={classes.badge}>Page Not Found</div>
+        <div className={classes.fourohfour}>
+          <Icon path={mdiNumeric4} size={10} />
+          <Icon path={mdiCrop} size={7} />
+          <Icon path={mdiNumeric4} size={10} />
+        </div>
         <div>
-          <p>- 404 -</p>
-          <h1>We couldn&apos;t find that.</h1>
-          <p>Please check the URL and try again.</p>
+          <h1>Oh, mdiCrop.</h1>
+          <p>We couldn&apos;t find that. Please check the URL and try again.</p>
         </div>
       </Paper>
     </div>

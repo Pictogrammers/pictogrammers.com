@@ -20,4 +20,3 @@
 ## Meta
 
 - Expand README.
-- Create clever 404 page.

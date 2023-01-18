@@ -9,11 +9,34 @@
   flex-direction: column;
   margin: 1rem 1rem 2rem;
   max-width: $width-max;
+  min-width: 75%;
   padding: .25rem 1.5rem 1rem;
   position: relative;
   text-align: center;
 
   h1 {
     margin-top: -1rem;
+  }
+}
+
+.badge {
+  background-color: hsl(var(--primary-color));
+  border-radius: 20px;
+  color: hsl(var(--white));
+  font-size: .8rem;
+  font-weight: 700;
+  margin-top: -15px;
+  padding: 0 1rem;
+}
+
+.fourohfour {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  max-width: 110%;
+  padding: 0 1rem;
+
+  svg {
+    margin: 0 -1.5rem;
   }
 }
