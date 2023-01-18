@@ -11,14 +11,15 @@
     "Quentin Stoeckel <stoeckel.quentin@gmail.com>"
   ],
   "scripts": {
-    "dev": "next-remote-watch ./docs",
+    "analyze": "ANALYZE=true next build",
     "build": "next build && next export",
-    "start": "next start",
-    "lint": "next lint && npm run lint:style",
+    "dev": "next-remote-watch ./docs",
     "lint:style": "stylelint \"./**/*.{css,scss}\"",
+    "lint": "next lint && npm run lint:style",
+    "postbuild": "next-sitemap",
     "prebuild": "node --experimental-import-meta-resolve scripts/prebuild.mjs",
     "predev": "node --experimental-import-meta-resolve scripts/prebuild.mjs",
-    "postbuild": "next-sitemap"
+    "start": "next start"
   },
   "dependencies": {
     "@analytics/google-analytics": "^1.0.5",
@@ -53,6 +54,7 @@
   "devDependencies": {
     "@mdi/light-svg": "^0.2.63",
     "@mdi/svg": "^7.1.96",
+    "@next/bundle-analyzer": "^13.1.2",
     "@svgr/webpack": "^6.5.1",
     "@types/glob": "^8.0.0",
     "@types/js-cookie": "^3.0.2",

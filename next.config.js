@@ -2,10 +2,12 @@ const path = require('path');
 const config = require('./config');
 
 const withTM = require('next-transpile-modules')(['pixel-editor']);
-
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV !== 'production'
+});
+const withBA = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
 });
 
 const nextConfig = {
@@ -51,4 +53,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withTM(withPWA(nextConfig));
+module.exports = withBA(withTM(withPWA(nextConfig)));
