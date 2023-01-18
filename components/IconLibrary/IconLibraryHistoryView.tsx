@@ -131,7 +131,7 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
     const { items } = data.reduce((output: any, item: IconChangeRecord) => {
       const date = item.date.split('T')[0];
       if (date !== output.lastDate) {
-        output.items.push(<h3 key={date}>Changes on {dayjs(date).format('MMMM Do, YYYY')}</h3>);
+        output.items.push(<h2 key={date}>Changes on {dayjs(date).format('MMMM Do, YYYY')}</h2>);
         output.lastDate = date;
       }
       output.items.push(<IconHistoryCard key={item.id} library={libraryInfo} {...item} />);

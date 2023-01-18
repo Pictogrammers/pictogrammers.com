@@ -73,6 +73,7 @@ const LibraryViewMode: FunctionComponent<LibraryViewModeMenuProps> = ({ compact,
           aria-controls={!!menuAnchor ? 'view-mode-menu' : undefined}
           aria-haspopup='true'
           aria-expanded={!!menuAnchor ? 'true' : undefined}
+          aria-label='View Mode'
           disableRipple
           endIcon={<Icon path={mdiChevronDown} size={1} />}
           id='view-mode-menu-button'
@@ -101,6 +102,7 @@ const LibraryViewMode: FunctionComponent<LibraryViewModeMenuProps> = ({ compact,
       {Object.keys(viewModes).map((mode) => (
         <Tooltip arrow key={mode} title={viewModes[mode as keyof typeof viewModes].name}>
           <Button
+            aria-label={viewModes[mode as keyof typeof viewModes].name}
             onClick={() => setViewMode(mode)}
             variant={currentView === mode ? 'contained' : 'outlined'}
           >

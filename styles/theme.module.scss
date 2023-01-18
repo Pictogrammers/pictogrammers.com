@@ -6,6 +6,7 @@
   --light-cyan: 194deg 64% 92%;
   --cyan: 194deg 64% 75%;
   --dark-cyan: 194deg 64% 41%;
+  --blue-grey: 193deg 28% 32%;
   --light-grey: 0deg 0% 94%;
   --medium-grey: 0deg 0% 84%;
   --grey: 0deg 0% 56%;
@@ -51,6 +52,7 @@
 
 :export {
   /* stylelint-disable color-no-hex */
+  neutral-color: #3b5f68;
   primary-color: #530066;
   secondary-color: #258dad;
 }

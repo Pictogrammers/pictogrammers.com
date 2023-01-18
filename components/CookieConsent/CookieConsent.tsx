@@ -7,6 +7,12 @@ import Snackbar from '@mui/material/Snackbar';
 
 import classes from './CookieConsent.module.scss';
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    white: true
+  }
+}
+
 const CookieConsent: FunctionComponent = () => {
   const { publicRuntimeConfig: { analytics: config } } = getConfig();
   const [ showConsentModal, setShowConsentModal ] = useState(false);
@@ -39,8 +45,8 @@ const CookieConsent: FunctionComponent = () => {
       <Snackbar
         action={
           <div className={classes.buttons}>
-            <Button color='secondary' onClick={handleDoNotTrack}>Do Not Track</Button>
-            <Button color='secondary' onClick={handleAgreement} variant='contained'>I Understand</Button>
+            <Button color='white' onClick={handleDoNotTrack}>Do Not Track</Button>
+            <Button color='success' onClick={handleAgreement} variant='contained'>I Understand</Button>
           </div>
         }
         anchorOrigin={{
@@ -52,7 +58,7 @@ const CookieConsent: FunctionComponent = () => {
         }}
         message={
           <Fragment>
-            <h2>Compliance Check</h2>
+            <h2>About Your Privacy</h2>
             <p>We use cookies to improve your browsing experience and analyze our website traffic.</p>
           </Fragment>
         }

@@ -5,7 +5,7 @@ import { Manrope } from '@next/font/google';
 import Analytics from 'analytics';
 import googleAnalytics from '@analytics/google-analytics';
 import { AnalyticsProvider } from 'use-analytics';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { PaletteColorOptions, ThemeProvider, createTheme } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 
 import { DataProvider } from '../providers/DataProvider';
@@ -17,6 +17,19 @@ import '../styles/defaults.scss';
 import '../components/CarbonAd/Carbon.scss';
 
 const manrope = Manrope({ subsets: ['latin'] });
+
+declare module '@mui/material/styles' { 
+  interface Palette {
+    neutral: PaletteColorOptions;
+    white: PaletteColorOptions;
+  }
+  interface PaletteOptions {
+    neutral: PaletteColorOptions;
+    white: PaletteColorOptions;
+  }
+}
+
+const { palette } = createTheme();
 const theme = createTheme({
   components: {
     MuiButton: {
@@ -54,13 +67,18 @@ const theme = createTheme({
     }
   },
   palette: {
+    neutral: palette.augmentColor({ color: { main: themeVars['neutral-color'] } }),
     primary: {
       contrastText: '#fff',
       main: themeVars['primary-color']
     },
     secondary: {
       main: themeVars['secondary-color']
-    }
+    },
+    success: {
+      main: '#2D6430'
+    },
+    white: palette.augmentColor({ color: { main: '#fff' } })
   },
   typography: {
     fontFamily: manrope.style.fontFamily
