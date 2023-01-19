@@ -281,7 +281,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   )
                 }}
                 onChange={handleSearchChange}
-                placeholder={`Seach ${visibleIcons.length} Icons...`}
+                placeholder={`Search ${visibleIcons.length} Icons...`}
                 size='small'
                 sx={{
                   margin: '0 1rem 0 0'
