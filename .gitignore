@@ -11,6 +11,10 @@
 # next.js
 /.next/
 /out/
+/public/sw.js
+/public/sw.js.map
+/public/worker-*.js
+/public/worker-*.js.map
 
 # production
 /build
