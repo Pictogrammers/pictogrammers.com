@@ -1,8 +1,9 @@
 import { FunctionComponent } from 'react';
 import Avatar from '@mui/material/Avatar';
 
-import contributorsJson from '../../../public/contributors/contributors.json';
 import { ContributorProps, ContributorsMdxProps } from '../../../interfaces/contributor';
+
+import { useData } from '../../../providers/DataProvider';
 
 import LandingPageCard from '../../LandingPageCard/LandingPageCard';
 
@@ -47,8 +48,8 @@ const Contributor: FunctionComponent<ContributorProps> = ({
 };
 
 const Contributors: FunctionComponent<ContributorsMdxProps> = ({ id, name, view }) => {
-  const { contributors } = contributorsJson;
-  const filteredList = contributors.filter((contributor) => {
+  const { contributors } = useData();
+  const filteredList = contributors.filter((contributor: ContributorProps) => {
     if (view === 'single') {
       if (id) {
         return contributor.id === id;
@@ -72,7 +73,7 @@ const Contributors: FunctionComponent<ContributorsMdxProps> = ({ id, name, view 
 
   return (
     <div className={classes.contributors}>
-      {filteredList.map((contributorInfo) => (
+      {filteredList.map((contributorInfo: ContributorProps) => (
         <Contributor key={contributorInfo.id} {...contributorInfo} />
       ))}
     </div>

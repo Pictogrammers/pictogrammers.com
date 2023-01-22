@@ -30,11 +30,13 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 dayjs.extend(advancedFormat);
 
 import { IconLibrary } from '../../interfaces/icons';
+import { ContributorProps } from '../../interfaces/contributor';
 
 import useCategories from '../../hooks/useCategories';
 import useIcons from '../../hooks/useIcons';
 import useDebounce from '../../hooks/useDebounce';
 import useWindowSize from '../../hooks/useWindowSize';
+import { useData } from '../../providers/DataProvider';
 
 import Head from '../Head/Head';
 import LibraryMenu from './LibraryMenu';
@@ -43,7 +45,6 @@ import IconGrid from '../IconGrid/IconGrid';
 import CarbonAd from '../CarbonAd/CarbonAd';
 
 import iconLibraries from '../../public/libraries/libraries.json';
-import allContributors from '../../public/contributors/contributors.json';
 
 import classes from './IconLibraryView.module.scss';
 
@@ -77,6 +78,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
   // Library viewing
   const [ viewMode, setViewMode ] = useState(isMobileWidth ? 'compact' : 'comfortable');
+  const { contributors } = useData();
   const categories = useCategories(libraryInfo.id);
   const filter = useMemo(() => ({ author, category, term: debouncedSearchTerm, version }), [ author, category, debouncedSearchTerm, version ]);
   const visibleIcons = useIcons(libraryInfo.id, filter);
@@ -160,13 +162,12 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     }
     
     if (author) {
-      const { contributors } = allContributors;
-      const authorInfo = contributors.find((contributor) => contributor.github === author);
+      const authorInfo = contributors.find((contributor: ContributorProps) => contributor.github === author);
       if (authorInfo) {
         return <Chip avatar={<Avatar alt={authorInfo.name} src={`/contributors/${authorInfo.id}.jpg`} />} label={`Created by ${authorInfo.name}`} onDelete={handleChipDelete} size={size} />;
       }
 
-      return <Chip label={`By ${author}`} onDelete={handleChipDelete} size={size} />;
+      return <Chip avatar={<Avatar sx={{ background: 'hsl(var(--primary-color))', fontWeight: 700 }}>{author.charAt(0).toUpperCase()}</Avatar>} label={`Created by ${author}`} onDelete={handleChipDelete} size={size} />;
     }
   };
 

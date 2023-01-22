@@ -21,6 +21,7 @@ import {
 } from '@mdi/js';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
+import { ContributorProps } from '../../interfaces/contributor';
 
 import Head from '../Head/Head';
 import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
@@ -30,8 +31,7 @@ import CarbonAd from '../CarbonAd/CarbonAd';
 
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
 import useWindowSize from '../../hooks/useWindowSize';
-
-import contributorsJson from '../../public/contributors/contributors.json';
+import { useData } from '../../providers/DataProvider';
 
 import classes from './IconView.module.scss';
 
@@ -43,12 +43,13 @@ interface IconViewProps {
 
 const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose }) => {
   const { exampleTypes, git, gridSize = 24, name: libraryName } = libraryInfo;
+  const { contributors } = useData();
   const copy = useCopyToClipboard();
   const windowSize = useWindowSize();
   const isTabletWidth = windowSize.width <= parseInt(classes['tablet-width']);
   const isModal = !!onClose;
 
-  const contributor = contributorsJson?.contributors?.find((c) => c.id === icon.a);
+  const contributor = contributors.find((c: ContributorProps) => c.id === icon.a);
   const glyph = String.fromCodePoint(parseInt(icon.cp, 16));
   const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${gridSize} ${gridSize}"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
   const svgDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgCode)}`;

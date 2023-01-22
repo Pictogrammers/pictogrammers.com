@@ -15,6 +15,10 @@
 
   svg {
     color: hsl(var(--grey));
+  }
+
+  .avatar,
+  svg {
     margin-right: 1rem;
     min-width: 2rem;
   }

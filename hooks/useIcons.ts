@@ -5,8 +5,7 @@ import { useData } from '../providers/DataProvider';
 
 import { IconLibraryIcon } from '../interfaces/icons';
 import { CategoryProps } from '../hooks/useCategories';
-
-import allContributors from '../public/contributors/contributors.json';
+import { ContributorProps } from '../interfaces/contributor';
 
 interface FilterProps {
   author?: string;
@@ -17,7 +16,7 @@ interface FilterProps {
 
 const useIcons = (libraryId: string, filter: FilterProps) => {
   const [ visibleIcons, setVisibleIcons ] = useState<IconLibraryIcon[]>([]);
-  const { libraries } = useData();
+  const { contributors, libraries } = useData();
 
   useEffect(() => {
     if (!libraries?.[libraryId]) {
@@ -34,8 +33,7 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
 
       switch (filterType) {
         case 'author':
-          const { contributors } = allContributors;
-          const authorInfo = contributors.find((contributor) => contributor.github === filter.author);
+          const authorInfo = contributors.find((contributor: ContributorProps) => contributor.github === filter.author);
           return output.filter((icon: IconLibraryIcon) => icon.a === authorInfo?.id);
         case 'category':
           const categoryId = iconTags.findIndex((cat: CategoryProps) => cat.slug === filter.category);
@@ -59,7 +57,7 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
       };
     }, iconLibrary);
     setVisibleIcons(results);
-  }, [ filter, libraries, libraryId ]);
+  }, [ contributors, filter, libraries, libraryId ]);
 
   return visibleIcons;
 };
