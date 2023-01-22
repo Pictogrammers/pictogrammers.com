@@ -9,6 +9,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 import classes from './LandingPageHeading.module.scss';
 
 interface LandingPageHeadingProps {
+  className?: string;
   color?: string;
   description: string;
   graphicElement?: ReactNode;
@@ -20,6 +21,7 @@ interface LandingPageHeadingProps {
 }
 
 const LandingPageHeading: FunctionComponent<LandingPageHeadingProps> = ({
+  className,
   color,
   description,
   graphicElement,
@@ -34,7 +36,7 @@ const LandingPageHeading: FunctionComponent<LandingPageHeadingProps> = ({
 
   return (
     <div
-      className={cx(classes.root, {
+      className={cx(classes.root, className, {
         [classes.hideImage]: hideImageOnMobile && isMobileWidth
       })}
     >

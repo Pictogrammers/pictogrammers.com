@@ -86,6 +86,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
       />
       <Paper className={classes.container}>
         <LandingPageHeading
+          className={classes.header}
           title={name}
           description={description || ''}
           graphicElement={
