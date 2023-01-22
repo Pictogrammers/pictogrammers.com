@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import getConfig from 'next/config';
+import Image from 'next/image';
 import Paper from '@mui/material/Paper';
 import dayjs from 'dayjs';
 import { mdiFormatFont, mdiRobotExcited } from '@mdi/js';
@@ -38,7 +39,7 @@ const LibraryCard = (props: { library: LibraryProps, type: string }) => {
       disabled={!!library.unreleased}
       href={library.unreleased ? undefined : `/library/${library.id}`}
       icon={!library.image ? type === 'font' ? mdiFormatFont : mdiRobotExcited : undefined}
-      image={library.image}
+      graphicElement={library.image ? <Image alt={`${library.name} Image`} height={64} src={`/${library.image}`} width={64} /> : undefined}
       title={library.name}
     />
   );
@@ -58,12 +59,8 @@ const IconsLandingPage: NextPage = () => {
         <LandingPageHeading
           title='Icons & Fonts'
           description='Our libraries are beautifully crafted and completely open-source, so you can focus on your designs and development.'
-          image={{
-            alt: 'Pictogrammers Libraries',
-            height: 275,
-            src: pictoLibraries,
-            width: 275
-          }}
+          graphicElement={<Image alt='Pictogrammers Libraries' height={275} priority src={pictoLibraries} width={275} />}
+          showClouds={false}
         />
         <section className={classes.cardGroup}>
           <h2>Icon Libraries</h2>

@@ -5,19 +5,18 @@ import { useData } from '../providers/DataProvider';
 
 import { IconLibraryIcon } from '../interfaces/icons';
 import { CategoryProps } from '../hooks/useCategories';
-
-import allContributors from '../public/contributors/contributors.json';
+import { ContributorProps } from '../interfaces/contributor';
 
 interface FilterProps {
   author?: string;
   category?: string;
-  term: string;
+  term?: string;
   version?: string;
 }
 
 const useIcons = (libraryId: string, filter: FilterProps) => {
   const [ visibleIcons, setVisibleIcons ] = useState<IconLibraryIcon[]>([]);
-  const { libraries } = useData();
+  const { contributors, libraries } = useData();
 
   useEffect(() => {
     if (!libraries?.[libraryId]) {
@@ -34,8 +33,7 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
 
       switch (filterType) {
         case 'author':
-          const { contributors } = allContributors;
-          const authorInfo = contributors.find((contributor) => contributor.github === filter.author);
+          const authorInfo = contributors.find((contributor: ContributorProps) => contributor.github === filter.author);
           return output.filter((icon: IconLibraryIcon) => icon.a === authorInfo?.id);
         case 'category':
           const categoryId = iconTags.findIndex((cat: CategoryProps) => cat.slug === filter.category);
@@ -44,7 +42,7 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
           return output.filter((icon: IconLibraryIcon) => icon.v === filter.version);
         case 'term':
           const haystack = output.map((icon: IconLibraryIcon) => icon.st.join('¦'));
-          const needle = filter.term
+          const needle = filter.term || ''
             .replace(/([A-Z][a-z])/g,' $1') // Add a space in front of letters is Pascal-case is used
             .replace(/(\d+)/g,' $1') // Add a space in front of numbers if Pascal-case is used
             .replace(new RegExp(`(^${libraryId})`, 'gi'), '') // Remove a prefix of the library ID
@@ -59,7 +57,7 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
       };
     }, iconLibrary);
     setVisibleIcons(results);
-  }, [ filter, libraries, libraryId ]);
+  }, [ contributors, filter, libraries, libraryId ]);
 
   return visibleIcons;
 };

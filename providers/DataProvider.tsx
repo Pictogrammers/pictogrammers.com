@@ -2,6 +2,8 @@ import { FunctionComponent, createContext, useContext, useEffect, useRef, useSta
 import { useSnackbar } from 'notistack';
 import { useAnalytics } from 'use-analytics';
 
+import { ContributorProps } from '../interfaces/contributor';
+
 interface DataProviderProps {
   children: any;
 }
@@ -18,6 +20,7 @@ export const DataProvider: FunctionComponent<DataProviderProps> = ({ children })
   const [ initialLoad, setInitialLoad ] = useState(true);
   const [ libraries, setLibraries ] = useState({});
   const [ docs, setDocs ] = useState([]);
+  const [ contributors, setContributors ] = useState<ContributorProps[]>([]);
 
   const workerRef = useRef<Worker>();
   const { enqueueSnackbar } = useSnackbar();
@@ -46,6 +49,8 @@ export const DataProvider: FunctionComponent<DataProviderProps> = ({ children })
             return setLibraries(data);
           case 'docs':
             return setDocs(data);
+          case 'contributors':
+            return setContributors(data.contributors);
           default:
             setInitialLoad(false);
         }
@@ -57,5 +62,5 @@ export const DataProvider: FunctionComponent<DataProviderProps> = ({ children })
     return () => workerRef?.current?.terminate();
   }, [ enqueueSnackbar, initialLoad, track ]);
 
-  return <DataContext.Provider value={{ docs, libraries }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ contributors, docs, libraries }}>{children}</DataContext.Provider>;
 };

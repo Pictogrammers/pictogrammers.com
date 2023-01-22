@@ -28,6 +28,13 @@
   }
 }
 
+.imageContainer {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
 .iconContainer {
   align-items: center;
   display: flex;
@@ -90,12 +97,19 @@
     flex-direction: column-reverse;
     padding: 1rem 2.5rem;
 
-    img,
+    &.hideImage {
+      .imageContainer {
+        display: none;
+      }
+    }
+
     .iconContainer {
-      display: none;
+      height: auto;
+      margin-top: 1rem;
     }
 
     h1 {
+      border-image: linear-gradient(to right, hsl(var(--primary-color)) 1%, hsl(var(--primary-color)) 70%) 0 0 100% 0/1px 0 1px 0 stretch;
       font-size: 2rem;
       padding-top: 1rem;
     }

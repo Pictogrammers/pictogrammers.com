@@ -1,7 +1,6 @@
 import { CSSProperties, FunctionComponent, ReactNode } from 'react';
 import cx from 'clsx';
 import Link from 'next/link';
-import Image from 'next/image';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import Chip, { ChipTypeMap } from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
@@ -18,16 +17,28 @@ interface LandingPageCardProps {
   description: string;
   disabled?: boolean;
   fullWidth?: boolean;
+  graphicElement?: ReactNode;
   href?: string;
   icon?: string;
-  image?: string;
   superTitle?: string;
   title: string;
 };
 
 const StyledBadge = styled(Badge)<BadgeProps>(() => ({'& .MuiBadge-badge': { bottom: 5, right: 5 }}));
 
-const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({ badge, chip, color, description, disabled, fullWidth, href, icon, image, superTitle, title }) => {
+const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({
+  badge,
+  chip,
+  color,
+  description,
+  disabled,
+  fullWidth,
+  graphicElement,
+  href,
+  icon,
+  superTitle,
+  title
+}) => {
   const Wrapper = !href ? 'div' : Link;
 
   return (
@@ -50,8 +61,7 @@ const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({ badge, chip,
             </StyledBadge>
           )}
         >
-          {image && <Image alt={`${title} Image`} height={64} src={`/${image}`} width={64} />}
-          {icon && <Icon className={classes.noImage} color={`hsl(var(${color}))`} path={icon} size={2.667} style={{ backgroundColor: `hsl(var(${color}) / 10%)` }} />}
+          {graphicElement ? graphicElement : icon ? <Icon className={classes.noImage} color={`hsl(var(${color}))`} path={icon} size={2.667} style={{ backgroundColor: `hsl(var(${color}) / 10%)` }} /> : null}
         </ConditionalWrapper>
         {chip && <Chip label={chip.label} color={chip.color} />}
       </div>

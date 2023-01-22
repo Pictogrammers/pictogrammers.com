@@ -1,6 +1,5 @@
 import { FunctionComponent, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import getConfig from 'next/config';
-import cx from 'clsx';
 import Autocomplete from '@mui/material/Autocomplete';
 import Popper, { PopperProps } from '@mui/material/Popper';
 import TextField from '@mui/material/TextField';
@@ -10,6 +9,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
 import uFuzzy from '@leeoniya/ufuzzy';
 import Icon from '@mdi/react';
 import { mdiAlertOutline, mdiBookOpenPageVariantOutline, mdiCreation, mdiDotsHorizontalCircleOutline, mdiMagnify } from '@mdi/js';
@@ -19,6 +19,7 @@ import useDebounce from '../../hooks/useDebounce';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 import { Doc } from '../../interfaces/doc';
+import { ContributorProps } from '../../interfaces/contributor';
 
 import classes from './SiteSearch.module.scss';
 
@@ -33,7 +34,7 @@ const SiteSearch: FunctionComponent = () => {
   const [ searchResults, setSearchResults ] = useState<SearchResultsProps[]>([]);
   const [ searchResultsVisible, setSearchResultsVisible ] = useState(false);
   const { publicRuntimeConfig: { libraries: librariesMeta } } = getConfig();
-  const { docs, libraries } = useData();
+  const { contributors, docs, libraries } = useData();
   const debouncedSearchTerm = useDebounce(searchTerm, 250);
   const searchBoxRef = useRef<HTMLInputElement>(null);
 
@@ -58,6 +59,15 @@ const SiteSearch: FunctionComponent = () => {
     return order.map((position) => docs[info.idx[position]]);
   }, [ docs ]);
 
+  const searchContributors = useCallback((searchTerm: string) => {
+    const uf = new uFuzzy({});
+    const haystack = contributors.map((contributor: ContributorProps) => `${contributor.name}¦${contributor.github}`);
+    const idxs = uf.filter(haystack, searchTerm);
+    const info = uf.info(idxs, haystack, searchTerm);
+    const order = uf.sort(info, haystack, searchTerm);
+    return order.map((position) => contributors[info.idx[position]]);
+  }, [ contributors ]);
+
   const CustomPopper = useCallback((props: PopperProps) => {
     return (
       <Popper
@@ -75,14 +85,16 @@ const SiteSearch: FunctionComponent = () => {
 
     const libraryResults = searchLibraries(debouncedSearchTerm);
     const docs = searchDocs(debouncedSearchTerm);
-    const allResults = { ...libraryResults, docs };
+    const contributors = searchContributors(debouncedSearchTerm);
+    // eslint-disable-next-line sort-keys
+    const allResults = { ...libraryResults, docs, contributors };
 
     const results = Object.keys(allResults).reduce((output, key) => {
       if (!allResults[key].length) {
         return output;
       }
 
-      if (key === 'docs') {
+      if (['contributors', 'docs'].includes(key)) {
         output.push({ id: key, results: allResults[key] });
         return output;
       }
@@ -93,7 +105,13 @@ const SiteSearch: FunctionComponent = () => {
     }, [] as SearchResultsProps[]);
 
     setSearchResults(results.length ? results : [{ id: 'no-results', results: [] }]);
-  }, [ debouncedSearchTerm, librariesMeta.icons, searchDocs, searchLibraries ]);
+  }, [
+    debouncedSearchTerm,
+    librariesMeta.icons,
+    searchContributors,
+    searchDocs,
+    searchLibraries
+  ]);
 
   const openSearchResults = () => setSearchResultsVisible(true);
   const closeSearchResults = () => {
@@ -132,7 +150,7 @@ const SiteSearch: FunctionComponent = () => {
                 borderRadius: '24px'
               }
             }}
-            placeholder='Search Icons & Docs'
+            placeholder='Search Pictogrammers.com'
             inputRef={searchBoxRef}
             size='small'
             variant='outlined'
@@ -159,19 +177,34 @@ const SiteSearch: FunctionComponent = () => {
           const isLibrary = !!option.libraryInfo;
           const showMoreLink = option.results.length > 10;
           const limitedResults = option.results.slice(0, 10);
+          const groupName = isLibrary ? option?.libraryInfo?.name : option.id === 'docs' ? 'Docs' : 'Contributors';
 
           return (
             <div className={classes.results} key={option.id}>
-              <h3 className={classes.groupHeader}>{isLibrary ? option?.libraryInfo?.name : 'Docs'}</h3>
+              <h3 className={classes.groupHeader}>{groupName}</h3>
               <List classes={{ root: classes.group }} dense sx={{ padding: '0 0 1rem' }}>
                 {limitedResults.map((result: any) => {
-                  const link = isLibrary ? `/library/${option.id}/icon/${result.n}` : `/docs/${result.slug}`;
-                  const title = isLibrary ? result.n : result.title;
+                  const link = isLibrary ? `/library/${option.id}/icon/${result.n}` : option.id === 'docs' ? `/docs/${result.slug}` : `/contributor/${result.github}`;
+                  const title = isLibrary ? result.n : option.id === 'docs' ? result.title : result.name;
                   const icon = isLibrary ? result.p : mdiBookOpenPageVariantOutline;
                   const isNew = isLibrary && option.libraryInfo?.version === result.v;
                   return (
                     <ListItemButton component={Link} href={link} key={result.cp || result.slug} onClick={closeSearchResults}>
-                      <Icon path={icon} size={1} />
+                      {option.id !== 'contributors' ? (
+                        <Icon path={icon} size={1} />
+                      ) : (
+                        <Avatar
+                          alt={result.name.toUpperCase()}
+                          classes={{ root: classes.avatar }}
+                          src={`/contributors/${result.id}.jpg`}
+                          sx={{
+                            background: 'hsl(var(--primary-color))',
+                            border: '2px solid hsl(var(--primary-color))',
+                            height: 32,
+                            width: 32,
+                          }}
+                        />
+                      )}
                       <ListItemText>
                         {title}
                         {!!isLibrary ? (

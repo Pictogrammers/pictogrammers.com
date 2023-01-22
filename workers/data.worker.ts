@@ -19,6 +19,11 @@ const importDocSearchIndex = async () => {
   postMessage({ data: docIndex, status: 'complete', type: 'docs' });
 };
 
+const importContributorSearchIndex = async () => {
+  const { default: contributorIndex } = await import('../public/contributors/contributors.json');
+  postMessage({ data: contributorIndex, status: 'complete', type: 'contributors' });
+};
+
 addEventListener('message', async (event) => {
   if (event.data !== 'load') {
     return;
@@ -27,7 +32,8 @@ addEventListener('message', async (event) => {
   try {
     await Promise.all([
       importLibraries(),
-      importDocSearchIndex()
+      importDocSearchIndex(),
+      importContributorSearchIndex()
     ]);
 
     postMessage({ status: 'complete' });
