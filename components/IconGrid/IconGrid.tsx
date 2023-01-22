@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { VirtuosoGrid } from 'react-virtuoso';
 import Dialog from '@mui/material/Dialog';
-import Icon from '@mdi/react';
 
 import useCategories, { CategoryProps } from '../../hooks/useCategories';
 import useWindowSize from '../../hooks/useWindowSize';
 
 import { viewModes } from '../IconLibrary/LibraryViewMode';
 import IconView from '../IconView/IconView';
+import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
@@ -74,7 +74,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, updateUrl 
             href={`/library/${library.id}/icon/${icon.n}`}
             onClick={(e) => handleIconModalOpen(e, icon)}
           >
-            <Icon path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
+            <CustomGridIcon gridSize={library.gridSize} path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} title={icon.n} />
             <p>{icon.n}</p>
           </Link>
         )}

@@ -14,6 +14,8 @@ import uFuzzy from '@leeoniya/ufuzzy';
 import Icon from '@mdi/react';
 import { mdiAlertOutline, mdiBookOpenPageVariantOutline, mdiCreation, mdiDotsHorizontalCircleOutline, mdiMagnify } from '@mdi/js';
 
+import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
+
 import { useData } from '../../providers/DataProvider';
 import useDebounce from '../../hooks/useDebounce';
 
@@ -191,7 +193,7 @@ const SiteSearch: FunctionComponent = () => {
                   return (
                     <ListItemButton component={Link} href={link} key={result.cp || result.slug} onClick={closeSearchResults}>
                       {option.id !== 'contributors' ? (
-                        <Icon path={icon} size={1} />
+                        <CustomGridIcon gridSize={option?.libraryInfo?.gridSize || 24} path={icon} size={1} />
                       ) : (
                         <Avatar
                           alt={result.name.toUpperCase()}

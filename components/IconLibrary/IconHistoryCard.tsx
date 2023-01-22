@@ -16,6 +16,7 @@ import { IconChangeRecord } from '../../interfaces/history';
 import { IconLibrary } from '../../interfaces/icons';
 
 import Code from '../CodeHighlighter/CodeHighlighter';
+import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
 
 import classes from './IconLibraryHistoryView.module.scss';
 
@@ -63,12 +64,12 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
       <div className={classes.iconContainer}>
       {iconDataBefore && iconDataAfter ? (
         <Fragment>
-          <Icon path={iconDataBefore} size={2} />
+          <CustomGridIcon gridSize={library.gridSize} path={iconDataBefore} size={2} />
           <Icon className={classes.arrow} path={mdiArrowRight} size={1} />
-          <Icon path={iconDataAfter} size={2} />
+          <CustomGridIcon gridSize={library.gridSize} path={iconDataAfter} size={2} />
         </Fragment>
       ) : (
-        <Icon path={icon.data} size={2} />
+        <CustomGridIcon gridSize={library.gridSize} path={icon.data} size={2} />
       )}
     </div>
       <div className={classes.modDesc}>
