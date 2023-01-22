@@ -2,7 +2,6 @@ import {
   ChangeEvent,
   Fragment,
   FunctionComponent,
-  MouseEvent,
   useEffect,
   useMemo,
   useRef,
@@ -11,7 +10,6 @@ import {
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'clsx';
-import { VirtuosoGrid } from 'react-virtuoso';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
@@ -25,24 +23,23 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import Dialog from '@mui/material/Dialog';
 import Icon from '@mdi/react';
 import { mdiAlertCircleOutline, mdiClose, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 dayjs.extend(advancedFormat);
 
-import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
+import { IconLibrary } from '../../interfaces/icons';
 
-import useCategories, { CategoryProps } from '../../hooks/useCategories';
+import useCategories from '../../hooks/useCategories';
 import useIcons from '../../hooks/useIcons';
 import useDebounce from '../../hooks/useDebounce';
 import useWindowSize from '../../hooks/useWindowSize';
 
 import Head from '../Head/Head';
 import LibraryMenu from './LibraryMenu';
-import LibraryViewMode, { viewModes } from './LibraryViewMode';
-import IconView from '../IconView/IconView';
+import LibraryViewMode from './LibraryViewMode';
+import IconGrid from '../IconGrid/IconGrid';
 import CarbonAd from '../CarbonAd/CarbonAd';
 
 import iconLibraries from '../../public/libraries/libraries.json';
@@ -84,9 +81,6 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const filter = useMemo(() => ({ author, category, term: debouncedSearchTerm, version }), [ author, category, debouncedSearchTerm, version ]);
   const visibleIcons = useIcons(libraryInfo.id, filter);
 
-  // Individual icon viewing
-  const [ iconModal, setIconModal ] = useState<IconLibraryIcon | null>(null);
-
   useEffect(() => {
     if (router.query.q) {
       setSearchTerm(router.query.q as string);
@@ -99,17 +93,6 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
       scrollToTopOfLibrary();
     }
   }, [ debouncedSearchTerm, visibleIcons.length ]);
-
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      if (url === `/library/${libraryInfo.id}`) {
-        setIconModal(null);
-      }
-    };
-
-    router.events.on('routeChangeStart', handleRouteChange);
-    return () => router.events.off('routeChangeStart', handleRouteChange);
-  }, [ libraryInfo.id, router ]);
 
   const scrollToTopOfLibrary = () => {
     const libraryTop = iconLibraryRef.current?.getBoundingClientRect().top;
@@ -133,22 +116,6 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     setSearchTerm('');
     searchBoxRef.current?.focus();
     scrollToTopOfLibrary();
-  };
-
-  const handleIconModalOpen = (e: MouseEvent<HTMLAnchorElement>, icon: IconLibraryIcon) => {
-    e.preventDefault();
-
-    const cats = icon.t.map((tag) => categories.find((cat) => cat.id === Number(tag)));
-    if (cats) {
-      icon.categories = cats as CategoryProps[];
-    }
-    setIconModal(icon);
-    router.push(`/library/${libraryInfo.id}/icon/${icon.n}`, undefined, { shallow: true });
-  };
-
-  const handleIconModalClose = () => {
-    setIconModal(null);
-    router.push(`/library/${slug}`, undefined, { shallow: true });
   };
 
   const handleChipDelete = () => {
@@ -340,34 +307,8 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
               ) : (
                 <Fragment>
                   {renderInformationGrid()}
-                  <VirtuosoGrid
-                    data={visibleIcons}
-                    listClassName={cx(classes.library, classes[viewMode])}
-                    itemContent={(index, icon: IconLibraryIcon) => (
-                      <Link
-                        className={classes.libraryIcon}
-                        href={`/library/${libraryInfo.id}/icon/${icon.n}`}
-                        onClick={(e) => handleIconModalOpen(e, icon)}
-                      >
-                        <Icon path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} />
-                        <p>{icon.n}</p>
-                      </Link>
-                    )}
-                    totalCount={visibleIcons.length}
-                    useWindowScroll
-                  />
+                  <IconGrid icons={visibleIcons} library={libraryInfo} viewMode={viewMode} />
                 </Fragment>
-              )}
-              {!!iconModal && (
-                <Dialog
-                  fullScreen={isMobileWidth}
-                  fullWidth
-                  maxWidth={'lg'}
-                  open
-                  onClose={handleIconModalClose}
-                >
-                  <IconView icon={iconModal} libraryInfo={libraryInfo} onClose={handleIconModalClose} />
-                </Dialog>
               )}
             </div>
           </div>

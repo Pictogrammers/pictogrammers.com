@@ -1,3 +1,7 @@
+.root {
+  text-decoration: none;
+}
+
 .box {
   display: flex;
   flex: 1;
@@ -44,18 +48,6 @@
 .info {
   flex: 1;
   min-width: 0;
-}
-
-.links {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 1rem;
-}
-
-.sponsor {
-  &:hover {
-    color: hsl(305deg 100% 40%);
-  }
 }
 
 .contributors {

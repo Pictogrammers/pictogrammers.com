@@ -62,12 +62,13 @@ const Home: NextPage = () => {
             {coreContributors?.length && (
               <AvatarGroup classes={{ root: classes.contributors }} max={12}>
                 {getRandomArrayValues(coreContributors, 11).map((contributor) => (
-                  <Avatar
-                    alt={contributor.name}
-                    classes={{ root: classes.contributor }}
-                    key={contributor.id}
-                    src={contributor.image ? `/contributors/${contributor.id}.jpg` : undefined}
-                  />
+                  <Link href={`/contributor/${contributor.github}`} key={contributor.id}>
+                    <Avatar
+                      alt={contributor.name}
+                      classes={{ root: classes.contributor }}
+                      src={contributor.image ? `/contributors/${contributor.id}.jpg` : undefined}
+                    />
+                  </Link>
                 ))}
                 <Avatar classes={{ root: classes.contributor }}>+{totalContributors - 11}</Avatar>
               </AvatarGroup>

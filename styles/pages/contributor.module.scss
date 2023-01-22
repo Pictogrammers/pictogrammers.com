@@ -1,0 +1,112 @@
+.root {
+  padding: 0 1rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: $width-max;
+  overflow: hidden;
+  position: relative;
+
+  .chips {
+    div {
+      margin-right: .5rem;
+    }
+
+    span {
+      font-size: .9rem;
+      margin: 0;
+    }
+  }
+
+  h2 {
+    background-color: hsl(var(--primary-color));
+    color: hsl(var(--white));
+    font-size: .8rem;
+    letter-spacing: .2rem;
+    margin: 0;
+    padding: .3rem 2rem;
+    text-transform: uppercase;
+  }
+}
+
+.userInfo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+
+  .links {
+    margin-top: .5rem;
+
+    svg {
+      color: hsl(var(--dark-grey));
+    }
+
+    .sponsor {
+      &:hover {
+        svg {
+          color: hsl(305deg 100% 40%);
+        }
+      }
+    }
+  }
+}
+
+.loader {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 0;
+  width: 100%;
+}
+
+.iconView {
+  padding: 1rem;
+}
+
+.controlBar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.viewMode {
+  align-items: center;
+  display: flex;
+  font-weight: 600;
+  justify-content: flex-end;
+
+  span {
+    margin-right: .5rem;
+  }
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .root {
+    padding: 0;
+
+    .container {
+      border-radius: 0;
+
+      h1,
+      .chips {
+        text-align: center;
+      }
+
+      .chips {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .viewMode {
+    & > span {
+      display: none;
+    }
+  }
+}

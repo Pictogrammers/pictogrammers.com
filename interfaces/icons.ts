@@ -18,6 +18,7 @@ export interface IconLibrary {
   package: string;
   packageId: string;
   shortName: string;
+  unreleased?: boolean;
   version: string;
 }
 

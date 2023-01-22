@@ -39,6 +39,9 @@ const getContributors = async () => {
           rest.website = website;
         }
 
+        // Blank out placeholder descriptions
+        rest.description = description === 'Placeholder' ? '' : description;
+
         return rest;
       })
       .sort((a, b) => Number(b.core) - Number(a.core) || b.iconCount - a.iconCount);

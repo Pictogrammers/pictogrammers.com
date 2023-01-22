@@ -1,49 +1,71 @@
-import { FunctionComponent } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import { FunctionComponent, ReactNode } from 'react';
+import cx from 'clsx';
 import Icon from '@mdi/react';
 import { mdiCloudOutline } from '@mdi/js';
+
+import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
+import useWindowSize from '../../hooks/useWindowSize';
 
 import classes from './LandingPageHeading.module.scss';
 
 interface LandingPageHeadingProps {
   color?: string;
   description: string;
+  graphicElement?: ReactNode;
+  hideImageOnMobile?: boolean;
   icon?: string;
-  image?: {
-    alt: string;
-    height: number;
-    src: string | StaticImageData;
-    width: number;
-  }
-  superTitle?: string;
+  showClouds?: boolean;
+  superTitle?: string | ReactNode;
   title: string;
 }
 
-const LandingPageHeading: FunctionComponent<LandingPageHeadingProps> = ({ color, description, icon, image, superTitle, title }) => {
+const LandingPageHeading: FunctionComponent<LandingPageHeadingProps> = ({
+  color,
+  description,
+  graphicElement,
+  hideImageOnMobile = true,
+  icon,
+  showClouds = true,
+  superTitle,
+  title
+}) => {
+  const windowSize = useWindowSize();
+  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+
   return (
-    <div className={classes.root}>
+    <div
+      className={cx(classes.root, {
+        [classes.hideImage]: hideImageOnMobile && isMobileWidth
+      })}
+    >
       <div className={classes.title}>
         <h1
           style={{
-            borderImage: color ? `linear-gradient(to right, hsl(var(${color})) 1%, hsl(var(--white)) 70%) 0 0 100% 0/1px 0 1px 0 stretch` : undefined
+            borderImage: color ? `linear-gradient(to right, hsl(var(${color})) 1%, hsl(var(${isMobileWidth ? color : '--white'})) 70%) 0 0 100% 0/1px 0 1px 0 stretch` : undefined
           }}
         >
-          {superTitle && <span>{superTitle}</span>}
+          {superTitle && typeof superTitle === 'string' ? <span>{superTitle}</span> : superTitle}
           {title}
         </h1>
         <p>{description}</p>
       </div>
-      {image && <Image alt={image.alt} height={image.height} src={image.src} width={image.width} />}
-      {icon && (
-        <div className={classes.iconContainer}>
-          <div className={classes.clouds}>
-            <Icon path={mdiCloudOutline} size={4} />
-            <Icon path={mdiCloudOutline} size={3} horizontal />
-            <Icon path={mdiCloudOutline} size={4} />
-          </div>
-          <Icon path={icon} size={7} color={`hsl(var(${color ? color : '--primary-color'}))`} />
-        </div>
-      )}
+      <div className={classes.imageContainer}>
+        <ConditionalWrapper
+          condition={showClouds}
+          wrapper={(children: any) => (
+            <div className={classes.iconContainer}>
+              <div className={classes.clouds}>
+                <Icon path={mdiCloudOutline} size={4} />
+                <Icon path={mdiCloudOutline} size={3} horizontal />
+                <Icon path={mdiCloudOutline} size={4} />
+              </div>
+              {children}
+            </div>
+          )}
+        >
+          {graphicElement ? graphicElement : icon ? <Icon path={icon} size={7} color={`hsl(var(${color ? color : '--primary-color'}))`} /> : null}
+        </ConditionalWrapper>
+      </div>
     </div>
   );
 };

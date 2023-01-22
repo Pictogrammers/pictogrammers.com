@@ -1,4 +1,5 @@
 export interface ContributorProps {
+  authorLibraries?: string[];
   core: boolean;
   description?: string;
   github: string;

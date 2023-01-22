@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import getConfig from 'next/config';
 import slugify from 'slugify';
 
-import { IconLibraries, IconLibrary, IconLibraryIcon } from '../interfaces/icons';
+import { IconLibrary, IconLibraryIcon } from '../interfaces/icons';
 import { ContributorProps } from '../interfaces/contributor';
 import { CategoryProps } from '../hooks/useCategories';
 
@@ -19,7 +19,7 @@ interface SlugInterface {
 }
 
 export const getAllLibraryPaths = async () => {
-  const allIcons = await iconLibraries.reduce(async (prevPromise: Promise<string[]>, library: IconLibraries) => {
+  const allIcons = await iconLibraries.reduce(async (prevPromise: Promise<string[]>, library: IconLibrary) => {
     let output = await prevPromise;
 
     if (library.unreleased) {
@@ -59,7 +59,7 @@ export const getAllLibraryPaths = async () => {
     return output;
   }, Promise.resolve([]));
 
-  const libraries = iconLibraries.reduce((output: any[], library: IconLibraries) => {
+  const libraries = iconLibraries.reduce((output: any[], library: IconLibrary) => {
     if (!library.unreleased) {
       output.push(library.id);
     }

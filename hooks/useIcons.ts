@@ -11,7 +11,7 @@ import allContributors from '../public/contributors/contributors.json';
 interface FilterProps {
   author?: string;
   category?: string;
-  term: string;
+  term?: string;
   version?: string;
 }
 
@@ -44,7 +44,7 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
           return output.filter((icon: IconLibraryIcon) => icon.v === filter.version);
         case 'term':
           const haystack = output.map((icon: IconLibraryIcon) => icon.st.join('¦'));
-          const needle = filter.term
+          const needle = filter.term || ''
             .replace(/([A-Z][a-z])/g,' $1') // Add a space in front of letters is Pascal-case is used
             .replace(/(\d+)/g,' $1') // Add a space in front of numbers if Pascal-case is used
             .replace(new RegExp(`(^${libraryId})`, 'gi'), '') // Remove a prefix of the library ID
