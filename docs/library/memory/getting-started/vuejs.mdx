@@ -1,11 +1,11 @@
 ---
 title: Getting Started with Vue.js
-description: Material Design Icon Light can be used with the Vue Icon Component.
+description: Memory Icons can be used with the Vue Icon Component.
 icon: si:vuedotjs
 ---
 
 <Note>
-  Consider using the [webcomponent version](/docs/library/mdil/getting-started/webcomponent/) for icons that can be used in any modern browser with any framework.
+  Consider using the [webcomponent version](/docs/library/memory/getting-started/webcomponent/) for icons that can be used in any modern browser with any framework.
 </Note>
 
 ## Vue Icon Component
@@ -13,21 +13,21 @@ icon: si:vuedotjs
 [![](https://chips.james-coyle.now.sh/npm/version/@jamescoyle/vue-icon)](https://www.npmjs.com/package/@jamescoyle/vue-icon)
 [![](https://chips.james-coyle.now.sh/npm/downloads/@jamescoyle/vue-icon)](https://www.npmjs.com/package/@jamescoyle/vue-icon)
 
-MDI can be used in conjunction with the [Vue Icon Component](https://www.npmjs.com/package/@jamescoyle/vue-icon). See the [README in the repo](https://www.npmjs.com/package/@jamescoyle/vue-icon) for more usage information. 
+Memory Icons can be used in conjunction with the [Vue Icon Component](https://www.npmjs.com/package/@jamescoyle/vue-icon). See the [README in the repo](https://www.npmjs.com/package/@jamescoyle/vue-icon) for more usage information. 
 
 ### Basic Usage
 
 1. Install from NPM.
 
    ```bash
-   npm install @mdi/light-js @jamescoyle/vue-icon
+   npm install @pictogrammers/memory @jamescoyle/vue-icon
    ```
 
 2. Import into your project.
 
    ```js
    import SvgIcon from '@jamescoyle/vue-icon';
-   import { mdilAccount } from '@mdi/light-js';
+   import { memoryAccount } from '@pictogrammers/memory';
    ```
 
 ### SFC Example
@@ -35,13 +35,13 @@ The following example shows how you might use an icon within a single file compo
 
 ```html
 <template>
-  <svg-icon type="mdil" :path="path"></svg-icon>
+  <svg-icon type="memory" :path="path"></svg-icon>
 </template>
 
 
 <script>
 import SvgIcon from '@jamescoyle/vue-icon';
-import { mdilAccount } from '@mdi/light-js';
+import { memoryAccount } from '@pictogrammers/memory';
 
 export default {
 	name: "my-cool-component",
@@ -52,7 +52,7 @@ export default {
 
 	data() {
 		return {
-	  		path: mdilAccount,
+	  		path: memoryAccount,
 		}
 	}
 }

@@ -100,15 +100,17 @@ module.exports = {
         version: getLibraryVersion('@mdi/light-svg')
       },
       {
+        description: 'The Memory icon set contains 22x22 pixelated icons. Ideal for the Sharp Memory 2.7" Display.',
+        exampleTypes: [ 'react', 'vue' ],
         git: 'https://github.com/Pictogrammers/Memory',
         gridSize: 22,
         id: 'memory',
         image: 'assets/libraries/memory.svg',
         name: 'Memory Icons',
-        package: '@pictogrammers/memory',
+        package: '@pictogrammers/memory-svg',
         packageId: '2764ae46-20c1-11ed-8ca4-1209440c2141',
         shortName: 'Memory',
-        unreleased: true
+        version: getLibraryVersion('@pictogrammers/memory-svg')
       }
     ]
   }

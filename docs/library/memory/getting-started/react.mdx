@@ -1,13 +1,13 @@
 ---
 title: Getting Started with React
-description: Material Design Icons Light can be used in React with our first-party module.
+description: Memory Icons can be used in React with our first-party module.
 icon: si:react
 ---
 
-Material Design Icons Light can be used in React with our first-party `@mdi/react` module.
+Memory Icons can be used in React with our first-party `@mdi/react` module.
 
 ```bash
-npm install @mdi/react @mdi/light-js
+npm install @mdi/react @pictogrammers/memory
 ```
 
 <Button href='https://templarian.github.io/@mdi/react/' startIcon='mdi:human-male-board'>Demo</Button>
@@ -18,12 +18,12 @@ npm install @mdi/react @mdi/light-js
 ```jsx
 import React, { Component } from 'react';
 import Icon from '@mdi/react';
-import { mdilAccount } from '@mdi/light-js';
+import { memoryAccount } from '@pictogrammers/memory';
 
 class App extends Component {
   render() {
     return (
-      <Icon path={mdilAccount}
+      <Icon path={memoryAccount}
         title="User Profile"
         size={1}
         horizontal
@@ -43,7 +43,7 @@ class App extends Component {
 
 | Prop        | PropTypes      | Default        | Details |
 |-------------|----------------|----------------|---------|
-| path        | string         | required       | SVG path data from @mdi/light-js |
+| path        | string         | required       | SVG path data from @pictogrammers/memory |
 | title       | string, null   | `null`         | A11y `<title>{title}</title>` |
 | description | string, null   | `null`         | A11y `<desc>{desc}</desc>` |
 | size        | number, string | null           | `{size * 1.5}rem`, `'1em'`, `'24px'` |
@@ -98,7 +98,7 @@ Making icons accessible can be done through the `title` prop. If for some rare r
 By leaving off the `title` prop an icon is assumed to be presentation only. These will be ignored by screen readers. This is ideal for icon buttons or areas where text next to the icon suffices.
 
 ```jsx
-<p><Icon path={mdilAccount} /> User Profile</p>
-<p><Icon path={mdilAccount} title="User Profile" /></p>
-<button aria-label="User Profile"><Icon path={mdilAccount} /></button>
+<p><Icon path={memoryAccount} /> User Profile</p>
+<p><Icon path={memoryAccount} title="User Profile" /></p>
+<button aria-label="User Profile"><Icon path={memoryAccount} /></button>
 ```
