@@ -48,6 +48,8 @@ const IconsLandingPage: NextPage = () => {
   const { publicRuntimeConfig: config } = getConfig();
   const { libraries: { fonts, icons } } = config;
 
+  console.log({ fonts, icons });
+
   return (
     <div className={classes.root}>
       <Head
