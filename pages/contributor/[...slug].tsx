@@ -90,7 +90,19 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
           description={description || ''}
           graphicElement={
             <div className={classes.userInfo}>
-              <Avatar src={`/contributors/${id}.jpg`} sx={{ border: '3px solid hsl(var(--primary-color))', height: 128, width: 128 }}/>
+              <Avatar
+                src={`/contributors/${id}.jpg`}
+                sx={{
+                  backgroundColor: 'hsl(var(--primary-color))',
+                  border: '3px solid hsl(var(--primary-color))',
+                  fontSize: '5vh', 
+                  fontWeight: 700,
+                  height: 128,
+                  width: 128
+                }}
+              >
+                {name.split(' ').map((n)=>n[0]).join('').toUpperCase()}
+              </Avatar>
               <div className={classes.links}>
                 {sponsored && github && (
                   <Tooltip arrow title={`Sponsor ${name} on GitHub`}>

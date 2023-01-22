@@ -135,8 +135,8 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                 </Link>
               </Tooltip>
               {contributor && (
-                <Tooltip arrow placement='top' title={`View icons created by ${contributor.name}`}>
-                  <Link href={`/library/${libraryInfo.id}/author/${contributor.github}`} onClick={() => onClose?.()}>
+                <Tooltip arrow placement='top' title={`View ${contributor.name}`}>
+                  <Link href={`/contributor/${contributor.github}`} onClick={() => onClose?.()}>
                     <Chip
                       icon={<Avatar src={`/contributors/${contributor.id}.jpg`} sx={{ height: 24, width: 24 }}/>}
                       label={isTabletWidth ? contributor.name : `Created by ${contributor.name}`}

@@ -40,7 +40,7 @@ const getContributors = async () => {
         }
 
         // Blank out placeholder descriptions
-        rest.description = description === 'Placeholder' ? '' : description;
+        rest.description = description.toLowerCase().includes('placeholder') ? '' : description;
 
         return rest;
       })

@@ -34,20 +34,22 @@ const DocCategoryList: FunctionComponent<DocCategoryListProps> = ({ category, do
           description={category.description}
           icon={category.icon}
         />
-        {docs
-          .sort((a, b) => a.sticky === b.sticky ? a.title.localeCompare(b.title) : a.sticky ? -1 : 1)
-          .map((doc, d) => (
-            <LandingPageCard
-              color={`--${category.id}-color`}
-              description={doc.description}
-              fullWidth
-              href={`/docs/${doc.slug}`}
-              icon={doc.iconPath || category.icon}
-              key={d}
-              title={doc.title}
-            />
-          ))
-        }
+        <div className={classes.fullCards}>
+          {docs
+            .sort((a, b) => a.sticky === b.sticky ? a.title.localeCompare(b.title) : a.sticky ? -1 : 1)
+            .map((doc, d) => (
+              <LandingPageCard
+                color={`--${category.id}-color`}
+                description={doc.description}
+                fullWidth
+                href={`/docs/${doc.slug}`}
+                icon={doc.iconPath || category.icon}
+                key={d}
+                title={doc.title}
+              />
+            ))
+          }
+        </div>
       </Paper>
     </div>
   );

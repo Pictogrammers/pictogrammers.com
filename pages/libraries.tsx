@@ -39,7 +39,7 @@ const LibraryCard = (props: { library: LibraryProps, type: string }) => {
       disabled={!!library.unreleased}
       href={library.unreleased ? undefined : `/library/${library.id}`}
       icon={!library.image ? type === 'font' ? mdiFormatFont : mdiRobotExcited : undefined}
-      image={library.image}
+      graphicElement={library.image ? <Image alt={`${library.name} Image`} height={64} src={`/${library.image}`} width={64} /> : undefined}
       title={library.name}
     />
   );
