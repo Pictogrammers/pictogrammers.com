@@ -100,6 +100,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                   height: 128,
                   width: 128
                 }}
+                title={name}
               >
                 {name.split(' ').map((n)=>n[0]).join('').toUpperCase()}
               </Avatar>
