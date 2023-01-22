@@ -150,7 +150,7 @@ const SiteSearch: FunctionComponent = () => {
                 borderRadius: '24px'
               }
             }}
-            placeholder='Search Icons & Docs'
+            placeholder='Search Pictogrammers.com'
             inputRef={searchBoxRef}
             size='small'
             variant='outlined'
