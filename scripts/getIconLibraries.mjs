@@ -99,9 +99,9 @@ const getIconLibraries = async (contributors = []) => {
   const allLibraries = await Object.keys(processedLibraries).reduce(async (prevPromise, libraryId) => {
     const output = await prevPromise;
     await fs.writeFile(`./public/libraries/${libraryId}-${processedLibraries[libraryId].v}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
-    
+
     output[libraryId] = {
-      count: Number(processedLibraries[libraryId].v.split('.').join('')),
+      count: processedLibraries[libraryId].i.length,
       date: processedLibraries[libraryId].d.split('.')[0],
       version: processedLibraries[libraryId].v
     };
