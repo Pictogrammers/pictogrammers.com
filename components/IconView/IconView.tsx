@@ -14,7 +14,6 @@ import {
   mdiClose,
   mdiDotsHorizontal,
   mdiDotsHorizontalCircleOutline,
-  mdiDownload,
   mdiTag,
   mdiTagOutline,
   mdiXml
@@ -27,6 +26,7 @@ import Head from '../Head/Head';
 import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
 import IconPreview from '../IconPreview/IconPreview';
 import IconUsageExamples from '../IconUsageExamples/IconUsageExamples';
+import IconDownloadMenu from './IconDownloadMenu';
 import CarbonAd from '../CarbonAd/CarbonAd';
 
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
@@ -52,7 +52,6 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
   const contributor = contributors.find((c: ContributorProps) => c.id === icon.a);
   const glyph = String.fromCodePoint(parseInt(icon.cp, 16));
   const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${gridSize} ${gridSize}"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
-  const svgDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgCode)}`;
 
   const renderTitle = () => {
     return (
@@ -169,17 +168,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                   <Icon path={mdiXml} size={1} />
                 </IconButton>
               </Tooltip>
-              <div className={classes.separator} />
-              <Tooltip arrow placement='top' title='Download SVG'>
-                <IconButton
-                  aria-label='Download SVG'
-                  color='inherit'
-                  download={`${icon.n}\.svg`}
-                  href={svgDownload}
-                >
-                  <Icon path={mdiDownload} size={1} />
-                </IconButton>
-              </Tooltip>
+              <IconDownloadMenu icon={icon} library={libraryInfo} />
             </div>
           </div>
           <div className={classes.usage}>
