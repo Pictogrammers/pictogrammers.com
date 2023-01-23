@@ -5,7 +5,8 @@ on:
       - main
   workflow_dispatch:
 jobs:
-  deploy:
+  build:
+    name: Build Website
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -32,13 +33,36 @@ jobs:
       - name: Build Site
         run: npm run build
 
-      - name: Deploy to Server
+      - name: Create Deployment Tarball
+        uses: a7ul/tar-action@v1.1.0
+        with:
+          command: c
+          files: ./out
+          outPath: pictogrammers-${{ github.run_id }}.tar.gz
+
+  deploy:
+    needs: build
+    name: Deploy Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Tarball to Server
         uses: trendyminds/github-actions-rsync@master
         with:
           RSYNC_OPTIONS: -avzr --delete
-          RSYNC_TARGET: /opt/${{ secrets.SSH_USER }}/pictogrammers
-          RSYNC_SOURCE: /out/
+          RSYNC_TARGET: /opt/${{ secrets.SSH_USER }}
+          RSYNC_SOURCE: pictogrammers-${{ github.run_id }}.tar.gz
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_USERNAME: ${{ secrets.SSH_USER }}
           SSH_HOSTNAME: ${{ secrets.SSH_HOST }}
+
+      - name: Expand Tarball
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            tar -zvxf --recursive-unlink /opt/${{ secrets.SSH_USER }}/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictotest
+            rm /opt/${{ secrets.SSH_USER }}/pictogrammers-${{ github.run_id }}.tar.gz
