@@ -84,20 +84,13 @@
 
   .actions {
     color: hsl(var(--black));
+    column-gap: .5rem;
     display: flex;
 
     & > div,
     & > button {
       align-self: center;
       margin: 0 .25rem;
-    }
-
-    .separator {
-      align-self: auto;
-      background-color: hsl(var(--medium-grey));
-      margin: 0 1rem;
-      min-height: 100%;
-      width: 1px;
     }
   }
 }
@@ -137,7 +130,7 @@
     padding: 1rem;
 
     .actions {
-      padding-top: .5rem;
+      padding-top: 1rem;
 
       & > div,
       & > button {
