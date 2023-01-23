@@ -40,7 +40,8 @@ jobs:
         uses: a7ul/tar-action@v1.1.0
         with:
           command: c
-          files: ./out
+          cwd: ./out
+          files: *
           outPath: pictogrammers-${{ github.run_id }}.tar.gz
 
       - name: Upload Tarball Artifact
@@ -78,4 +79,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            tar -zvxf --recursive-unlink /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictotest
+            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictotest --recursive-unlink
