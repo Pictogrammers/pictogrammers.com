@@ -64,7 +64,7 @@ jobs:
         with:
           RSYNC_OPTIONS: -avzr --delete
           RSYNC_TARGET: /opt/${{ secrets.SSH_USER }}
-          RSYNC_SOURCE: pictogrammers-${{ github.run_id }}.tar.gz
+          RSYNC_SOURCE: /pictogrammers-${{ github.run_id }}.tar.gz
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_USERNAME: ${{ secrets.SSH_USER }}
