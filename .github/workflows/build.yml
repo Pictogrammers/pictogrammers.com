@@ -41,7 +41,7 @@ jobs:
         with:
           command: c
           cwd: ./out
-          files: *
+          files: .
           outPath: pictogrammers-${{ github.run_id }}.tar.gz
 
       - name: Upload Tarball Artifact
