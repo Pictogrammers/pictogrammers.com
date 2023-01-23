@@ -4,6 +4,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+concurrency: 
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   build:
     name: Build Website
@@ -40,11 +43,22 @@ jobs:
           files: ./out
           outPath: pictogrammers-${{ github.run_id }}.tar.gz
 
+      - name: Upload Tarball Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pictogrammers-${{ github.run_id }}
+          path: pictogrammers-${{ github.run_id }}.tar.gz
+
   deploy:
     needs: build
     name: Deploy Website
     runs-on: ubuntu-latest
     steps:
+      - name: Download Tarball Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: pictogrammers-${{ github.run_id }}
+
       - name: Deploy Tarball to Server
         uses: trendyminds/github-actions-rsync@master
         with:
