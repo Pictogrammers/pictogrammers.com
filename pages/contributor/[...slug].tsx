@@ -170,7 +170,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
           superTitle={(
             <span className={classes.chips}>
               {core && <Chip color='primary' label='Core Member' icon={<PictogrammerMonogram style={{ height: '1.6rem', marginLeft: '.5rem', width: '1.6rem' }} />} />}
-              {iconCount > 0 && <Chip label={`${iconCount} Icons`} icon={<Icon path={mdiPaletteSwatch} size={.8} style={{ marginLeft: '.75rem' }} />} />}
+              {iconCount > 0 && <Chip label={`${iconCount} Icon${iconCount === 0 || iconCount > 1 ? 's' : ''}`} icon={<Icon path={mdiPaletteSwatch} size={.8} style={{ marginLeft: '.75rem' }} />} />}
               {!!contributedRepos.length && <Chip label='Code Contributor' icon={<Icon path={mdiSourceBranch} size={.8} style={{ marginLeft: '.75rem' }} />} />}
             </span>
           )}
@@ -180,7 +180,6 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
             <h2>Contributed Repositories</h2>
             <div className={classes.repos}>
               {contributedRepos.map((repo) => {
-                console.log('=>', repo);
                 return (
                   <LandingPageCard
                     color={contributorColor}

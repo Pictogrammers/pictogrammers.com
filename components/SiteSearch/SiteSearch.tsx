@@ -200,10 +200,10 @@ const SiteSearch: FunctionComponent = () => {
                           classes={{ root: classes.avatar }}
                           src={`/contributors/${result.id}.jpg`}
                           sx={{
-                            background: `hsl(var(${result.core ? '--primary-color' : '--secondary-color'}))`,
-                            border: `2px solid hsl(var(${result.core ? '--primary-color' : '--secondary-color'}))`,
+                            background: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
+                            border: `2px solid hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
                             height: 32,
-                            width: 32,
+                            width: 32
                           }}
                         />
                       )}

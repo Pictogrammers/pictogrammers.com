@@ -14,6 +14,9 @@ dayjs.extend(timezone);
 
 import { IconChangeRecord } from '../../interfaces/history';
 import { IconLibrary } from '../../interfaces/icons';
+import { ContributorProps } from '../../interfaces/contributor';
+
+import { useData } from '../../providers/DataProvider';
 
 import Code from '../CodeHighlighter/CodeHighlighter';
 import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
@@ -55,12 +58,19 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
   type,
   user
 }) => {
+  const { contributors } = useData();
   const authorId = user.id.split('-')[0];
+  const userIsCore = contributors.find((c: ContributorProps) => c.id === authorId)?.core || false;
+  
   const userAvatar = (
     <Link href={`/contributor/${user.github}`}>
       <Avatar
         classes={{ root: classes.avatar }}
         src={`/contributors/${authorId}.jpg`}
+        sx={{
+          background: `hsl(var(${userIsCore ? '--primary-color' : '--dark-cyan'}))`,
+          border: `2px solid hsl(var(${userIsCore ? '--primary-color' : '--dark-cyan'}))`,
+        }}
       >
         {user.name.split(' ').map((n: string)=>n[0]).join('').toUpperCase()}
       </Avatar>

@@ -171,8 +171,9 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                 alt={authorInfo.name}
                 src={`/contributors/${authorInfo.id}.jpg`}
                 sx={{
-                  backgroundColor: `hsl(var(${authorInfo.core ? '--primary-color' : '--secondary-color'}))`,
-                  border: `1px solid hsl(var(${authorInfo.core ? '--primary-color' : '--secondary-color'}))`,
+                  backgroundColor: `hsl(var(${authorInfo.core ? '--primary-color' : '--dark-cyan'}))`,
+                  border: `1px solid hsl(var(${authorInfo.core ? '--primary-color' : '--dark-cyan'}))`,
+                  color: 'hsl(var(--white)) !important'
                 }}
               >
                 {author.charAt(0).toUpperCase()}
@@ -188,7 +189,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
       return (
         <Chip
           avatar={
-            <Avatar sx={{ background: 'hsl(var(--primary-color))', fontWeight: 700 }}>{author.charAt(0).toUpperCase()}</Avatar>
+            <Avatar sx={{ background: 'hsl(var(--primary-color))', color: 'hsl(var(--white)) !important', fontWeight: 700 }}>{author.charAt(0).toUpperCase()}</Avatar>
           }
           label={`Created by ${author}`}
           onDelete={handleChipDelete}

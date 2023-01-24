@@ -142,8 +142,10 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                         <Avatar
                           src={`/contributors/${contributor.id}.jpg`}
                           sx={{
-                            backgroundColor: `hsl(var(${contributor.core ? '--primary-color' : '--secondary-color'}))`,
-                            border: `2px solid hsl(var(${contributor.core ? '--primary-color' : '--secondary-color'}))`,
+                            backgroundColor: `hsl(var(${contributor.core ? '--primary-color' : '--dark-cyan'}))`,
+                            border: `2px solid hsl(var(${contributor.core ? '--primary-color' : '--dark-cyan'}))`,
+                            color: 'hsl(var(--white)) !important',
+                            fontSize: '.8rem',
                             height: 24,
                             width: 24
                           }}

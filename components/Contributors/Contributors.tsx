@@ -21,7 +21,7 @@ const Contributor: FunctionComponent<ContributorProps> = ({
   const description = (
     <Fragment>
       {!!contributedRepos.length && <span style={{ display: 'block' }}>Code Contributor</span>}
-      {iconCount > 0 && <span>{new Intl.NumberFormat('en-US').format(iconCount)} Icon{iconCount === 0 || iconCount > 1 ? 's' : ''}</span>}
+      {iconCount > 0 && <span>{iconCount} Icon{iconCount === 0 || iconCount > 1 ? 's' : ''}</span>}
     </Fragment>
   );
 

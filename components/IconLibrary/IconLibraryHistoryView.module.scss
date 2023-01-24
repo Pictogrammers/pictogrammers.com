@@ -36,12 +36,14 @@
   padding: 1rem;
 
   .avatar {
-    background-color: hsl(var(--primary-color));
-    border: 2px solid hsl(var(--primary-color));
     color: hsl(var(--white));
     height: 48px;
     margin: 0 .5rem;
     width: 48px;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 
@@ -176,7 +178,7 @@
       padding-top: .5rem;
 
       .avatar {
-        border: 1px solid hsl(var(--primary-color));
+        border-width: 1px;
         display: inline-block;
         height: 18px;
         width: 18px;
