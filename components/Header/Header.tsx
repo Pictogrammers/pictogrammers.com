@@ -1,6 +1,5 @@
 import { FunctionComponent, useState } from 'react';
 import cx from 'clsx';
-import Link from 'next/link';
 import Button, { ButtonProps } from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
@@ -10,6 +9,7 @@ import MdiHamburger from '../../assets/hamburger.svg';
 import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
 import PictogrammersWordmark from '../../assets/brand/logos/pictogrammers-wordmark.svg';
 
+import Link from '../Link/Link';
 import SiteSearch from '../SiteSearch/SiteSearch';
 
 import classes from './Header.module.scss';
@@ -22,17 +22,17 @@ const Header: FunctionComponent = () => {
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
   const NavButton = ({ href, ...props }: NavButtonProps) => (
-    <Link href={href} onClick={() => setMenuOpen(false)} passHref>
-      <Button
-        sx={{
-          borderRadius: '50px',
-          fontSize: '16px',
-          padding: '.5rem 1rem',
-          textTransform: 'none'
-        }}
-        {...props}
-      />
-    </Link>
+    <Button
+      href={href}
+      onClick={() => setMenuOpen(false)}
+      sx={{
+        borderRadius: '50px',
+        fontSize: '16px',
+        padding: '.5rem 1rem',
+        textTransform: 'none'
+      }}
+      {...props}
+    />
   );
 
   return (

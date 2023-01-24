@@ -1,11 +1,11 @@
 import { CSSProperties, FunctionComponent, ReactNode } from 'react';
 import cx from 'clsx';
-import Link from 'next/link';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import Chip, { ChipTypeMap } from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
 import Icon from '@mdi/react';
 
+import Link from '../Link/Link';
 import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
 
 import classes from './LandingPageCard.module.scss';

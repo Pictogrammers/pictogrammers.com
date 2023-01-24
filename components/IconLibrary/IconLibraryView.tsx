@@ -8,7 +8,6 @@ import {
   useState
 } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import cx from 'clsx';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -39,6 +38,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { useData } from '../../providers/DataProvider';
 
 import Head from '../Head/Head';
+import Link from '../Link/Link';
 import LibraryMenu from './LibraryMenu';
 import LibraryViewMode from './LibraryViewMode';
 import IconGrid from '../IconGrid/IconGrid';

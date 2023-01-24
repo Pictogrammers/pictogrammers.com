@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import Link from 'next/link';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { ButtonProps } from '@mui/material/Button';
 
@@ -9,6 +8,7 @@ import { IconLibraries, IconLibrary, MdxIconProps } from '../../interfaces/icons
 
 import Head from '../../components/Head/Head';
 import Layout from '../../components/Docs/Layout/Layout';
+import Link from '../Link/Link';
 import Contributors from '../Contributors/Contributors';
 import Heading from '../../components/Docs/Heading';
 import CodeHighlighter from '../../components/CodeHighlighter/CodeHighlighter';

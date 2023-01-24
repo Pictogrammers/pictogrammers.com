@@ -1,8 +1,9 @@
 import { FunctionComponent } from 'react';
-import Link from 'next/link';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
 import { siGithub, siMastodon } from 'simple-icons/icons';
+
+import Link from 'next/link';
 
 import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
 

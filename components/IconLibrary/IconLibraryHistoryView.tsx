@@ -1,5 +1,4 @@
 import { Fragment, FunctionComponent, useEffect, useReducer, useState } from 'react';
-import Link from 'next/link';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
@@ -20,6 +19,7 @@ import { IconChangeRecord } from '../../interfaces/history';
 
 import Head from '../Head/Head';
 import Layout from '../Docs/Layout/Layout';
+import Link from '../Link/Link';
 import IconHistoryCard from './IconHistoryCard';
 
 import iconLibraries from '../../public/libraries/libraries.json';

@@ -1,6 +1,5 @@
 import { Fragment, useState } from 'react';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
@@ -9,6 +8,7 @@ import { mdiClipboard } from '@mdi/js';
 
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
 
+import Link from '../../components/Link/Link';
 import Head from '../../components/Head/Head';
 import Layout from '../../components/Docs/Layout/Layout';
 

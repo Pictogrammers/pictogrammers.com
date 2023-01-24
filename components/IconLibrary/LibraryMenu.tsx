@@ -1,6 +1,5 @@
 import { FunctionComponent, useState } from 'react';
 import getConfig from 'next/config';
-import Link from 'next/link';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -10,6 +9,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Icon from '@mdi/react';
 import { mdiChevronDown } from '@mdi/js';
+
+import Link from '../Link/Link';
 
 import classes from './LibraryMenu.module.scss';
 
@@ -55,13 +56,14 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
               component={Link}
               href={`/library/${lib.id}`}
               key={lib.id}
-              onClick={() => setLibraryMenuAnchor(null)}
               selected={selectedLibrary.id === lib.id}
             >
-              <ListItemIcon>
-                <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
-              </ListItemIcon>
-              <ListItemText>{lib.name}</ListItemText>
+              <span onClick={() => setLibraryMenuAnchor(null)}>
+                <ListItemIcon>
+                  <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
+                </ListItemIcon>
+                <ListItemText>{lib.name}</ListItemText>
+              </span>
             </MenuItem>
           );
         }

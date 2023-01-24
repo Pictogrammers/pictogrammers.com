@@ -1,5 +1,4 @@
 import { Fragment, FunctionComponent } from 'react';
-import Link from 'next/link';
 import cx from 'clsx';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
@@ -18,6 +17,7 @@ import { ContributorProps } from '../../interfaces/contributor';
 
 import { useData } from '../../providers/DataProvider';
 
+import Link from '../Link/Link';
 import Code from '../CodeHighlighter/CodeHighlighter';
 import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
 

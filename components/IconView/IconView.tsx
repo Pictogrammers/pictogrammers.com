@@ -1,6 +1,5 @@
 import { Fragment, FunctionComponent } from 'react';
 import cx from 'clsx';
-import Link from 'next/link';
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Chip from '@mui/material/Chip';
@@ -23,6 +22,7 @@ import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 import { ContributorProps } from '../../interfaces/contributor';
 
 import Head from '../Head/Head';
+import Link from '../Link/Link';
 import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
 import IconPreview from '../IconPreview/IconPreview';
 import IconUsageExamples from '../IconUsageExamples/IconUsageExamples';

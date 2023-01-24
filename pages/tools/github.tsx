@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { NextPage } from 'next';
-import Link from 'next/link';
 
+import Link from '../../components/Link/Link';
 import Head from '../../components/Head/Head';
 import Layout from '../../components/Docs/Layout/Layout';
 import CodeHighlighter from '../../components/CodeHighlighter/CodeHighlighter';

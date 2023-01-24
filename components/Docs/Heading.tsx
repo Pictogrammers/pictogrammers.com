@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
 import { renderToString } from 'react-dom/server';
 import { stripHtml } from 'string-strip-html';
-import Link from 'next/link';
 import slugify from 'slugify';
 import { Icon as MDIIcon } from '@mdi/react';
 import { mdiLinkVariant } from '@mdi/js';
+
+import Link from '../Link/Link';
 
 import classes from './components.module.scss';
 

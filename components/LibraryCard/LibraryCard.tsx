@@ -1,10 +1,11 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { FunctionComponent } from 'react';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Icon from '@mdi/react';
 import { mdiArrowRight } from '@mdi/js';
+
+import Link from '../Link/Link';
 
 import classes from './LibraryCard.module.scss';
 
@@ -44,7 +45,7 @@ const LibraryCard: FunctionComponent<LibraryCardProps> = ({
         {description && <p>{description}</p>}
       </div>
       {link &&
-        <Link href={link} passHref>
+        <Link href={link}>
           <LibraryButton
             endIcon={<Icon path={mdiArrowRight} size={1} />}
             fullWidth
