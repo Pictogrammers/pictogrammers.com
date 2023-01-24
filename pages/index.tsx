@@ -63,7 +63,7 @@ const Home: NextPage = () => {
           <div>
             {coreContributors?.length && (
               <AvatarGroup classes={{ root: classes.contributors }} max={12}>
-                {getRandomArrayValues(coreContributors, 11).map((contributor) => (
+                {getRandomArrayValues(coreContributors, 9).map((contributor) => (
                   <Link href={`/contributor/${contributor.github}`} key={contributor.id}>
                     <Avatar
                       alt={contributor.name}
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
                     />
                   </Link>
                 ))}
-                <Avatar classes={{ root: classes.contributor }}>+{totalContributors - 11}</Avatar>
+                <Avatar classes={{ root: classes.contributor }}>+{totalContributors - 9}</Avatar>
               </AvatarGroup>
             )}
             <p>

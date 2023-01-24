@@ -11,8 +11,15 @@
   flex-direction: column;
   margin: 0 auto;
   max-width: $width-max;
+  min-height: 75vh;
   overflow: hidden;
   position: relative;
+
+  &.core {
+    h2 {
+      background-color: hsl(var(--primary-color));
+    }
+  }
 
   .chips {
     div {
@@ -26,7 +33,7 @@
   }
 
   h2 {
-    background-color: hsl(var(--primary-color));
+    background-color: hsl(var(--dark-cyan));
     color: hsl(var(--white));
     font-size: .8rem;
     letter-spacing: .2rem;
@@ -78,6 +85,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+
+  .tab.selectedTab {
+    color: hsl(var(--dark-cyan));
+  }
 }
 
 .viewMode {
@@ -89,6 +100,13 @@
   span {
     margin-right: .5rem;
   }
+}
+
+.repos {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1rem;
 }
 
 @media only screen and (max-width: $mobile-width) {
@@ -105,6 +123,10 @@
 
       .chips {
         margin-bottom: 1rem;
+
+        & > div {
+          margin: .2rem;
+        }
       }
     }
   }
@@ -113,5 +135,9 @@
     & > span {
       display: none;
     }
+  }
+
+  .repos {
+    grid-template-columns: 1fr;
   }
 }

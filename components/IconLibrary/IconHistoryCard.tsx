@@ -56,7 +56,16 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
   user
 }) => {
   const authorId = user.id.split('-')[0];
-  const userAvatar = <Avatar alt={user.name.toUpperCase()} classes={{ root: classes.avatar }} src={`/contributors/${authorId}.jpg`} />;
+  const userAvatar = (
+    <Link href={`/contributor/${user.github}`}>
+      <Avatar
+        classes={{ root: classes.avatar }}
+        src={`/contributors/${authorId}.jpg`}
+      >
+        {user.name.split(' ').map((n: string)=>n[0]).join('').toUpperCase()}
+      </Avatar>
+    </Link>
+  );
 
   return (
     <div className={cx(classes.typeCard, classes[type])}>

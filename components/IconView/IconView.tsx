@@ -138,7 +138,19 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                 <Tooltip arrow placement='top' title={`View ${contributor.name}`}>
                   <Link href={`/contributor/${contributor.github}`} onClick={() => onClose?.()}>
                     <Chip
-                      icon={<Avatar src={`/contributors/${contributor.id}.jpg`} sx={{ height: 24, width: 24 }}/>}
+                      icon={
+                        <Avatar
+                          src={`/contributors/${contributor.id}.jpg`}
+                          sx={{
+                            backgroundColor: `hsl(var(${contributor.core ? '--primary-color' : '--secondary-color'}))`,
+                            border: `2px solid hsl(var(${contributor.core ? '--primary-color' : '--secondary-color'}))`,
+                            height: 24,
+                            width: 24
+                          }}
+                        >
+                          {contributor.name.split(' ').map((n: string)=>n[0]).join('').toUpperCase()}
+                        </Avatar>
+                      }
                       label={isTabletWidth ? contributor.name : `Created by ${contributor.name}`}
                       sx={{ cursor: 'pointer' }}
                     />

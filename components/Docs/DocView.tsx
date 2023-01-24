@@ -9,7 +9,7 @@ import { IconLibraries, IconLibrary, MdxIconProps } from '../../interfaces/icons
 
 import Head from '../../components/Head/Head';
 import Layout from '../../components/Docs/Layout/Layout';
-import Contributors from '../../components/Docs/Contributors/Contributors';
+import Contributors from '../Contributors/Contributors';
 import Heading from '../../components/Docs/Heading';
 import CodeHighlighter from '../../components/CodeHighlighter/CodeHighlighter';
 import Icon from '../../components/Docs/Icon';

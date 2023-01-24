@@ -19,6 +19,14 @@
 
 The site will hot-reload as you make changes.
 
+## ENV variables
+
+To test and debug contributor fetching, you will need to be a member of the Pictogrammers organization.
+
+1. Create a GitHub personal access token.
+2. Create a `.env` file.
+3. Add `API_KEY_GITHUB` to the `.env.local` file.
+
 ## Building
 
 1. Run `npm build` to build the site.
