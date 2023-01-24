@@ -164,10 +164,37 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     if (author) {
       const authorInfo = contributors.find((contributor: ContributorProps) => contributor.github === author);
       if (authorInfo) {
-        return <Chip avatar={<Avatar alt={authorInfo.name} src={`/contributors/${authorInfo.id}.jpg`} />} label={`Created by ${authorInfo.name}`} onDelete={handleChipDelete} size={size} />;
+        return (
+          <Chip
+            avatar={
+              <Avatar
+                alt={authorInfo.name}
+                src={`/contributors/${authorInfo.id}.jpg`}
+                sx={{
+                  backgroundColor: `hsl(var(${authorInfo.core ? '--primary-color' : '--secondary-color'}))`,
+                  border: `1px solid hsl(var(${authorInfo.core ? '--primary-color' : '--secondary-color'}))`,
+                }}
+              >
+                {author.charAt(0).toUpperCase()}
+              </Avatar>
+            }
+            label={`Created by ${authorInfo.name}`}
+            onDelete={handleChipDelete}
+            size={size}
+          />
+        );
       }
 
-      return <Chip avatar={<Avatar sx={{ background: 'hsl(var(--primary-color))', fontWeight: 700 }}>{author.charAt(0).toUpperCase()}</Avatar>} label={`Created by ${author}`} onDelete={handleChipDelete} size={size} />;
+      return (
+        <Chip
+          avatar={
+            <Avatar sx={{ background: 'hsl(var(--primary-color))', fontWeight: 700 }}>{author.charAt(0).toUpperCase()}</Avatar>
+          }
+          label={`Created by ${author}`}
+          onDelete={handleChipDelete}
+          size={size}
+        />
+      );
     }
   };
 

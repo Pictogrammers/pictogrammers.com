@@ -15,6 +15,7 @@ import {
 } from '@mdi/js';
 
 interface LibraryViewModeMenuProps {
+  color?: 'primary' | 'secondary';
   compact: boolean;
   currentView: string;
   setViewMode: Function;
@@ -38,7 +39,7 @@ export const viewModes = {
   }
 };
 
-const LibraryViewMode: FunctionComponent<LibraryViewModeMenuProps> = ({ compact, currentView, setViewMode }) => {
+const LibraryViewMode: FunctionComponent<LibraryViewModeMenuProps> = ({ color = 'primary', compact, currentView, setViewMode }) => {
   const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -74,6 +75,7 @@ const LibraryViewMode: FunctionComponent<LibraryViewModeMenuProps> = ({ compact,
           aria-haspopup='true'
           aria-expanded={!!menuAnchor ? 'true' : undefined}
           aria-label='View Mode'
+          color={color}
           disableRipple
           endIcon={<Icon path={mdiChevronDown} size={1} />}
           id='view-mode-menu-button'
@@ -98,7 +100,7 @@ const LibraryViewMode: FunctionComponent<LibraryViewModeMenuProps> = ({ compact,
   }
 
   return (
-    <ButtonGroup variant='outlined' aria-label='View Mode'>
+    <ButtonGroup color={color} variant='outlined' aria-label='View Mode'>
       {Object.keys(viewModes).map((mode) => (
         <Tooltip arrow key={mode} title={viewModes[mode as keyof typeof viewModes].name}>
           <Button

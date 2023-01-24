@@ -1,15 +1,16 @@
-import { FunctionComponent } from 'react';
+import { Fragment, FunctionComponent } from 'react';
 import Avatar from '@mui/material/Avatar';
 
-import { ContributorProps, ContributorsMdxProps } from '../../../interfaces/contributor';
+import { ContributorProps, ContributorsMdxProps } from '../../interfaces/contributor';
 
-import { useData } from '../../../providers/DataProvider';
+import { useData } from '../../providers/DataProvider';
 
-import LandingPageCard from '../../LandingPageCard/LandingPageCard';
+import LandingPageCard from '../LandingPageCard/LandingPageCard';
 
 import classes from './Contributors.module.scss';
 
 const Contributor: FunctionComponent<ContributorProps> = ({
+  contributedRepos,
   core,
   github,
   iconCount,
@@ -17,22 +18,31 @@ const Contributor: FunctionComponent<ContributorProps> = ({
   image,
   name
 }) => {
+  const description = (
+    <Fragment>
+      {!!contributedRepos.length && <span style={{ display: 'block' }}>Code Contributor</span>}
+      {iconCount > 0 && <span>{new Intl.NumberFormat('en-US').format(iconCount)} Icon{iconCount === 0 || iconCount > 1 ? 's' : ''}</span>}
+    </Fragment>
+  );
+
+  const contributorColor = core ? '--primary-color' : '--dark-cyan';
+
   return (
     <LandingPageCard
       chip={core ? {
-        color: 'secondary',
+        color: 'primary',
         label: 'Core'
       } : undefined}
-      color={'--secondary-color'}
-      description={`${new Intl.NumberFormat('en-US').format(iconCount)} Icon${iconCount === 0 || iconCount > 1 ? 's' : ''}`}
+      color={contributorColor}
+      description={description}
       fullWidth
       graphicElement={(
         <Avatar
           alt={name}
           src={image ? `/contributors/${id}.jpg` : undefined}
           sx={{
-            backgroundColor: 'hsl(var(--primary-color))',
-            border: '2px solid hsl(var(--primary-color))',
+            backgroundColor: `hsl(var(${contributorColor}))`,
+            border: `2px solid hsl(var(${contributorColor}))`,
             height: '50px',
             margin: '.5rem',
             width: '50px'

@@ -14,7 +14,7 @@ interface LandingPageCardProps {
   badge?: ReactNode | false;
   chip?: ChipTypeMap['props'];
   color?: string;
-  description: string;
+  description: ReactNode | string;
   disabled?: boolean;
   fullWidth?: boolean;
   graphicElement?: ReactNode;
