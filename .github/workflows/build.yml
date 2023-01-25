@@ -1,8 +1,8 @@
 name: Build/Deploy
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
   workflow_dispatch:
 concurrency: 
   group: ${{ github.head_ref || github.run_id }}
@@ -91,5 +91,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictotest --recursive-unlink
+            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictogrammers --recursive-unlink
             rm /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz
