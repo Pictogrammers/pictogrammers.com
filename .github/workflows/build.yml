@@ -44,7 +44,7 @@ jobs:
         with:
           path: ./out
           depth: 10
-          extensions: '.css,.html,.js,.map,.svg,.json'
+          extensions: '.css,.html,.js,.svg,.json'
           tools: brotli
 
       - name: Create Deployment Tarball
