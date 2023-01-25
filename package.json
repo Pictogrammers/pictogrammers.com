@@ -66,6 +66,7 @@
     "@types/react-helmet": "^6.1.6",
     "@types/react-syntax-highlighter": "^15.5.5",
     "@types/use-analytics": "^0.0.0",
+    "compression-webpack-plugin": "^10.0.0",
     "dotenv": "^16.0.3",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",

@@ -39,11 +39,6 @@ jobs:
         env:
           API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
 
-      - name: Compress Assets
-        uses: Charlesworth/compress-action@1.0.0
-        with:
-          target-directory: ./out
-
       - name: Create Deployment Tarball
         uses: a7ul/tar-action@v1.1.0
         with:
