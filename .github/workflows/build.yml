@@ -40,7 +40,7 @@ jobs:
           API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
 
       - name: Compress Assets
-        uses: charlesworth/compress-action@1.0
+        uses: Charlesworth/compress-action@1.0.0
         with:
           target-directory: ./out
 
