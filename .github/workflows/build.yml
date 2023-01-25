@@ -39,6 +39,14 @@ jobs:
         env:
           API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
 
+      - name: Compress Assets
+        uses: stefh/ghaction-CompressFiles@v1
+        with:
+          path: ./out
+          depth: 10
+          extensions: '.css,.html,.js,.map,.svg,.json'
+          tools: brotli
+
       - name: Create Deployment Tarball
         uses: a7ul/tar-action@v1.1.0
         with:

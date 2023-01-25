@@ -1,6 +1,4 @@
 const path = require('path');
-const zlib = require('zlib');
-const CompressionPlugin = require('compression-webpack-plugin');
 const withTM = require('next-transpile-modules')(['pixel-editor']);
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -51,22 +49,6 @@ const nextConfig = {
       }]
     });
     
-    // Pre-compress assets with Brotli in production
-    if (process.env.NODE_ENV === 'production') {
-      config.plugins.push(new CompressionPlugin({
-        algorithm: 'brotliCompress',
-        compressionOptions: {
-          params: {
-            [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
-          },
-        },
-        deleteOriginalAssets: false,
-        filename: '[path][base].br',
-        minRatio: 0.8,
-        test: /\.(js|css|html|svg)$/
-      }));
-    }
-
     return config;
   }
 };
