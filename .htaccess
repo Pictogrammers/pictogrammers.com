@@ -1,0 +1,32 @@
+RewriteEngine on
+RewriteBase /
+
+# Serve brotli version if they exist
+RewriteCond %{HTTP:Accept-encoding} br
+RewriteCond %{REQUEST_FILENAME}.br -f
+RewriteRule ^(.*)$ $1.br [QSA,L]
+
+<Files *.html.br>
+  AddType "text/html" .br
+  AddEncoding br .br
+</Files>
+
+<Files *.css.br>
+  AddType "text/css" .br
+  AddEncoding br .br
+</Files>
+
+<Files *.js.br>
+  AddType "text/javascript" .br
+  AddEncoding br .br
+</Files>
+
+<Files *.json.br>
+  AddType "application.json" .br
+  AddEncoding br .br
+</Files>
+
+<Files *.svg.br>
+  AddType "image/svg+xml" .br
+  AddEncoding br .br
+</Files>
