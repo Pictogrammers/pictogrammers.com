@@ -2,7 +2,9 @@ const path = require('path');
 const withTM = require('next-transpile-modules')(['pixel-editor']);
 const withPWA = require('next-pwa')({
   dest: 'public',
-  disable: process.env.NODE_ENV !== 'production'
+  disable: process.env.NODE_ENV !== 'production',
+  // Don't register an offline service worker to avoid lots of extra HTTP requests
+  register: false
 });
 const withBA = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
