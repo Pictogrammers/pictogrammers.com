@@ -71,6 +71,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, updateUrl 
         itemContent={(index, icon: IconLibraryIcon) => (
           <Link
             className={classes.libraryIcon}
+            disableRouter
             href={`/library/${library.id}/icon/${icon.n}`}
             onClick={(e: MouseEvent<HTMLAnchorElement>) => handleIconModalOpen(e, icon)}
           >

@@ -52,18 +52,16 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
         if (!lib.unreleased) {
           output.push(
             <MenuItem
-              classes={{ root: classes.menuItem }}
               component={Link}
               href={`/library/${lib.id}`}
               key={lib.id}
+              onClick={() => setLibraryMenuAnchor(null)}
               selected={selectedLibrary.id === lib.id}
             >
-              <span onClick={() => setLibraryMenuAnchor(null)}>
-                <ListItemIcon>
-                  <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
-                </ListItemIcon>
-                <ListItemText>{lib.name}</ListItemText>
-              </span>
+              <ListItemIcon>
+                <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
+              </ListItemIcon>
+              <ListItemText>{lib.name}</ListItemText>
             </MenuItem>
           );
         }

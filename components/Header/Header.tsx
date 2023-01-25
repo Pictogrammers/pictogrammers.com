@@ -22,17 +22,17 @@ const Header: FunctionComponent = () => {
   const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
   const NavButton = ({ href, ...props }: NavButtonProps) => (
-    <Button
-      href={href}
-      onClick={() => setMenuOpen(false)}
-      sx={{
-        borderRadius: '50px',
-        fontSize: '16px',
-        padding: '.5rem 1rem',
-        textTransform: 'none'
-      }}
-      {...props}
-    />
+    <Link href={href} onClick={() => setMenuOpen(false)}>
+      <Button
+        sx={{
+          borderRadius: '50px',
+          fontSize: '16px',
+          padding: '.5rem 1rem',
+          textTransform: 'none'
+        }}
+        {...props}
+      />
+    </Link>
   );
 
   return (

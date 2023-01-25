@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 interface LinkProps {
   children: ReactNode | string;
   className?: string;
+  disableRouter?: boolean;
   href: string;
   onClick?: Function;
   rel?: string;
@@ -16,13 +17,16 @@ interface LinkProps {
   title?: string;
 }
 
-const Link: FunctionComponent<LinkProps> = forwardRef(({ children, href, onClick, ...props }, ref: LegacyRef<HTMLAnchorElement>) => {
+const Link: FunctionComponent<LinkProps> = forwardRef(({ children, disableRouter, href, onClick, ...props }, ref: LegacyRef<HTMLAnchorElement>) => {
   const router = useRouter();
 
   const handleClick = async (event: MouseEvent) => {
     event.preventDefault();
     await onClick?.(event);
-    await router.push(href);
+
+    if (!disableRouter) {
+      await router.push(href);
+    }
   };
 
   return (
