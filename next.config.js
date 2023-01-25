@@ -60,7 +60,7 @@ const nextConfig = {
             [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
           },
         },
-        deleteOriginalAssets: true,
+        deleteOriginalAssets: false,
         filename: '[path][base].br',
         minRatio: 0.8,
         test: /\.(js|css|html|svg)$/
