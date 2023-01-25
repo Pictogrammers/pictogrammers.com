@@ -9,24 +9,29 @@ RewriteRule ^(.*)$ $1.br [QSA,L]
 <Files *.html.br>
   AddType "text/html" .br
   AddEncoding br .br
+  SetEnv no-gzip 1
 </Files>
 
 <Files *.css.br>
   AddType "text/css" .br
   AddEncoding br .br
+  SetEnv no-gzip 1
 </Files>
 
 <Files *.js.br>
   AddType "text/javascript" .br
   AddEncoding br .br
+  SetEnv no-gzip 1
 </Files>
 
 <Files *.json.br>
   AddType "application.json" .br
   AddEncoding br .br
+  SetEnv no-gzip 1
 </Files>
 
 <Files *.svg.br>
   AddType "image/svg+xml" .br
   AddEncoding br .br
+  SetEnv no-gzip 1
 </Files>
