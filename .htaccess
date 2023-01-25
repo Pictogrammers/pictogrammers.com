@@ -4,7 +4,7 @@ RewriteBase /
 # Serve brotli version if they exist
 RewriteCond %{HTTP:Accept-encoding} br
 RewriteCond %{REQUEST_FILENAME}.br -f
-RewriteRule ^(.*)$ $1.br [L]
+RewriteRule ^(.*)$ $1.br [QSA,L]
 
 <Files *.html.br>
   AddType "text/html" .br
