@@ -44,6 +44,7 @@ const Button: FunctionComponent<CustomButtonProps> = ({
           [classes.lightButton]: variant !== 'contained'
         })
       }}
+      component={Link}
       endIcon={renderIcon(endIcon)}
       href={href}
       startIcon={renderIcon(startIcon)}
