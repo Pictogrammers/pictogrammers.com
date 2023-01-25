@@ -1,9 +1,11 @@
 import { FunctionComponent } from 'react';
-import Link from 'next/link';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+
 import { TableOfContentsItemProps, TableOfContentsProps } from '../../../interfaces/tableOfContents';
+
+import Link from '../../Link/Link';
 
 import classes from './TableOfContents.module.scss';
 

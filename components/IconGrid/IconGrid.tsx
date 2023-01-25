@@ -1,13 +1,13 @@
 import { Fragment, FunctionComponent, MouseEvent, useEffect, useState } from 'react';
 import cx from 'clsx';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { VirtuosoGrid } from 'react-virtuoso';
 import Dialog from '@mui/material/Dialog';
 
 import useCategories, { CategoryProps } from '../../hooks/useCategories';
 import useWindowSize from '../../hooks/useWindowSize';
 
+import Link from '../Link/Link';
 import { viewModes } from '../IconLibrary/LibraryViewMode';
 import IconView from '../IconView/IconView';
 import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
@@ -42,7 +42,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, updateUrl 
     return () => router.events.off('routeChangeStart', handleRouteChange);
   }, [ library.id, router ]);
 
-  const handleIconModalOpen = (e: MouseEvent<HTMLAnchorElement>, icon: IconLibraryIcon) => {
+  const handleIconModalOpen = async (e: MouseEvent<HTMLAnchorElement>, icon: IconLibraryIcon) => {
     e.preventDefault();
   
     const cats = icon.t.map((tag) => categories.find((cat) => cat.id === Number(tag)));
@@ -52,14 +52,14 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, updateUrl 
     setIconModal(icon);
 
     if (updateUrl) {
-      router.push(`/library/${library.id}/icon/${icon.n}`, undefined, { shallow: true });
+      await router.push(`/library/${library.id}/icon/${icon.n}`, undefined, { shallow: true });
     }
   };
 
-  const handleIconModalClose = () => {
+  const handleIconModalClose = async () => {
     setIconModal(null);
     if (updateUrl) {
-      router.push(`/library/${library.id}`, undefined, { shallow: true });
+      await router.push(`/library/${library.id}`, undefined, { shallow: true });
     }
   };
 
@@ -71,8 +71,9 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, updateUrl 
         itemContent={(index, icon: IconLibraryIcon) => (
           <Link
             className={classes.libraryIcon}
+            disableRouter
             href={`/library/${library.id}/icon/${icon.n}`}
-            onClick={(e) => handleIconModalOpen(e, icon)}
+            onClick={(e: MouseEvent<HTMLAnchorElement>) => handleIconModalOpen(e, icon)}
           >
             <CustomGridIcon gridSize={library.gridSize} path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} title={icon.n} />
             <p>{icon.n}</p>

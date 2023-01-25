@@ -1,10 +1,10 @@
 import { FunctionComponent } from 'react';
-import Link from 'next/link';
 import cx from 'clsx';
 import Button from '@mui/material/Button';
 import Icon from '@mdi/react';
 import { mdiArrowRight } from '@mdi/js';
 
+import Link from '../Link/Link';
 import Code from '../CodeHighlighter/CodeHighlighter';
 
 import kebabToPascal from '../../utils/helpers/kebabToPascal';

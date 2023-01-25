@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,6 +8,8 @@ import Icon from '@mdi/react';
 import { mdiHandWaveOutline } from '@mdi/js';
 
 import useWindowSize from '../../hooks/useWindowSize';
+
+import Link from '../Link/Link';
 
 import classes from './MDIWelcome.module.scss';
 

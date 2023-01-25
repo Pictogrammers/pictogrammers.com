@@ -4,7 +4,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Popper, { PopperProps } from '@mui/material/Popper';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import Link from 'next/link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -14,6 +13,7 @@ import uFuzzy from '@leeoniya/ufuzzy';
 import Icon from '@mdi/react';
 import { mdiAlertOutline, mdiBookOpenPageVariantOutline, mdiCreation, mdiDotsHorizontalCircleOutline, mdiMagnify } from '@mdi/js';
 
+import Link from '../Link/Link';
 import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
 
 import { useData } from '../../providers/DataProvider';

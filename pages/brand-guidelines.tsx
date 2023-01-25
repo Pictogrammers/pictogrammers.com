@@ -1,6 +1,5 @@
 import { Fragment } from 'react';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
 import cx from 'clsx';
 import Button from '@mui/material/Button';
@@ -10,6 +9,7 @@ import { mdiArrowDown } from '@mdi/js';
 import Head from '../components/Head/Head';
 import Layout from '../components/Docs/Layout/Layout';
 import Heading from '../components/Docs/Heading';
+import Link from '../components/Link/Link';
 
 import PictogrammersLogoSvg from '../assets/brand/logos/pictogrammers-full.svg';
 import MDILogoSvg from '../assets/libraries/mdi.svg';
@@ -65,15 +65,15 @@ const PostPage: NextPage = () => {
           <Heading2>Logo</Heading2>
           <PictogrammersLogoSvg className={classes.pictogrammers} />
           <p>The Pictogrammers logo is the central visual identity for the Pictogrammers group. The monogram was created by <Link href='/contributor/Templarian'>Austin Andrews</Link> in 2020. The following year, the wordmark was added by <Link href='/contributor/mririgoyen'>Michael Irigoyen</Link>, completing the logo.</p>
-          <Link href='/pictogrammers-brand-assets.zip' passHref>
-            <Button
-              className={classes.button}
-              endIcon={<Icon path={mdiArrowDown} size={1} />}
-              variant='contained'
-            >
-              Download Logo Assets
-            </Button>
-          </Link>                
+          <Button
+            className={classes.button}
+            component={Link}
+            endIcon={<Icon path={mdiArrowDown} size={1} />}
+            href='/pictogrammers-brand-assets.zip'
+            variant='contained'
+          >
+            Download Logo Assets
+          </Button>              
         </section>
 
         <section>

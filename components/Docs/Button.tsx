@@ -1,11 +1,11 @@
 import { FunctionComponent, ReactNode } from 'react';
-import Link from 'next/link';
 import cx from 'clsx';
 import { ButtonProps, Button as MuiButton } from '@mui/material';
 
 import { IconLibraries } from '../../interfaces/icons';
 
 import Icon from './Icon';
+import Link from '../Link/Link';
 
 import classes from './components.module.scss';
 
@@ -37,22 +37,22 @@ const Button: FunctionComponent<CustomButtonProps> = ({
   };
 
   return (
-    <Link className={classes.button} href={href} passHref>
-      <MuiButton
-        classes={{
-          root: cx({
-            [classes.darkButton]: variant === 'contained',
-            [classes.lightButton]: variant !== 'contained'
-          })
-        }}
-        startIcon={renderIcon(startIcon)}
-        endIcon={renderIcon(endIcon)}
-        variant={variant}
-        {...rest}
-      >
-        {children}
-      </MuiButton>
-    </Link>
+    <MuiButton
+      classes={{
+        root: cx(classes.button, {
+          [classes.darkButton]: variant === 'contained',
+          [classes.lightButton]: variant !== 'contained'
+        })
+      }}
+      component={Link}
+      endIcon={renderIcon(endIcon)}
+      href={href}
+      startIcon={renderIcon(startIcon)}
+      variant={variant}
+      {...rest}
+    >
+      {children}
+    </MuiButton>
   );
 };
 
