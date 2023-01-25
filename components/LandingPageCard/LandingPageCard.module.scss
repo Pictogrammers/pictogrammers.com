@@ -22,13 +22,16 @@
     .info {
       flex: 1;
 
+      h2,
       h3 {
         margin-top: .5rem;
       }
     }
   }
 
+  h2,
   h3 {
+    font-size: 1.2rem;
     margin-bottom: 0;
 
     span {

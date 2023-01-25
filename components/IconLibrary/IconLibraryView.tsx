@@ -19,6 +19,7 @@ import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
@@ -131,20 +132,21 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
 
     return (
       <Fragment>
-        <ListSubheader sx={{ background: 'transparent', marginTop: '1rem', textTransform: 'uppercase' }}>Categories</ListSubheader>
+        <ListSubheader sx={{ background: 'transparent', margin: '1rem 0 0 .5rem', textTransform: 'uppercase' }}>Categories</ListSubheader>
         {categories?.length && Object.keys(categories).map((catId) => {
           const categorySlug = categories[catId as any].slug;
           return (
-            <ListItemButton
-              component={Link}
-              href={`/library/${libraryInfo.id}/category/${categorySlug}`}
-              key={catId}
-              selected={categorySlug === category}
-            >
-              <ListItemText>
-                {categories[catId as any].name}
-              </ListItemText>
-            </ListItemButton>
+            <ListItem key={catId}>
+              <ListItemButton
+                component={Link}
+                href={`/library/${libraryInfo.id}/category/${categorySlug}`}
+                selected={categorySlug === category}
+              >
+                <ListItemText>
+                  {categories[catId as any].name}
+                </ListItemText>
+              </ListItemButton>
+            </ListItem>              
           );
         })}
       </Fragment>
@@ -249,7 +251,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   <Chip
                     color='secondary'
                     label={`v${libraryVersion}`}
-                    sx={{ cursor: 'pointer' }}
+                    sx={{ cursor: 'pointer', fontSize: '.9rem', fontWeight: 700 }}
                   />
                 </Link>
               </Tooltip>
@@ -300,26 +302,33 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
           <div className={classes.iconLibrary} ref={iconLibraryRef}>
             <aside className={classes.sidebar}>
               <List dense>
-                <ListItemButton
-                  component={Link}
-                  href={`/library/${libraryInfo.id}/version/${libraryVersion}`}
-                  selected={version === libraryVersion}
-                >
-                  <Icon path={mdiCreation} size={.8} />
-                  <ListItemText sx={{ marginLeft: '.2rem' }}>New in v{libraryVersion}</ListItemText>
-                </ListItemButton>
+                <ListItem>
+                  <ListItemButton
+                    component={Link}
+                    href={`/library/${libraryInfo.id}/version/${libraryVersion}`}
+                    selected={version === libraryVersion}
+                  >
+                    <Icon path={mdiCreation} size={.8} />
+                    <ListItemText sx={{ marginLeft: '.2rem' }}>New in v{libraryVersion}</ListItemText>
+                  </ListItemButton>
+                </ListItem>
                 {renderCategories()}
-                <ListSubheader sx={{ background: 'transparent', marginTop: '1rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
-                <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/changelog`}>
-                  <ListItemText>Changelog</ListItemText>
-                </ListItemButton>
-                <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/upgrade`}>
-                  <ListItemText>Upgrade Guide</ListItemText>
-                </ListItemButton>
-                <ListItemButton component={Link} href={`/library/${libraryInfo.id}/history`}>
-                  <ListItemText>History</ListItemText>
-                </ListItemButton>
-                
+                <ListSubheader sx={{ background: 'transparent', margin: '1rem 0 0 .5rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
+                <ListItem>
+                  <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/changelog`}>
+                    <ListItemText>Changelog</ListItemText>
+                  </ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/upgrade`}>
+                    <ListItemText>Upgrade Guide</ListItemText>
+                  </ListItemButton>
+                </ListItem>                  
+                <ListItem>
+                  <ListItemButton component={Link} href={`/library/${libraryInfo.id}/history`}>
+                    <ListItemText>History</ListItemText>
+                  </ListItemButton>
+                </ListItem>
               </List>
             </aside>
             <div className={classes.libraryContainer}>

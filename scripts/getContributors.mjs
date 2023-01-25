@@ -9,7 +9,11 @@ const getGitHubContributors = async () => {
   }
 
   try {
-    const res = await fetch(`https://api.github.com/orgs/Pictogrammers/repos?Authorization=${process.env.API_KEY_GITHUB}&per_page=100`);
+    const res = await fetch('https://api.github.com/orgs/Pictogrammers/repos?per_page=100', {
+      headers: {
+        authorization: `token ${process.env.API_KEY_GITHUB}`
+      }
+    });
 
     if (!res.ok) {
       console.warn('WARNING: Unable to retrieve repository listing from Pictogrammers GitHub organization.');
@@ -25,7 +29,11 @@ const getGitHubContributors = async () => {
         return output;
       }
 
-      const repoRes = await fetch(`https://api.github.com/repos/Pictogrammers/${repo.name}/contributors?Authorization=${process.env.API_KEY_GITHUB}`);
+      const repoRes = await fetch(`https://api.github.com/repos/Pictogrammers/${repo.name}/contributors`, {
+        headers: {
+          authorization: `token ${process.env.API_KEY_GITHUB}`
+        }
+      });
       if (!repoRes.ok) {
         console.warn(`WARNING: Unable to retrieve contributors from '${repo.full_name}' repository.`);
         return output;

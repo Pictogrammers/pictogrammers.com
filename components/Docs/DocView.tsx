@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { MDXRemote, MDXRemoteProps, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { ButtonProps } from '@mui/material/Button';
 
 import { DocCategory, DocData } from '../../interfaces/doc';
@@ -93,7 +93,7 @@ const DocView: FunctionComponent<DocViewProps> = ({ availableIcons, category, fr
             th: TableCell,
             thead: TableHead,
             tr: TableRow
-          } as any}
+          } as MDXRemoteProps['components']}
           {...source}
         />
       </Layout>

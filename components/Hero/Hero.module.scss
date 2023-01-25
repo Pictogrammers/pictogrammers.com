@@ -15,7 +15,7 @@
 }
 
 .text {
-  font-size: 2.5vh;
+  font-size: clamp(1rem, 1.75vw, 1.5rem);
   line-height: 1.2;
   margin: 0 8rem;
   max-width: 1080px;
@@ -23,7 +23,7 @@
 }
 
 .heading {
-  font-size: 8vh;
+  font-size: clamp(1rem, 6vw, 5rem);
   letter-spacing: -3px;
 }
 

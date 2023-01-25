@@ -64,27 +64,18 @@ const Home: NextPage = () => {
             {coreContributors?.length && (
               <AvatarGroup classes={{ root: classes.contributors }} max={12}>
                 {getRandomArrayValues(coreContributors, 9).map((contributor) => (
-                  <Link href={`/contributor/${contributor.github}`} key={contributor.id}>
-                    <Avatar
-                      alt={contributor.name}
-                      classes={{ root: classes.contributor }}
-                      src={contributor.image ? `/contributors/${contributor.id}.jpg` : undefined}
-                    />
-                  </Link>
+                  <Avatar
+                    alt={contributor.name}
+                    classes={{ root: classes.contributor }}
+                    key={contributor.id}
+                    src={contributor.image ? `/contributors/${contributor.id}.jpg` : undefined}
+                  />
                 ))}
                 <Avatar classes={{ root: classes.contributor }}>+{totalContributors - 9}</Avatar>
               </AvatarGroup>
             )}
             <p>
-              The Pictogrammers are a dedicated group of {totalContributors}+ collaborators
-              from all walks of life. Hailing from nearly every part of the globe, we come
-              together to express ideas in a universal language so that all may
-              benefit. Icons may be small, but they are powerful forms of
-              communication in today&apos;s digital age. Built on our passion for beautiful
-              and simple design, we strive to make iconography easily accessible for
-              whatever your use case may be. From designers building prototypes to
-              developers writing code, finding and implementing an icon should be a
-              snap!
+              The Pictogrammers are a dedicated group of <Link href='/docs/contribute/contributors/'>{Math.floor(totalContributors / 10) * 10}+ collaborators</Link> from all walks of life. Hailing from nearly every part of the globe, we come together to express ideas in a universal language so that all may benefit. Icons may be small, but they are powerful forms of communication in today&apos;s digital age. Built on our passion for beautiful and simple design, we strive to make iconography easily accessible for whatever your use case may be. From designers building prototypes to developers writing code, finding and implementing an icon should be a snap!
             </p>
           </div>
         </HomeSection>

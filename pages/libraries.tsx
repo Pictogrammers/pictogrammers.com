@@ -37,6 +37,7 @@ const LibraryCard = (props: { library: LibraryProps, type: string }) => {
       color={`--${library.id}-color`}
       description={library.unreleased ? 'Unreleased' : `v${libraryStats.version} | Released on ${dayjs(libraryStats.date).format('MMM DD, YYYY')}`}
       disabled={!!library.unreleased}
+      headerElement='h3'
       href={library.unreleased ? undefined : `/library/${library.id}`}
       icon={!library.image ? type === 'font' ? mdiFormatFont : mdiRobotExcited : undefined}
       graphicElement={library.image ? <Image alt={`${library.name} Image`} height={64} src={`/${library.image}`} width={64} /> : undefined}

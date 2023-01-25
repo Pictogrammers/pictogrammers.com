@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
@@ -15,9 +16,11 @@ const TableOfContents: FunctionComponent<TableOfContentsProps> = ({ toc }) => {
   }
 
   const output = toc.map((item: TableOfContentsItemProps) => (
-    <ListItemButton component={Link} href={`#${item.slug}`} key={item.slug}>
-      <ListItemText classes={{ root: classes[`lvl-${item.lvl}`] }}>{item.content}</ListItemText>
-    </ListItemButton>
+    <ListItem key={item.slug}>
+      <ListItemButton component={Link} href={`#${item.slug}`}>
+        <ListItemText classes={{ root: classes[`lvl-${item.lvl}`] }}>{item.content}</ListItemText>
+      </ListItemButton>
+    </ListItem>
   ));
 
   return (

@@ -104,7 +104,13 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
         onClick={handleMenuClick}
         variant='text'
       >
-        <Image alt={selectedLibrary.name} height={libraryIconSize} src={`/${selectedLibrary.image}`} width={libraryIconSize} />
+        <Image
+          alt={selectedLibrary.name}
+          height={libraryIconSize}
+          priority
+          src={`/${selectedLibrary.image}`}
+          width={libraryIconSize}
+        />
         <p className={classes.libraryName} data-id={selectedLibrary.id.toUpperCase()}>{compact ? selectedLibrary.shortName : selectedLibrary.name}</p>
       </Button>
       <Menu

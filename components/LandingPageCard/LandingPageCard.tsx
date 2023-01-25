@@ -1,4 +1,4 @@
-import { CSSProperties, FunctionComponent, ReactNode } from 'react';
+import { CSSProperties, FunctionComponent, ReactElement, ReactNode } from 'react';
 import cx from 'clsx';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import Chip, { ChipTypeMap } from '@mui/material/Chip';
@@ -18,6 +18,7 @@ interface LandingPageCardProps {
   disabled?: boolean;
   fullWidth?: boolean;
   graphicElement?: ReactNode;
+  headerElement?: string;
   href?: string;
   icon?: string;
   superTitle?: string;
@@ -34,12 +35,14 @@ const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({
   disabled,
   fullWidth,
   graphicElement,
+  headerElement = 'h2',
   href,
   icon,
   superTitle,
   title
 }) => {
   const Wrapper = !href ? 'div' : Link;
+  const Header = headerElement as any;
 
   return (
     <Wrapper
@@ -66,10 +69,10 @@ const LandingPageCard: FunctionComponent<LandingPageCardProps> = ({
         {chip && <Chip label={chip.label} color={chip.color} />}
       </div>
       <div className={classes.info}>
-        <h3>
+        <Header>
           {superTitle && <span>{superTitle}</span>}
           {title}
-        </h3>
+        </Header>
         <p className={classes.subtext}>{description}</p>
       </div>
     </Wrapper>

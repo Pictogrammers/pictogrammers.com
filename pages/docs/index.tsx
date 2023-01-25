@@ -33,6 +33,7 @@ const renderLibrariesAndCategories = (docs: any) => {
                   color={`--${categoryInfo.id}-color`}
                   badge={libraryInfo?.image && <Image alt={libraryInfo.name} src={`/${libraryInfo.image}`} width={24} height={24} />}
                   description={categoryInfo.description}
+                  headerElement='h3'
                   href={`/docs/${library !== 'all' ? `library/${library}/` : ''}${categoryInfo.id}`}
                   icon={categoryInfo.icon}
                   key={categoryInfo.id}

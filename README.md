@@ -17,7 +17,9 @@
 3. Run `npm run dev` to start the dev server.
 4. Access the dev site at <http://localhost:3000>.
 
-The site will hot-reload as you make changes.
+> The site will hot-reload as you make changes.
+
+See <https://pictogrammers.com/docs/contribute/website/> for more details about contributing to the site.
 
 ## Env variables
 
