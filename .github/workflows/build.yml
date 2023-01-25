@@ -1,8 +1,8 @@
 name: Build/Deploy
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
   workflow_dispatch:
 concurrency: 
   group: ${{ github.head_ref || github.run_id }}
@@ -38,6 +38,11 @@ jobs:
         run: npm run build
         env:
           API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
+
+      - name: Compress Assets
+        uses: charlesworth/compress-action@1.0
+        with:
+          target-directory: ./out
 
       - name: Create Deployment Tarball
         uses: a7ul/tar-action@v1.1.0
@@ -83,5 +88,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictogrammers --recursive-unlink
+            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictotest --recursive-unlink
             rm /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz
