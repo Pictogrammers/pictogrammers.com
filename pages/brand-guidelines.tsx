@@ -67,6 +67,7 @@ const PostPage: NextPage = () => {
           <p>The Pictogrammers logo is the central visual identity for the Pictogrammers group. The monogram was created by <Link href='/contributor/Templarian'>Austin Andrews</Link> in 2020. The following year, the wordmark was added by <Link href='/contributor/mririgoyen'>Michael Irigoyen</Link>, completing the logo.</p>
           <Button
             className={classes.button}
+            component={Link}
             endIcon={<Icon path={mdiArrowDown} size={1} />}
             href='/pictogrammers-brand-assets.zip'
             variant='contained'
