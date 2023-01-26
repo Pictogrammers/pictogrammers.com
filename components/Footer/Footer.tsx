@@ -5,7 +5,7 @@ import { siGithub, siMastodon } from 'simple-icons/icons';
 
 import Link from 'next/link';
 
-import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
+import PictogrammersLogo from '../../public/images/pictogrammers-logo.svg';
 
 import classes from './Footer.module.scss';
 

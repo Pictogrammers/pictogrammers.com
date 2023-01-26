@@ -57,7 +57,12 @@ const Contributor: FunctionComponent<ContributorProps> = ({
   );
 };
 
-const Contributors: FunctionComponent<ContributorsMdxProps> = ({ id, name, view }) => {
+const Contributors: FunctionComponent<ContributorsMdxProps> = ({
+  filtered = ['contributors'],
+  id,
+  name,
+  view
+}) => {
   const { contributors } = useData();
   const filteredList = contributors.filter((contributor: ContributorProps) => {
     if (view === 'single') {
@@ -69,13 +74,13 @@ const Contributors: FunctionComponent<ContributorsMdxProps> = ({ id, name, view 
         return contributor.name === name;
       }
     }
-
+    
     if (view === 'core') {
-      return contributor.core;
+      return contributor.core && !filtered.includes(contributor.github);
     }
 
     if (view === 'community') {
-      return !contributor.core;
+      return !contributor.core && !filtered.includes(contributor.github);
     }
 
     return contributor;

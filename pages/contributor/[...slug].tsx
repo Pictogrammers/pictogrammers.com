@@ -30,7 +30,7 @@ import LibraryViewMode from '../../components/IconLibrary/LibraryViewMode';
 import { ContributorProps } from '../../interfaces/contributor';
 import { IconLibrary } from '../../interfaces/icons';
 
-import PictogrammerMonogram from '../../assets/brand/logos/pictogrammers-monogram-white.svg';
+import PictogrammerMonogram from '../../public/images/brand/logos/pictogrammers-monogram-white.svg';
 import classes from '../../styles/pages/contributor.module.scss';
 
 interface ContextProps extends ParsedUrlQuery {
@@ -126,7 +126,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                     </IconButton>
                   </Tooltip>
                 )}
-                {github && (
+                {github && github !== 'contributors' && (
                   <Tooltip arrow title={`View ${github} on GitHub`}>
                     <IconButton
                       aria-label={`View ${github} on GitHub`}

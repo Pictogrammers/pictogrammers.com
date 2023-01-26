@@ -18,12 +18,12 @@ import { ContributorProps } from '../interfaces/contributor';
 
 import { useData } from '../providers/DataProvider';
 
-import AmbrookLogo from '../assets/users/ambrook.svg';
-import AccusoftLogo from '../assets/users/accusoft.svg';
-import HomeAssistantLogo from '../assets/users/home-assistant.svg';
-import KeePassXCLogo from '../assets/users/keepassxc.svg';
-import NabuCasaLogo from '../assets/users/nabu-casa.svg';
-import OnTaskLogo from '../assets/users/ontask.svg';
+import AmbrookLogo from '../public/images/users/ambrook.svg';
+import AccusoftLogo from '../public/images/users/accusoft.svg';
+import HomeAssistantLogo from '../public/images/users/home-assistant.svg';
+import KeePassXCLogo from '../public/images/users/keepassxc.svg';
+import NabuCasaLogo from '../public/images/users/nabu-casa.svg';
+import OnTaskLogo from '../public/images/users/ontask.svg';
 
 import classes from '../styles/pages/index.module.scss';
 

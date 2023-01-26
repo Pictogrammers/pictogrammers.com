@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useRef } from 'react';
 
-import PreviewBlank from '../assets/tools/preview-blank.png';
-import PreviewBlankWip from '../assets/tools/preview-blank-wip.png';
+import PreviewBlank from '../public/images/tools/preview-blank.png';
+import PreviewBlankWip from '../public/images/tools/preview-blank-wip.png';
 
 // TODO: The supporting background images should be generated programatically,
 // so we can support other grid sizes in the future for different libraries.

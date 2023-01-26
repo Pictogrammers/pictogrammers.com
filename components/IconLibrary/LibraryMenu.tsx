@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from 'react';
 import getConfig from 'next/config';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -59,7 +59,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
               selected={selectedLibrary.id === lib.id}
             >
               <ListItemIcon>
-                <Image alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
+                <ExportedImage alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
               </ListItemIcon>
               <ListItemText>{lib.name}</ListItemText>
             </MenuItem>
@@ -104,7 +104,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
         onClick={handleMenuClick}
         variant='text'
       >
-        <Image
+        <ExportedImage
           alt={selectedLibrary.name}
           height={libraryIconSize}
           priority

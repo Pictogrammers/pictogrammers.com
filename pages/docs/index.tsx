@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from 'next';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import Paper from '@mui/material/Paper';
 import { mdiBookOpenPageVariantOutline } from '@mdi/js';
 
@@ -31,7 +31,7 @@ const renderLibrariesAndCategories = (docs: any) => {
               return (
                 <LandingPageCard
                   color={`--${categoryInfo.id}-color`}
-                  badge={libraryInfo?.image && <Image alt={libraryInfo.name} src={`/${libraryInfo.image}`} width={24} height={24} />}
+                  badge={libraryInfo?.image && <ExportedImage alt={libraryInfo.name} src={`/${libraryInfo.image}`} width={24} height={24} />}
                   description={categoryInfo.description}
                   headerElement='h3'
                   href={`/docs/${library !== 'all' ? `library/${library}/` : ''}${categoryInfo.id}`}

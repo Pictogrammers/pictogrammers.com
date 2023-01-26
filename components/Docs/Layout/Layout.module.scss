@@ -183,4 +183,14 @@
   .sidenav {
     padding: 0;
   }
+
+  .edits {
+    a {
+      margin: .25rem 0;
+
+      &:not(:last-child) {
+        margin-bottom: .5rem;
+      }
+    }
+  }
 }

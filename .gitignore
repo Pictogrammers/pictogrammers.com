@@ -3,6 +3,9 @@
 /out/
 /public/sw.js*
 /public/workbox-*.js*
+/public/nextImageExportOptimizer
+/public/images/nextImageExportOptimizer
+/public/images/next-image-export-optimizer-hashes.json
 /build/
 .DS_Store
 *.pem
