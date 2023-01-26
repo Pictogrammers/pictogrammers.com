@@ -186,6 +186,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                     description=''
                     fullWidth
                     key={repo}
+                    headerElement='h3'
                     href={`https://github.com/Pictogrammers/${repo}`}
                     icon={siGithub.path}
                     superTitle='Pictogrammers/'

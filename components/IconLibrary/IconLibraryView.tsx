@@ -78,6 +78,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
 
   // Library viewing
+  const [ carbonKey, setCarbonKey ] = useState(new Date().toString());
   const [ viewMode, setViewMode ] = useState(isMobileWidth ? 'compact' : 'comfortable');
   const { contributors } = useData();
   const categories = useCategories(libraryInfo.id);
@@ -230,7 +231,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
     return (
       <div className={classes.infoGrid}>
         {renderInformationBox()}
-        <CarbonAd displayOnMobile={false} />
+        <CarbonAd displayOnMobile={false} key={carbonKey} />
       </div>
     );
   };
@@ -345,7 +346,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
               ) : (
                 <Fragment>
                   {renderInformationGrid()}
-                  <IconGrid icons={visibleIcons} library={libraryInfo} viewMode={viewMode} />
+                  <IconGrid icons={visibleIcons} library={libraryInfo} modalHook={() => setCarbonKey(new Date().toString())} viewMode={viewMode} />
                 </Fragment>
               )}
             </div>

@@ -19,11 +19,12 @@ import classes from './IconGrid.module.scss';
 interface IconGridProps {
   icons: any;
   library: IconLibrary;
+  modalHook?: Function;
   updateUrl?: boolean;
   viewMode: string;
 }
 
-const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, updateUrl = true, viewMode }) => {
+const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook, updateUrl = true, viewMode }) => {
   const [ iconModal, setIconModal ] = useState<IconLibraryIcon | null>(null);
   const categories = useCategories(library.id);
   const router = useRouter();
@@ -44,6 +45,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, updateUrl 
 
   const handleIconModalOpen = async (e: MouseEvent<HTMLAnchorElement>, icon: IconLibraryIcon) => {
     e.preventDefault();
+    modalHook?.();
   
     const cats = icon.t.map((tag) => categories.find((cat) => cat.id === Number(tag)));
     if (cats) {
@@ -79,6 +81,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, updateUrl 
             <p>{icon.n}</p>
           </Link>
         )}
+        overscan={300}
         totalCount={icons.length}
         useWindowScroll
       />
