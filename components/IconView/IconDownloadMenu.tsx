@@ -117,7 +117,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
       <Divider key='div-1' />,
       <MenuItem
         component='a'
-        download={`${icon.n}\.xml`}
+        download={`${icon.n.replace('-', '_')}\.xml`}
         href={downloadXmlVectorDrawable()}
         key='xml'
         onClick={() => track('downloadXML', { icon: icon.n, library: library.name })}
