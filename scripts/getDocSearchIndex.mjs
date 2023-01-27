@@ -64,7 +64,7 @@ const getDocSearchIndex = async () => {
     return output;
   }, Promise.resolve([]));
 
-  await writeFile('./public/docs/docs.json', JSON.stringify(output), { flag: 'w' });
+  await writeFile('./public/data/docs.json', JSON.stringify(output), { flag: 'w' });
 };
 
 export default getDocSearchIndex;

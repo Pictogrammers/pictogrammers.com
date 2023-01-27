@@ -9,7 +9,7 @@ import Head from '../components/Head/Head';
 import LandingPageHeading from '../components/LandingPageHeading/LandingPageHeading';
 import LandingPageCard from '../components/LandingPageCard/LandingPageCard';
 
-import iconLibraries from '../public/libraries/libraries.json';
+import iconLibraries from '../public/data/libraries.json';
 
 import pictoLibraries from '../public/images/libraries/picto-libraries.png';
 

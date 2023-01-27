@@ -114,7 +114,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                     alt={name}
                     height={128}
                     placeholder='empty'
-                    src={`/contributors/${id}.jpg`}
+                    src={`/images/contributors/${id}.jpg`}
                     width={128}
                   />
                 ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

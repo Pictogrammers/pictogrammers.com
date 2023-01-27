@@ -210,7 +210,7 @@ const SiteSearch: FunctionComponent = () => {
                               alt={result.name}
                               height={32}
                               placeholder='empty'
-                              src={`/contributors/${result.id}.jpg`}
+                              src={`/images/contributors/${result.id}.jpg`}
                               width={32}
                             />
                           ) : result.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

@@ -77,7 +77,7 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
             alt={userInfo.name}
             height={50}
             placeholder='empty'
-            src={`/contributors/${userInfo.id}.jpg`}
+            src={`/images/contributors/${userInfo.id}.jpg`}
             width={50}
           />
         ) : userInfo.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

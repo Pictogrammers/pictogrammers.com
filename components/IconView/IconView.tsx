@@ -155,7 +155,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                               alt={contributor.name}
                               height={24}
                               placeholder='empty'
-                              src={`/contributors/${contributor.id}.jpg`}
+                              src={`/images/contributors/${contributor.id}.jpg`}
                               width={24}
                             />
                           ) : contributor.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

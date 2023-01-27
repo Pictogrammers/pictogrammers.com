@@ -22,7 +22,7 @@ import Layout from '../Docs/Layout/Layout';
 import Link from '../Link/Link';
 import IconHistoryCard from './IconHistoryCard';
 
-import iconLibraries from '../../public/libraries/libraries.json';
+import iconLibraries from '../../public/data/libraries.json';
 
 import classes from './IconLibraryHistoryView.module.scss';
 

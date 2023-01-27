@@ -46,7 +46,7 @@ import LibraryViewMode from './LibraryViewMode';
 import IconGrid from '../IconGrid/IconGrid';
 import CarbonAd from '../CarbonAd/CarbonAd';
 
-import iconLibraries from '../../public/libraries/libraries.json';
+import iconLibraries from '../../public/data/libraries.json';
 
 import classes from './IconLibraryView.module.scss';
 
@@ -183,7 +183,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                     alt={authorInfo.name}
                     height={18}
                     placeholder='empty'
-                    src={`/contributors/${authorInfo.id}.jpg`}
+                    src={`/images/contributors/${authorInfo.id}.jpg`}
                     width={18}
                   />
                 ) : authorInfo.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

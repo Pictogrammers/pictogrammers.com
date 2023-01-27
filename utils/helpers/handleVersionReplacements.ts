@@ -1,4 +1,4 @@
-import allLibraries from '../../public/libraries/libraries.json';
+import allLibraries from '../../public/data/libraries.json';
 
 interface Versions {
   [key: string]: string;

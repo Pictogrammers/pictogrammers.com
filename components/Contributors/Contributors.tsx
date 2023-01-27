@@ -52,7 +52,7 @@ const Contributor: FunctionComponent<ContributorProps> = ({
               alt={name}
               height={50}
               placeholder='empty'
-              src={`/contributors/${id}.jpg`}
+              src={`/images/contributors/${id}.jpg`}
               width={50}
             />
           ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

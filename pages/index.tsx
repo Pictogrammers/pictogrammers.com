@@ -71,7 +71,7 @@ const Home: NextPage = () => {
                         alt={contributor.name}
                         height={65}
                         placeholder='empty'
-                        src={`/contributors/${contributor.id}.jpg`}
+                        src={`/images/contributors/${contributor.id}.jpg`}
                         width={65}
                       />
                     ) : contributor.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
