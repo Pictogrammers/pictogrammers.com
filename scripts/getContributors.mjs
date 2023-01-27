@@ -116,7 +116,7 @@ const getContributors = async () => {
       }, [])
       .sort((a, b) => Number(b.core) - Number(a.core) || b.iconCount - a.iconCount);
 
-    console.log(`info - Writing ${processedContributors.length} contributors to /public/data/contributors.json`);
+    console.log(`INFO: Writing ${processedContributors.length} contributors to /public/data/contributors.json...`);
     fs.writeFileSync('./public/data/contributors.json', JSON.stringify({ contributors: processedContributors, totalContributors: processedContributors.length }), { flag: 'w' });
     return processedContributors;
   } catch (err) {

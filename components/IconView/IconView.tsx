@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from 'react';
+import { Fragment, FunctionComponent, useState } from 'react';
 import cx from 'clsx';
 import ExportedImage from 'next-image-export-optimizer';
 import Paper from '@mui/material/Paper';
@@ -6,6 +6,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
 import {
@@ -14,12 +15,13 @@ import {
   mdiClose,
   mdiDotsHorizontal,
   mdiDotsHorizontalCircleOutline,
+  mdiDownload,
   mdiTag,
   mdiTagOutline,
   mdiXml
 } from '@mdi/js';
 
-import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
+import { IconCustomizationProps, IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 import { ContributorProps } from '../../interfaces/contributor';
 
 import Head from '../Head/Head';
@@ -28,6 +30,7 @@ import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
 import IconPreview from '../IconPreview/IconPreview';
 import IconUsageExamples from '../IconUsageExamples/IconUsageExamples';
 import IconDownloadMenu from './IconDownloadMenu';
+import IconCustomizer from '../IconCustomizer/IconCustomizer';
 import CarbonAd from '../CarbonAd/CarbonAd';
 
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
@@ -45,14 +48,38 @@ interface IconViewProps {
 const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose }) => {
   const { exampleTypes, git, gridSize = 24, name: libraryName } = libraryInfo;
   const { contributors } = useData();
+  const contributor = contributors.find((c: ContributorProps) => c.id === icon.a);
   const copy = useCopyToClipboard();
   const windowSize = useWindowSize();
   const isTabletWidth = windowSize.width <= parseInt(classes['tablet-width']);
   const isModal = !!onClose;
 
-  const contributor = contributors.find((c: ContributorProps) => c.id === icon.a);
+  // Copy to Clipboard Support
   const glyph = String.fromCodePoint(parseInt(icon.cp, 16));
   const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${gridSize} ${gridSize}"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
+
+  // Customization Support
+  const defaultCustomizations = {
+    bgColor: { a: 0, b: 255, g: 255, r: 255 },
+    cornerRadius: 0,
+    fgColor: { a: 1, b: 0, g: 0, r: 0 },
+    flipX: false,
+    flipY: false,
+    padding: 0,
+    rotate: 0,
+    size: gridSize
+  };
+  const [ customizing, setCustomizing ] = useState(false);
+  const [ customizations, setCustomizations ] = useState<IconCustomizationProps>(defaultCustomizations);
+
+  const toggleCustomizing = () => {
+    if (!customizing) {
+      return setCustomizing(true);
+    }
+
+    setCustomizations(defaultCustomizations);
+    return setCustomizing(false);
+  };
 
   const renderTitle = () => {
     return (
@@ -169,33 +196,58 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
               )}
             </div>
             <div className={classes.actions}>
-              <Tooltip arrow placement='top' title='Copy Codepoint'>
-                <Chip label={icon.cp} onClick={() => copy(icon.cp, 'codepoint')} />
-              </Tooltip>
-              <Tooltip arrow placement='top' title='Copy Glyph'>
-                <IconButton
-                  aria-label='Copy Glyph'
-                  color='inherit'
-                  onClick={() => copy(glyph, 'glyph')}
+              {customizing ? (
+                <Button
+                  startIcon={<Icon path={mdiDownload} size={1} />}
+                  sx={{
+                    marginBottom: '2px',
+                    marginTop: '1px'
+                  }}
+                  variant='contained'
                 >
-                  <Icon path={icon.p} size={1} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip arrow placement='top' title='Copy SVG'>
-                <IconButton
-                  aria-label='Copy SVG'
-                  color='inherit'
-                  onClick={() => copy(svgCode, 'SVG')}
-                >
-                  <Icon path={mdiXml} size={1} />
-                </IconButton>
-              </Tooltip>
-              <IconDownloadMenu icon={icon} library={libraryInfo} />
+                  Download Customized Icon
+                </Button>
+              ) : (
+                <Fragment>
+                  <Tooltip arrow placement='top' title='Copy Codepoint'>
+                    <Chip label={icon.cp} onClick={() => copy(icon.cp, 'codepoint')} />
+                  </Tooltip>
+                  <Tooltip arrow placement='top' title='Copy Glyph'>
+                    <IconButton
+                      aria-label='Copy Glyph'
+                      color='inherit'
+                      onClick={() => copy(glyph, 'glyph')}
+                    >
+                      <Icon path={icon.p} size={1} />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip arrow placement='top' title='Copy SVG'>
+                    <IconButton
+                      aria-label='Copy SVG'
+                      color='inherit'
+                      onClick={() => copy(svgCode, 'SVG')}
+                    >
+                      <Icon path={mdiXml} size={1} />
+                    </IconButton>
+                  </Tooltip>
+                  <IconDownloadMenu icon={icon} library={libraryInfo} />
+                </Fragment>
+              )}
             </div>
           </div>
           <div className={classes.usage}>
-            <IconPreview gridSize={gridSize} path={icon.p} />
-            <IconUsageExamples exampleTypes={exampleTypes} library={libraryInfo.id} iconName={icon.n} />
+            <IconPreview
+              allowCustomization
+              customizations={customizations}
+              toggleCustomizationMode={toggleCustomizing}
+              gridSize={gridSize}
+              isCustomizing={customizing}
+              path={icon.p}
+            />
+            {customizing ?
+              <IconCustomizer customizations={customizations} gridSize={gridSize} setCustomizations={setCustomizations} /> :
+              <IconUsageExamples exampleTypes={exampleTypes} library={libraryInfo.id} iconName={icon.n} />
+            }
           </div>
           <div className={classes.tags}>
             <div className={classes.categories}>

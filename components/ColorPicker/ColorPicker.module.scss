@@ -1,0 +1,21 @@
+.root {
+  position: relative;
+}
+
+.swatch {
+  border: 3px solid hsl(var(--white));
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px hsl(var(--black) / 10%), inset 0 0 0 1px hsl(var(--black) / 10%);
+  cursor: pointer;
+  height: 28px;
+  width: 28px;
+}
+
+.popover {
+  border-radius: 9px;
+  box-shadow: 0 6px 12px hsl(var(--black) / 15%);
+  left: 0;
+  position: absolute;
+  top: calc(100% + 2px);
+  z-index: 99;
+}

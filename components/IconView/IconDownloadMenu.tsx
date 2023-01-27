@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -30,12 +30,14 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
   const [ pngDownloadOptions, setPngDownloadOptions ] = useState<PngDownloadOptions>({});
   const { track } = useAnalytics();
 
+  const offerredPngSizes = useMemo(() => ([ 256 ]), []);
+
   useEffect(() => {
     const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${library.gridSize} ${library.gridSize}"><path d="${icon.p}" /></svg>`;
     const svgUrl = URL.createObjectURL(new Blob([svgCode], { type: 'image/svg+xml' }));
     const svgImage = document.createElement('img');
     svgImage.onload = () => {
-      const pngOptions = [24, 36, 48].reduce((output: any, size) => {
+      const pngOptions = offerredPngSizes.reduce((output: any, size) => {
         const canvas = document.createElement('canvas');
         canvas.width = size;
         canvas.height = size;
@@ -51,7 +53,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
       svgImage.remove();
     };
     svgImage.src = svgUrl;
-  }, [ library.gridSize, icon.p]);
+  }, [ icon.p, library.gridSize, offerredPngSizes ]);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setMenuAnchor(event.currentTarget);
@@ -80,40 +82,22 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
   };
 
   const buildMenuOptions = () => {
-    return [
+    const pngOptions = offerredPngSizes.map((size: number) => (
       <MenuItem
         component='a'
-        disabled={!pngDownloadOptions[24]}
-        download={`${icon.n}-24\.png`}
-        href={downloadPng(24)}
-        key='png24'
-        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size: 24 })}
-      >
-        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
-        <ListItemText>Download PNG (24x24)</ListItemText>
-      </MenuItem>,
-      <MenuItem
-        component='a'
-        disabled={!pngDownloadOptions[36]}  
-        download={`${icon.n}-36\.png`}
-        href={downloadPng(36)}
-        key='png36'
-        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size: 36 })}
-      >
-        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
-        <ListItemText>Download PNG (36x36)</ListItemText>
-      </MenuItem>,
-      <MenuItem
-        component='a'
-        disabled={!pngDownloadOptions[48]}
-        download={`${icon.n}-48\.png`}
-        href={downloadPng(48)}
+        disabled={!pngDownloadOptions[size]}
+        download={`${icon.n}\.png`}
+        href={downloadPng(size)}
         key='png48'
-        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size: 48 })}
+        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size })}
       >
         <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
-        <ListItemText>Download PNG (48x48)</ListItemText>
-      </MenuItem>,
+        <ListItemText>Download PNG ({size}x{size})</ListItemText>
+      </MenuItem>
+    ));
+
+    return [
+      ...pngOptions,
       <Divider key='div-1' />,
       <MenuItem
         component='a'

@@ -1,0 +1,12 @@
+.controls {
+  column-gap: 1rem;
+  display: flex;
+
+  & > span {
+    flex: 1;
+  }
+
+  & > div {
+    width: 3rem;
+  }
+}

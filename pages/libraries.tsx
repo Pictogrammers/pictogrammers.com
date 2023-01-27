@@ -35,7 +35,7 @@ const LibraryCard = (props: { library: LibraryProps, type: string }) => {
         label: library.unreleased ? 'Coming Soon!' : `${libraryStats.count} Icons`
       }}
       color={`--${library.id}-color`}
-      description={library.unreleased ? 'Unreleased' : `v${libraryStats.version} | Released on ${dayjs(libraryStats.date).format('MMM DD, YYYY')}`}
+      description={library.unreleased ? 'Unreleased' : `v${libraryStats.version} • Released on ${dayjs(libraryStats.date).format('MMM DD, YYYY')}`}
       disabled={!!library.unreleased}
       headerElement='h3'
       href={library.unreleased ? undefined : `/library/${library.id}`}
