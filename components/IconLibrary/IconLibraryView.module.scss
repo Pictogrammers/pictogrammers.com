@@ -83,6 +83,7 @@
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  min-height: 102px;
 
   .infoAlert {
     flex: 1;
@@ -125,6 +126,10 @@
     .libraryContainer {
       margin-top: 0;
     }
+  }
+
+  .infoGrid {
+    min-height: 0;
   }
 
   .infoAlert {

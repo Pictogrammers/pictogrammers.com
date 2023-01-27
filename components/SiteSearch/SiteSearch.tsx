@@ -185,46 +185,50 @@ const SiteSearch: FunctionComponent = () => {
           return (
             <div className={classes.results} key={option.id}>
               <h3 className={classes.groupHeader}>{groupName}</h3>
-              <List classes={{ root: classes.group }} dense sx={{ padding: '0 0 1rem' }}>
+              <List classes={{ root: classes.group }} dense sx={{ padding: '0 0 .5rem' }}>
                 {limitedResults.map((result: any) => {
                   const link = isLibrary ? `/library/${option.id}/icon/${result.n}` : option.id === 'docs' ? `/docs/${result.slug}` : `/contributor/${result.github}`;
                   const title = isLibrary ? result.n : option.id === 'docs' ? result.title : result.name;
                   const icon = isLibrary ? result.p : mdiBookOpenPageVariantOutline;
                   const isNew = isLibrary && option.libraryInfo?.version === result.v;
                   return (
-                    <ListItemButton component={Link} href={link} key={result.cp || result.slug} onClick={closeSearchResults}>
-                      {option.id !== 'contributors' ? (
-                        <CustomGridIcon gridSize={option?.libraryInfo?.gridSize || 24} path={icon} size={1} />
-                      ) : (
-                        <Avatar
-                          classes={{ root: classes.avatar }}
-                          sx={{
-                            background: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
-                            border: `2px solid hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
-                            height: 32,
-                            width: 32
-                          }}
-                        >
-                          {result.image ? (
-                            <ExportedImage
-                              alt={result.name}
-                              height={32}
-                              placeholder='empty'
-                              src={`/images/contributors/${result.id}.jpg`}
-                              width={32}
-                            />
-                          ) : result.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-                        </Avatar>
-                      )}
-                      <ListItemText>
-                        {title}
-                        {!!isLibrary ? (
-                          <span className={classes.subtext}>{isNew ? <strong className={classes.new}><Icon path={mdiCreation} size={.5} />New! </strong> : ''}Added in v{result.v}</span>
+                    <ListItem key={result.cp || result.slug} sx={{ padding: 0 }}>
+                      <ListItemButton component={Link} href={link} onClick={closeSearchResults}>
+                        {option.id !== 'contributors' ? (
+                          <CustomGridIcon gridSize={option?.libraryInfo?.gridSize || 24} path={icon} size={1} />
                         ) : (
-                          <span className={classes.subtext}>{result.library ? [`${result.library}`, <br key={`${result.slug}${result.library}`}/>]: ''}{result.category}</span>
+                          <Avatar
+                            classes={{ root: classes.avatar }}
+                            sx={{
+                              background: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
+                              border: `2px solid hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
+                              height: 32,
+                              width: 32
+                            }}
+                          >
+                            {result.image ? (
+                              <ExportedImage
+                                alt={result.name}
+                                height={32}
+                                placeholder='empty'
+                                src={`/images/contributors/${result.id}.jpg`}
+                                width={32}
+                              />
+                            ) : result.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                          </Avatar>
                         )}
-                      </ListItemText>
-                    </ListItemButton>
+                        <ListItemText>
+                          {title}
+                          {!!isLibrary ? (
+                            <span className={classes.subtext}>{isNew ? <strong className={classes.new}><Icon path={mdiCreation} size={.5} />New! </strong> : ''}Added in v{result.v}</span>
+                          ) : option.id !== 'contributors' ? (
+                            <span className={classes.subtext}>{result.library ? `${result.library} • ` : ''}{result.category}</span>
+                          ) : (
+                            <span className={classes.subtext}>{result.core ? 'Core Member' : 'Community Contributor'}{!!result.contributedRepos?.length ? ' • Code Contributor' : ''}</span>
+                          )}
+                        </ListItemText>
+                      </ListItemButton>
+                    </ListItem>
                   );
                 })}
                 {isLibrary && showMoreLink && (
