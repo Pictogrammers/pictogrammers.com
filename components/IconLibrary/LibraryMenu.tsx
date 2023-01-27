@@ -59,7 +59,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
               selected={selectedLibrary.id === lib.id}
             >
               <ListItemIcon>
-                <ExportedImage alt={lib.name} height={24} src={`/${lib.image}`} width={24} />
+                <ExportedImage alt={lib.name} height={24} placeholder='empty' src={`/${lib.image}`} width={24} />
               </ListItemIcon>
               <ListItemText>{lib.name}</ListItemText>
             </MenuItem>
@@ -107,6 +107,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
         <ExportedImage
           alt={selectedLibrary.name}
           height={libraryIconSize}
+          placeholder='empty'
           priority
           src={`/${selectedLibrary.image}`}
           width={libraryIconSize}

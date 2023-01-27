@@ -1,5 +1,6 @@
 import { Fragment, FunctionComponent } from 'react';
 import cx from 'clsx';
+import ExportedImage from 'next-image-export-optimizer';
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Chip from '@mui/material/Chip';
@@ -140,7 +141,6 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                     <Chip
                       icon={
                         <Avatar
-                          src={`/contributors/${contributor.id}.jpg`}
                           sx={{
                             backgroundColor: `hsl(var(${contributor.core ? '--primary-color' : '--dark-cyan'}))`,
                             border: `2px solid hsl(var(${contributor.core ? '--primary-color' : '--dark-cyan'}))`,
@@ -150,7 +150,15 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                             width: 24
                           }}
                         >
-                          {contributor.name.split(' ').map((n: string)=>n[0]).join('').toUpperCase()}
+                          {contributor.image ? (
+                            <ExportedImage
+                              alt={contributor.name}
+                              height={24}
+                              placeholder='empty'
+                              src={`/contributors/${contributor.id}.jpg`}
+                              width={24}
+                            />
+                          ) : contributor.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
                         </Avatar>
                       }
                       label={isTabletWidth ? contributor.name : `Created by ${contributor.name}`}

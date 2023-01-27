@@ -16,7 +16,7 @@ const nextConfig = {
   env: {
     nextImageExportOptimizer_exportFolderPath: 'nextImageExportOptimizer',
     nextImageExportOptimizer_exportFolderPath: 'out',
-    nextImageExportOptimizer_generateAndUseBlurImages: true,
+    nextImageExportOptimizer_generateAndUseBlurImages: false,
     nextImageExportOptimizer_imageFolderPath: 'public/images',
     nextImageExportOptimizer_quality: 75,
     nextImageExportOptimizer_storePicturesInWEBP: true

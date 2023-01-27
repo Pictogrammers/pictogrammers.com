@@ -1,4 +1,5 @@
 import { Fragment, FunctionComponent } from 'react';
+import ExportedImage from 'next-image-export-optimizer';
 import Avatar from '@mui/material/Avatar';
 
 import { ContributorProps, ContributorsMdxProps } from '../../interfaces/contributor';
@@ -38,8 +39,6 @@ const Contributor: FunctionComponent<ContributorProps> = ({
       fullWidth
       graphicElement={(
         <Avatar
-          alt={name}
-          src={image ? `/contributors/${id}.jpg` : undefined}
           sx={{
             backgroundColor: `hsl(var(${contributorColor}))`,
             border: `2px solid hsl(var(${contributorColor}))`,
@@ -48,7 +47,15 @@ const Contributor: FunctionComponent<ContributorProps> = ({
             width: '50px'
           }}
         >
-          {name.split(' ').map((n)=>n[0]).join('').toUpperCase()}
+          {image ? (
+            <ExportedImage
+              alt={name}
+              height={50}
+              placeholder='empty'
+              src={`/contributors/${id}.jpg`}
+              width={50}
+            />
+          ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
         </Avatar>
       )}
       href={`/contributor/${github}`}

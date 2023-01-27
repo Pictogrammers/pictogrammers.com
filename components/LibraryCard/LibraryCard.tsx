@@ -39,7 +39,7 @@ const LibraryCard: FunctionComponent<LibraryCardProps> = ({
     <div className={classes.root}>
       <div className={classes.content}>
         <div className={classes.image}>
-          <ExportedImage alt={name} fill src={image} />
+          <ExportedImage alt={name} fill placeholder='empty' src={image} />
         </div>
         <h3>{name}</h3>
         {description && <p>{description}</p>}

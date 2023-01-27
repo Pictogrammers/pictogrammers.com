@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import getConfig from 'next/config';
 import cx from 'clsx';
 import { ParsedUrlQuery } from 'querystring';
+import ExportedImage from 'next-image-export-optimizer';
 import Paper from '@mui/material/Paper';
 import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
@@ -65,7 +66,7 @@ interface ContributorPageProps {
 }
 
 const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
-  const { authorLibraries = [], contributedRepos, core, description, github, iconCount, id, name, sponsored, twitter, website } = contributor;
+  const { authorLibraries = [], contributedRepos, core, description, github, iconCount, id, image, name, sponsored, twitter, website } = contributor;
 
   const { publicRuntimeConfig: { libraries: { icons: iconLibraries } } } = getConfig();
   const windowSize = useWindowSize();
@@ -99,7 +100,6 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
           graphicElement={
             <div className={classes.userInfo}>
               <Avatar
-                src={`/contributors/${id}.jpg`}
                 sx={{
                   backgroundColor: `hsl(var(${contributorColor}))`,
                   border: `3px solid hsl(var(${contributorColor}))`,
@@ -108,9 +108,16 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                   height: 128,
                   width: 128
                 }}
-                title={name}
               >
-                {name.split(' ').map((n)=>n[0]).join('').toUpperCase()}
+                {image ? (
+                  <ExportedImage
+                    alt={name}
+                    height={128}
+                    placeholder='empty'
+                    src={`/contributors/${id}.jpg`}
+                    width={128}
+                  />
+                ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
               </Avatar>
               <div className={classes.links}>
                 {sponsored && github && (

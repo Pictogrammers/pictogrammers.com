@@ -107,12 +107,14 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo with clearing space guides'
                 height={220}
+                placeholder='empty'
                 src={ClearingSpaceGuide}
                 width={592}
               />
               <ExportedImage
                 alt='Pictogrammers logo with clearing space example'
                 height={220}
+                placeholder='empty'
                 src={ClearingSpace}
                 width={592}
               />
@@ -121,12 +123,14 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers monogram with clearing space guides'
                 height={220}
+                placeholder='empty'
                 src={ClearingSpaceMonogramGuide}
                 width={205}
               />
               <ExportedImage
                 alt='Pictogrammers monogram with clearing space example'
                 height={220}
+                placeholder='empty'
                 src={ClearingSpaceMonogram}
                 width={205}
               />
@@ -142,6 +146,7 @@ const PostPage: NextPage = () => {
               alt='Pictogrammers Logo on White Background'
               className={classes.backWhite}
               height={126}
+              placeholder='empty'
               src={PictogrammersLogo}
               width={402}
             />
@@ -149,6 +154,7 @@ const PostPage: NextPage = () => {
               alt='Pictogrammers Logo on Yellow Background'
               className={classes.backYellow}
               height={126}
+              placeholder='empty'
               src={PictogrammersLogo}
               width={402}
             />
@@ -156,6 +162,7 @@ const PostPage: NextPage = () => {
               alt='Pictogrammers Logo on Purple Background'
               className={classes.backPurple}
               height={126}
+              placeholder='empty'
               src={PictogrammersLogo}
               width={402}
             />
@@ -163,6 +170,7 @@ const PostPage: NextPage = () => {
               alt='Pictogrammers Logo on Green Background'
               className={classes.backGreen}
               height={126}
+              placeholder='empty'
               src={PictogrammersLogo}
               width={402}
             />
@@ -173,6 +181,7 @@ const PostPage: NextPage = () => {
               alt='Pictogrammers Logo in Black on White Background'
               className={classes.backWhite}
               height={126}
+              placeholder='empty'
               src={PictogrammersLogoBlack}
               width={402}
             />
@@ -180,6 +189,7 @@ const PostPage: NextPage = () => {
               alt='Pictogrammers Logo in White on Black Background'
               className={classes.backBlack}
               height={126}
+              placeholder='empty'
               src={PictogrammersLogoWhite}
               width={402}
             />
@@ -193,6 +203,7 @@ const PostPage: NextPage = () => {
             <ExportedImage
               alt='Manual kerning and custom P vs. Manrope'
               height={200}
+              placeholder='empty'
               src={Wordmark}
               width={580}
             />
@@ -210,6 +221,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers monogram at 128px'
                 height={377}
+                placeholder='empty'
                 src={PictogrammersMonogram}
                 width={346}
               />
@@ -219,6 +231,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers monogram at 64px'
                 height={377}
+                placeholder='empty'
                 src={PictogrammersMonogram}
                 width={346}
               />
@@ -228,6 +241,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers monogram at 32px'
                 height={377}
+                placeholder='empty'
                 src={PictogrammersMonogram}
                 width={346}
               />
@@ -237,6 +251,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers monogram at 16px'
                 height={377}
+                placeholder='empty'
                 src={PictogrammersMonogram}
                 width={346}
               />
@@ -281,6 +296,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo on a busy background'
                 height={120}
+                placeholder='empty'
                 src={GuidanceBusyBack}
                 width={400}
               />
@@ -290,6 +306,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo with altered colors'
                 height={120}
+                placeholder='empty'
                 src={GuidanceAlterColor}
                 width={400}
               />
@@ -299,6 +316,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo with recreated wordmark'
                 height={120}
+                placeholder='empty'
                 src={GuidanceWordmarkRecreate}
                 width={400}
               />
@@ -308,6 +326,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo with manipulated wordmark'
                 height={120}
+                placeholder='empty'
                 src={GuidanceWordmarkReplace}
                 width={400}
               />
@@ -317,6 +336,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo with adjusted sizes'
                 height={120}
+                placeholder='empty'
                 src={GuidanceAdjustedSize}
                 width={400}
               />
@@ -326,6 +346,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo with distortions'
                 height={120}
+                placeholder='empty'
                 src={GuidanceDistorted}
                 width={400}
               />
@@ -335,6 +356,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo with a shadow'
                 height={120}
+                placeholder='empty'
                 src={GuidanceShadowed}
                 width={400}
               />
@@ -344,6 +366,7 @@ const PostPage: NextPage = () => {
               <ExportedImage
                 alt='Pictogrammers logo with a section cropped'
                 height={120}
+                placeholder='empty'
                 src={GuidanceCropped}
                 width={400}
               />

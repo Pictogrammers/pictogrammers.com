@@ -40,7 +40,7 @@ const LibraryCard = (props: { library: LibraryProps, type: string }) => {
       headerElement='h3'
       href={library.unreleased ? undefined : `/library/${library.id}`}
       icon={!library.image ? type === 'font' ? mdiFormatFont : mdiRobotExcited : undefined}
-      graphicElement={library.image ? <ExportedImage alt={`${library.name} Image`} height={64} src={`/${library.image}`} width={64} /> : undefined}
+      graphicElement={library.image ? <ExportedImage alt={`${library.name} Image`} height={64} placeholder='empty' src={`/${library.image}`} width={64} /> : undefined}
       title={library.name}
     />
   );
@@ -60,7 +60,7 @@ const IconsLandingPage: NextPage = () => {
         <LandingPageHeading
           title='Icons & Fonts'
           description='Our libraries are beautifully crafted and completely open-source, so you can focus on your designs and development.'
-          graphicElement={<ExportedImage alt='Pictogrammers Libraries' height={275} priority src={pictoLibraries} width={275} />}
+          graphicElement={<ExportedImage alt='Pictogrammers Libraries' height={275} placeholder='empty' priority src={pictoLibraries} width={275} />}
           showClouds={false}
         />
         <section className={classes.cardGroup}>
