@@ -1,5 +1,6 @@
 import { FunctionComponent, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import getConfig from 'next/config';
+import ExportedImage from 'next-image-export-optimizer';
 import Autocomplete from '@mui/material/Autocomplete';
 import Popper, { PopperProps } from '@mui/material/Popper';
 import TextField from '@mui/material/TextField';
@@ -196,16 +197,24 @@ const SiteSearch: FunctionComponent = () => {
                         <CustomGridIcon gridSize={option?.libraryInfo?.gridSize || 24} path={icon} size={1} />
                       ) : (
                         <Avatar
-                          alt={result.name.toUpperCase()}
                           classes={{ root: classes.avatar }}
-                          src={`/contributors/${result.id}.jpg`}
                           sx={{
                             background: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
                             border: `2px solid hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
                             height: 32,
                             width: 32
                           }}
-                        />
+                        >
+                          {result.image ? (
+                            <ExportedImage
+                              alt={result.name}
+                              height={32}
+                              placeholder='empty'
+                              src={`/images/contributors/${result.id}.jpg`}
+                              width={32}
+                            />
+                          ) : result.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                        </Avatar>
                       )}
                       <ListItemText>
                         {title}

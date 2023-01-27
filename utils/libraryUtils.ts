@@ -7,7 +7,7 @@ import { IconLibrary, IconLibraryIcon } from '../interfaces/icons';
 import { ContributorProps } from '../interfaces/contributor';
 import { CategoryProps } from '../hooks/useCategories';
 
-import allContributors from '../public/contributors/contributors.json';
+import allContributors from '../public/data/contributors.json';
 
 const { publicRuntimeConfig: config } = getConfig();
 const { libraries: { icons: iconLibraries = [] } } = config;
@@ -26,7 +26,7 @@ export const getAllLibraryPaths = async () => {
       return output;
     }
 
-    const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library.id}-${library.version}.json`), 'utf-8'));
+    const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/data/${library.id}-${library.version}.json`), 'utf-8'));
     const { contributorSlugs, iconSlugs, versionSlugs } = icons.reduce((output: SlugInterface, icon: IconLibraryIcon) => {
       output.iconSlugs.push(`${library.id}/icon/${icon.n}`);
 
@@ -71,7 +71,7 @@ export const getAllLibraryPaths = async () => {
 
 export const getIcon = async (library: string, icon: string): Promise<IconLibraryIcon> => {
   const libraryMeta = iconLibraries.find((lib: IconLibrary) => lib.id === library);
-  const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library}-${libraryMeta.version}.json`), 'utf-8'));
+  const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/data/${library}-${libraryMeta.version}.json`), 'utf-8'));
   const iconInfo = icons.find((i: IconLibraryIcon) => i.n === icon);
   iconInfo.categories = iconInfo.t.map((tag: number) => ({ id: tag, ...categories[tag] }));
   return iconInfo;

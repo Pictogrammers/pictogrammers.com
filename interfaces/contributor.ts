@@ -14,6 +14,7 @@ export interface ContributorProps {
 }
 
 export interface ContributorsMdxProps {
+  filtered?: string[];
   view?: 'core' | 'community' | 'all' | 'single';
   name?: string;
   id?: string;

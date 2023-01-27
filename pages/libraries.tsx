@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import getConfig from 'next/config';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import Paper from '@mui/material/Paper';
 import dayjs from 'dayjs';
 import { mdiFormatFont, mdiRobotExcited } from '@mdi/js';
@@ -9,9 +9,9 @@ import Head from '../components/Head/Head';
 import LandingPageHeading from '../components/LandingPageHeading/LandingPageHeading';
 import LandingPageCard from '../components/LandingPageCard/LandingPageCard';
 
-import iconLibraries from '../public/libraries/libraries.json';
+import iconLibraries from '../public/data/libraries.json';
 
-import pictoLibraries from '../assets/libraries/picto-libraries.png';
+import pictoLibraries from '../public/images/libraries/picto-libraries.png';
 
 import classes from '../styles/pages/landing.module.scss';
 
@@ -40,7 +40,7 @@ const LibraryCard = (props: { library: LibraryProps, type: string }) => {
       headerElement='h3'
       href={library.unreleased ? undefined : `/library/${library.id}`}
       icon={!library.image ? type === 'font' ? mdiFormatFont : mdiRobotExcited : undefined}
-      graphicElement={library.image ? <Image alt={`${library.name} Image`} height={64} src={`/${library.image}`} width={64} /> : undefined}
+      graphicElement={library.image ? <ExportedImage alt={`${library.name} Image`} height={64} placeholder='empty' src={`/${library.image}`} width={64} /> : undefined}
       title={library.name}
     />
   );
@@ -60,7 +60,7 @@ const IconsLandingPage: NextPage = () => {
         <LandingPageHeading
           title='Icons & Fonts'
           description='Our libraries are beautifully crafted and completely open-source, so you can focus on your designs and development.'
-          graphicElement={<Image alt='Pictogrammers Libraries' height={275} priority src={pictoLibraries} width={275} />}
+          graphicElement={<ExportedImage alt='Pictogrammers Libraries' height={275} placeholder='empty' priority src={pictoLibraries} width={275} />}
           showClouds={false}
         />
         <section className={classes.cardGroup}>

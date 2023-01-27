@@ -1,12 +1,12 @@
 import { IconLibraries } from '../interfaces/icons';
 
 const importLibraries = async () => {
-  const { default: allLibraries } = await import('../public/libraries/libraries.json');
+  const { default: allLibraries } = await import('../public/data/libraries.json');
 
   const libraries = await Object.keys(allLibraries).reduce(async (prevPromise, libraryId) => {
     const output = await prevPromise;
     const { date: releaseDate, version } = allLibraries[libraryId as keyof typeof allLibraries];
-    const { default: fullLibrary } = await import(`../public/libraries/${libraryId}-${version}.json`);
+    const { default: fullLibrary } = await import(`../public/data/${libraryId}-${version}.json`);
     const { i: icons, t: tags } = fullLibrary;
     output[libraryId] = { icons, releaseDate, tags, version };
     return output;
@@ -15,12 +15,12 @@ const importLibraries = async () => {
 };
 
 const importDocSearchIndex = async () => {
-  const { default: docIndex } = await import('../public/docs/docs.json');
+  const { default: docIndex } = await import('../public/data/docs.json');
   postMessage({ data: docIndex, status: 'complete', type: 'docs' });
 };
 
 const importContributorSearchIndex = async () => {
-  const { default: contributorIndex } = await import('../public/contributors/contributors.json');
+  const { default: contributorIndex } = await import('../public/data/contributors.json');
   postMessage({ data: contributorIndex, status: 'complete', type: 'contributors' });
 };
 

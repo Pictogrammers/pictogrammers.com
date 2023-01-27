@@ -1,5 +1,6 @@
 import { Fragment, FunctionComponent } from 'react';
 import cx from 'clsx';
+import ExportedImage from 'next-image-export-optimizer';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
@@ -60,19 +61,26 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
 }) => {
   const { contributors } = useData();
   const authorId = user.id.split('-')[0];
-  const userIsCore = contributors.find((c: ContributorProps) => c.id === authorId)?.core || false;
+  const userInfo = contributors.find((c: ContributorProps) => c.id === authorId);
   
   const userAvatar = (
     <Link href={`/contributor/${user.github}`}>
       <Avatar
         classes={{ root: classes.avatar }}
-        src={`/contributors/${authorId}.jpg`}
         sx={{
-          background: `hsl(var(${userIsCore ? '--primary-color' : '--dark-cyan'}))`,
-          border: `2px solid hsl(var(${userIsCore ? '--primary-color' : '--dark-cyan'}))`,
+          background: `hsl(var(${userInfo.core ? '--primary-color' : '--dark-cyan'}))`,
+          border: `2px solid hsl(var(${userInfo.core ? '--primary-color' : '--dark-cyan'}))`,
         }}
       >
-        {user.name.split(' ').map((n: string)=>n[0]).join('').toUpperCase()}
+        {userInfo.image ? (
+          <ExportedImage
+            alt={userInfo.name}
+            height={50}
+            placeholder='empty'
+            src={`/images/contributors/${userInfo.id}.jpg`}
+            width={50}
+          />
+        ) : userInfo.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
       </Avatar>
     </Link>
   );

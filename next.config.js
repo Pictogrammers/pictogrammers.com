@@ -13,7 +13,18 @@ const withBA = require('@next/bundle-analyzer')({
 const config = require('./config');
 
 const nextConfig = {
-  images: {
+  env: {
+    nextImageExportOptimizer_exportFolderPath: 'out',
+    nextImageExportOptimizer_generateAndUseBlurImages: false,
+    nextImageExportOptimizer_imageFolderPath: 'public/images',
+    nextImageExportOptimizer_quality: 75,
+    nextImageExportOptimizer_storePicturesInWEBP: true
+  },
+  images: process.env.NODE_ENV === 'production' ? {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    loader: 'custom'
+  } : {
     unoptimized: true
   },
   publicRuntimeConfig: config,
@@ -40,13 +51,30 @@ const nextConfig = {
   trailingSlash: true,
   webpack(config, { isServer }) {
     config.module.rules.push({
-      issuer: { and: [/\.(js|ts)x?$/] },
+      issuer: {
+        and: [/\.(js|ts)x?$/]
+      },
       test: /\.svg$/,
       use: [{
         loader: '@svgr/webpack',
         options: {
-          // TODO: Reenable this and figure out how to disable group stripping
-          svgo: false
+          svgoConfig: {
+            plugins: [
+              {
+                name: 'preset-default',
+                params: {
+                  overrides: {
+                    // These are all required for the special
+                    // animations on the Pictogrammers monogram
+                    // and the mobile hamburger menu.
+                    cleanupIDs: false,
+                    collapseGroups: false,
+                    mergePaths: false
+                  }
+                }
+              }
+            ]
+          }
         }
       }]
     });

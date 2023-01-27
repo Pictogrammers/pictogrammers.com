@@ -5,9 +5,9 @@ import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
 import { siGithub } from 'simple-icons/icons';
 
-import MdiHamburger from '../../assets/hamburger.svg';
-import PictogrammersLogo from '../../assets/pictogrammers-logo.svg';
-import PictogrammersWordmark from '../../assets/brand/logos/pictogrammers-wordmark.svg';
+import MdiHamburger from '../../public/images/hamburger.svg';
+import PictogrammersLogo from '../../public/images/pictogrammers-logo.svg';
+import PictogrammersWordmark from '../../public/images/brand/logos/pictogrammers-wordmark.svg';
 
 import Link from '../Link/Link';
 import SiteSearch from '../SiteSearch/SiteSearch';

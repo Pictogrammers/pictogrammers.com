@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import { FunctionComponent } from 'react';
+import ExportedImage from 'next-image-export-optimizer';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Icon from '@mdi/react';
@@ -39,7 +39,7 @@ const LibraryCard: FunctionComponent<LibraryCardProps> = ({
     <div className={classes.root}>
       <div className={classes.content}>
         <div className={classes.image}>
-          <Image alt={name} fill src={image} />
+          <ExportedImage alt={name} fill placeholder='empty' src={image} />
         </div>
         <h3>{name}</h3>
         {description && <p>{description}</p>}

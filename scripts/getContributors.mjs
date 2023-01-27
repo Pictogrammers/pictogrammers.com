@@ -78,7 +78,7 @@ const getContributors = async () => {
 
     if (!contributors.length) {
       console.log('warn - No contributors found, writing blank /public/contributors/contributors.json');
-      return fs.writeFileSync('./public/contributors/contributors.json', JSON.stringify({ contributors: [], totalContributors: 0 }), { flag: 'w' });
+      return fs.writeFileSync('./public/data/contributors.json', JSON.stringify({ contributors: [], totalContributors: 0 }), { flag: 'w' });
     }
 
     const processedContributors = contributors
@@ -98,7 +98,7 @@ const getContributors = async () => {
 
         // Filter out generic images
         if (base64 !== genericImage) {
-          const imagePath = `/contributors/${contributorId}.jpg`;
+          const imagePath = `/images/contributors/${contributorId}.jpg`;
           fs.writeFileSync(`./public${imagePath}`, contributor.base64, { encoding: 'base64', flag: 'w' });
           rest.image = true;
         }
@@ -116,8 +116,8 @@ const getContributors = async () => {
       }, [])
       .sort((a, b) => Number(b.core) - Number(a.core) || b.iconCount - a.iconCount);
 
-    console.log(`info - Writing ${processedContributors.length} contributors to /public/contributors/contributors.json`);
-    fs.writeFileSync('./public/contributors/contributors.json', JSON.stringify({ contributors: processedContributors, totalContributors: processedContributors.length }), { flag: 'w' });
+    console.log(`info - Writing ${processedContributors.length} contributors to /public/data/contributors.json`);
+    fs.writeFileSync('./public/data/contributors.json', JSON.stringify({ contributors: processedContributors, totalContributors: processedContributors.length }), { flag: 'w' });
     return processedContributors;
   } catch (err) {
     console.error(err);

@@ -98,7 +98,7 @@ const getIconLibraries = async (contributors = []) => {
 
   const allLibraries = await Object.keys(processedLibraries).reduce(async (prevPromise, libraryId) => {
     const output = await prevPromise;
-    await fs.writeFile(`./public/libraries/${libraryId}-${processedLibraries[libraryId].v}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
+    await fs.writeFile(`./public/data/${libraryId}-${processedLibraries[libraryId].v}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
 
     output[libraryId] = {
       count: processedLibraries[libraryId].i.length,
@@ -108,7 +108,7 @@ const getIconLibraries = async (contributors = []) => {
     return output;
   }, Promise.resolve({}));
 
-  await fs.writeFile('./public/libraries/libraries.json', JSON.stringify(allLibraries), { flag: 'w' });
+  await fs.writeFile('./public/data/libraries.json', JSON.stringify(allLibraries), { flag: 'w' });
 };
 
 export default getIconLibraries;

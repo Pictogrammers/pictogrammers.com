@@ -1,15 +1,16 @@
 import * as mdi from '@mdi/js';
 import * as mdil from '@mdi/light-js';
+import * as memory from '@pictogrammers/memory';
 import * as si from 'simple-icons/icons';
 
 import { IconLibraries } from '../../interfaces/icons';
 
 const libraries: IconLibraries = {
-  mdi, mdil, si
+  mdi, mdil, memory, si
 };
 
 const getUsedIcons = (content: string) => {
-  return [...content.matchAll(/(mdi|mdil|si):([a-z0-9-]+)/g)]
+  return [...content.matchAll(/(mdi|mdil|memory|si):([a-z0-9-]+)/g)]
     .reduce((output: IconLibraries, icon) => {
       const [ , library, iconSlug ] = icon;
 

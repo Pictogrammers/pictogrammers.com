@@ -4,7 +4,7 @@ import getConfig from 'next/config';
 
 import { IconLibrary, IconLibraryIcon } from '../interfaces/icons';
 
-import allContributors from '../public/contributors/contributors.json';
+import allContributors from '../public/data/contributors.json';
 
 const { publicRuntimeConfig: config } = getConfig();
 const { libraries: { icons: iconLibraries = [] } } = config;
@@ -33,7 +33,7 @@ export const getContributor = async (userId: string) => {
       return output;
     }
 
-    const { i: icons } = JSON.parse(await fs.readFile(join(process.cwd(), `public/libraries/${library.id}-${library.version}.json`), 'utf-8'));
+    const { i: icons } = JSON.parse(await fs.readFile(join(process.cwd(), `public/data/${library.id}-${library.version}.json`), 'utf-8'));
     const authoredInLibrary = !!icons.find((icon: IconLibraryIcon) => icon.a === contributorInfo.id);
 
     if (authoredInLibrary) {

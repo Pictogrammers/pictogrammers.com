@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { useRouter } from 'next/router';
 import cx from 'clsx';
+import ExportedImage from 'next-image-export-optimizer';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
@@ -45,7 +46,7 @@ import LibraryViewMode from './LibraryViewMode';
 import IconGrid from '../IconGrid/IconGrid';
 import CarbonAd from '../CarbonAd/CarbonAd';
 
-import iconLibraries from '../../public/libraries/libraries.json';
+import iconLibraries from '../../public/data/libraries.json';
 
 import classes from './IconLibraryView.module.scss';
 
@@ -171,15 +172,21 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
           <Chip
             avatar={
               <Avatar
-                alt={authorInfo.name}
-                src={`/contributors/${authorInfo.id}.jpg`}
                 sx={{
                   backgroundColor: `hsl(var(${authorInfo.core ? '--primary-color' : '--dark-cyan'}))`,
                   border: `1px solid hsl(var(${authorInfo.core ? '--primary-color' : '--dark-cyan'}))`,
                   color: 'hsl(var(--white)) !important'
                 }}
               >
-                {author.charAt(0).toUpperCase()}
+                {authorInfo.image ? (
+                  <ExportedImage
+                    alt={authorInfo.name}
+                    height={18}
+                    placeholder='empty'
+                    src={`/images/contributors/${authorInfo.id}.jpg`}
+                    width={18}
+                  />
+                ) : authorInfo.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
               </Avatar>
             }
             label={`Created by ${authorInfo.name}`}
