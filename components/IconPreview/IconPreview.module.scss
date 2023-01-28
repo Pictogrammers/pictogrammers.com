@@ -16,19 +16,6 @@
     position: relative;
     z-index: 1;
   }
-
-  .iconDimensions {
-    background-color: hsl(var(--black) / 60%);
-    border-radius: 0 0 0 10px;
-    color: hsl(var(--white));
-    font-size: .8rem;
-    margin: 0;
-    padding: .1rem .5rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-    user-select: none;
-  }
 }
 
 .customize {

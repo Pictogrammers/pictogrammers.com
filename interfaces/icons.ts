@@ -36,14 +36,14 @@ export interface IconLibraryIcon {
 
 export interface IconCustomizationProps {
   bgColor: {
-    a: number,
+    a?: number | undefined,
     b: number,
     g: number,
     r: number
   };
   cornerRadius: number;
   fgColor: {
-    a: number,
+    a?: number | undefined,
     b: number,
     g: number,
     r: number

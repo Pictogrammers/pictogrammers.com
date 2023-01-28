@@ -5,27 +5,30 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Menu from '@mui/material/Menu';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
+import ListSubheader from '@mui/material/ListSubheader';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Icon from '@mdi/react';
-import { mdiChevronDown, mdiDownload, mdiFilePngBox, mdiFileXmlBox } from '@mdi/js';
-import { siWindows } from 'simple-icons/icons';
+import { mdiChevronDown, mdiDownload, mdiFilePngBox, mdiSvg } from '@mdi/js';
+import { siAndroid, siWindows } from 'simple-icons/icons';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
+
+import classes from './IconDownloadMenu.module.scss';
 
 import { useAnalytics } from 'use-analytics';
 
 interface IconDownloadMenuMenuProps {
   icon: IconLibraryIcon;
   library: IconLibrary;
+  setCustomizing: Function;
 };
 
 interface PngDownloadOptions {
   [key: number]: string;
 }
 
-const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, library }) => {
+const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, library, setCustomizing }) => {
   const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
   const [ pngDownloadOptions, setPngDownloadOptions ] = useState<PngDownloadOptions>({});
   const { track } = useAnalytics();
@@ -88,7 +91,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         disabled={!pngDownloadOptions[size]}
         download={`${icon.n}\.png`}
         href={downloadPng(size)}
-        key='png48'
+        key={`png${size}`}
         onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size })}
       >
         <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
@@ -97,8 +100,29 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
     ));
 
     return [
+      <ListSubheader className={classes.header} key='raster'>Raster Formats</ListSubheader>,
       ...pngOptions,
-      <Divider key='div-1' />,
+      <MenuItem
+        key='png-custom'
+        onClick={() => {
+          setCustomizing(true);
+          track('customizerStart', { icon: icon.n, library: library.name });
+        }}
+      >
+        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
+        <ListItemText>Advanced PNG Export...</ListItemText>
+      </MenuItem>,
+      <ListSubheader className={classes.header} key='vector'>Vector Formats</ListSubheader>,
+      <MenuItem
+        component='a'
+        download={`${icon.n}\.svg`}
+        href={downloadSvg()}
+        key='svg'
+        onClick={() => track('downloadSVG', { icon: icon.n, library: library.name })}
+      >
+        <ListItemIcon><Icon path={mdiSvg} size={1} /></ListItemIcon>
+        <ListItemText>Download SVG</ListItemText>
+      </MenuItem>,
       <MenuItem
         component='a'
         download={`${icon.n.replace('-', '_')}\.xml`}
@@ -106,10 +130,9 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         key='xml'
         onClick={() => track('downloadXML', { icon: icon.n, library: library.name })}
       >
-        <ListItemIcon><Icon path={mdiFileXmlBox} size={1} /></ListItemIcon>
-        <ListItemText>Download XML Vector Drawable</ListItemText>
+        <ListItemIcon sx={{ marginLeft: '3px', marginRight: '-3px' }}><Icon path={siAndroid.path} size={.8} /></ListItemIcon>
+        <ListItemText>Download XML Vector Drawable for Android</ListItemText>
       </MenuItem>,
-      <Divider key='div-2' />,
       <MenuItem
         component='a'
         download={`${icon.n}\.xaml`}
@@ -134,7 +157,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <ButtonGroup>
         <Tooltip arrow placement='top' title='Download SVG'>
           <Button
@@ -176,7 +199,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         open={!!menuAnchor}
         onClose={() => setMenuAnchor(null)}
       >
-        <MenuList dense>{buildMenuOptions()}</MenuList>
+        <MenuList dense sx={{ paddingTop: 0 }}>{buildMenuOptions()}</MenuList>
       </Menu>
     </div>
   );

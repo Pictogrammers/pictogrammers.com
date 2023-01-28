@@ -17,7 +17,6 @@ const getGitHubContributors = async () => {
 
     if (!res.ok) {
       console.warn('WARNING: Unable to retrieve repository listing from Pictogrammers GitHub organization.');
-      console.log(res);
       return {};
     }
 
@@ -62,7 +61,7 @@ const getGitHubContributors = async () => {
 };
 
 const getContributors = async () => {
-  console.log('info - Retrieving contributors from the API...');
+  console.log('INFO: Retrieving contributors from the API...');
 
   try {
     const gitHubContributors = await getGitHubContributors();
@@ -77,7 +76,7 @@ const getContributors = async () => {
     const contributors = await res.json();
 
     if (!contributors.length) {
-      console.log('warn - No contributors found, writing blank /public/contributors/contributors.json');
+      console.warn('WARN: No contributors found, writing blank /public/contributors/contributors.json');
       return fs.writeFileSync('./public/data/contributors.json', JSON.stringify({ contributors: [], totalContributors: 0 }), { flag: 'w' });
     }
 

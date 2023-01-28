@@ -1,5 +1,6 @@
 import { FunctionComponent, useCallback, useRef, useState } from 'react';
-import { RgbaColor, RgbaColorPicker } from 'react-colorful';
+import { ChromePicker, ColorChangeHandler } from 'react-color';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import useClickOutside from '../../hooks/useClickOutside';
 
@@ -10,12 +11,13 @@ interface ColorPickerProps {
     r: number;
     g: number;
     b: number;
-    a: number;
+    a?: number | undefined;
   };
-  onChange: (newColor: RgbaColor) => any;
+  label: string;
+  onChange: ColorChangeHandler;
 };
 
-const PopoverPicker: FunctionComponent<ColorPickerProps> = ({ color, onChange }) => {
+const PopoverPicker: FunctionComponent<ColorPickerProps> = ({ color, label, onChange }) => {
   const popover = useRef<HTMLDivElement>(null);
   const [ isOpen, toggleVisibility ] = useState(false);
 
@@ -24,14 +26,20 @@ const PopoverPicker: FunctionComponent<ColorPickerProps> = ({ color, onChange })
 
   return (
     <div className={classes.root}>
-      <div
-        className={classes.swatch}
-        style={{ backgroundColor: `rgb(${color.r} ${color.g} ${color.b} / ${color.a * 100}%)` }}
+      <FormControlLabel
+        control={(
+          <div
+            className={classes.swatch}
+            style={{ backgroundColor: `rgb(${color.r} ${color.g} ${color.b} / ${(color.a || 1) * 100}%)` }}
+          />
+        )}
+        label={label}
+        labelPlacement='end'
         onClick={() => toggleVisibility(true)}
       />
       {isOpen && (
         <div className={classes.popover} ref={popover}>
-          <RgbaColorPicker color={color} onChange={onChange} />
+          <ChromePicker color={color} onChange={onChange} />
         </div>
       )}
     </div>

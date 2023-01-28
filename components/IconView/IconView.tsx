@@ -15,13 +15,14 @@ import {
   mdiClose,
   mdiDotsHorizontal,
   mdiDotsHorizontalCircleOutline,
-  mdiDownload,
+  mdiExitToApp,
   mdiTag,
   mdiTagOutline,
+  mdiTuneVariant,
   mdiXml
 } from '@mdi/js';
 
-import { IconCustomizationProps, IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
+import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 import { ContributorProps } from '../../interfaces/contributor';
 
 import Head from '../Head/Head';
@@ -59,27 +60,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
   const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${gridSize} ${gridSize}"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
 
   // Customization Support
-  const defaultCustomizations = {
-    bgColor: { a: 0, b: 255, g: 255, r: 255 },
-    cornerRadius: 0,
-    fgColor: { a: 1, b: 0, g: 0, r: 0 },
-    flipX: false,
-    flipY: false,
-    padding: 0,
-    rotate: 0,
-    size: gridSize
-  };
   const [ customizing, setCustomizing ] = useState(false);
-  const [ customizations, setCustomizations ] = useState<IconCustomizationProps>(defaultCustomizations);
-
-  const toggleCustomizing = () => {
-    if (!customizing) {
-      return setCustomizing(true);
-    }
-
-    setCustomizations(defaultCustomizations);
-    return setCustomizing(false);
-  };
 
   const renderTitle = () => {
     return (
@@ -198,14 +179,11 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
             <div className={classes.actions}>
               {customizing ? (
                 <Button
-                  startIcon={<Icon path={mdiDownload} size={1} />}
-                  sx={{
-                    marginBottom: '2px',
-                    marginTop: '1px'
-                  }}
-                  variant='contained'
+                  onClick={() => setCustomizing(false)}
+                  startIcon={<Icon path={mdiExitToApp} size={1} />}
+                  variant='outlined'
                 >
-                  Download Customized Icon
+                  Exit Advanced Export
                 </Button>
               ) : (
                 <Fragment>
@@ -230,57 +208,64 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                       <Icon path={mdiXml} size={1} />
                     </IconButton>
                   </Tooltip>
-                  <IconDownloadMenu icon={icon} library={libraryInfo} />
+                  <IconDownloadMenu icon={icon} library={libraryInfo} setCustomizing={setCustomizing} />
                 </Fragment>
               )}
             </div>
           </div>
-          <div className={classes.usage}>
-            <IconPreview
-              allowCustomization
-              customizations={customizations}
-              toggleCustomizationMode={toggleCustomizing}
-              gridSize={gridSize}
-              isCustomizing={customizing}
-              path={icon.p}
-            />
-            {customizing ?
-              <IconCustomizer customizations={customizations} gridSize={gridSize} setCustomizations={setCustomizations} /> :
-              <IconUsageExamples exampleTypes={exampleTypes} library={libraryInfo.id} iconName={icon.n} />
-            }
-          </div>
-          <div className={classes.tags}>
-            <div className={classes.categories}>
-              {icon?.categories?.map((tag) => {
-                return (
-                  <Tooltip arrow key={tag.slug} placement='top' title={`View all ${tag.name} icons`}>
-                    <Link href={`/library/${libraryInfo.id}/category/${tag.slug}`} onClick={() => onClose?.()}>
-                      <Chip icon={<Icon path={mdiTag} size={.7} />} label={tag.name} sx={{ backgroundColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--white))', cursor: 'pointer' }} />
+          {customizing ? (
+            <div className={classes.usage}>
+              <IconCustomizer gridSize={gridSize} icon={icon} />
+            </div>
+          ) : (
+            <Fragment>
+              <div className={classes.usage}>
+                <div className={classes.preview}>
+                  <IconPreview
+                    gridSize={gridSize}
+                    path={icon.p}
+                  />
+                </div>
+                <IconUsageExamples
+                  exampleTypes={exampleTypes}
+                  library={libraryInfo.id}
+                  iconName={icon.n}
+                />
+              </div>
+              <div className={classes.tags}>
+                <div className={classes.categories}>
+                  {icon?.categories?.map((tag) => {
+                    return (
+                      <Tooltip arrow key={tag.slug} placement='top' title={`View all ${tag.name} icons`}>
+                        <Link href={`/library/${libraryInfo.id}/category/${tag.slug}`} onClick={() => onClose?.()}>
+                          <Chip icon={<Icon path={mdiTag} size={.7} />} label={tag.name} sx={{ backgroundColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--white))', cursor: 'pointer' }} />
+                        </Link>
+                      </Tooltip>
+                    );
+                  })}
+                </div>
+                <div className={classes.aliases}>
+                  {icon.al.map((alias) => <Chip icon={<Icon path={mdiDotsHorizontalCircleOutline} size={.8} />} key={alias} label={alias} />)}
+                </div>       
+              </div>
+              <div className={classes.tags}>
+                <div className={classes.categories}>
+                  <Tooltip arrow placement='top' title='Suggest a tag'>
+                    <Link href={`${git}/issues/new?labels=Tag&template=5_tag.md&title=Tag%20%22${encodeURIComponent(icon.n)}%22%20with%20%3Ctag%3E`} onClick={() => onClose?.()}>
+                      <Chip icon={<Icon path={mdiTagOutline} size={.7} />} label='Suggest a tag' sx={{ borderColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--dark-cyan))', cursor: 'pointer' }} variant='outlined' />
                     </Link>
                   </Tooltip>
-                );
-              })}
-            </div>
-            <div className={classes.aliases}>
-              {icon.al.map((alias) => <Chip icon={<Icon path={mdiDotsHorizontalCircleOutline} size={.8} />} key={alias} label={alias} />)}
-            </div>       
-          </div>
-          <div className={classes.tags}>
-            <div className={classes.categories}>
-              <Tooltip arrow placement='top' title='Suggest a tag'>
-                <Link href={`${git}/issues/new?labels=Tag&template=5_tag.md&title=Tag%20%22${encodeURIComponent(icon.n)}%22%20with%20%3Ctag%3E`} onClick={() => onClose?.()}>
-                  <Chip icon={<Icon path={mdiTagOutline} size={.7} />} label='Suggest a tag' sx={{ borderColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--dark-cyan))', cursor: 'pointer' }} variant='outlined' />
-                </Link>
-              </Tooltip>
-            </div>
-            <div className={classes.aliases}>
-              <Tooltip arrow placement='top' title='Suggest an alias'>
-                <Link href={`${git}/issues/new?labels=Alias&template=4_alias.md&title=Alias%20%22${encodeURIComponent(icon.n)}%22%20with%20%3Calias%3E`} onClick={() => onClose?.()}>
-                  <Chip icon={<Icon path={mdiDotsHorizontal} size={.7} />} label='Suggest an alias' sx={{ borderColor: 'hsl(var(--dark-grey))', color: 'hsl(var(--dark-grey))', cursor: 'pointer' }} variant='outlined' />
-                </Link>
-              </Tooltip>
-            </div>
-          </div>  
+                </div>
+                <div className={classes.aliases}>
+                  <Tooltip arrow placement='top' title='Suggest an alias'>
+                    <Link href={`${git}/issues/new?labels=Alias&template=4_alias.md&title=Alias%20%22${encodeURIComponent(icon.n)}%22%20with%20%3Calias%3E`} onClick={() => onClose?.()}>
+                      <Chip icon={<Icon path={mdiDotsHorizontal} size={.7} />} label='Suggest an alias' sx={{ borderColor: 'hsl(var(--dark-grey))', color: 'hsl(var(--dark-grey))', cursor: 'pointer' }} variant='outlined' />
+                    </Link>
+                  </Tooltip>
+                </div>
+              </div>
+            </Fragment>
+          )}
         </Fragment>
       </ConditionalWrapper>
     </div>

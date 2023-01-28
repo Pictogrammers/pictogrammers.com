@@ -1,0 +1,12 @@
+.header {
+  border-bottom: 1px solid hsl(var(--medium-grey));
+  font-size: .9rem;
+  letter-spacing: 1px;
+  margin: .5rem 0;
+  padding: 0 1rem;
+  text-transform: uppercase;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}

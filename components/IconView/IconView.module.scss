@@ -70,6 +70,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: -1px;
+  min-height: 58px;
   padding: .5rem 2rem;
 
   a {
@@ -101,6 +102,12 @@
   display: flex;
   justify-content: space-around;
   padding: 1rem;
+
+  .preview {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
 }
 
 .tags {
@@ -194,6 +201,13 @@
     h1 {
       font-size: 3.5vh;
       margin: 0;
+    }
+  }
+
+  .usage {
+    .preview {
+      margin-bottom: 2rem;
+      row-gap: 2rem;
     }
   }
 
