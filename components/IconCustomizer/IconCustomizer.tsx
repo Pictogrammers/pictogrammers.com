@@ -233,7 +233,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       <Button
         onClick={downloadCustomIcon}
         startIcon={<Icon path={mdiDownload} size={1} />}
-        sx={{ margin: '0 1rem' }}
+        sx={{ margin: '0 1rem', minWidth: '250px' }}
         variant='contained'
       >
         Download PNG ({customizations.size}x{customizations.size})
