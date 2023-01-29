@@ -12,6 +12,7 @@
   display: flex;
   justify-content: space-around;
   padding: 1rem 0;
+  user-select: none;
   width: 100%;
 }
 
@@ -29,6 +30,18 @@
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
+}
+
+.corners {
+  p {
+    align-items: center;
+    display: flex;
+
+    svg {
+      cursor: help;
+      margin-left: .25rem;
+    }
+  }
 }
 
 .sliderGroup {
@@ -52,12 +65,12 @@
 }
 
 .controls {
-  align-items: center;
   column-gap: 1rem;
   display: flex;
 
   & > svg {
     margin-right: .5rem;
+    margin-top: .15rem;
   }
 
   & > span {

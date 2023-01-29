@@ -11,10 +11,10 @@ interface ColorPickerProps {
     r: number;
     g: number;
     b: number;
-    a?: number | undefined;
+    a: number;
   };
   label: string;
-  onChange: ColorChangeHandler;
+  onChange: any;
 };
 
 const PopoverPicker: FunctionComponent<ColorPickerProps> = ({ color, label, onChange }) => {
@@ -24,14 +24,18 @@ const PopoverPicker: FunctionComponent<ColorPickerProps> = ({ color, label, onCh
   const close = useCallback(() => toggleVisibility(false), []);
   useClickOutside(popover, close);
 
+  console.log(label, color);
+
   return (
     <div className={classes.root}>
       <FormControlLabel
         control={(
-          <div
-            className={classes.swatch}
-            style={{ backgroundColor: `rgb(${color.r} ${color.g} ${color.b} / ${(color.a || 1) * 100}%)` }}
-          />
+          <div className={classes.swatch}>
+            <div
+              className={classes.selectedColor}
+              style={{ backgroundColor: `rgb(${color.r} ${color.g} ${color.b} / ${color.a * 100}%)` }}
+            />
+          </div>
         )}
         label={label}
         labelPlacement='end'

@@ -5,10 +5,12 @@ import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Slider from '@mui/material/Slider';
+import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mdi/react';
 import {
   mdiBorderRadius,
   mdiDownload,
+  mdiHelpCircleOutline,
   mdiReload,
   mdiResize,
   mdiStretchToPageOutline
@@ -16,6 +18,8 @@ import {
 
 import IconPreview from '../IconPreview/IconPreview';
 import ColorPicker from '../ColorPicker/ColorPicker';
+
+import useWindowSize from '../../hooks/useWindowSize';
 
 import { IconCustomizationProps, IconLibraryIcon } from '../../interfaces/icons';
 
@@ -38,11 +42,13 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
     size: gridSize
   });
 
-  const dpWidth = parseInt(classes['dp-width'], 10);
-  const maxIconSize = gridSize * dpWidth;
+  const maxIconSize = 256;
   const minIconSize = gridSize / 2;
   const maxPaddingSize = maxIconSize - customizations.size;
   const adjustedPadding = Math.min(customizations.padding, maxIconSize - customizations.size);
+
+  const windowSize = useWindowSize();
+  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
 
   const calculateTransform = () => {
     const transforms = [];
@@ -66,8 +72,8 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       <rect
         fill={`rgb(${customizations.bgColor.r} ${customizations.bgColor.g} ${customizations.bgColor.b} / ${(customizations.bgColor.a || 0) * 100}%)`}
         height={gridSize}
-        rx={customizations.cornerRadius}
-        ry={customizations.cornerRadius}
+        rx={customizations.cornerRadius * 0.12}
+        ry={customizations.cornerRadius * 0.12}
         width={gridSize}
       />
       <path
@@ -113,8 +119,16 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
         </div>
         <div className={classes.customize}>
           <div className={classes.colors}>
-            <ColorPicker color={customizations.fgColor} label='Foreground Color' onChange={(color: ColorResult) => setCustomizations({ ...customizations, fgColor: color.rgb })} />
-            <ColorPicker color={customizations.bgColor} label='Background Color' onChange={(color: ColorResult) => setCustomizations({ ...customizations, bgColor: color.rgb })} />
+            <ColorPicker
+              color={customizations.fgColor}
+              label='Foreground Color'
+              onChange={(color: { rgb: IconCustomizationProps['fgColor'] }) => setCustomizations({ ...customizations, fgColor: color.rgb })}
+            />
+            <ColorPicker
+              color={customizations.bgColor}
+              label='Background Color'
+              onChange={(color: { rgb: IconCustomizationProps['bgColor'] }) => setCustomizations({ ...customizations, bgColor: color.rgb })}
+            />
           </div>
           <div className={classes.sliderGroup}>
             <div className={classes.scale}>
@@ -123,12 +137,18 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                 <Icon path={mdiResize} size={1} />
                 <Slider
                   aria-labelledby='size-controls'
+                  marks={!isMobileWidth && [
+                    { label: '48px', value: 48 },
+                    { label: '128px', value: 128 },
+                    { label: '256px', value: 256 }
+                  ]}
                   max={maxIconSize}
                   min={minIconSize}
                   onChange={(e, value) => setCustomizations({ ...customizations, padding: adjustedPadding, size: Number(value) })}
                   step={2}
                   value={customizations.size}
                   valueLabelDisplay='auto'
+                  valueLabelFormat={(value) => `${value}px`}
                 />
               </div>
             </div>
@@ -144,6 +164,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                   step={2}
                   value={customizations.padding}
                   valueLabelDisplay='auto'
+                  valueLabelFormat={(value) => `${value}px`}
                 />
               </div>
             </div>
@@ -155,24 +176,37 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                 <Icon path={mdiReload} size={1} />
                 <Slider
                   aria-labelledby='rotate-controls'
+                  marks={!isMobileWidth && [
+                    { label: '90°', value: 90 },
+                    { label: '180°', value: 180 },
+                    { label: '270°', value: 270 }
+                  ]}
                   max={360}
                   onChange={(e, value) => setCustomizations({ ...customizations, rotate: Number(value) })}
                   value={customizations.rotate}
                   valueLabelDisplay='auto'
+                  valueLabelFormat={(value) => `${value}°`}
                 />
               </div>
             </div>
             <div className={classes.corners}>
-              <p id='radius-controls'>Corner Radius</p>
+              <p id='radius-controls'>
+                Corner Radius
+                <Tooltip arrow placement='top' title='Only applies when a background color is visible.'>
+                  <Icon path={mdiHelpCircleOutline} size={.6} />
+                </Tooltip>
+              </p>
               <div className={classes.controls}>
                 <Icon path={mdiBorderRadius} size={1} />
                 <Slider
                   aria-labelledby='radius-controls'
-                  max={minIconSize}
+                  disabled={customizations.bgColor.a < 0.01}
+                  max={100}
                   onChange={(e, value) => setCustomizations({ ...customizations, cornerRadius: Number(value) })}
-                  step={1}
+                  step={10}
                   value={customizations.cornerRadius}
                   valueLabelDisplay='auto'
+                  valueLabelFormat={(value) => `${value}%`}
                 />
               </div>
             </div>
