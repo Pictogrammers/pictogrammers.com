@@ -20,17 +20,19 @@ import IconPreview from '../IconPreview/IconPreview';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
 import useWindowSize from '../../hooks/useWindowSize';
+import { useAnalytics } from 'use-analytics';
 
-import { IconCustomizationProps, IconLibraryIcon } from '../../interfaces/icons';
+import { IconCustomizationProps, IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
 import classes from './IconCustomizer.module.scss';
 
 interface IconCustomizerProps {
   gridSize: number;
   icon: IconLibraryIcon;
+  library: IconLibrary;
 }
 
-const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon }) => {
+const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon, library }) => {
   const [ customizations, setCustomizations ] = useState<IconCustomizationProps>({
     bgColor: { a: 0, b: 255, g: 255, r: 255 },
     cornerRadius: 0,
@@ -47,6 +49,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
   const maxPaddingSize = maxIconSize - customizations.size;
   const adjustedPadding = Math.min(customizations.padding, maxIconSize - customizations.size);
 
+  const { track } = useAnalytics();
   const windowSize = useWindowSize();
   const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
 
@@ -100,6 +103,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       downloadLink.download = `${icon.n}-custom\.png`;
       downloadLink.click();
     
+      track('advancedPNGExportDownload', { icon: icon.n, library: library.name, ...customizations });
       URL.revokeObjectURL(svgUrl);
       downloadCanvas.remove();
       downloadImage.remove();

@@ -215,7 +215,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
           </div>
           {customizing ? (
             <div className={classes.usage}>
-              <IconCustomizer gridSize={gridSize} icon={icon} />
+              <IconCustomizer gridSize={gridSize} icon={icon} library={libraryInfo} />
             </div>
           ) : (
             <Fragment>

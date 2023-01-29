@@ -106,7 +106,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         key='png-custom'
         onClick={() => {
           setCustomizing(true);
-          track('customizerStart', { icon: icon.n, library: library.name });
+          track('advancedPNGExport', { icon: icon.n, library: library.name });
         }}
       >
         <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>

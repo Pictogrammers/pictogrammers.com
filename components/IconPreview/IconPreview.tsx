@@ -1,4 +1,5 @@
 import { FunctionComponent, ReactNode } from 'react';
+import cx from 'clsx';
 
 import classes from './IconPreview.module.scss';
 
@@ -20,7 +21,9 @@ const IconPreview: FunctionComponent<IconPreviewProps> = ({
   return (
     <div className={classes.root}>
       <div
-        className={classes.icon}
+        className={cx(classes.icon, {
+          [classes.editing]: !!customizedIcon
+        })}
         style={{
           height: gridDimensions,
           width: gridDimensions

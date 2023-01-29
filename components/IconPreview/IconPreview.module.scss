@@ -5,7 +5,7 @@
 }
 
 .icon {
-  background-image: repeating-conic-gradient(hsl(var(--medium-grey)) 0% 25%, transparent 0% 50%);
+  background-image: repeating-conic-gradient(hsl(var(--light-grey)) 0% 25%, transparent 0% 50%);
   background-size: calc(var(--dp-width) * 2) calc(var(--dp-width) * 2);
   margin: 1rem 1rem 0;
   outline: 5px solid hsl(var(--light-cyan));
@@ -15,6 +15,10 @@
     color: hsl(var(--black));
     position: relative;
     z-index: 1;
+  }
+
+  &.editing {
+    background-image: repeating-conic-gradient(hsl(var(--medium-grey)) 0% 25%, transparent 0% 50%);
   }
 }
 

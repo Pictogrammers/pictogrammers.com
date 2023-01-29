@@ -9,9 +9,10 @@
   border-radius: 8px;
   box-shadow: 0 0 0 1px hsl(var(--black) / 20%), inset 0 0 0 1px hsl(var(--black) / 30%);
   cursor: pointer;
-  height: 32px;
+  height: 36px;
   margin: 0 .5rem;
-  width: 75px;
+  overflow: hidden;
+  width: 66px;
 
   .selectedColor {
     height: 100%;

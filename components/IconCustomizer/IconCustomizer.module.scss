@@ -22,6 +22,7 @@
 
 .customize {
   max-width: 600px;
+  padding: 1rem;
   width: 100%;
 }
 
@@ -38,6 +39,7 @@
     display: flex;
 
     svg {
+      color: hsl(var(--dark-grey) / 50%);
       cursor: help;
       margin-left: .25rem;
     }
@@ -67,6 +69,7 @@
 .controls {
   column-gap: 1rem;
   display: flex;
+  margin-right: 1rem;
 
   & > svg {
     margin-right: .5rem;
@@ -82,7 +85,7 @@
   }
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (max-width: $tablet-width) {
   .interface {
     flex-direction: column;
   }
@@ -90,10 +93,18 @@
   .preview {
     margin-bottom: 2rem;
   }
+}
 
-  .colors {
-    align-items: center;
+@media only screen and (max-width: $mobile-width) {
+  .colors,
+  .sliderGroup,
+  .flipControls {
     flex-direction: column;
+  }
+
+  .colors,
+  .flipControls {
+    align-items: center;
     row-gap: 1rem;
   }
 }
