@@ -34,6 +34,27 @@ export interface IconLibraryIcon {
   v: string; // Version
 }
 
+export interface IconCustomizationProps {
+  bgColor: {
+    a: number,
+    b: number,
+    g: number,
+    r: number
+  };
+  cornerRadius: number;
+  fgColor: {
+    a: number,
+    b: number,
+    g: number,
+    r: number
+  };
+  flipX: boolean;
+  flipY: boolean;
+  padding: number;
+  rotate: number;
+  size: number;
+}
+
 export interface MdxIconProps {
   name: string;
   path?: string;

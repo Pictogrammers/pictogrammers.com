@@ -9,6 +9,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
 import Avatar from '@mui/material/Avatar';
 import uFuzzy from '@leeoniya/ufuzzy';
 import Icon from '@mdi/react';
@@ -184,7 +185,7 @@ const SiteSearch: FunctionComponent = () => {
 
           return (
             <div className={classes.results} key={option.id}>
-              <h3 className={classes.groupHeader}>{groupName}</h3>
+              <ListSubheader classes={{ root: classes.groupHeader }}>{groupName}</ListSubheader>
               <List classes={{ root: classes.group }} dense sx={{ padding: '0 0 .5rem' }}>
                 {limitedResults.map((result: any) => {
                   const link = isLibrary ? `/library/${option.id}/icon/${result.n}` : option.id === 'docs' ? `/docs/${result.slug}` : `/contributor/${result.github}`;

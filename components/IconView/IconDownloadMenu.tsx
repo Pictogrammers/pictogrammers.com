@@ -1,41 +1,46 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Menu from '@mui/material/Menu';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
+import ListSubheader from '@mui/material/ListSubheader';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Icon from '@mdi/react';
-import { mdiChevronDown, mdiDownload, mdiFilePngBox, mdiFileXmlBox } from '@mdi/js';
-import { siWindows } from 'simple-icons/icons';
+import { mdiChevronDown, mdiDownload, mdiFilePngBox, mdiSvg } from '@mdi/js';
+import { siAndroid, siWindows } from 'simple-icons/icons';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
+
+import classes from './IconDownloadMenu.module.scss';
 
 import { useAnalytics } from 'use-analytics';
 
 interface IconDownloadMenuMenuProps {
   icon: IconLibraryIcon;
   library: IconLibrary;
+  setCustomizing: Function;
 };
 
 interface PngDownloadOptions {
   [key: number]: string;
 }
 
-const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, library }) => {
+const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, library, setCustomizing }) => {
   const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
   const [ pngDownloadOptions, setPngDownloadOptions ] = useState<PngDownloadOptions>({});
   const { track } = useAnalytics();
+
+  const offerredPngSizes = useMemo(() => ([ 256 ]), []);
 
   useEffect(() => {
     const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${library.gridSize} ${library.gridSize}"><path d="${icon.p}" /></svg>`;
     const svgUrl = URL.createObjectURL(new Blob([svgCode], { type: 'image/svg+xml' }));
     const svgImage = document.createElement('img');
     svgImage.onload = () => {
-      const pngOptions = [24, 36, 48].reduce((output: any, size) => {
+      const pngOptions = offerredPngSizes.reduce((output: any, size) => {
         const canvas = document.createElement('canvas');
         canvas.width = size;
         canvas.height = size;
@@ -51,7 +56,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
       svgImage.remove();
     };
     svgImage.src = svgUrl;
-  }, [ library.gridSize, icon.p]);
+  }, [ icon.p, library.gridSize, offerredPngSizes ]);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setMenuAnchor(event.currentTarget);
@@ -80,41 +85,32 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
   };
 
   const buildMenuOptions = () => {
+    const pngOptions = offerredPngSizes.map((size: number) => (
+      <MenuItem
+        component='a'
+        disabled={!pngDownloadOptions[size]}
+        download={`${icon.n}\.png`}
+        href={downloadPng(size)}
+        key={`png${size}`}
+        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size })}
+      >
+        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
+        <ListItemText>Download PNG ({size}x{size})</ListItemText>
+      </MenuItem>
+    ));
+
     return [
+      <ListSubheader classes={{ root: classes.header }} key='vector'>Vector Formats</ListSubheader>,
       <MenuItem
         component='a'
-        disabled={!pngDownloadOptions[24]}
-        download={`${icon.n}-24\.png`}
-        href={downloadPng(24)}
-        key='png24'
-        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size: 24 })}
+        download={`${icon.n}\.svg`}
+        href={downloadSvg()}
+        key='svg'
+        onClick={() => track('downloadSVG', { icon: icon.n, library: library.name })}
       >
-        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
-        <ListItemText>Download PNG (24x24)</ListItemText>
+        <ListItemIcon><Icon path={mdiSvg} size={1} /></ListItemIcon>
+        <ListItemText>Download SVG</ListItemText>
       </MenuItem>,
-      <MenuItem
-        component='a'
-        disabled={!pngDownloadOptions[36]}  
-        download={`${icon.n}-36\.png`}
-        href={downloadPng(36)}
-        key='png36'
-        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size: 36 })}
-      >
-        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
-        <ListItemText>Download PNG (36x36)</ListItemText>
-      </MenuItem>,
-      <MenuItem
-        component='a'
-        disabled={!pngDownloadOptions[48]}
-        download={`${icon.n}-48\.png`}
-        href={downloadPng(48)}
-        key='png48'
-        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size: 48 })}
-      >
-        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
-        <ListItemText>Download PNG (48x48)</ListItemText>
-      </MenuItem>,
-      <Divider key='div-1' />,
       <MenuItem
         component='a'
         download={`${icon.n.replace('-', '_')}\.xml`}
@@ -122,10 +118,9 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         key='xml'
         onClick={() => track('downloadXML', { icon: icon.n, library: library.name })}
       >
-        <ListItemIcon><Icon path={mdiFileXmlBox} size={1} /></ListItemIcon>
-        <ListItemText>Download XML Vector Drawable</ListItemText>
+        <ListItemIcon sx={{ marginLeft: '3px', marginRight: '-3px' }}><Icon path={siAndroid.path} size={.8} /></ListItemIcon>
+        <ListItemText>Download XML Vector Drawable for Android</ListItemText>
       </MenuItem>,
-      <Divider key='div-2' />,
       <MenuItem
         component='a'
         download={`${icon.n}\.xaml`}
@@ -145,12 +140,24 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
       >
         <ListItemIcon sx={{ marginLeft: '4px', marginRight: '-4px' }}><Icon path={siWindows.path} size={.7} /></ListItemIcon>
         <ListItemText>Download XAML (DrawImage) for Windows</ListItemText>
+      </MenuItem>,
+      <ListSubheader classes={{ root: classes.header }} key='raster'>Raster Formats</ListSubheader>,
+      ...pngOptions,
+      <MenuItem
+        key='png-custom'
+        onClick={() => {
+          setCustomizing(true);
+          track('advancedPNGExport', { icon: icon.n, library: library.name });
+        }}
+      >
+        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
+        <ListItemText>Advanced PNG Export...</ListItemText>
       </MenuItem>
     ];
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <ButtonGroup>
         <Tooltip arrow placement='top' title='Download SVG'>
           <Button
@@ -192,7 +199,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         open={!!menuAnchor}
         onClose={() => setMenuAnchor(null)}
       >
-        <MenuList dense>{buildMenuOptions()}</MenuList>
+        <MenuList dense sx={{ padding: 0 }}>{buildMenuOptions()}</MenuList>
       </Menu>
     </div>
   );
