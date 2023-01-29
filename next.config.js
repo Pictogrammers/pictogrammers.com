@@ -49,6 +49,7 @@ const nextConfig = {
   },
   swcMinify: true,
   trailingSlash: true,
+  transpilePackages: ['next-image-export-optimizer'],
   webpack(config, { isServer }) {
     config.module.rules.push({
       issuer: {
