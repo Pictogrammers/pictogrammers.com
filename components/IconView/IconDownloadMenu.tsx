@@ -100,19 +100,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
     ));
 
     return [
-      <ListSubheader className={classes.header} key='raster'>Raster Formats</ListSubheader>,
-      ...pngOptions,
-      <MenuItem
-        key='png-custom'
-        onClick={() => {
-          setCustomizing(true);
-          track('advancedPNGExport', { icon: icon.n, library: library.name });
-        }}
-      >
-        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
-        <ListItemText>Advanced PNG Export...</ListItemText>
-      </MenuItem>,
-      <ListSubheader className={classes.header} key='vector'>Vector Formats</ListSubheader>,
+      <ListSubheader classes={{ root: classes.header }} key='vector'>Vector Formats</ListSubheader>,
       <MenuItem
         component='a'
         download={`${icon.n}\.svg`}
@@ -152,6 +140,18 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
       >
         <ListItemIcon sx={{ marginLeft: '4px', marginRight: '-4px' }}><Icon path={siWindows.path} size={.7} /></ListItemIcon>
         <ListItemText>Download XAML (DrawImage) for Windows</ListItemText>
+      </MenuItem>,
+      <ListSubheader classes={{ root: classes.header }} key='raster'>Raster Formats</ListSubheader>,
+      ...pngOptions,
+      <MenuItem
+        key='png-custom'
+        onClick={() => {
+          setCustomizing(true);
+          track('advancedPNGExport', { icon: icon.n, library: library.name });
+        }}
+      >
+        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
+        <ListItemText>Advanced PNG Export...</ListItemText>
       </MenuItem>
     ];
   };
@@ -199,7 +199,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         open={!!menuAnchor}
         onClose={() => setMenuAnchor(null)}
       >
-        <MenuList dense sx={{ paddingTop: 0 }}>{buildMenuOptions()}</MenuList>
+        <MenuList dense sx={{ padding: 0 }}>{buildMenuOptions()}</MenuList>
       </Menu>
     </div>
   );

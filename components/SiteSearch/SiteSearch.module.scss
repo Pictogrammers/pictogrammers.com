@@ -8,6 +8,10 @@
 .menuPaper {
   box-shadow: var(--box-shadow);
   margin-top: 2px;
+
+  & > ul {
+    padding: 0;
+  }
 }
 
 .group {
@@ -47,8 +51,9 @@
   border-bottom: 1px solid hsl(var(--medium-grey));
   font-size: .9rem;
   letter-spacing: 1px;
-  margin: .5rem 0;
-  padding: 0 1rem;
+  line-height: 2;
+  margin: 0 0 .5rem;
+  padding: .5rem 1rem 0;
   text-transform: uppercase;
 }
 
