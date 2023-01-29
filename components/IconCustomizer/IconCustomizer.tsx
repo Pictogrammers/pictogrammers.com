@@ -47,6 +47,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
   const maxIconSize = 256;
   const minIconSize = gridSize / 2;
   const maxPaddingSize = maxIconSize - customizations.size;
+  const maxCornerRadius = minIconSize / 100;
   const adjustedPadding = Math.min(customizations.padding, maxIconSize - customizations.size);
 
   const { track } = useAnalytics();
@@ -75,8 +76,8 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       <rect
         fill={`rgb(${customizations.bgColor.r} ${customizations.bgColor.g} ${customizations.bgColor.b} / ${(customizations.bgColor.a || 0) * 100}%)`}
         height={gridSize}
-        rx={customizations.cornerRadius * 0.12}
-        ry={customizations.cornerRadius * 0.12}
+        rx={customizations.cornerRadius * maxCornerRadius}
+        ry={customizations.cornerRadius * maxCornerRadius}
         width={gridSize}
       />
       <path
