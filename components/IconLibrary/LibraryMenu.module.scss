@@ -7,12 +7,14 @@
   }
 }
 
-.header {
-  border-bottom: 1px solid hsl(var(--medium-grey));
-  font-size: .9rem;
-  letter-spacing: 1px;
-  line-height: 2;
-  margin: 0 0 .5rem;
-  padding: 0 1rem;
-  text-transform: uppercase;
+.menu {
+  .header {
+    border-bottom: 1px solid hsl(var(--medium-grey));
+    font-size: .9rem;
+    letter-spacing: 1px;
+    line-height: 2;
+    margin: 0 0 .5rem;
+    padding: 0 1rem;
+    text-transform: uppercase;
+  }
 }

@@ -104,6 +104,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
       </Button>
       <Menu
         anchorEl={libraryMenuAnchor}
+        classes={{ root: classes.menu }}
         id='library-menu'
         MenuListProps={{
           'aria-labelledby': 'library-menu-button'

@@ -192,6 +192,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
       </ButtonGroup>
       <Menu
         anchorEl={menuAnchor}
+        classes={{ list: classes.menu }}
         id='download-menu'
         MenuListProps={{
           'aria-labelledby': 'download-menu-button'
@@ -199,7 +200,10 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         open={!!menuAnchor}
         onClose={() => setMenuAnchor(null)}
       >
-        <MenuList dense sx={{ padding: 0 }}>{buildMenuOptions()}</MenuList>
+        <MenuList
+          dense
+          sx={{ padding: 0 }}
+        >{buildMenuOptions()}</MenuList>
       </Menu>
     </div>
   );
