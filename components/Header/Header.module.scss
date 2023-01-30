@@ -156,7 +156,7 @@
     box-shadow: var(--box-shadow);
 
     & :not(:last-child) {
-      border-bottom: 0.0625rem solid hsl(var(--light-grey));
+      border-bottom: thin solid hsl(var(--light-grey));
     }
 
     >* {
