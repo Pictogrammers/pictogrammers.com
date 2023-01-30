@@ -1,6 +1,8 @@
 .main {
-  section:nth-child(even) {
-    background-color: hsl(var(--light-grey));
+  section {
+    &:nth-child(even) {
+      background-color: hsl(var(--light-grey));
+    }
   }
 }
 
@@ -16,13 +18,13 @@
   }
 
   .logos {
-    align-items: center;
     display: grid;
-    grid-gap: 3rem 5rem;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: center;
     justify-items: center;
-    max-width: 1080px;
+    grid-gap: 3rem 5rem;
     width: 100%;
+    max-width: 67.5rem;
 
     svg {
       max-width: 80%;
@@ -36,34 +38,34 @@
   }
 
   p {
-    font-size: 1.2rem;
     padding: 2rem 0;
     text-align: center;
+    font-size: 1.2rem;
   }
 
   .contributors {
+    padding: 1rem 1rem 0;
     flex-wrap: wrap-reverse;
     justify-content: center;
-    padding: 1rem 1rem 0;
 
     .contributor {
-      background-color: hsl(var(--primary-color));
-      border: 2px solid hsl(var(--primary-color));
-      height: 65px;
       margin-left: -.75rem;
       width: 65px;
+      height: 65px;
+      border: 2px solid hsl(var(--primary-color));
+      background-color: hsl(var(--primary-color));
     }
   }
 }
 
 .libraries {
-  align-items: center;
-  display: grid;
-  grid-gap: 2rem 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  justify-items: center;
   margin: 3rem auto;
-  max-width: 1080px;
+  display: grid;
+  max-width: 67.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  justify-content: space-between;
+  align-items: center;
+  grid-gap: 3rem;
 }
 
 .join {
@@ -80,8 +82,8 @@
 
 @media only screen and (max-width: $mobile-width) {
   .users {
-    flex-direction: column-reverse;
     margin-top: -3rem;
+    flex-direction: column-reverse;
 
     br {
       display: none;
@@ -110,8 +112,8 @@
   }
 
   .crowd {
-    height: 10rem !important;
     margin: 0 auto;
+    height: 10rem !important;
     width: 10rem !important;
   }
 }
