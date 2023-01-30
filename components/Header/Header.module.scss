@@ -1,11 +1,12 @@
 .root {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
   margin: 0 auto;
-  max-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   max-width: $width-max;
+  max-height: 6.25rem;
   padding: 1.5rem;
+  background-color: hsl(var(--secondary-color));
 }
 
 .options {
@@ -13,7 +14,7 @@
   flex: 1;
   flex-wrap: nowrap;
 
-  & > a {
+  &>a {
     white-space: nowrap;
   }
 }
@@ -23,20 +24,20 @@
 }
 
 .logo {
-  align-items: center;
-  border: none;
   display: flex;
+  align-items: center;
   margin-right: 1rem;
+  border: none;
 
   .wordmark {
     display: none;
   }
 
   .monogram {
-    width: 35px;
+    width: 2.1875rem;
 
     [id='keycap-top'] {
-      transform: translate(0, -2px);
+      transform: translate(0, -0.125rem);
       transition: transform .1s;
     }
   }
@@ -44,15 +45,15 @@
   &:hover {
     .monogram {
       [id='keycap-top'] {
-        transform: translate(0, 10px);
+        transform: translate(0, 0.625rem);
       }
     }
   }
 }
 
 .nav {
-  align-items: center;
   display: flex;
+  align-items: center;
   width: 100%;
 
   a {
@@ -65,28 +66,29 @@
 }
 
 .hamburger {
+  margin: 0;
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  outline: 0;
+  cursor: pointer;
   background-color: transparent;
   border: 0;
-  display: none;
-  height: 2.75rem;
-  margin: 0;
-  outline: 0;
-  width: 2.75rem;
 
   svg {
     fill: hsl(var(--primary-color));
 
     path {
       opacity: 1;
-      transition: transform .3s ease-in-out, opacity .2s ease-in-out;
+      transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
     }
 
     [id='line-1'] {
-      transform-origin: .4rem .5rem;
+      transform-origin: 0.4rem 0.5rem;
     }
 
     [id='line-3'] {
-      transform-origin: .3rem 1rem;
+      transform-origin: 0.3rem 1rem;
     }
 
     &.active {
@@ -121,8 +123,8 @@
 
     .wordmark {
       display: block;
-      margin: 2px 0 0 -8px;
-      width: 140px;
+      margin: 0.125rem 0 0 -0.5rem;
+      width: 8.75rem;
     }
   }
 
@@ -137,29 +139,29 @@
 
     &.open {
       background-color: hsl(var(--white));
-      border-radius: 5px 5px 0 0;
+      border-radius: 0.3125rem 0.3125rem 0 0;
       box-shadow: var(--box-shadow);
     }
   }
 
   .options {
-    background-color: hsl(var(--white));
-    border-radius: 5px 0 5px 5px;
-    box-shadow: var(--box-shadow);
-    display: none;
-    flex-direction: column;
     position: absolute;
-    top: 40px;
-    width: calc(100% + 44px);
+    top: 2.5rem;
     z-index: 999;
+    display: none;
+    width: calc(100% + 2.75rem);
+    flex-direction: column;
+    background-color: hsl(var(--white));
+    border-radius: 0.3125rem 0 0.3125rem 0.3125rem;
+    box-shadow: var(--box-shadow);
 
     & :not(:last-child) {
-      border-bottom: 1px solid hsl(var(--light-grey));
+      border-bottom: 0.0625rem solid hsl(var(--light-grey));
     }
 
-    > * {
+    >* {
       border-radius: 0 !important;
-      padding: .5rem 0;
+      padding: 0.5rem 0;
     }
 
     &.open {
