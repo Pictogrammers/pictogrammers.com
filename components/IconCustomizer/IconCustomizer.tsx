@@ -46,9 +46,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
 
   const maxIconSize = 256;
   const minIconSize = gridSize / 2;
-  const maxPaddingSize = maxIconSize - customizations.size;
   const maxCornerRadius = minIconSize / 100;
-  const adjustedPadding = Math.min(customizations.padding, maxIconSize - customizations.size);
 
   const { track } = useAnalytics();
   const windowSize = useWindowSize();
@@ -98,7 +96,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       downloadCanvas.width = customizations.size;
       downloadCanvas.height = customizations.size;
       const ctx = downloadCanvas.getContext('2d');
-      ctx?.drawImage(downloadImage, 0, 0);
+      ctx?.drawImage(downloadImage, 0, 0, customizations.size, customizations.size);
 
       downloadLink.href = downloadCanvas.toDataURL('image/png');
       downloadLink.download = `${icon.n}-custom\.png`;
@@ -149,7 +147,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                   ]}
                   max={maxIconSize}
                   min={minIconSize}
-                  onChange={(e, value) => setCustomizations({ ...customizations, padding: adjustedPadding, size: Number(value) })}
+                  onChange={(e, value) => setCustomizations({ ...customizations, size: Number(value) })}
                   step={2}
                   value={customizations.size}
                   valueLabelDisplay='auto'
@@ -163,8 +161,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                 <Icon path={mdiStretchToPageOutline} size={1} />
                 <Slider
                   aria-labelledby='padding-controls'
-                  disabled={maxIconSize === customizations.size && customizations.padding === 0}
-                  max={maxPaddingSize}
+                  max={100}
                   onChange={(e, value) => setCustomizations({ ...customizations, padding: Number(value) })}
                   step={2}
                   value={customizations.padding}
