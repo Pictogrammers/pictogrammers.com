@@ -1,0 +1,30 @@
+.root {
+  position: relative;
+}
+
+.swatch {
+  background-image: repeating-conic-gradient(hsl(var(--medium-grey)) 0% 25%, transparent 0% 50%);
+  background-size: calc(var(--dp-width) * 2) calc(var(--dp-width) * 2);
+  border: 3px solid hsl(var(--white));
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px hsl(var(--black) / 20%), inset 0 0 0 1px hsl(var(--black) / 30%);
+  cursor: pointer;
+  height: 36px;
+  margin: 0 .5rem;
+  overflow: hidden;
+  width: 66px;
+
+  .selectedColor {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.popover {
+  border-radius: 9px;
+  box-shadow: 0 6px 12px hsl(var(--black) / 15%);
+  left: 0;
+  position: absolute;
+  top: calc(100% + 2px);
+  z-index: 99;
+}

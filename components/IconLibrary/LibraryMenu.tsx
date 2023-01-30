@@ -70,19 +70,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
 
       if (availableLibraries.length) {
         return [
-          <ListSubheader key={type}>
-            <ListItemText
-              disableTypography
-              sx={{
-                fontSize: '.9rem',
-                lineHeight: 2,
-                textTransform: 'uppercase',
-                userSelect: 'none'
-              }}
-            >
-              {typeMap[type as keyof typeof typeMap]}
-            </ListItemText>
-          </ListSubheader>,
+          <ListSubheader classes={{ root: classes.header }} key={type}>{typeMap[type as keyof typeof typeMap]}</ListSubheader>,
           ...availableLibraries
         ];
       }
@@ -116,6 +104,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
       </Button>
       <Menu
         anchorEl={libraryMenuAnchor}
+        classes={{ root: classes.menu }}
         id='library-menu'
         MenuListProps={{
           'aria-labelledby': 'library-menu-button'

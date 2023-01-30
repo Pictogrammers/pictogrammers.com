@@ -1,7 +1,10 @@
+import os from 'node:os';
 import fs from 'node:fs/promises';
 import slugify from 'slugify';
 
 import config from '../config.js';
+
+const isWin = os.platform() === 'win32';
 
 const createJsName = (name, library) => {
   const iconPascal = name.split('-').map((name) => name.charAt(0).toUpperCase() + name.slice(1)).join('');
@@ -77,7 +80,7 @@ const getIconLibraries = async (contributors = []) => {
 
       // Add path data
       const iconSvgPath = await import.meta.resolve(`${library.package}/svg/${icon.name}.svg`);
-      const svg = await fs.readFile(iconSvgPath.split('file://')[1], { encoding: 'utf8' });
+      const svg = await fs.readFile(iconSvgPath.split(`file://${isWin ? '/' : ''}`)[1], { encoding: 'utf8' });
       thisIcon.p = svg.match(/ d="([^"]+)"/)[1];
 
       // Add search tokens

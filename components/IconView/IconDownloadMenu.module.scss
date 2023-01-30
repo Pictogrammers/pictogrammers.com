@@ -1,20 +1,15 @@
-.libraryMenu {
-  p {
-    color: hsl(var(--dark-grey));
-    font-size: 1.2rem;
-    margin: 0 0 0 .5rem;
-    text-transform: none;
-  }
-}
-
 .menu {
   .header {
     border-bottom: 1px solid hsl(var(--medium-grey));
     font-size: .9rem;
     letter-spacing: 1px;
     line-height: 2;
-    margin: 0 0 .5rem;
+    margin: 1rem 0 .5rem;
     padding: 0 1rem;
     text-transform: uppercase;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
   }
 }

@@ -8,6 +8,10 @@
 .menuPaper {
   box-shadow: var(--box-shadow);
   margin-top: 2px;
+
+  & > ul {
+    padding: 0;
+  }
 }
 
 .group {
@@ -43,13 +47,16 @@
   }
 }
 
-.groupHeader {
-  border-bottom: 1px solid hsl(var(--medium-grey));
-  font-size: .9rem;
-  letter-spacing: 1px;
-  margin: .5rem 0;
-  padding: 0 1rem;
-  text-transform: uppercase;
+.results {
+  .groupHeader {
+    border-bottom: 1px solid hsl(var(--medium-grey));
+    font-size: .9rem;
+    letter-spacing: 1px;
+    line-height: 2;
+    margin: 0 0 .5rem;
+    padding: .5rem 1rem 0;
+    text-transform: uppercase;
+  }
 }
 
 @media only screen and (max-width: ($mobile-width + 50)) {
