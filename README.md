@@ -27,7 +27,7 @@
 
 See <https://pictogrammers.com/docs/contribute/website/> for more details about contributing to the site.
 
-## Env variables
+### Env variables
 
 To test and debug contributor fetching, specifically around GitHub, you will need to be a member of the Pictogrammers organization and have a GitHub access token.
 
@@ -40,7 +40,11 @@ To test and debug contributor fetching, specifically around GitHub, you will nee
 4. Add `API_KEY_GITHUB` to the `.env` file with your token.
 5. Restart the dev server.
 
-## Building
+### Code Quality
+
+Before opening a PR with your changes, be sure to run `npm run lint` and correct any linting errors. These jobs will also run on the PR, informing you of failures that will need to be addressed before your PR can be merged.
+
+### Building
 
 1. Run `npm build` to build the site.
 2. The built assets will be located in the `out` folder.
