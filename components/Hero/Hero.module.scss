@@ -28,8 +28,10 @@
 }
 
 @media only screen and (max-width: $mobile-width) {
-  section:not(.full) {
-    background-position: 0 2rem;
+  section {
+    &:not(.full) {
+      background-position: 0 2rem;
+    }
   }
 
   .text {

@@ -26,7 +26,7 @@ interface ITableCell extends TableCellProps {
   isHeader?: boolean;
 }
 
-const TableWrapper: FunctionComponent<ITable> = ({ children, node, ...rest } ) => {
+const TableWrapper: FunctionComponent<ITable> = ({ children, node, ...rest }) => {
   return (
     <TableContainer>
       <Table {...rest}>{children}</Table>

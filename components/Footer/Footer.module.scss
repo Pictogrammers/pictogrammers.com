@@ -37,8 +37,10 @@
     display: flex;
   }
 
-  a:hover {
-    color: hsl(var(--primary-color));
+  a {
+    &:hover {
+      color: hsl(var(--primary-color));
+    }
   }
 }
 

@@ -58,7 +58,7 @@ interface IconLibraryViewProps {
   version?: string;
 }
 
-const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, category, libraryInfo, slug, version }) => { 
+const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, category, libraryInfo, slug, version }) => {
   const router = useRouter();
 
   // Filter handling
@@ -148,7 +148,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   {categories[catId as any].name}
                 </ListItemText>
               </ListItemButton>
-            </ListItem>              
+            </ListItem>
           );
         })}
       </Fragment>
@@ -164,7 +164,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
       const categoryName = categories.find((cat) => cat.slug === category)?.name || category;
       return <Chip color='secondary' icon={<Icon path={mdiTag} size={.7} />} label={categoryName} onDelete={handleChipDelete} size={size} sx={{ margin: '0 .25rem 0 .5rem' }} />;
     }
-    
+
     if (author) {
       const authorInfo = contributors.find((contributor: ContributorProps) => contributor.github === author);
       if (authorInfo) {
@@ -331,7 +331,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/upgrade`}>
                     <ListItemText>Upgrade Guide</ListItemText>
                   </ListItemButton>
-                </ListItem>                  
+                </ListItem>
                 <ListItem>
                   <ListItemButton component={Link} href={`/library/${libraryInfo.id}/history`}>
                     <ListItemText>History</ListItemText>

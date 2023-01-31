@@ -24,11 +24,11 @@ const ExampleHomeAssistant: FunctionComponent<ExampleHomeAssistantProps> = ({ ic
       id='example-tabpanel-home-assistant'
       role='tabpanel'
     >
-      <Code className={cx('language-yaml', classes.code)} displayAsBlock>
-{`switch.my_switch:
+      <Code className={cx('language-yaml', classes.code)} displayAsBlock>{
+`switch.my_switch:
   friendly_name: My Switch
-  icon: ${library}:${iconName}`}
-      </Code>
+  icon: ${library}:${iconName}`
+      }</Code>
       <Button
         color='secondary'
         component={Link}

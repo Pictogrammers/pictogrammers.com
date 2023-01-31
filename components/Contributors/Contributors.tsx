@@ -81,7 +81,7 @@ const Contributors: FunctionComponent<ContributorsMdxProps> = ({
         return contributor.name === name;
       }
     }
-    
+
     if (view === 'core') {
       return contributor.core && !filtered.includes(contributor.github);
     }

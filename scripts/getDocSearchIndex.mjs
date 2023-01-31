@@ -32,7 +32,7 @@ const getDocSearchIndex = async () => {
   const output = await docPaths.reduce(async (prevPromise, docPath) => {
     const output = await prevPromise;
 
-    const { category, library, rest } = getSlugPieces(docPath);
+    const { category, library } = getSlugPieces(docPath);
     const { docs: { categories }, libraries } = config;
 
     const categoryInfo = categories.find((c) => c.id === category);

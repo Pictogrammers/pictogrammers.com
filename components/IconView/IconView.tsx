@@ -18,7 +18,6 @@ import {
   mdiExitToApp,
   mdiTag,
   mdiTagOutline,
-  mdiTuneVariant,
   mdiXml
 } from '@mdi/js';
 
@@ -79,7 +78,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
           <Tooltip arrow placement='right' title='Copy Icon Name'>
             <h1 onClick={() => copy(icon.n, 'icon name')}>{icon.n}</h1>
           </Tooltip>
-        </div>           
+        </div>
       </div>
     );
   };
@@ -246,7 +245,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                 </div>
                 <div className={classes.aliases}>
                   {icon.al.map((alias) => <Chip icon={<Icon path={mdiDotsHorizontalCircleOutline} size={.8} />} key={alias} label={alias} />)}
-                </div>       
+                </div>
               </div>
               <div className={classes.tags}>
                 <div className={classes.categories}>

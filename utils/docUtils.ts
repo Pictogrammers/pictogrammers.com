@@ -113,7 +113,7 @@ const getDoc = async (slug: string[]) => {
       const iconData = getUsedIcons(data.icon);
       data.iconPath = iconData?.[iconLibrary]?.[iconName] || null;
     }
-  
+
     if (
       // Disable any MDX file that does not contain required front matter
       !(data?.title && data?.description) ||
@@ -122,12 +122,12 @@ const getDoc = async (slug: string[]) => {
     ) {
       return { disabled: true };
     }
-  
+
     const processedContent = handleVersionReplacements(handleYamlToJson(handleImportStatements(content, DOCS_PATH), DOCS_PATH));
     const { text: articleReadTime } = readingTime(processedContent);
     const docToc = toc(processedContent).json;
     const availableIcons = getUsedIcons(processedContent);
-  
+
     return {
       availableIcons,
       category: categoryInfo,

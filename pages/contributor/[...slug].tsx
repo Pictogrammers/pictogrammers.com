@@ -103,7 +103,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                 sx={{
                   backgroundColor: `hsl(var(${contributorColor}))`,
                   border: `3px solid hsl(var(${contributorColor}))`,
-                  fontSize: '5vh', 
+                  fontSize: '5vh',
                   fontWeight: 700,
                   height: 128,
                   width: 128
@@ -259,7 +259,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                   </div>
                 ) : (
                   <IconGrid
-                    icons={visibleIcons} 
+                    icons={visibleIcons}
                     library={currentLibrary}
                     updateUrl={false}
                     viewMode={viewMode}

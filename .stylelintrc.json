@@ -5,7 +5,8 @@
     "stylelint-config-css-modules"
   ],
   "plugins": [
-    "stylelint-order"
+    "stylelint-order",
+    "stylelint-scss"
   ],
   "rules": {
     "at-rule-no-unknown": null,
@@ -18,6 +19,7 @@
     "no-descending-specificity": null,
     "number-leading-zero": "never",
     "order/properties-alphabetical-order": true,
+    "scss/selector-nest-combinators": "always",
     "selector-class-pattern": null,
     "selector-max-id": [ 0, { "severity": "warning" } ],
     "shorthand-property-no-redundant-values": true,

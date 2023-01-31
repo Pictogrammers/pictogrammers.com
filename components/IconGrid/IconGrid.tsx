@@ -33,7 +33,6 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
-
       if (url === `/library/${library.id}/`) {
         setIconModal(null);
       }
@@ -46,7 +45,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
   const handleIconModalOpen = async (e: MouseEvent<HTMLAnchorElement>, icon: IconLibraryIcon) => {
     e.preventDefault();
     modalHook?.();
-  
+
     const cats = icon.t.map((tag) => categories.find((cat) => cat.id === Number(tag)));
     if (cats) {
       icon.categories = cats as CategoryProps[];

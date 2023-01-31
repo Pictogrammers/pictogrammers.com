@@ -86,8 +86,10 @@
   justify-content: space-between;
   margin-bottom: 1rem;
 
-  .tab.selectedTab {
-    color: hsl(var(--dark-cyan));
+  .tab {
+    &.selectedTab {
+      color: hsl(var(--dark-cyan));
+    }
   }
 }
 

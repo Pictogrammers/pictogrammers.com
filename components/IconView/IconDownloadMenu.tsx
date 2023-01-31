@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { FunctionComponent, MouseEvent, useEffect, useMemo, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -58,7 +58,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
     svgImage.src = svgUrl;
   }, [ icon.p, library.gridSize, offerredPngSizes ]);
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuClick = (event: MouseEvent<HTMLElement>) => {
     setMenuAnchor(event.currentTarget);
   };
 
@@ -188,7 +188,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
           >
             <Icon path={mdiChevronDown} size={1} />
           </Button>
-        </Tooltip>          
+        </Tooltip>
       </ButtonGroup>
       <Menu
         anchorEl={menuAnchor}

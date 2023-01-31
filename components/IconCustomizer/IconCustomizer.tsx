@@ -1,4 +1,4 @@
-import { ChangeEvent, FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -100,7 +100,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       downloadLink.href = downloadCanvas.toDataURL('image/png');
       downloadLink.download = `${icon.n}-custom\.png`;
       downloadLink.click();
-    
+
       track('advancedPNGExportDownload', { icon: icon.n, library: library.name, ...customizations });
       URL.revokeObjectURL(svgUrl);
       downloadCanvas.remove();
@@ -148,7 +148,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                   valueLabelFormat={(value) => `${value}px`}
                 />
                 <Input
-                  endAdornment='px'  
+                  endAdornment='px'
                   inputProps={{
                     'aria-labelledby': 'size-controls',
                     inputMode: 'numeric',
@@ -290,19 +290,19 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                 />
               </div>
             </div>
-          </div>      
+          </div>
           <div className={classes.flipControls}>
             <FormControlLabel
-              control={<Switch checked={customizations.flipX} onChange={(e: ChangeEvent<HTMLInputElement>) => setCustomizations({ ...customizations, flipX: !customizations.flipX })} />}
+              control={<Switch checked={customizations.flipX} onChange={() => setCustomizations({ ...customizations, flipX: !customizations.flipX })} />}
               label='Flip Horizontally'
               labelPlacement='end'
             />
             <FormControlLabel
-              control={<Switch checked={customizations.flipY} onChange={(e: ChangeEvent<HTMLInputElement>) => setCustomizations({ ...customizations, flipY: !customizations.flipY })} />}
+              control={<Switch checked={customizations.flipY} onChange={() => setCustomizations({ ...customizations, flipY: !customizations.flipY })} />}
               label='Flip Vertically'
               labelPlacement='end'
             />
-          </div>    
+          </div>
         </div>
       </div>
       <Button

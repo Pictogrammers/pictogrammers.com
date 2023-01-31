@@ -35,7 +35,7 @@ export const DataProvider: FunctionComponent<DataProviderProps> = ({ children })
     workerRef.current.postMessage('load');
     workerRef.current.onmessage = (event) => {
       const { data, error, status, type } = event.data;
-      
+
       if (status === 'error' && error) {
         enqueueSnackbar(`Fatal Error: Unable to retrieve data for ${type}.`, { variant: 'error' });
         track(`load${type[0].toUpperCase() + type.slice(1)}Error`);
@@ -44,7 +44,7 @@ export const DataProvider: FunctionComponent<DataProviderProps> = ({ children })
       }
 
       if (status === 'complete') {
-        switch(type) {
+        switch (type) {
           case 'libraries':
             return setLibraries(data);
           case 'docs':

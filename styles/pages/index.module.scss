@@ -1,6 +1,8 @@
 .main {
-  section:nth-child(even) {
-    background-color: hsl(var(--light-grey));
+  section {
+    &:nth-child(even) {
+      background-color: hsl(var(--light-grey));
+    }
   }
 }
 
