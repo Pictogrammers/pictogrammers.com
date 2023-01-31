@@ -13,11 +13,6 @@ const ScrollButton = styled(Button)({
   marginBottom: '12rem',
   padding: '.5rem 1rem',
   textTransform: 'none',
-  transition: 'letter-spacing 200ms linear',
-  
-  '&:hover': {
-    letterSpacing: 1.1,
-  },
 });
 
 interface HeroProps {

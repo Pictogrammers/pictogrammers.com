@@ -17,20 +17,14 @@ export interface LibraryCardProps {
 }
 
 const LibraryButton = styled(Button)(({ theme }) => ({
-  paddingTop: 8,
-  paddingBottom: 8,
-  fontSize: 16,
-  textTransform: 'none',
-  color: theme.palette.primary.main,
-  borderRadius: 24,
   backgroundColor: 'white',
   borderBottom: 'none',
-  transition: 'letter-spacing 200ms linear',
-
-  '&:hover': {
-    color: theme.palette.primary.main,
-    backgroundColor: 'white',
-  },
+  borderRadius: 24,
+  color: theme.palette.primary.main,
+  fontSize: 16,
+  paddingBottom: 8,
+  paddingTop: 8,
+  textTransform: 'none',
 }));
 
 const LibraryCard: FunctionComponent<LibraryCardProps> = ({

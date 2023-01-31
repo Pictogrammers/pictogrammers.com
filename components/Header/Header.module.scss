@@ -1,12 +1,12 @@
 .root {
-  margin: 0 auto;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: $width-max;
-  max-height: 6.25rem;
-  padding: 1.5rem;
   background-color: hsl(var(--secondary-color));
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-height: 6.25rem;
+  max-width: $width-max;
+  padding: 1.5rem;
 }
 
 .options {
@@ -14,7 +14,7 @@
   flex: 1;
   flex-wrap: nowrap;
 
-  &>a {
+  & > a {
     white-space: nowrap;
   }
 }
@@ -24,20 +24,20 @@
 }
 
 .logo {
-  display: flex;
   align-items: center;
-  margin-right: 1rem;
   border: none;
+  display: flex;
+  margin-right: 1rem;
 
   .wordmark {
     display: none;
   }
 
   .monogram {
-    width: 2.1875rem;
+    width: 35px;
 
     [id='keycap-top'] {
-      transform: translate(0, -0.125rem);
+      transform: translate(0, -2px);
       transition: transform .1s;
     }
   }
@@ -45,15 +45,15 @@
   &:hover {
     .monogram {
       [id='keycap-top'] {
-        transform: translate(0, 0.625rem);
+        transform: translate(0, 10px);
       }
     }
   }
 }
 
 .nav {
-  display: flex;
   align-items: center;
+  display: flex;
   width: 100%;
 
   a {
@@ -66,29 +66,29 @@
 }
 
 .hamburger {
-  margin: 0;
-  display: none;
-  width: 2.75rem;
-  height: 2.75rem;
-  outline: 0;
-  cursor: pointer;
   background-color: transparent;
   border: 0;
+  cursor: pointer;
+  display: none;
+  height: 2.75rem;
+  margin: 0;
+  outline: 0;
+  width: 2.75rem;
 
   svg {
     fill: hsl(var(--primary-color));
 
     path {
       opacity: 1;
-      transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+      transition: transform .3s ease-in-out, opacity .2s ease-in-out;
     }
 
     [id='line-1'] {
-      transform-origin: 0.4rem 0.5rem;
+      transform-origin: .4rem .5rem;
     }
 
     [id='line-3'] {
-      transform-origin: 0.3rem 1rem;
+      transform-origin: .3rem 1rem;
     }
 
     &.active {
@@ -123,7 +123,7 @@
 
     .wordmark {
       display: block;
-      margin: 0.125rem 0 0 -0.5rem;
+      margin: .125rem 0 0 -.5rem;
       width: 8.75rem;
     }
   }
@@ -139,29 +139,29 @@
 
     &.open {
       background-color: hsl(var(--white));
-      border-radius: 0.3125rem 0.3125rem 0 0;
+      border-radius: .3125rem .3125rem 0 0;
       box-shadow: var(--box-shadow);
     }
   }
 
   .options {
+    background-color: hsl(var(--white));
+    border-radius: .3125rem 0 .3125rem .3125rem;
+    box-shadow: var(--box-shadow);
+    display: none;
+    flex-direction: column;
     position: absolute;
     top: 2.5rem;
-    z-index: 999;
-    display: none;
     width: calc(100% + 2.75rem);
-    flex-direction: column;
-    background-color: hsl(var(--white));
-    border-radius: 0.3125rem 0 0.3125rem 0.3125rem;
-    box-shadow: var(--box-shadow);
+    z-index: 999;
 
     & :not(:last-child) {
-      border-bottom: thin solid hsl(var(--light-grey));
+      border-bottom: 1px solid hsl(var(--light-grey));
     }
 
-    >* {
+    > * {
       border-radius: 0 !important;
-      padding: 0.5rem 0;
+      padding: .5rem 0;
     }
 
     &.open {

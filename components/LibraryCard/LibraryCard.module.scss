@@ -1,15 +1,14 @@
 .root {
-  margin-inline-start: auto;
-  margin-inline-end: auto;
+  border-radius: 1.25rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
+  justify-content: space-between;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
   padding: 2rem;
   text-align: center;
-  border-radius: 1.25rem;
   transform: scale(1);
-  transition: all 0.2s linear;
 
   &:hover {
     background-color: hsl(var(--white) / 12%);
@@ -17,16 +16,16 @@
 
     .content {
       .image {
-        transform: scale(0.9);
+        transform: scale(.9);
       }
     }
   }
 
   h3 {
-    margin: 2rem 0 .5rem;
-    letter-spacing: -0.125rem;
-    text-align: left;
     font-size: 1.8rem;
+    letter-spacing: -2px;
+    margin: 2rem 0 .5rem;
+    text-align: left;
   }
 
   p {
@@ -37,20 +36,25 @@
   a {
     text-decoration: none;
   }
+
+  @media only screen and (max-width: $mobile-width) {
+    background-color: hsl(var(--white)/12%);
+    box-shadow: var(--box-shadow);
+  }
 }
 
 .content {
   .image {
     position: relative;
+    transition: all .2s linear;
     width: 100%;
-    transition: all 0.25s linear;
   }
 
   img {
+    height: unset !important;
+    max-width: 14.0625rem;
+    object-fit: contain;
     position: relative !important;
     width: 100% !important;
-    max-width: 14.0625rem;
-    height: unset !important;
-    object-fit: contain;
   }
 }
