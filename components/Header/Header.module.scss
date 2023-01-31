@@ -123,8 +123,8 @@
 
     .wordmark {
       display: block;
-      margin: .125rem 0 0 -.5rem;
-      width: 8.75rem;
+      margin: 2px 0 0 -8px;
+      width: 140px;
     }
   }
 
@@ -139,20 +139,20 @@
 
     &.open {
       background-color: hsl(var(--white));
-      border-radius: .3125rem .3125rem 0 0;
+      border-radius: 5px 5px 0 0;
       box-shadow: var(--box-shadow);
     }
   }
 
   .options {
     background-color: hsl(var(--white));
-    border-radius: .3125rem 0 .3125rem .3125rem;
+    border-radius: 5px 0 5px 5px;
     box-shadow: var(--box-shadow);
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 2.5rem;
-    width: calc(100% + 2.75rem);
+    top: 40px;
+    width: calc(100% + 44px);
     z-index: 999;
 
     & :not(:last-child) {
