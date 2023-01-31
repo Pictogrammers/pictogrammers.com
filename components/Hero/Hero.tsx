@@ -12,7 +12,7 @@ const ScrollButton = styled(Button)({
   fontSize: 16,
   marginBottom: '12rem',
   padding: '.5rem 1rem',
-  textTransform: 'none',
+  textTransform: 'none'
 });
 
 interface HeroProps {
