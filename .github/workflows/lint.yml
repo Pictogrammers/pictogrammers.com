@@ -1,0 +1,35 @@
+name: Code Quality
+on:
+  pull_request:
+concurrency: 
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+jobs:
+  lint:
+    name: ESlint/Stylelint
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Setup Caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Linters
+        run: npm run lint
