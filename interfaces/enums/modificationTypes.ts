@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum ModificationType {
   IconAliasCreated = '691c8829-b1e7-11e7-bf5c-94188269ec50',
   IconAliasDeleted = 'f1f70a76-b975-11e9-8ca0-94188269ec50',

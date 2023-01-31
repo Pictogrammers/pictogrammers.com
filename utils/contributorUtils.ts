@@ -27,7 +27,7 @@ export const getContributor = async (userId: string) => {
   }
 
   const authorLibraries = await iconLibraries.reduce(async (prevPromise: Promise<string[]>, library: IconLibrary) => {
-    let output = await prevPromise;
+    const output = await prevPromise;
 
     if (library.unreleased) {
       return output;

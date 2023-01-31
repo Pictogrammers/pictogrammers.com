@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, MouseEvent, useState } from 'react';
 import getConfig from 'next/config';
 import ExportedImage from 'next-image-export-optimizer';
 import Button from '@mui/material/Button';
@@ -29,7 +29,7 @@ const LibraryMenu: FunctionComponent<LibraryMenuProps> = ({ compact = false, sel
   const [ libraryMenuAnchor, setLibraryMenuAnchor ] = useState<null | HTMLElement>(null);
   const libraryIconSize = compact ? 26 : 38;
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuClick = (event: MouseEvent<HTMLElement>) => {
     setLibraryMenuAnchor(event.currentTarget);
   };
 

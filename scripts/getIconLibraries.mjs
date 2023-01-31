@@ -6,11 +6,6 @@ import config from '../config.js';
 
 const isWin = os.platform() === 'win32';
 
-const createJsName = (name, library) => {
-  const iconPascal = name.split('-').map((name) => name.charAt(0).toUpperCase() + name.slice(1)).join('');
-  return `${library}${iconPascal}`;
-};
-
 const tokenizeIcon = (name, aliases = []) => {
   const nameTokens = name.split('-');
 
@@ -40,7 +35,7 @@ const getIconLibraries = async (contributors = []) => {
     const { default: libraryIcons } = await import(`${library.package}/meta.json`, { assert: { type: 'json' } });
 
     console.log(`INFO: Retrieving ${libraryIcons.length} icons for ${library.name} v${libraryVersion}...`);
-    
+
     const res = await fetch(`https://registry.npmjs.org/${library.package}`);
     const pkgData = await res.json();
     const releasedOn = pkgData.time[libraryVersion];
@@ -52,7 +47,6 @@ const getIconLibraries = async (contributors = []) => {
         aliases,
         author,
         codepoint,
-        id,
         name,
         tags,
         version
@@ -68,12 +62,12 @@ const getIconLibraries = async (contributors = []) => {
       // Map author to their ID
       thisIcon.a = contributors.find((c) => c.name === author)?.id;
 
-      // Simplify tags     
+      // Simplify tags
       const tagIds = tags.map((tag) => {
         const tagSlug = slugify(tag, { lower: true });
         const existingId = output.t.findIndex((t) => t.slug === tagSlug);
         const tagMeta = { name: tag, slug: tagSlug };
-        return existingId === -1 ? output.t.push(tagMeta) - 1: existingId;
+        return existingId === -1 ? output.t.push(tagMeta) - 1 : existingId;
       });
 
       thisIcon.t = tagIds;

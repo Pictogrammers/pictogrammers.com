@@ -169,7 +169,7 @@ const SiteSearch: FunctionComponent = () => {
                     <Icon path={mdiAlertOutline} size={1} />
                     <ListItemText>No results found.</ListItemText>
                   </ListItem>
-                </List>                  
+                </List>
               </div>
             );
           }

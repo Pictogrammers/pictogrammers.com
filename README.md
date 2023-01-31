@@ -12,6 +12,12 @@
 
 ## Development
 
+### Requirements
+
+- Node.js v18+
+
+### Instructions
+
 1. Clone this repository.
 2. Run `npm i`.
 3. Run `npm run dev` to start the dev server.

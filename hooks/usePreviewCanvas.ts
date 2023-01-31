@@ -14,12 +14,12 @@ const usePreviewCanvas = (iconName: string, iconPath: string, workInProgress: bo
       if (!canvasRef.current) {
         return;
       }
-  
+
       const context = canvasRef.current.getContext('2d');
       if (!context) {
         return;
       }
-  
+
       const bgImage = await loadImage(workInProgress ? PreviewBlankWip.src : PreviewBlank.src);
       const dataImage = await generatePreview(iconName, iconPath, workInProgress, iconShadow);
       context.drawImage(bgImage, 0, 0);

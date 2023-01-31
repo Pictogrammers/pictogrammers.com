@@ -41,7 +41,7 @@ const IconPreview: FunctionComponent<IconPreviewProps> = ({
           </svg>
         )}
       </div>
-    </div>      
+    </div>
   );
 };
 

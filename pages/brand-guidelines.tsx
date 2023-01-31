@@ -73,7 +73,7 @@ const PostPage: NextPage = () => {
             variant='contained'
           >
             Download Logo Assets
-          </Button>              
+          </Button>
         </section>
 
         <section>

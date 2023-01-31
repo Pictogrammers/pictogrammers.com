@@ -45,7 +45,7 @@ export const getAllLibraryPaths = async () => {
 
       return output;
     }, { contributorSlugs: [], iconSlugs: [], versionSlugs: [] });
-  
+
     const categorySlugs = categories.map((category: CategoryProps) => `${library.id}/category/${category.slug}`);
 
     output = [

@@ -17,7 +17,7 @@ const handleVersionReplacements = (content: string) => {
       return output;
     }, {} as Versions);
 
-    return content.replace(/{{version:(.*)}}/g, (match) => versions[match] || match);
+  return content.replace(/{{version:(.*)}}/g, (match) => versions[match] || match);
 };
 
 export default handleVersionReplacements;

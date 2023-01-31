@@ -28,8 +28,8 @@ const ExampleVue: FunctionComponent<ExampleVueProps> = ({ iconName, library, vis
       id='example-tabpanel-vue'
       role='tabpanel'
     >
-      <Code className={cx('language-html', classes.code)} displayAsBlock>
-{`<template>
+      <Code className={cx('language-html', classes.code)} displayAsBlock>{
+`<template>
   <svg-icon type="mdi" :path="path"></svg-icon>
 </template>
 
@@ -48,8 +48,8 @@ export default {
     }
   }
 }
-</script>`}
-      </Code>
+</script>`
+      }</Code>
       <Button
         color='secondary'
         component={Link}
