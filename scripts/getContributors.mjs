@@ -64,7 +64,7 @@ const getContributors = async () => {
   console.log('INFO: Retrieving contributors from the API...');
 
   try {
-    const gitHubContributors = await getGitHubContributors()
+    const gitHubContributors = await getGitHubContributors();
 
     const res = await fetch('https://dev.materialdesignicons.com/api/user');
 
