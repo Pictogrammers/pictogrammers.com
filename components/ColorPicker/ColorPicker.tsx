@@ -1,5 +1,5 @@
 import { FunctionComponent, useCallback, useRef, useState } from 'react';
-import { ChromePicker, ColorChangeHandler } from 'react-color';
+import { SketchPicker } from 'react-color';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 import useClickOutside from '../../hooks/useClickOutside';
@@ -24,8 +24,6 @@ const PopoverPicker: FunctionComponent<ColorPickerProps> = ({ color, label, onCh
   const close = useCallback(() => toggleVisibility(false), []);
   useClickOutside(popover, close);
 
-  console.log(label, color);
-
   return (
     <div className={classes.root}>
       <FormControlLabel
@@ -43,7 +41,31 @@ const PopoverPicker: FunctionComponent<ColorPickerProps> = ({ color, label, onCh
       />
       {isOpen && (
         <div className={classes.popover} ref={popover}>
-          <ChromePicker color={color} onChange={onChange} />
+          <SketchPicker
+            color={color}
+            onChange={onChange}
+            presetColors={[
+              '#D0021B',
+              '#F5A623',
+              '#F8E71C',
+              '#8B572A',
+              '#7ED321',
+              '#417505',
+              '#BD10E0',
+              '#9013FE',
+              '#530066',
+              '#4A90E2',
+              '#50E3C2',
+              '#3B5F68',
+              '#B8E986',
+              '#000000',
+              '#4A4A4A',
+              '#9B9B9B',
+              '#FFFFFF',
+              { color: 'TRANSPARENT', title: 'Transparent' }
+            ]}
+            width='225px'
+          />
         </div>
       )}
     </div>
