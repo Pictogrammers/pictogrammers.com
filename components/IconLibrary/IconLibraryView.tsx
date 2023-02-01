@@ -10,22 +10,22 @@ import {
 import { useRouter } from 'next/router';
 import cx from 'clsx';
 import ExportedImage from 'next-image-export-optimizer';
-import Paper from '@mui/material/Paper';
-import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Tooltip from '@mui/material/Tooltip';
-import Chip, { ChipProps } from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
-import TextField from '@mui/material/TextField';
+import Chip, { ChipProps } from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mdi/react';
-import { mdiAlertCircleOutline, mdiClose, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
+import { mdiAlertCircleOutline, mdiAlertOctagonOutline, mdiClose, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 dayjs.extend(advancedFormat);
@@ -53,12 +53,20 @@ import classes from './IconLibraryView.module.scss';
 interface IconLibraryViewProps {
   author?: string;
   category?: string;
+  deprecated?: boolean;
   libraryInfo: IconLibrary;
   slug: string;
   version?: string;
 }
 
-const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, category, libraryInfo, slug, version }) => {
+const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
+  author,
+  category,
+  deprecated: showDeprecated,
+  libraryInfo,
+  slug,
+  version
+}) => {
   const router = useRouter();
 
   // Filter handling
@@ -71,6 +79,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   // Library release info
   const {
     date: libraryReleaseDate,
+    deprecatedCount,
     version: libraryVersion
   } = iconLibraries[libraryInfo.id as keyof typeof iconLibraries];
 
@@ -83,7 +92,9 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
   const [ viewMode, setViewMode ] = useState(isMobileWidth ? 'compact' : 'comfortable');
   const { contributors } = useData();
   const categories = useCategories(libraryInfo.id);
-  const filter = useMemo(() => ({ author, category, term: debouncedSearchTerm, version }), [ author, category, debouncedSearchTerm, version ]);
+  const filter = useMemo(() => ({
+    author, category, deprecated: showDeprecated, term: debouncedSearchTerm, version
+  }), [ author, category, debouncedSearchTerm, showDeprecated, version ]);
   const visibleIcons = useIcons(libraryInfo.id, filter);
 
   useEffect(() => {
@@ -165,6 +176,10 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
       return <Chip color='secondary' icon={<Icon path={mdiTag} size={.7} />} label={categoryName} onDelete={handleChipDelete} size={size} sx={{ margin: '0 .25rem 0 .5rem' }} />;
     }
 
+    if (showDeprecated) {
+      return <Chip color='error' icon={<Icon path={mdiAlertOctagonOutline} size={.7} />} label='Deprecated Icons' onDelete={handleChipDelete} size={size} sx={{ margin: '0 .25rem 0 .5rem' }} />;
+    }
+
     if (author) {
       const authorInfo = contributors.find((contributor: ContributorProps) => contributor.github === author);
       if (authorInfo) {
@@ -215,6 +230,15 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
         <Alert classes={{ root: classes.infoAlert }} severity='warning'>
           <AlertTitle>New Icons in v{version}</AlertTitle>
           Please be sure to check the <Link href={`/docs/library/${libraryInfo.id}/releases/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here. For real-time updates, check the <Link href={`/library/${libraryInfo.id}/history`}>history</Link> page.
+        </Alert>
+      );
+    }
+
+    if (!!showDeprecated) {
+      return (
+        <Alert classes={{ root: classes.infoAlert }} severity='error'>
+          <AlertTitle>Deprecated Icons</AlertTitle>
+          The icons below have been deprecated and will be removed in an upcoming release. Please check the <Link href={`/docs/library/${libraryInfo.id}/releases/changelog`}>changelog</Link> before updating to a new version of the library.
         </Alert>
       );
     }
@@ -287,7 +311,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                   )
                 }}
                 onChange={handleSearchChange}
-                placeholder={`Search ${visibleIcons.length} Icons...`}
+                placeholder={`Search ${visibleIcons.length} Icon${visibleIcons.length === 1 ? '' : 's'}...`}
                 size='small'
                 sx={{
                   margin: '0 1rem 0 0'
@@ -320,6 +344,18 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
                     <ListItemText sx={{ marginLeft: '.2rem' }}>New in v{libraryVersion}</ListItemText>
                   </ListItemButton>
                 </ListItem>
+                {!!deprecatedCount && (
+                  <ListItem>
+                    <ListItemButton
+                      component={Link}
+                      href={`/library/${libraryInfo.id}/deprecated`}
+                      selected={!!showDeprecated}
+                    >
+                      <Icon path={mdiAlertOctagonOutline} size={.8} />
+                      <ListItemText sx={{ marginLeft: '.2rem' }}>Deprecated Icons</ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                )}
                 {renderCategories()}
                 <ListSubheader sx={{ background: 'transparent', margin: '1rem 0 0 .5rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
                 <ListItem>
@@ -340,7 +376,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({ author, cate
               </List>
             </aside>
             <div className={classes.libraryContainer}>
-              {!visibleIcons.length && debouncedSearchTerm ? (
+              {!visibleIcons.length && (debouncedSearchTerm || !!showDeprecated) ? (
                 <div className={classes.noResults}>
                   <Icon path={mdiAlertCircleOutline} size={3} />
                   <p>No icons were found based on your search criteria.</p>

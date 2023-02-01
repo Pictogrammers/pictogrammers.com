@@ -3,6 +3,7 @@ import cx from 'clsx';
 import { useRouter } from 'next/router';
 import { VirtuosoGrid } from 'react-virtuoso';
 import Dialog from '@mui/material/Dialog';
+import Tooltip from '@mui/material/Tooltip';
 
 import useCategories, { CategoryProps } from '../../hooks/useCategories';
 import useWindowSize from '../../hooks/useWindowSize';
@@ -11,6 +12,7 @@ import Link from '../Link/Link';
 import { viewModes } from '../IconLibrary/LibraryViewMode';
 import IconView from '../IconView/IconView';
 import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
+import ConditionalWrapper from '../ConditionalWrapper/ConditionalWrapper';
 
 import { IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
 
@@ -70,15 +72,26 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
         data={icons}
         listClassName={cx(classes.library, classes[viewMode])}
         itemContent={(index, icon: IconLibraryIcon) => (
-          <Link
-            className={classes.libraryIcon}
-            disableRouter
-            href={`/library/${library.id}/icon/${icon.n}`}
-            onClick={(e: MouseEvent<HTMLAnchorElement>) => handleIconModalOpen(e, icon)}
+          <ConditionalWrapper
+            condition={!!icon.d}
+            wrapper={(children: any) => (
+              <Tooltip arrow placement='top' title={<Fragment><strong>Icon Deprecated</strong><br/>Click for more info.</Fragment>}>
+                {children}
+              </Tooltip>
+            )}
           >
-            <CustomGridIcon gridSize={library.gridSize} path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} title={icon.n} />
-            <p>{icon.n}</p>
-          </Link>
+            <Link
+              className={cx(classes.libraryIcon, {
+                [classes.deprecated]: !!icon.d
+              })}
+              disableRouter
+              href={`/library/${library.id}/icon/${icon.n}`}
+              onClick={(e: MouseEvent<HTMLAnchorElement>) => handleIconModalOpen(e, icon)}
+            >
+              <CustomGridIcon gridSize={library.gridSize} path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} title={icon.n} />
+              <p>{icon.n}</p>
+            </Link>
+          </ConditionalWrapper>
         )}
         overscan={300}
         totalCount={icons.length}

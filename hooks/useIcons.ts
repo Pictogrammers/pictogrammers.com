@@ -38,6 +38,8 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
         case 'category':
           const categoryId = iconTags.findIndex((cat: CategoryProps) => cat.slug === filter.category);
           return output.filter((icon: IconLibraryIcon) => icon.t.includes(categoryId));
+        case 'deprecated':
+          return output.filter((icon: IconLibraryIcon) => icon.d);
         case 'version':
           return output.filter((icon: IconLibraryIcon) => icon.v === filter.version);
         case 'term':
