@@ -67,8 +67,13 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
     return transforms.join(' ');
   };
 
-  const outputSvg = (
-    <svg viewBox={`0 0 ${gridSize} ${gridSize}`} xmlns='http://www.w3.org/2000/svg'>
+  const renderSvgIcon = (constrainSize: boolean = false) => (
+    <svg
+      height={constrainSize ? customizations.size : undefined}
+      viewBox={`0 0 ${gridSize} ${gridSize}`}
+      xmlns='http://www.w3.org/2000/svg'
+      width={constrainSize ? customizations.size : undefined}
+    >
       <title>{icon.n}</title>
       <rect
         fill={`rgb(${customizations.bgColor.r} ${customizations.bgColor.g} ${customizations.bgColor.b} / ${customizations.bgColor.a * 100}%)`}
@@ -86,6 +91,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
   );
 
   const downloadCustomIcon = () => {
+    const outputSvg = renderSvgIcon(true);
     const svgUrl = URL.createObjectURL(new Blob([renderToStaticMarkup(outputSvg)], { type: 'image/svg+xml' }));
     const downloadImage = document.createElement('img');
     const downloadCanvas = document.createElement('canvas');
@@ -114,7 +120,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       <div className={classes.interface}>
         <div className={classes.preview}>
           <IconPreview
-            customizedIcon={outputSvg}
+            customizedIcon={renderSvgIcon()}
             gridSize={gridSize}
             path={icon.p}
           />
