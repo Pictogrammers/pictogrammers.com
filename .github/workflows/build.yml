@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '**'
+    paths-ignore:
       - '!README.md'
       - '!CONTRIBUTING.md'
       - '!.github/ISSUE_TEMPLATE/**'
