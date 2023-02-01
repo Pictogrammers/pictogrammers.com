@@ -272,7 +272,9 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
       <Head
         description={libraryInfo.description}
         title={`${libraryInfo.name} - Icon Library`}
-      />
+      >
+        <link rel='canonical' href={`https://pictogrammers.com/library/${libraryInfo.id}`} />
+      </Head>
       <Paper className={classes.container}>
         <div className={classes.libraryView}>
           <div className={classes.heading} ref={iconLibraryHeadingRef}>

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useAnalytics } from 'use-analytics';
 
 interface HeadProps {
+  children?: any;
   description?: string;
   noIndex?: boolean;
   readingTime?: string;
@@ -12,6 +13,7 @@ interface HeadProps {
 }
 
 const Head: FunctionComponent<HeadProps> = ({
+  children,
   description,
   noIndex = false,
   readingTime,
@@ -50,6 +52,7 @@ const Head: FunctionComponent<HeadProps> = ({
       )}
 
       {noIndex && <meta name='robots' content='noindex' />}
+      {children}
     </NextHead>
   );
 };
