@@ -24,7 +24,7 @@ const Head: FunctionComponent<HeadProps> = ({
 
   // Register page view in analytics
   const { page } = useAnalytics();
-  page({ url: `https://pictogrammers.com${router.pathname}` });
+  page({ url: `https://pictogrammers.com${router.asPath}` });
 
   // This has to be set as variable to avoid console warnings.
   // See: https://github.com/vercel/next.js/discussions/38256#discussioncomment-3070196
@@ -39,7 +39,7 @@ const Head: FunctionComponent<HeadProps> = ({
       <meta content={pageTitle} property='og:title' key='og:title' />
       {description && <meta content={description} property='og:description' key='og:description' />}
       <meta content={type} property='og:type' key='og:type' />
-      <meta content={`https://pictogrammers.com${router.pathname}`} property='og:url' key='og:url' />
+      <meta content={`https://pictogrammers.com${router.asPath}`} property='og:url' key='og:url' />
 
       <meta content={pageTitle} name='twitter:title' key='twitter:title' />
       {description && <meta content={description} name='twitter:description' key='twitter:description' />}
