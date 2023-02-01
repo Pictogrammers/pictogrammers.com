@@ -59,18 +59,16 @@
 }
 
 .libraries {
-  --col-size: 25rem;
-
   align-items: center;
   display: grid;
   grid-gap: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(var(--col-size), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   justify-content: space-between;
   margin: 3rem auto;
   max-width: 1080px;
 
   @media only screen and (max-width: $mobile-width) {
-    --col-size: 20rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   }
 }
 
