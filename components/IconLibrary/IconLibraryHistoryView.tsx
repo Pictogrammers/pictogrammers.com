@@ -26,7 +26,6 @@ import iconLibraries from '../../public/data/libraries.json';
 
 import classes from './IconLibraryHistoryView.module.scss';
 
-
 const historyTypes = {
   iconAlias: [ModificationType.IconAliasCreated, ModificationType.IconAliasDeleted],
   iconCreated: [ModificationType.IconCreated],
@@ -63,7 +62,7 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
     iconCreated: true,
     iconDeleted: true,
     iconModified: true,
-    iconRenamed: true,
+    iconRenamed: true
     // TODO: Support displaying which tag was added in the API
     // iconTag: false
   });
@@ -173,7 +172,7 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
   const ColoredSwitch = styled(Switch)((props: ColoredSwitchProps) => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
       '&:hover': {
-        backgroundColor: `hsl(var(--${props.typecolor}) / 10%)`,
+        backgroundColor: `hsl(var(--${props.typecolor}) / 10%)`
       },
       color: `hsl(var(--${props.typecolor}))`
     },

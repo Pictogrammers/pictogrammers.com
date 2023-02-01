@@ -57,8 +57,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
         }
       };
 
-      if (viewType && viewName) {
-        output.props[viewType as keyof typeof output.props] = viewName;
+      if (viewType) {
+        output.props[viewType as keyof typeof output.props] = viewName || true;
       }
 
       return output;

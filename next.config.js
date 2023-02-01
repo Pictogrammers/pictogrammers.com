@@ -20,6 +20,9 @@ const nextConfig = {
     nextImageExportOptimizer_quality: 75,
     nextImageExportOptimizer_storePicturesInWEBP: true
   },
+  eslint: {
+    dirs: ['components', 'hooks', 'interfaces', 'pages', 'providers', 'scripts', 'types', 'utils', 'workers']
+  },
   images: process.env.NODE_ENV === 'production' ? {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -50,7 +53,7 @@ const nextConfig = {
   swcMinify: true,
   trailingSlash: true,
   transpilePackages: ['next-image-export-optimizer'],
-  webpack(config, { isServer }) {
+  webpack(config) {
     config.module.rules.push({
       issuer: {
         and: [/\.(js|ts)x?$/]
@@ -79,7 +82,7 @@ const nextConfig = {
         }
       }]
     });
-    
+
     return config;
   }
 };

@@ -38,13 +38,15 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
         case 'category':
           const categoryId = iconTags.findIndex((cat: CategoryProps) => cat.slug === filter.category);
           return output.filter((icon: IconLibraryIcon) => icon.t.includes(categoryId));
+        case 'deprecated':
+          return output.filter((icon: IconLibraryIcon) => icon.d);
         case 'version':
           return output.filter((icon: IconLibraryIcon) => icon.v === filter.version);
         case 'term':
           const haystack = output.map((icon: IconLibraryIcon) => icon.st.join('¦'));
           const needle = filter.term || ''
-            .replace(/([A-Z][a-z])/g,' $1') // Add a space in front of letters is Pascal-case is used
-            .replace(/(\d+)/g,' $1') // Add a space in front of numbers if Pascal-case is used
+            .replace(/([A-Z][a-z])/g, ' $1') // Add a space in front of letters is Pascal-case is used
+            .replace(/(\d+)/g, ' $1') // Add a space in front of numbers if Pascal-case is used
             .replace(new RegExp(`(^${libraryId})`, 'gi'), '') // Remove a prefix of the library ID
             .toLowerCase();
 

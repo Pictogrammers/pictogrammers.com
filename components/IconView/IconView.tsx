@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
+import Alert from '@mui/material/Alert';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -18,7 +19,6 @@ import {
   mdiExitToApp,
   mdiTag,
   mdiTagOutline,
-  mdiTuneVariant,
   mdiXml
 } from '@mdi/js';
 
@@ -32,6 +32,7 @@ import IconPreview from '../IconPreview/IconPreview';
 import IconUsageExamples from '../IconUsageExamples/IconUsageExamples';
 import IconDownloadMenu from './IconDownloadMenu';
 import IconCustomizer from '../IconCustomizer/IconCustomizer';
+import IconGrid from '../IconGrid/IconGrid';
 import CarbonAd from '../CarbonAd/CarbonAd';
 
 import useCopyToClipboard from '../../hooks/useCopyToClipboard';
@@ -79,7 +80,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
           <Tooltip arrow placement='right' title='Copy Icon Name'>
             <h1 onClick={() => copy(icon.n, 'icon name')}>{icon.n}</h1>
           </Tooltip>
-        </div>           
+        </div>
       </div>
     );
   };
@@ -219,6 +220,11 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
             </div>
           ) : (
             <Fragment>
+              {icon.d && (
+                <Alert classes={{ root: classes.deprecated }} severity='error'>
+                  This icon has been deprecated and will be removed in an upcoming release. New use of this icon is highly discouraged. If you are currently using this icon, please make plans to replace it before upgrading to a newer version of the library.
+                </Alert>
+              )}
               <div className={classes.usage}>
                 <div className={classes.preview}>
                   <IconPreview
@@ -246,7 +252,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                 </div>
                 <div className={classes.aliases}>
                   {icon.al.map((alias) => <Chip icon={<Icon path={mdiDotsHorizontalCircleOutline} size={.8} />} key={alias} label={alias} />)}
-                </div>       
+                </div>
               </div>
               <div className={classes.tags}>
                 <div className={classes.categories}>
@@ -264,6 +270,12 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                   </Tooltip>
                 </div>
               </div>
+              {!!icon.relatedIcons?.length && (
+                <div className={classes.related}>
+                  <h2>Related Icons</h2>
+                  <IconGrid icons={icon.relatedIcons} library={libraryInfo} updateUrl={false} viewMode='comfortable' />
+                </div>
+              )}
             </Fragment>
           )}
         </Fragment>

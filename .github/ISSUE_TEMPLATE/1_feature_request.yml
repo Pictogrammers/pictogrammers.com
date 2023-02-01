@@ -1,0 +1,10 @@
+name: Suggest a New Feature 💡
+description: Suggest a new feature on Pictogrammers.com.
+labels: Feature Request
+body:
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Describe your suggested feature
+      description: Provide us a detailed explanation of the feature you'd like us to add and why it is important to you.

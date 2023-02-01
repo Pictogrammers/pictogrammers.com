@@ -62,14 +62,14 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
   const { contributors } = useData();
   const authorId = user.id.split('-')[0];
   const userInfo = contributors.find((c: ContributorProps) => c.id === authorId);
-  
+
   const userAvatar = (
     <Link href={`/contributor/${user.github}`}>
       <Avatar
         classes={{ root: classes.avatar }}
         sx={{
           background: `hsl(var(${userInfo.core ? '--primary-color' : '--dark-cyan'}))`,
-          border: `2px solid hsl(var(${userInfo.core ? '--primary-color' : '--dark-cyan'}))`,
+          border: `2px solid hsl(var(${userInfo.core ? '--primary-color' : '--dark-cyan'}))`
         }}
       >
         {userInfo.image ? (
@@ -89,16 +89,16 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
     <div className={cx(classes.typeCard, classes[type])}>
       {userAvatar}
       <div className={classes.iconContainer}>
-      {iconDataBefore && iconDataAfter ? (
-        <Fragment>
-          <CustomGridIcon gridSize={library.gridSize} path={iconDataBefore} size={2} />
-          <Icon className={classes.arrow} path={mdiArrowRight} size={1} />
-          <CustomGridIcon gridSize={library.gridSize} path={iconDataAfter} size={2} />
-        </Fragment>
-      ) : (
-        <CustomGridIcon gridSize={library.gridSize} path={icon.data} size={2} />
-      )}
-    </div>
+        {iconDataBefore && iconDataAfter ? (
+          <Fragment>
+            <CustomGridIcon gridSize={library.gridSize} path={iconDataBefore} size={2} />
+            <Icon className={classes.arrow} path={mdiArrowRight} size={1} />
+            <CustomGridIcon gridSize={library.gridSize} path={iconDataAfter} size={2} />
+          </Fragment>
+        ) : (
+          <CustomGridIcon gridSize={library.gridSize} path={icon.data} size={2} />
+        )}
+      </div>
       <div className={classes.modDesc}>
         <div>{actionText(type, icon.name, iconNameBefore, text)}</div>
         <div className={classes.subDesc}>{userAvatar}By {user.name} at {dayjs(date, dayjs.tz.guess()).format('h:mma')}</div>
@@ -107,7 +107,7 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
         <Tooltip arrow placement='top' title='View GitHub Issue'>
           <Link className={classes.githubLink} href={`${library.git}/issues/${issue}`}>
             <Chip label={`#${issue.toString()}`} color='secondary' sx={{ cursor: 'pointer' }} />
-          </Link>            
+          </Link>
         </Tooltip>
       )}
     </div>

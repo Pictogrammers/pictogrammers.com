@@ -53,50 +53,50 @@ const DocView: FunctionComponent<DocViewProps> = ({ availableIcons, category, fr
   }
 
   return (
-      <Layout
-        breadcrumbs={breadcrumbs}
-        color={`--${category.id}-color`}
-        icon={frontMatter.iconPath ? frontMatter.iconPath : category.icon}
-        improvePage={{
-          gitHubUrl: `https://github.com/Pictogrammers/pictogrammers.com/blob/main/${path}.mdx`,
-          suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent(`Suggested Change to "${title}"`)}&body=${encodeURIComponent(`*URL:* https://pictogrammers.com/${path}\n\n<!-- Describe how you would improve the page here -->`)}`
-        }}
-        title={title}
-        toc={toc}
-      >
-        <Head
-          description={description}
-          noIndex={hidden}
-          readingTime={readingTime}
-          title={`${title} - Docs`}
-          type='article'
-        />
-        <MDXRemote
-          components={{
-            Button: (props: IButton) => Button({...props, availableIcons }),
-            code: CodeHighlighter,
-            Contributors,
-            h1: Heading(1),
-            h2: Heading(2),
-            h3: Heading(3),
-            h4: Heading(4),
-            h5: Heading(5),
-            h6: Heading(6),
-            Icon: (props: MdxIconProps) => Icon({...props, availableIcons }),
-            Note,
-            Tab,
-            table: Table,
-            Tabs,
-            tbody: TableBody,
-            td: TableCell,
-            tfoot: TableFooter,
-            th: TableCell,
-            thead: TableHead,
-            tr: TableRow
-          } as MDXRemoteProps['components']}
-          {...source}
-        />
-      </Layout>
+    <Layout
+      breadcrumbs={breadcrumbs}
+      color={`--${category.id}-color`}
+      icon={frontMatter.iconPath ? frontMatter.iconPath : category.icon}
+      improvePage={{
+        gitHubUrl: `https://github.com/Pictogrammers/pictogrammers.com/blob/main/${path}.mdx`,
+        suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent(`Suggested Change to "${title}"`)}&body=${encodeURIComponent(`*URL:* https://pictogrammers.com/${path}\n\n<!-- Describe how you would improve the page here -->`)}`
+      }}
+      title={title}
+      toc={toc}
+    >
+      <Head
+        description={description}
+        noIndex={hidden}
+        readingTime={readingTime}
+        title={`${title} - Docs`}
+        type='article'
+      />
+      <MDXRemote
+        components={{
+          Button: (props: IButton) => Button({...props, availableIcons }),
+          code: CodeHighlighter,
+          Contributors,
+          h1: Heading(1),
+          h2: Heading(2),
+          h3: Heading(3),
+          h4: Heading(4),
+          h5: Heading(5),
+          h6: Heading(6),
+          Icon: (props: MdxIconProps) => Icon({...props, availableIcons }),
+          Note,
+          Tab,
+          table: Table,
+          Tabs,
+          tbody: TableBody,
+          td: TableCell,
+          tfoot: TableFooter,
+          th: TableCell,
+          thead: TableHead,
+          tr: TableRow
+        } as MDXRemoteProps['components']}
+        {...source}
+      />
+    </Layout>
   );
 };
 

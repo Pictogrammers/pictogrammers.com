@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode, useId, useState } from 'react';
+import { FunctionComponent, ReactNode, SyntheticEvent, useId, useState } from 'react';
 import { Tab as MuiTab, Tabs as MuiTabs } from '@mui/material';
 
 import classes from './components.module.scss';
@@ -43,7 +43,7 @@ const Tabs: FunctionComponent<TabsProps> = ({ children }) => {
   const tabId = useId();
   const [ value, setValue ] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 

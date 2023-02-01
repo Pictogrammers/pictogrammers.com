@@ -19,7 +19,7 @@ interface DocCategoryListProps {
 const DocCategoryList: FunctionComponent<DocCategoryListProps> = ({ category, docs, library }) => {
   const pageTitle = `${category.name}${library?.name ? ` - ${library.name}` : ''} - Docs`;
   const pageDesc = `${library?.name ? `${library.name} - ` : ''}${category.description}`;
-  
+
   return (
     <div className={classes.root}>
       <Head

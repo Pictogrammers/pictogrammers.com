@@ -25,14 +25,14 @@ const Button: FunctionComponent<CustomButtonProps> = ({
   node,
   startIcon,
   variant = 'outlined',
-...rest
+  ...rest
 }) => {
   const renderIcon = (icon: string | ReactNode) => {
     if (typeof icon === 'string') {
       const size = icon.startsWith('si') ? .9 : 1;
       return <Icon availableIcons={availableIcons} name={icon} size={size} />;
     }
-  
+
     return icon;
   };
 

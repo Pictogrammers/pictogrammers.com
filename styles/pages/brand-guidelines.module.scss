@@ -139,23 +139,31 @@
     width: auto;
   }
 
-  .size128 img {
-    height: 195px;
+  .size128 {
+    img {
+      height: 195px;
+    }
   }
 
-  .size64 img {
-    height: 95px;
-    margin-bottom: 18px;
+  .size64 {
+    img {
+      height: 95px;
+      margin-bottom: 18px;
+    }
   }
 
-  .size32 img {
-    height: 50px;
-    margin-bottom: 25px;
+  .size32 {
+    img {
+      height: 50px;
+      margin-bottom: 25px;
+    }
   }
 
-  .size16 img {
-    height: 25px;
-    margin-bottom: 30px;
+  .size16 {
+    img {
+      height: 25px;
+      margin-bottom: 30px;
+    }
   }
 }
 
@@ -183,14 +191,18 @@
     }
   }
 
-  &.mdi .swatch {
-    /* stylelint-disable-next-line color-no-hex */
-    background-color: #2196f3;
+  &.mdi {
+    .swatch {
+      /* stylelint-disable-next-line color-no-hex */
+      background-color: #2196f3;
+    }
   }
 
-  &.mdl .swatch {
-    /* stylelint-disable-next-line color-no-hex */
-    background-color: #5a88ad;
+  &.mdl {
+    .swatch {
+      /* stylelint-disable-next-line color-no-hex */
+      background-color: #5a88ad;
+    }
   }
 }
 

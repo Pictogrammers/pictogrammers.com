@@ -25,10 +25,13 @@ export interface IconLibrary {
 export interface IconLibraryIcon {
   a: string; // Author
   al: string[]; // Aliases
+  b: string; // Base Icon Name
   categories?: CategoryProps[]; // Categories
   cp: string; // Codepoint
+  d: boolean; // Deprecated
   n: string; // Name
   p: string; // Path
+  relatedIcons?: IconLibraryIcon[]; // Related Icons
   st: string[]; // Search Terms (Combined Index)
   t: string[]; // Tags
   v: string; // Version

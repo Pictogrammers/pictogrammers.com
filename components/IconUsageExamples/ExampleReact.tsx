@@ -28,12 +28,12 @@ const ExampleReact: FunctionComponent<ExampleReactProps> = ({ iconName, library,
       id='example-tabpanel-react'
       role='tabpanel'
     >
-      <Code className={cx('language-jsx', classes.code)} displayAsBlock>
-{`import Icon from '@mdi/react';
+      <Code className={cx('language-jsx', classes.code)} displayAsBlock>{
+`import Icon from '@mdi/react';
 import { ${jsName} } from '@${library}/js';
 
-<Icon path={${jsName}} size={1} />`}
-      </Code>
+<Icon path={${jsName}} size={1} />`
+      }</Code>
       <Button
         color='secondary'
         component={Link}

@@ -18,11 +18,13 @@ import '../components/CarbonAd/Carbon.scss';
 
 const manrope = Manrope({ subsets: ['latin'] });
 
-declare module '@mui/material/styles' { 
+declare module '@mui/material/styles' {
+  // eslint-disable-next-line no-unused-vars
   interface Palette {
     neutral: PaletteColorOptions;
     white: PaletteColorOptions;
   }
+  // eslint-disable-next-line no-unused-vars
   interface PaletteOptions {
     neutral: PaletteColorOptions;
     white: PaletteColorOptions;
@@ -61,7 +63,9 @@ const theme = createTheme({
           color: 'black'
         },
         tooltip: {
-          backgroundColor: 'black'
+          backgroundColor: 'black',
+          fontSize: '.8rem',
+          textAlign: 'center'
         }
       }
     }

@@ -18,6 +18,7 @@
 
 .preview {
   margin-bottom: 4rem;
+  margin-top: .9rem;
 }
 
 .customize {
@@ -67,14 +68,10 @@
 }
 
 .controls {
-  column-gap: 1rem;
+  align-items: center;
   display: flex;
+  gap: 1.5rem;
   margin-right: 1rem;
-
-  & > svg {
-    margin-right: .5rem;
-    margin-top: .15rem;
-  }
 
   & > span {
     flex: 1;

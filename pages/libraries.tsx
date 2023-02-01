@@ -2,8 +2,10 @@ import { NextPage } from 'next';
 import getConfig from 'next/config';
 import ExportedImage from 'next-image-export-optimizer';
 import Paper from '@mui/material/Paper';
-import dayjs from 'dayjs';
 import { mdiFormatFont, mdiRobotExcited } from '@mdi/js';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+dayjs.extend(advancedFormat);
 
 import Head from '../components/Head/Head';
 import LandingPageHeading from '../components/LandingPageHeading/LandingPageHeading';
@@ -35,7 +37,7 @@ const LibraryCard = (props: { library: LibraryProps, type: string }) => {
         label: library.unreleased ? 'Coming Soon!' : `${libraryStats.count} Icons`
       }}
       color={`--${library.id}-color`}
-      description={library.unreleased ? 'Unreleased' : `v${libraryStats.version} • Released on ${dayjs(libraryStats.date).format('MMM DD, YYYY')}`}
+      description={library.unreleased ? 'Unreleased' : `v${libraryStats.version} • Released on ${dayjs(libraryStats.date).format('MMM Do, YYYY')}`}
       disabled={!!library.unreleased}
       headerElement='h3'
       href={library.unreleased ? undefined : `/library/${library.id}`}

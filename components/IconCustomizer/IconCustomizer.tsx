@@ -1,10 +1,10 @@
-import { ChangeEvent, FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { ColorResult } from 'react-color';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Slider from '@mui/material/Slider';
+import Input from '@mui/material/Input';
 import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mdi/react';
 import {
@@ -19,7 +19,6 @@ import {
 import IconPreview from '../IconPreview/IconPreview';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
-import useWindowSize from '../../hooks/useWindowSize';
 import { useAnalytics } from 'use-analytics';
 
 import { IconCustomizationProps, IconLibrary, IconLibraryIcon } from '../../interfaces/icons';
@@ -46,11 +45,10 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
 
   const maxIconSize = 256;
   const minIconSize = gridSize / 2;
-  const maxCornerRadius = minIconSize / 100;
 
   const { track } = useAnalytics();
-  const windowSize = useWindowSize();
-  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+
+  const clamp = (number: number, min: number, max: number) => Math.max(min, Math.min(number, max));
 
   const calculateTransform = () => {
     const transforms = [];
@@ -60,7 +58,8 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
     transforms.push(`rotate(${customizations.rotate}, ${centerPoint}, ${centerPoint})`);
 
     // Handle padding and flipping
-    const scale = 1 - (customizations.padding / maxIconSize);
+    const dpPixelRatio = 28.571;
+    const scale = 1 - ((customizations.padding * dpPixelRatio) / maxIconSize);
     const translate = (1 - scale) * (centerPoint / scale);
     transforms.push(`scale(${(customizations.flipX ? scale * -1 : scale).toFixed(3)} ${(customizations.flipY ? scale * -1 : scale).toFixed(3)})`);
     transforms.push(`translate(${(customizations.flipX ? (translate * -1) - gridSize : translate).toFixed(3)} ${(customizations.flipY ? (translate * -1) - gridSize : translate).toFixed(3)})`);
@@ -68,18 +67,23 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
     return transforms.join(' ');
   };
 
-  const outputSvg = (
-    <svg viewBox={`0 0 ${gridSize} ${gridSize}`} xmlns='http://www.w3.org/2000/svg'>
+  const renderSvgIcon = (constrainSize: boolean = false) => (
+    <svg
+      height={constrainSize ? customizations.size : undefined}
+      viewBox={`0 0 ${gridSize} ${gridSize}`}
+      xmlns='http://www.w3.org/2000/svg'
+      width={constrainSize ? customizations.size : undefined}
+    >
       <title>{icon.n}</title>
       <rect
-        fill={`rgb(${customizations.bgColor.r} ${customizations.bgColor.g} ${customizations.bgColor.b} / ${(customizations.bgColor.a || 0) * 100}%)`}
+        fill={`rgb(${customizations.bgColor.r} ${customizations.bgColor.g} ${customizations.bgColor.b} / ${customizations.bgColor.a * 100}%)`}
         height={gridSize}
-        rx={customizations.cornerRadius * maxCornerRadius}
-        ry={customizations.cornerRadius * maxCornerRadius}
+        rx={customizations.cornerRadius}
+        ry={customizations.cornerRadius}
         width={gridSize}
       />
       <path
-        fill={`rgb(${customizations.fgColor.r} ${customizations.fgColor.g} ${customizations.fgColor.b} / ${(customizations.fgColor.a || 1) * 100}%)`}
+        fill={`rgb(${customizations.fgColor.r} ${customizations.fgColor.g} ${customizations.fgColor.b} / ${customizations.fgColor.a * 100}%)`}
         d={icon.p}
         transform={calculateTransform()}
       />
@@ -87,6 +91,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
   );
 
   const downloadCustomIcon = () => {
+    const outputSvg = renderSvgIcon(true);
     const svgUrl = URL.createObjectURL(new Blob([renderToStaticMarkup(outputSvg)], { type: 'image/svg+xml' }));
     const downloadImage = document.createElement('img');
     const downloadCanvas = document.createElement('canvas');
@@ -101,7 +106,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       downloadLink.href = downloadCanvas.toDataURL('image/png');
       downloadLink.download = `${icon.n}-custom\.png`;
       downloadLink.click();
-    
+
       track('advancedPNGExportDownload', { icon: icon.n, library: library.name, ...customizations });
       URL.revokeObjectURL(svgUrl);
       downloadCanvas.remove();
@@ -115,7 +120,7 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
       <div className={classes.interface}>
         <div className={classes.preview}>
           <IconPreview
-            customizedIcon={outputSvg}
+            customizedIcon={renderSvgIcon()}
             gridSize={gridSize}
             path={icon.p}
           />
@@ -140,11 +145,6 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                 <Icon path={mdiResize} size={1} />
                 <Slider
                   aria-labelledby='size-controls'
-                  marks={!isMobileWidth && [
-                    { label: '48px', value: 48 },
-                    { label: '128px', value: 128 },
-                    { label: '256px', value: 256 }
-                  ]}
                   max={maxIconSize}
                   min={minIconSize}
                   onChange={(e, value) => setCustomizations({ ...customizations, size: Number(value) })}
@@ -152,6 +152,32 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                   value={customizations.size}
                   valueLabelDisplay='auto'
                   valueLabelFormat={(value) => `${value}px`}
+                />
+                <Input
+                  endAdornment='px'
+                  inputProps={{
+                    'aria-labelledby': 'size-controls',
+                    inputMode: 'numeric',
+                    max: maxIconSize,
+                    min: minIconSize,
+                    pattern: '[0-9]*',
+                    step: 10,
+                    type: 'text'
+                  }}
+                  onBlur={(e) => {
+                    if (Number(e.target.value) < minIconSize) {
+                      setCustomizations({ ...customizations, size: minIconSize });
+                    }
+                  }}
+                  onChange={(e) => {
+                    const newValue = Number(e.target.value);
+                    if (isNaN(newValue)) {
+                      return;
+                    }
+                    setCustomizations({ ...customizations, size: clamp(newValue, 0, maxIconSize) });
+                  }}
+                  size='small'
+                  value={customizations.size}
                 />
               </div>
             </div>
@@ -161,12 +187,33 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                 <Icon path={mdiStretchToPageOutline} size={1} />
                 <Slider
                   aria-labelledby='padding-controls'
-                  max={100}
+                  max={5}
                   onChange={(e, value) => setCustomizations({ ...customizations, padding: Number(value) })}
-                  step={2}
+                  step={1}
                   value={customizations.padding}
                   valueLabelDisplay='auto'
-                  valueLabelFormat={(value) => `${value}px`}
+                  valueLabelFormat={(value) => `${value}dp`}
+                />
+                <Input
+                  endAdornment='dp'
+                  inputProps={{
+                    'aria-labelledby': 'padding-controls',
+                    inputMode: 'numeric',
+                    max: 5,
+                    min: 0,
+                    pattern: '[0-9]*',
+                    step: 1,
+                    type: 'text'
+                  }}
+                  onChange={(e) => {
+                    const newValue = Number(e.target.value);
+                    if (isNaN(newValue)) {
+                      return;
+                    }
+                    setCustomizations({ ...customizations, padding: clamp(newValue, 0, 5) });
+                  }}
+                  size='small'
+                  value={customizations.padding}
                 />
               </div>
             </div>
@@ -178,16 +225,32 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                 <Icon path={mdiReload} size={1} />
                 <Slider
                   aria-labelledby='rotate-controls'
-                  marks={!isMobileWidth && [
-                    { label: '90°', value: 90 },
-                    { label: '180°', value: 180 },
-                    { label: '270°', value: 270 }
-                  ]}
                   max={360}
                   onChange={(e, value) => setCustomizations({ ...customizations, rotate: Number(value) })}
                   value={customizations.rotate}
                   valueLabelDisplay='auto'
                   valueLabelFormat={(value) => `${value}°`}
+                />
+                <Input
+                  endAdornment='°'
+                  inputProps={{
+                    'aria-labelledby': 'rotate-controls',
+                    inputMode: 'numeric',
+                    max: 360,
+                    min: 0,
+                    pattern: '[0-9]*',
+                    step: 10,
+                    type: 'text'
+                  }}
+                  onChange={(e) => {
+                    const newValue = Number(e.target.value);
+                    if (isNaN(newValue)) {
+                      return;
+                    }
+                    setCustomizations({ ...customizations, rotate: clamp(newValue, 0, 360) });
+                  }}
+                  size='small'
+                  value={customizations.rotate}
                 />
               </div>
             </div>
@@ -203,37 +266,58 @@ const IconCustomizer: FunctionComponent<IconCustomizerProps> = ({ gridSize, icon
                 <Slider
                   aria-labelledby='radius-controls'
                   disabled={customizations.bgColor.a < 0.01}
-                  max={100}
+                  max={12}
                   onChange={(e, value) => setCustomizations({ ...customizations, cornerRadius: Number(value) })}
-                  step={10}
+                  step={1}
                   value={customizations.cornerRadius}
                   valueLabelDisplay='auto'
-                  valueLabelFormat={(value) => `${value}%`}
+                  valueLabelFormat={(value) => `${value}dp`}
+                />
+                <Input
+                  endAdornment='dp'
+                  inputProps={{
+                    'aria-labelledby': 'radius-controls',
+                    inputMode: 'numeric',
+                    max: minIconSize,
+                    min: 0,
+                    pattern: '[0-9]*',
+                    step: 1,
+                    type: 'text'
+                  }}
+                  onChange={(e) => {
+                    const newValue = Number(e.target.value);
+                    if (isNaN(newValue)) {
+                      return;
+                    }
+                    setCustomizations({ ...customizations, cornerRadius: clamp(newValue, 0, minIconSize) });
+                  }}
+                  size='small'
+                  value={customizations.cornerRadius}
                 />
               </div>
             </div>
-          </div>      
+          </div>
           <div className={classes.flipControls}>
             <FormControlLabel
-              control={<Switch checked={customizations.flipX} onChange={(e: ChangeEvent<HTMLInputElement>) => setCustomizations({ ...customizations, flipX: !customizations.flipX })} />}
+              control={<Switch checked={customizations.flipX} onChange={() => setCustomizations({ ...customizations, flipX: !customizations.flipX })} />}
               label='Flip Horizontally'
               labelPlacement='end'
             />
             <FormControlLabel
-              control={<Switch checked={customizations.flipY} onChange={(e: ChangeEvent<HTMLInputElement>) => setCustomizations({ ...customizations, flipY: !customizations.flipY })} />}
+              control={<Switch checked={customizations.flipY} onChange={() => setCustomizations({ ...customizations, flipY: !customizations.flipY })} />}
               label='Flip Vertically'
               labelPlacement='end'
             />
-          </div>    
+          </div>
         </div>
       </div>
       <Button
         onClick={downloadCustomIcon}
         startIcon={<Icon path={mdiDownload} size={1} />}
-        sx={{ margin: '0 1rem', minWidth: '250px' }}
+        sx={{ margin: '0 1rem', minWidth: '200px' }}
         variant='contained'
       >
-        Download PNG ({customizations.size}x{customizations.size})
+        Download PNG
       </Button>
     </div>
   );

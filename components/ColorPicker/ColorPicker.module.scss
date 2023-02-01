@@ -1,5 +1,18 @@
 .root {
   position: relative;
+
+  div {
+    &[title='Transparent'] {
+      background: repeating-conic-gradient(hsl(var(--medium-grey) / 50%) 0% 25%, transparent 0% 50%) !important;
+    }
+
+    &[class='flexbox-fix'] {
+      input {
+        text-align: center;
+        width: 100% !important;
+      }
+    }
+  }
 }
 
 .swatch {

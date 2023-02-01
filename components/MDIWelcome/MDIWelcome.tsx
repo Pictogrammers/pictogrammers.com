@@ -54,8 +54,8 @@ const MDIWelcome: FunctionComponent<MDIWelcomeProps> = ({ handleClose }) => {
         <Button
           color='info'
           onClick={() => handleClose(false)}
-          sx={{ 
-            backgroundColor: 'hsl(var(--mdi-color))',
+          sx={{
+            backgroundColor: 'hsl(var(--mdi-color))'
           }}
           variant='contained'
         >

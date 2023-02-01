@@ -25,9 +25,7 @@ const ExampleWebfont: FunctionComponent<ExampleWebfontProps> = ({ iconName, libr
       id='example-tabpanel-webfont'
       role='tabpanel'
     >
-      <Code className={cx('language-html', classes.code)} displayAsBlock>
-{`<span class="${library} ${library}-${iconName}"></span>`}
-      </Code>
+      <Code className={cx('language-html', classes.code)} displayAsBlock>{`<span class="${library} ${library}-${iconName}"></span>`}</Code>
       <Alert severity='warning' sx={{ margin: '1rem 0' }}>
         We highly recommend you <strong>do not</strong> use the webfont. See <Link href='/docs/guides/webfont-alternatives'>Webfont Alternatives</Link> for more information.
       </Alert>

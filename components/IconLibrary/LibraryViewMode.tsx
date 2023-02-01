@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, MouseEvent, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -42,7 +42,7 @@ export const viewModes = {
 const LibraryViewMode: FunctionComponent<LibraryViewModeMenuProps> = ({ color = 'primary', compact, currentView, setViewMode }) => {
   const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuClick = (event: MouseEvent<HTMLElement>) => {
     setMenuAnchor(event.currentTarget);
   };
 

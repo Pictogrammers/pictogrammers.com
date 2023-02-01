@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { FunctionComponent, MouseEvent, useEffect, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -24,41 +24,31 @@ interface IconDownloadMenuMenuProps {
   setCustomizing: Function;
 };
 
-interface PngDownloadOptions {
-  [key: number]: string;
-}
-
 const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, library, setCustomizing }) => {
   const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
-  const [ pngDownloadOptions, setPngDownloadOptions ] = useState<PngDownloadOptions>({});
+  const [ pngDownloadOption, setPngDownloadOption ] = useState('');
   const { track } = useAnalytics();
 
-  const offerredPngSizes = useMemo(() => ([ 256 ]), []);
-
   useEffect(() => {
-    const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${library.gridSize} ${library.gridSize}"><path d="${icon.p}" /></svg>`;
+    const svgCode = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 ${library.gridSize} ${library.gridSize}"><path d="${icon.p}" /></svg>`;
     const svgUrl = URL.createObjectURL(new Blob([svgCode], { type: 'image/svg+xml' }));
     const svgImage = document.createElement('img');
     svgImage.onload = () => {
-      const pngOptions = offerredPngSizes.reduce((output: any, size) => {
-        const canvas = document.createElement('canvas');
-        canvas.width = size;
-        canvas.height = size;
-        const ctx = canvas.getContext('2d');
-        ctx?.drawImage(svgImage, 0, 0);
-        const imageData = canvas.toDataURL('image/png');
-        output[size] = imageData;
-        canvas.remove();
-        return output;
-      }, {});
-      setPngDownloadOptions(pngOptions);
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+      ctx?.drawImage(svgImage, 0, 0);
+      const imageData = canvas.toDataURL('image/png');
+      setPngDownloadOption(imageData);
+      canvas.remove();
       URL.revokeObjectURL(svgUrl);
       svgImage.remove();
     };
     svgImage.src = svgUrl;
-  }, [ icon.p, library.gridSize, offerredPngSizes ]);
+  }, [ icon.p, library.gridSize ]);
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuClick = (event: MouseEvent<HTMLElement>) => {
     setMenuAnchor(event.currentTarget);
   };
 
@@ -66,8 +56,6 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
     const code = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${library.gridSize} ${library.gridSize}"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(code)}`;
   };
-
-  const downloadPng = (size: number) => pngDownloadOptions[size];
 
   const downloadXamlCanvas = () => {
     const code = `<Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="${library.gridSize}" Height="${library.gridSize}"><Path Fill="#000000" Data="${icon.p}" /></Canvas>`;
@@ -85,20 +73,6 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
   };
 
   const buildMenuOptions = () => {
-    const pngOptions = offerredPngSizes.map((size: number) => (
-      <MenuItem
-        component='a'
-        disabled={!pngDownloadOptions[size]}
-        download={`${icon.n}\.png`}
-        href={downloadPng(size)}
-        key={`png${size}`}
-        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size })}
-      >
-        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
-        <ListItemText>Download PNG ({size}x{size})</ListItemText>
-      </MenuItem>
-    ));
-
     return [
       <ListSubheader classes={{ root: classes.header }} key='vector'>Vector Formats</ListSubheader>,
       <MenuItem
@@ -142,7 +116,17 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
         <ListItemText>Download XAML (DrawImage) for Windows</ListItemText>
       </MenuItem>,
       <ListSubheader classes={{ root: classes.header }} key='raster'>Raster Formats</ListSubheader>,
-      ...pngOptions,
+      <MenuItem
+        component='a'
+        disabled={pngDownloadOption === ''}
+        download={`${icon.n}\.png`}
+        href={pngDownloadOption}
+        key='png'
+        onClick={() => track('downloadPNG', { color: '#000000', icon: icon.n, library: library.name, size: 256 })}
+      >
+        <ListItemIcon><Icon path={mdiFilePngBox} size={1} /></ListItemIcon>
+        <ListItemText>Download PNG (256x256)</ListItemText>
+      </MenuItem>,
       <MenuItem
         key='png-custom'
         onClick={() => {
@@ -188,7 +172,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
           >
             <Icon path={mdiChevronDown} size={1} />
           </Button>
-        </Tooltip>          
+        </Tooltip>
       </ButtonGroup>
       <Menu
         anchorEl={menuAnchor}

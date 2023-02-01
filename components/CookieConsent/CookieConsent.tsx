@@ -8,6 +8,7 @@ import Snackbar from '@mui/material/Snackbar';
 import classes from './CookieConsent.module.scss';
 
 declare module '@mui/material/Button' {
+  // eslint-disable-next-line no-unused-vars
   interface ButtonPropsColorOverrides {
     white: true
   }

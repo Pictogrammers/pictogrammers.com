@@ -15,8 +15,9 @@
     "build": "next build && npm run export",
     "dev": "next-remote-watch ./docs",
     "export": "next export && next-image-export-optimizer",
+    "lint:next": "next lint --dir components --dir hooks --dir interfaces --dir pages --dir providers --dir scripts --dir types --dir utils --dir workers",
     "lint:style": "stylelint \"./**/*.{css,scss}\"",
-    "lint": "next lint && npm run lint:style",
+    "lint": "npm run lint:next && npm run lint:style",
     "postbuild": "next-sitemap",
     "prebuild": "node --experimental-import-meta-resolve scripts/prebuild.mjs",
     "predev": "node --experimental-import-meta-resolve scripts/prebuild.mjs",
@@ -90,6 +91,7 @@
     "stylelint-config-css-modules": "^4.1.0",
     "stylelint-config-standard": "^29.0.0",
     "stylelint-order": "^6.0.1",
+    "stylelint-scss": "^4.3.0",
     "typescript": "4.9.4"
   }
 }

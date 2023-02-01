@@ -6,11 +6,6 @@ import config from '../config.js';
 
 const isWin = os.platform() === 'win32';
 
-const createJsName = (name, library) => {
-  const iconPascal = name.split('-').map((name) => name.charAt(0).toUpperCase() + name.slice(1)).join('');
-  return `${library}${iconPascal}`;
-};
-
 const tokenizeIcon = (name, aliases = []) => {
   const nameTokens = name.split('-');
 
@@ -40,7 +35,7 @@ const getIconLibraries = async (contributors = []) => {
     const { default: libraryIcons } = await import(`${library.package}/meta.json`, { assert: { type: 'json' } });
 
     console.log(`INFO: Retrieving ${libraryIcons.length} icons for ${library.name} v${libraryVersion}...`);
-    
+
     const res = await fetch(`https://registry.npmjs.org/${library.package}`);
     const pkgData = await res.json();
     const releasedOn = pkgData.time[libraryVersion];
@@ -51,7 +46,9 @@ const getIconLibraries = async (contributors = []) => {
       const {
         aliases,
         author,
+        baseIconId,
         codepoint,
+        deprecated,
         id,
         name,
         tags,
@@ -68,12 +65,23 @@ const getIconLibraries = async (contributors = []) => {
       // Map author to their ID
       thisIcon.a = contributors.find((c) => c.name === author)?.id;
 
-      // Simplify tags     
+      // Map baseIconId to its name. If it doesn't have a baseIconId
+      // or the baseIconId is the same as itself, omit it to limit the
+      // overall JSON file size.
+      thisIcon.b = baseIconId !== id ? libraryIcons.find((i) => i.id === baseIconId)?.name : undefined;
+
+      // Only set the deprecated flag if it's true
+      if (deprecated) {
+        thisIcon.d = true;
+        output.d++;
+      }
+
+      // Simplify tags
       const tagIds = tags.map((tag) => {
         const tagSlug = slugify(tag, { lower: true });
         const existingId = output.t.findIndex((t) => t.slug === tagSlug);
         const tagMeta = { name: tag, slug: tagSlug };
-        return existingId === -1 ? output.t.push(tagMeta) - 1: existingId;
+        return existingId === -1 ? output.t.push(tagMeta) - 1 : existingId;
       });
 
       thisIcon.t = tagIds;
@@ -89,8 +97,9 @@ const getIconLibraries = async (contributors = []) => {
       output.i.push(thisIcon);
       return output;
     }, Promise.resolve({
-      d: releasedOn, // Release Date
+      d: 0, // Deprecated Icon Count
       i: [], // Icons
+      r: releasedOn, // Release Date
       t: [], // Tags
       v: libraryVersion // Version
     }));
@@ -105,7 +114,8 @@ const getIconLibraries = async (contributors = []) => {
 
     output[libraryId] = {
       count: processedLibraries[libraryId].i.length,
-      date: processedLibraries[libraryId].d.split('.')[0],
+      date: processedLibraries[libraryId].r.split('.')[0],
+      deprecatedCount: processedLibraries[libraryId].d,
       version: processedLibraries[libraryId].v
     };
     return output;
