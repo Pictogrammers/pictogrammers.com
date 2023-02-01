@@ -4,7 +4,7 @@ labels: Bug
 body:
   - type: checkboxes
     attributes:
-      label: Checklist
+      label: Before You Begin
       description: Please verify that you've followed these steps
       options:
         - label: I have cleared the cache of my browser.
@@ -48,7 +48,7 @@ body:
   - type: input
     attributes:
       label: Which operating system are you using to run this browser?
-      placeholder: macOS Ventura (13.1)
+      placeholder: macOS Ventura 13.1
       description: Provide the OS name and version.
   - type: textarea
     attributes:

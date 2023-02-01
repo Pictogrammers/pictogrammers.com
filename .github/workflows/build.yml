@@ -6,7 +6,9 @@ on:
     paths-ignore:
       - 'README.md'
       - 'CONTRIBUTING.md'
+      - '.github/FUNDING.yml'
       - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE/**'
   workflow_dispatch:
 concurrency: 
   group: ${{ github.head_ref || github.run_id }}
