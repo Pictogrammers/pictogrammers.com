@@ -67,7 +67,7 @@
   grid-template-columns: repeat(auto-fit, minmax(var(--col-size), 1fr));
   justify-content: space-between;
   margin: 3rem auto;
-  max-width: 67.5rem;
+  max-width: 1080px;
 
   @media only screen and (max-width: $mobile-width) {
     --col-size: 20rem;
