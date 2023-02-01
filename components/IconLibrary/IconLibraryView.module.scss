@@ -75,8 +75,12 @@
 .sidebar {
   background-color: hsl(var(--light-grey) / 30%);
   flex: 1;
-  max-width: 210px;
+  max-width: 225px;
   padding: 1rem 0;
+
+  svg {
+    margin-left: -.5rem;
+  }
 }
 
 .infoGrid {

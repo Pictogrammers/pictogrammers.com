@@ -54,6 +54,7 @@ export const getAllLibraryPaths = async () => {
       ...categorySlugs,
       ...contributorSlugs,
       ...iconSlugs,
+      `${library.id}/deprecated`,
       `${library.id}/history`
     ];
     return output;
@@ -71,8 +72,18 @@ export const getAllLibraryPaths = async () => {
 
 export const getIcon = async (library: string, icon: string): Promise<IconLibraryIcon> => {
   const libraryMeta = iconLibraries.find((lib: IconLibrary) => lib.id === library);
-  const { i: icons, t: categories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/data/${library}-${libraryMeta.version}.json`), 'utf-8'));
+  const { i: icons, t: iconCategories } = JSON.parse(await fs.readFile(join(process.cwd(), `public/data/${library}-${libraryMeta.version}.json`), 'utf-8'));
   const iconInfo = icons.find((i: IconLibraryIcon) => i.n === icon);
-  iconInfo.categories = iconInfo.t.map((tag: number) => ({ id: tag, ...categories[tag] }));
-  return iconInfo;
+
+  // Add some extra metadata
+  const categories = iconInfo.t.map((tag: number) => ({ id: tag, ...iconCategories[tag] }));
+  const relatedIcons = icons.filter((i: IconLibraryIcon) => (
+    iconInfo.n !== i.n && ( // Ignore myself
+      iconInfo.b && (iconInfo.b === i.n) || // My base icon
+      iconInfo.b && (iconInfo.b === i.b) || // My base icon's related icons
+      iconInfo.n === i.b // My related icons
+    )
+  ));
+
+  return { ...iconInfo, categories, relatedIcons };
 };

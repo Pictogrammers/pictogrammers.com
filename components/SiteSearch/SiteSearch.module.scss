@@ -32,6 +32,24 @@
 
     svg {
       color: hsl(var(--primary-color));
+    }
+  }
+
+  .deprecated {
+    color: hsl(var(--red));
+
+    svg {
+      color: hsl(var(--red));
+    }
+  }
+
+  .new,
+  .deprecated {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+
+    svg {
       margin: 0 -7px 0 -10px;
     }
   }
@@ -42,7 +60,8 @@
 
   .subtext {
     color: hsl(var(--grey));
-    display: block;
+    column-gap: .2rem;
+    display: flex;
     font-size: .8rem;
   }
 }

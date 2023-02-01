@@ -12,7 +12,8 @@
   padding: 2rem;
   position: relative;
 
-  .infoBar {
+  .infoBar,
+  .deprecated {
     margin: 0 -2rem;
   }
 
@@ -97,6 +98,10 @@
   }
 }
 
+.deprecated {
+  padding: .5rem 2rem;
+}
+
 .usage {
   align-items: center;
   display: flex;
@@ -129,6 +134,18 @@
 
   a {
     text-decoration: none;
+  }
+}
+
+.related {
+  h2 {
+    background-color: hsl(var(--dark-cyan));
+    color: hsl(var(--white));
+    font-size: .8rem;
+    letter-spacing: .2rem;
+    margin: 3rem -2rem 2rem;
+    padding: .3rem 2rem;
+    text-transform: uppercase;
   }
 }
 

@@ -63,7 +63,9 @@ const theme = createTheme({
           color: 'black'
         },
         tooltip: {
-          backgroundColor: 'black'
+          backgroundColor: 'black',
+          fontSize: '.8rem',
+          textAlign: 'center'
         }
       }
     }

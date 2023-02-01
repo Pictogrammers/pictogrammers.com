@@ -13,7 +13,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import Avatar from '@mui/material/Avatar';
 import uFuzzy from '@leeoniya/ufuzzy';
 import Icon from '@mdi/react';
-import { mdiAlertOutline, mdiBookOpenPageVariantOutline, mdiCreation, mdiDotsHorizontalCircleOutline, mdiMagnify } from '@mdi/js';
+import { mdiAlertOctagonOutline, mdiAlertOutline, mdiBookOpenPageVariantOutline, mdiCreation, mdiDotsHorizontalCircleOutline, mdiMagnify } from '@mdi/js';
 
 import Link from '../Link/Link';
 import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
@@ -192,6 +192,7 @@ const SiteSearch: FunctionComponent = () => {
                   const title = isLibrary ? result.n : option.id === 'docs' ? result.title : result.name;
                   const icon = isLibrary ? result.p : mdiBookOpenPageVariantOutline;
                   const isNew = isLibrary && option.libraryInfo?.version === result.v;
+                  const isDeprecated = isLibrary && result.d;
                   return (
                     <ListItem key={result.cp || result.slug} sx={{ padding: 0 }}>
                       <ListItemButton component={Link} href={link} onClick={closeSearchResults}>
@@ -221,7 +222,14 @@ const SiteSearch: FunctionComponent = () => {
                         <ListItemText>
                           {title}
                           {!!isLibrary ? (
-                            <span className={classes.subtext}>{isNew ? <strong className={classes.new}><Icon path={mdiCreation} size={.5} />New! </strong> : ''}Added in v{result.v}</span>
+                            <span className={classes.subtext}>
+                              {isDeprecated ? (
+                                <strong className={classes.deprecated}><Icon path={mdiAlertOctagonOutline} size={.5} />DEPRECATED </strong>
+                              ) : isNew ? (
+                                <strong className={classes.new}><Icon path={mdiCreation} size={.5} />New! </strong>
+                              ) : ''}
+                              Added in v{result.v}
+                            </span>
                           ) : option.id !== 'contributors' ? (
                             <span className={classes.subtext}>{result.library ? `${result.library} • ` : ''}{result.category}</span>
                           ) : (

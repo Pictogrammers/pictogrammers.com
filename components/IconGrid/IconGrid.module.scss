@@ -119,4 +119,19 @@
     margin: 0;
     overflow-wrap: break-word;
   }
+
+  &.deprecated {
+    background-color: hsl(var(--red) / 5%);
+    outline: 1px solid hsl(var(--red) / 10%);
+
+    &:hover {
+      background-color: hsl(var(--red) / 10%);
+      outline: 1px solid hsl(var(--red) / 15%);
+    }
+
+    &:focus {
+      background-color: hsl(var(--red) / 15%);
+      outline: 1px solid hsl(var(--red) / 20%);
+    }
+  }
 }

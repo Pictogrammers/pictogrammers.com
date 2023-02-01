@@ -46,7 +46,10 @@ const getIconLibraries = async (contributors = []) => {
       const {
         aliases,
         author,
+        baseIconId,
         codepoint,
+        deprecated,
+        id,
         name,
         tags,
         version
@@ -61,6 +64,17 @@ const getIconLibraries = async (contributors = []) => {
 
       // Map author to their ID
       thisIcon.a = contributors.find((c) => c.name === author)?.id;
+
+      // Map baseIconId to its name. If it doesn't have a baseIconId
+      // or the baseIconId is the same as itself, omit it to limit the
+      // overall JSON file size.
+      thisIcon.b = baseIconId !== id ? libraryIcons.find((i) => i.id === baseIconId)?.name : undefined;
+
+      // Only set the deprecated flag if it's true
+      if (deprecated) {
+        thisIcon.d = true;
+        output.d++;
+      }
 
       // Simplify tags
       const tagIds = tags.map((tag) => {
@@ -83,8 +97,9 @@ const getIconLibraries = async (contributors = []) => {
       output.i.push(thisIcon);
       return output;
     }, Promise.resolve({
-      d: releasedOn, // Release Date
+      d: 0, // Deprecated Icon Count
       i: [], // Icons
+      r: releasedOn, // Release Date
       t: [], // Tags
       v: libraryVersion // Version
     }));
@@ -99,7 +114,8 @@ const getIconLibraries = async (contributors = []) => {
 
     output[libraryId] = {
       count: processedLibraries[libraryId].i.length,
-      date: processedLibraries[libraryId].d.split('.')[0],
+      date: processedLibraries[libraryId].r.split('.')[0],
+      deprecatedCount: processedLibraries[libraryId].d,
       version: processedLibraries[libraryId].v
     };
     return output;
