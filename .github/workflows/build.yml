@@ -4,9 +4,9 @@ on:
     branches:
       - main
     paths-ignore:
-      - '!README.md'
-      - '!CONTRIBUTING.md'
-      - '!.github/ISSUE_TEMPLATE/**'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - '.github/ISSUE_TEMPLATE/**'
   workflow_dispatch:
 concurrency: 
   group: ${{ github.head_ref || github.run_id }}
