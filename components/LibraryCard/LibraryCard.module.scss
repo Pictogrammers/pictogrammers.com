@@ -13,12 +13,6 @@
   &:hover {
     background-color: hsl(var(--white) / 12%);
     box-shadow: var(--box-shadow);
-
-    .content {
-      .image {
-        transform: scale(.9);
-      }
-    }
   }
 
   h3 {
@@ -46,7 +40,6 @@
 .content {
   .image {
     position: relative;
-    transition: all .2s linear;
     width: 100%;
   }
 
