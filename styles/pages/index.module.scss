@@ -11,7 +11,7 @@
   flex-direction: column;
 
   p {
-    margin: 3rem auto;
+    margin: 3rem auto 0;
     max-width: 800px;
     padding: 0 1rem;
     text-align: center;
@@ -61,11 +61,15 @@
 .libraries {
   align-items: center;
   display: grid;
-  grid-gap: 2rem 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  justify-items: center;
+  grid-gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  justify-content: space-between;
   margin: 3rem auto;
   max-width: 1080px;
+
+  @media only screen and (max-width: $mobile-width) {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
 }
 
 .join {

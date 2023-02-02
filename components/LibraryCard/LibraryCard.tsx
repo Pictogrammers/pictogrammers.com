@@ -19,13 +19,14 @@ export interface LibraryCardProps {
 const LibraryButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     backgroundColor: 'white',
-    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12), 0 16px 16px rgba(0, 0, 0, 0.12)',
     color: theme.palette.primary.main
   },
   backgroundColor: 'white',
   borderBottom: 'none',
   color: theme.palette.primary.main,
   fontSize: 16,
+  paddingBottom: 8,
+  paddingTop: 8,
   textTransform: 'none'
 }));
 

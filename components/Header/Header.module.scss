@@ -1,5 +1,6 @@
 .root {
   align-items: center;
+  background-color: hsl(var(--secondary-color));
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
@@ -67,6 +68,7 @@
 .hamburger {
   background-color: transparent;
   border: 0;
+  cursor: pointer;
   display: none;
   height: 2.75rem;
   margin: 0;

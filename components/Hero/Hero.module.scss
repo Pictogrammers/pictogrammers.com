@@ -1,13 +1,23 @@
 .root {
   align-items: center;
-  background: url('../../public/images/hero-grid.svg') repeat-x;
-  background-position: bottom;
-  background-size: 1500px;
+  background-image: linear-gradient(hsl(var(--light-grey) / 50%) .125rem, transparent .125rem), linear-gradient(to right, hsl(var(--light-grey) / 50%) .125rem, transparent .125rem);
+  background-size: 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
-  height: 40vh;
   justify-content: space-between;
+  position: relative;
   text-align: center;
+
+  &::before {
+    background-image: linear-gradient(hsl(var(--secondary-color) / 100%) 20%, transparent);
+    block-size: 100%;
+    content: '';
+    inline-size: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+  }
 }
 
 .full {
@@ -20,6 +30,7 @@
   margin: 0 8rem;
   max-width: 1080px;
   padding-top: 2rem;
+  z-index: 1;
 }
 
 .heading {
