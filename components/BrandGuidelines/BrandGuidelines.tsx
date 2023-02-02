@@ -1,44 +1,46 @@
-import { Fragment } from 'react';
-import { NextPage } from 'next';
+import { FunctionComponent } from 'react';
 import ExportedImage from 'next-image-export-optimizer';
 import cx from 'clsx';
 import Button from '@mui/material/Button';
 import Icon from '@mdi/react';
 import { mdiArrowDown } from '@mdi/js';
 
-import Head from '../components/Head/Head';
-import Layout from '../components/Docs/Layout/Layout';
-import Heading from '../components/Docs/Heading';
-import Link from '../components/Link/Link';
+import Head from '../Head/Head';
+import Layout from '../Docs/Layout/Layout';
+import Heading from '../Docs/Heading';
+import Link from '../Link/Link';
 
-import PictogrammersLogoSvg from '../public/images/brand/logos/pictogrammers-full.svg';
-import MDILogoSvg from '../public/images/libraries/mdi.svg';
-import MDILLogoSvg from '../public/images/libraries/mdil.svg';
-import PictogrammersMonogram from '../public/images/brand/logos/pictogrammers-monogram.png';
-import PictogrammersLogo from '../public/images/brand/logos/pictogrammers-full.png';
-import PictogrammersLogoBlack from '../public/images/brand/logos/pictogrammers-full-black.png';
-import PictogrammersLogoWhite from '../public/images/brand/logos/pictogrammers-full-white.png';
-import ClearingSpace from '../public/images/brand/clearing-space.png';
-import ClearingSpaceGuide from '../public/images/brand/clearing-space-guide.png';
-import ClearingSpaceMonogram from '../public/images/brand/clearing-space-monogram.png';
-import ClearingSpaceMonogramGuide from '../public/images/brand/clearing-space-monogram-guide.png';
-import Wordmark from '../public/images/brand/wordmark.png';
-import GuidanceBusyBack from '../public/images/brand/busy-back.png';
-import GuidanceAlterColor from '../public/images/brand/alter-color.png';
-import GuidanceWordmarkRecreate from '../public/images/brand/wordmark-recreate.png';
-import GuidanceWordmarkReplace from '../public/images/brand/wordmark-replace.png';
-import GuidanceAdjustedSize from '../public/images/brand/adjusted-size.png';
-import GuidanceDistorted from '../public/images/brand/distorted.png';
-import GuidanceShadowed from '../public/images/brand/shadowed.png';
-import GuidanceCropped from '../public/images/brand/cropped.png';
+import PictogrammersLogoSvg from '../../public/images/brand/logos/pictogrammers-full.svg';
+import MDILogoSvg from '../../public/images/libraries/mdi.svg';
+import MDILLogoSvg from '../../public/images/libraries/mdil.svg';
+import PictogrammersMonogram from '../../public/images/brand/logos/pictogrammers-monogram.png';
+import PictogrammersLogo from '../../public/images/brand/logos/pictogrammers-full.png';
+import PictogrammersLogoBlack from '../../public/images/brand/logos/pictogrammers-full-black.png';
+import PictogrammersLogoWhite from '../../public/images/brand/logos/pictogrammers-full-white.png';
+import ClearingSpace from '../../public/images/brand/clearing-space.png';
+import ClearingSpaceGuide from '../../public/images/brand/clearing-space-guide.png';
+import ClearingSpaceMonogram from '../../public/images/brand/clearing-space-monogram.png';
+import ClearingSpaceMonogramGuide from '../../public/images/brand/clearing-space-monogram-guide.png';
+import Wordmark from '../../public/images/brand/wordmark.png';
+import GuidanceBusyBack from '../../public/images/brand/busy-back.png';
+import GuidanceAlterColor from '../../public/images/brand/alter-color.png';
+import GuidanceWordmarkRecreate from '../../public/images/brand/wordmark-recreate.png';
+import GuidanceWordmarkReplace from '../../public/images/brand/wordmark-replace.png';
+import GuidanceAdjustedSize from '../../public/images/brand/adjusted-size.png';
+import GuidanceDistorted from '../../public/images/brand/distorted.png';
+import GuidanceShadowed from '../../public/images/brand/shadowed.png';
+import GuidanceCropped from '../../public/images/brand/cropped.png';
 
-import classes from '../styles/pages/brand-guidelines.module.scss';
+import classes from './BrandGuidelines.module.scss';
 
 const Heading2 = Heading(2);
 
-const PostPage: NextPage = () => {
-  const title = 'Brand Guidelines';
-  const description = 'When using the Pictogrammers name and logo, follow these important guidelines.';
+interface BrandGuidelinesProps {
+  description: string;
+  title: string;
+}
+
+const BrandGuidelines: FunctionComponent<BrandGuidelinesProps> = ({ description, title }) => {
   const toc = [
     { content: 'Logo', lvl: 2, slug: 'logo' },
     { content: 'Color', lvl: 2, slug: 'color' },
@@ -51,7 +53,7 @@ const PostPage: NextPage = () => {
   ];
 
   return (
-    <Fragment>
+    <div className={classes.root}>
       <Head
         description={description}
         title={`${title} - Docs`}
@@ -375,8 +377,8 @@ const PostPage: NextPage = () => {
           </div>
         </section>
       </Layout>
-    </Fragment>
+    </div>
   );
 };
 
-export default PostPage;
+export default BrandGuidelines;

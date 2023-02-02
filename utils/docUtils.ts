@@ -110,8 +110,13 @@ const getDoc = async (slug: string[]) => {
 
     if (data.icon) {
       const [ iconLibrary, iconName ] = data.icon.split(':');
-      const iconData = getUsedIcons(data.icon);
-      data.iconPath = iconData?.[iconLibrary]?.[iconName] || null;
+
+      if (iconLibrary === 'custom') {
+        data.iconPath = iconName;
+      } else {
+        const iconData = getUsedIcons(data.icon);
+        data.iconPath = iconData?.[iconLibrary]?.[iconName] || null;
+      }
     }
 
     if (

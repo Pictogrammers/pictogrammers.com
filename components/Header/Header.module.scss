@@ -26,8 +26,10 @@
 .logo {
   align-items: center;
   border: none;
+  border-radius: 10px;
   display: flex;
   margin-right: 1rem;
+  padding: 0 .25rem;
 
   .wordmark {
     display: none;

@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { serialize } from 'next-mdx-remote/serialize';
 import gfm from 'remark-gfm';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -11,6 +12,8 @@ import { getDoc, getDocPaths } from '../../utils/docUtils';
 
 import DocView from '../../components/Docs/DocView';
 import DocCategoryList from '../../components/Docs/DocCategoryList';
+
+const BrandGuidelines = dynamic(() => import('../../components/BrandGuidelines/BrandGuidelines'));
 
 interface IParams extends ParsedUrlQuery {
   slug: string[]
@@ -89,6 +92,13 @@ interface DocsPageProps {
 const DocsPage: NextPage<DocsPageProps> = ({ landingPage, ...rest }) => {
   if (landingPage) {
     return <DocCategoryList {...rest as any} />;
+  }
+
+  if (rest.frontMatter.component) {
+    switch (rest.frontMatter.component) {
+      case 'BrandGuidelines':
+        return <BrandGuidelines description={rest.frontMatter.description} title={rest.frontMatter.title} />;
+    }
   }
 
   return <DocView {...rest} />;

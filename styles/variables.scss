@@ -1,8 +1,8 @@
 // Measurements
 $dp-width: 10px;
+$mobile-width: 768px;
 $tablet-width: 910px;
-$mobile-width: 736px;
-$width-max: 96rem;
+$width-max: 1400px;
 
 :export {
   dp-width: $dp-width;
