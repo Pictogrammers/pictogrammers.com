@@ -17,7 +17,7 @@
 
 .swatch {
   background-image: repeating-conic-gradient(hsl(var(--medium-grey)) 0% 25%, transparent 0% 50%);
-  background-size: calc(var($dp-width) * 2) calc(var($dp-width) * 2);
+  background-size: calc($dp-width * 2) calc($dp-width * 2);
   border: 3px solid hsl(var(--white));
   border-radius: 8px;
   box-shadow: 0 0 0 1px hsl(var(--black) / 20%), inset 0 0 0 1px hsl(var(--black) / 30%);
