@@ -1,5 +1,4 @@
 const path = require('path');
-const withTM = require('next-transpile-modules')(['pixel-editor']);
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV !== 'production',
@@ -52,7 +51,10 @@ const nextConfig = {
   },
   swcMinify: true,
   trailingSlash: true,
-  transpilePackages: ['next-image-export-optimizer'],
+  transpilePackages: [
+    'next-image-export-optimizer',
+    'pixel-editor'
+  ],
   webpack(config) {
     config.module.rules.push({
       issuer: {
@@ -87,4 +89,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withBA(withTM(withPWA(nextConfig)));
+module.exports = withBA(withPWA(nextConfig));
