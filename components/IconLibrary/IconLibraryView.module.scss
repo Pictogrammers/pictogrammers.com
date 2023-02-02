@@ -79,7 +79,13 @@
   padding: 1rem 0;
 
   svg {
-    margin-left: -.5rem;
+    margin: 0 .5rem 0 .25rem;
+  }
+
+  .subheader {
+    background: transparent;
+    margin: 1rem 0 0 .25rem;
+    text-transform: uppercase;
   }
 }
 

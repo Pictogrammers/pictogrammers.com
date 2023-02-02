@@ -25,7 +25,19 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mdi/react';
-import { mdiAlertCircleOutline, mdiAlertOctagonOutline, mdiClose, mdiCreation, mdiMagnify, mdiTag } from '@mdi/js';
+import {
+  mdiAlertCircleOutline,
+  mdiAlertOctagonOutline,
+  mdiArrowUpBoldCircleOutline,
+  mdiClose,
+  mdiCreation,
+  mdiHistory,
+  mdiLicense,
+  mdiListBoxOutline,
+  mdiMagnify,
+  mdiTag,
+  mdiTagOutline
+} from '@mdi/js';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 dayjs.extend(advancedFormat);
@@ -145,16 +157,17 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
 
     return (
       <Fragment>
-        <ListSubheader sx={{ background: 'transparent', margin: '1rem 0 0 .5rem', textTransform: 'uppercase' }}>Categories</ListSubheader>
+        <ListSubheader classes={{ root: classes.subheader }}>Categories</ListSubheader>
         {categories?.length && Object.keys(categories).map((catId) => {
           const categorySlug = categories[catId as any].slug;
           return (
-            <ListItem key={catId}>
+            <ListItem disablePadding key={catId}>
               <ListItemButton
                 component={Link}
                 href={`/library/${libraryInfo.id}/category/${categorySlug}`}
                 selected={categorySlug === category}
               >
+                <Icon path={mdiTagOutline} size={.8} />
                 <ListItemText>
                   {categories[catId as any].name}
                 </ListItemText>
@@ -336,45 +349,54 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
           <div className={classes.iconLibrary} ref={iconLibraryRef}>
             <aside className={classes.sidebar}>
               <List dense>
-                <ListItem>
+                <ListItem disablePadding>
                   <ListItemButton
                     component={Link}
                     href={`/library/${libraryInfo.id}/version/${libraryVersion}`}
                     selected={version === libraryVersion}
                   >
                     <Icon path={mdiCreation} size={.8} />
-                    <ListItemText sx={{ marginLeft: '.2rem' }}>New in v{libraryVersion}</ListItemText>
+                    <ListItemText>New in v{libraryVersion}</ListItemText>
                   </ListItemButton>
                 </ListItem>
                 {!!deprecatedCount && (
-                  <ListItem>
+                  <ListItem disablePadding>
                     <ListItemButton
                       component={Link}
                       href={`/library/${libraryInfo.id}/deprecated`}
                       selected={!!showDeprecated}
                     >
                       <Icon path={mdiAlertOctagonOutline} size={.8} />
-                      <ListItemText sx={{ marginLeft: '.2rem' }}>Deprecated Icons</ListItemText>
+                      <ListItemText>Deprecated Icons</ListItemText>
                     </ListItemButton>
                   </ListItem>
                 )}
-                {renderCategories()}
-                <ListSubheader sx={{ background: 'transparent', margin: '1rem 0 0 .5rem', textTransform: 'uppercase' }}>Releases</ListSubheader>
-                <ListItem>
+                <ListSubheader classes={{ root: classes.subheader }}>Releases</ListSubheader>
+                <ListItem disablePadding>
                   <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/changelog`}>
+                    <Icon path={mdiListBoxOutline} size={.8} />
                     <ListItemText>Changelog</ListItemText>
                   </ListItemButton>
                 </ListItem>
-                <ListItem>
+                <ListItem disablePadding>
                   <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/upgrade`}>
+                    <Icon path={mdiArrowUpBoldCircleOutline} size={.8} />
                     <ListItemText>Upgrade Guide</ListItemText>
                   </ListItemButton>
                 </ListItem>
-                <ListItem>
+                <ListItem disablePadding>
                   <ListItemButton component={Link} href={`/library/${libraryInfo.id}/history`}>
+                    <Icon path={mdiHistory} size={.8} />
                     <ListItemText>History</ListItemText>
                   </ListItemButton>
                 </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton component={Link} href={'/docs/general/license'}>
+                    <Icon path={mdiLicense} size={.8} />
+                    <ListItemText>License</ListItemText>
+                  </ListItemButton>
+                </ListItem>
+                {renderCategories()}
               </List>
             </aside>
             <div className={classes.libraryContainer}>
