@@ -1,74 +1,128 @@
 .root {
   color: hsl(var(--dark-grey));
   font-size: .9rem;
-  padding: 2rem;
-
-  .logo {
-    svg {
-      width: 62px;
-
-      [id='keycap-top'] {
-        transform: translate(0, 0);
-        transition: transform .1s;
-      }
-    }
-
-    &:hover {
-      svg {
-        [id='keycap-top'] {
-          transform: translate(0, 14px);
-        }
-      }
-    }
-  }
-
-  ul {
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
-    list-style: none;
-    margin: 0 auto;
-    max-width: $width-max;
-    padding: 0;
-  }
-
-  li {
-    align-items: center;
-    display: flex;
-  }
+  margin: 1rem auto 0;
+  max-width: $width-max;
+  padding: 2rem 2.5rem;
+  position: relative;
 
   a {
+    color: hsl(var(--dark-grey));
+    text-decoration: none;
+
     &:hover {
-      color: hsl(var(--primary-color));
+      color: hsl(var(--dark-cyan));
     }
   }
 }
 
-.connectText {
-  padding-right: 1rem;
+.logo {
+  display: inline;
+  margin-left: -10px;
+  width: 48px;
+
+  svg {
+    width: 48px;
+
+    [id='keycap-top'] {
+      transform: translate(0, 0);
+      transition: transform .1s;
+    }
+  }
+
+  &:hover {
+    svg {
+      [id='keycap-top'] {
+        transform: translate(0, 14px);
+      }
+    }
+  }
+}
+
+.main {
+  column-gap: 5rem;
+  display: flex;
+}
+
+.summary {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  .heart {
+    color: hsl(var(--primary-color));
+    position: relative;
+    top: 4px;
+  }
+}
+
+.columns {
+  column-gap: 3rem;
+  display: flex;
+  flex: 1;
+  margin-top: 4rem;
+
+  & > div {
+    flex: 1;
+  }
+
+  h3 {
+    color: hsl(var(--dark-grey) / 50%);
+    font-size: .9rem;
+    letter-spacing: .1rem;
+    margin: .5rem 0;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: .5rem 0;
+  }
+}
+
+.legal {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+
+  & > div {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .copyright {
+    font-weight: 600;
+    opacity: .6;
+  }
 }
 
 @media only screen and (max-width: $tablet-width) {
   .root {
-    ul {
-      flex-direction: column;
-    }
-
-    a {
-      padding: .5rem 0;
-    }
+    font-size: .8rem;
+    padding: 2rem;
   }
 
-  .copyright {
+  .main {
     flex-direction: column;
-    margin-bottom: .5rem;
   }
 
-  .connectText {
-    display: none;
+  .columns {
+    gap: .5rem;
+    margin-top: 1rem;
+    max-width: 100%;
   }
 
-  .connect {
-    padding-top: .5rem;
+  .legal {
+    flex-direction: column;
+    gap: 0;
+    text-align: center;
+
+    & > div {
+      justify-content: center;
+    }
+
+    p {
+      margin: .25rem;
+    }
   }
 }
