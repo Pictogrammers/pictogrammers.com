@@ -16,8 +16,6 @@ import { IconChangeRecord } from '../../interfaces/history';
 import { IconLibrary } from '../../interfaces/icons';
 import { ContributorProps } from '../../interfaces/contributor';
 
-import { useData } from '../../providers/DataProvider';
-
 import Link from '../Link/Link';
 import Code from '../CodeHighlighter/CodeHighlighter';
 import CustomGridIcon from '../CustomGridIcon/CustomGridIcon';
@@ -26,6 +24,7 @@ import classes from './IconLibraryHistoryView.module.scss';
 
 interface IconHistoryCardProps extends IconChangeRecord {
   library: IconLibrary;
+  userInfo: ContributorProps;
 }
 
 const actionText = (type: string, iconName: string, prevIconName?: string, text?: string) => {
@@ -57,30 +56,27 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
   library,
   text,
   type,
-  user
+  user,
+  userInfo
 }) => {
-  const { contributors } = useData();
-  const authorId = user.id.split('-')[0];
-  const userInfo = contributors.find((c: ContributorProps) => c.id === authorId);
-
   const userAvatar = (
     <Link href={`/contributor/${user.github}`}>
       <Avatar
         classes={{ root: classes.avatar }}
         sx={{
-          background: `hsl(var(${userInfo.core ? '--primary-color' : '--dark-cyan'}))`,
-          border: `2px solid hsl(var(${userInfo.core ? '--primary-color' : '--dark-cyan'}))`
+          background: `hsl(var(${userInfo?.core ? '--primary-color' : '--dark-cyan'}))`,
+          border: `2px solid hsl(var(${userInfo?.core ? '--primary-color' : '--dark-cyan'}))`
         }}
       >
-        {userInfo.image ? (
+        {userInfo?.image ? (
           <ExportedImage
-            alt={userInfo.name}
+            alt={user.name}
             height={50}
             placeholder='empty'
             src={`/images/contributors/${userInfo.id}.jpg`}
             width={50}
           />
-        ) : userInfo.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+        ) : user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
       </Avatar>
     </Link>
   );

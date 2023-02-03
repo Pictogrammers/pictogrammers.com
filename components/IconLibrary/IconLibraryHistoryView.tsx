@@ -16,11 +16,14 @@ dayjs.extend(advancedFormat);
 import { ModificationType } from '../../interfaces/enums/modificationTypes';
 import { IconLibrary } from '../../interfaces/icons';
 import { IconChangeRecord } from '../../interfaces/history';
+import { ContributorProps } from '../../interfaces/contributor';
 
 import Head from '../Head/Head';
 import Layout from '../Docs/Layout/Layout';
 import Link from '../Link/Link';
 import IconHistoryCard from './IconHistoryCard';
+
+import { useData } from '../../providers/DataProvider';
 
 import iconLibraries from '../../public/data/libraries.json';
 
@@ -66,7 +69,7 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
     // TODO: Support displaying which tag was added in the API
     // iconTag: false
   });
-
+  const { contributors } = useData();
 
   const { version } = iconLibraries[libraryInfo.id as keyof typeof iconLibraries];
 
@@ -133,7 +136,10 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
         output.items.push(<h2 key={date}>Changes on {dayjs(date).format('MMMM Do, YYYY')}</h2>);
         output.lastDate = date;
       }
-      output.items.push(<IconHistoryCard key={item.id} library={libraryInfo} {...item} />);
+
+      const authorId = item.user.id.split('-')[0];
+      const userInfo = contributors.find((c: ContributorProps) => c.id === authorId);
+      output.items.push(<IconHistoryCard key={item.id} library={libraryInfo} userInfo={userInfo} {...item} />);
       return output;
     }, { items: [], lastDate: '' });
 
