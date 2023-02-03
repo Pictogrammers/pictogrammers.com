@@ -53,7 +53,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
   };
 
   const downloadSvg = () => {
-    const code = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${library.gridSize} ${library.gridSize}"><title>${icon.n}</title><path d="${icon.p}" /></svg>`;
+    const code = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${library.gridSize} ${library.gridSize}"><path d="${icon.p}" /></svg>`;
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(code)}`;
   };
 
