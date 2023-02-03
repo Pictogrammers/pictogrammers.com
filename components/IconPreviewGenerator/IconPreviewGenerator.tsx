@@ -29,7 +29,7 @@ const IconPreviewGenerator: FunctionComponent = () => {
   const canvas = usePreviewCanvas(iconName, iconPath, workInProgress, iconShadow);
 
   const windowSize = useWindowSize();
-  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+  const isMobileWidth = windowSize.width > 0 && windowSize.width <= parseInt(classes['mobile-width']);
 
   const triggerSvgUpload = (type: string) => {
     if (!svgUploader.current) {

@@ -55,16 +55,8 @@
 .cards {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   padding: 1rem;
-
-  @media only screen and (max-width: ($tablet-width + 200)) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media only screen and (max-width: $mobile-width) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .fullCards {

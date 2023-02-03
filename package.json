@@ -8,7 +8,8 @@
   "contributors": [
     "Michael Irigoyen <michael.irigoyen@pictogrammers.com>",
     "Austin Andrews <austin.andrews@pictogrammers.com>",
-    "Quentin Stoeckel <stoeckel.quentin@gmail.com>"
+    "Quentin Stoeckel <stoeckel.quentin@gmail.com>",
+    "Andrej Sharapov <an.sharapov90@gmail.com>"
   ],
   "engines": {
     "node": "18.x"

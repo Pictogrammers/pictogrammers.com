@@ -1,4 +1,4 @@
-import { Fragment, SyntheticEvent, useMemo, useState } from 'react';
+import { Fragment, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import getConfig from 'next/config';
 import cx from 'clsx';
@@ -70,10 +70,10 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
 
   const { publicRuntimeConfig: { libraries: { icons: iconLibraries } } } = getConfig();
   const windowSize = useWindowSize();
-  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+  const isMobileWidth = windowSize.width > 0 && windowSize.width <= parseInt(classes['mobile-width']);
 
   const [ currentTab, setCurrentTab ] = useState(0);
-  const [ viewMode, setViewMode ] = useState(isMobileWidth ? 'compact' : 'comfortable');
+  const [ viewMode, setViewMode ] = useState('default');
 
   const currentLibraryId = authorLibraries[currentTab];
   const currentLibrary = iconLibraries.find((library: IconLibrary) => library.id === currentLibraryId);
@@ -82,6 +82,12 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
   const contributorColor = core ? '--primary-color' : '--dark-cyan';
 
   const handleChange = (event: SyntheticEvent, newValue: number) => setCurrentTab(newValue);
+
+  useEffect(() => {
+    if (isMobileWidth) {
+      setViewMode('comfortable');
+    }
+  }, [ isMobileWidth ]);
 
   return (
     <div className={classes.root}>

@@ -1,88 +1,30 @@
 .library {
   display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 
   p {
-    font-size: .9rem;
+    font-size: .8rem;
     font-weight: 500;
   }
 
-  &.compact {
-    grid-gap: 10px;
-    grid-template-columns: repeat(9, 1fr);
+  &.comfortable {
+    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
 
     p {
-      font-size: .8rem;
+      font-size: .75rem;
     }
   }
 
-  &.list {
-    grid-gap: 5px;
-    grid-template-columns: repeat(5, 1fr);
+  &.compact {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
 
     .libraryIcon {
-      flex-direction: row;
-      height: 50px;
-      justify-content: flex-start;
-
-      svg {
-        flex: 1;
-      }
+      height: 60px;
 
       p {
-        flex: 3;
-        margin: 0 0 0 .5rem;
-        text-align: left;
+        display: none;
       }
-    }
-  }
-
-  @media only screen and (max-width: ($tablet-width + 500)) {
-    grid-template-columns: repeat(5, 1fr);
-
-    &.compact {
-      grid-template-columns: repeat(8, 1fr);
-    }
-
-    &.list {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  @media only screen and (max-width: ($tablet-width + 400)) {
-    grid-template-columns: repeat(4, 1fr);
-
-    &.compact {
-      grid-template-columns: repeat(6, 1fr);
-    }
-
-    &.list {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media only screen and (max-width: $tablet-width) {
-    grid-template-columns: repeat(3, 1fr);
-
-    &.compact {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    &.list {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media only screen and (max-width: $mobile-width) {
-    grid-template-columns: repeat(2, 1fr);
-
-    &.compact {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    &.list {
-      grid-template-columns: repeat(1, 1fr);
     }
   }
 }
@@ -95,7 +37,6 @@
   flex-direction: column;
   font-size: 80%;
   height: 130px;
-  justify-content: center;
   text-align: center;
   text-decoration: none;
   transition: background-color .2s ease-in-out;

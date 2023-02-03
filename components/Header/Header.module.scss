@@ -157,8 +157,12 @@
     width: calc(100% + 44px);
     z-index: 999;
 
-    & :not(:last-child) {
-      border-bottom: 1px solid hsl(var(--light-grey));
+    a {
+      padding: 1rem 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid hsl(var(--light-grey));
+      }
     }
 
     > * {

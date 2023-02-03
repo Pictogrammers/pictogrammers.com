@@ -97,17 +97,23 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
 
   // Responsive concerns
   const windowSize = useWindowSize();
-  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+  const isMobileWidth = windowSize.width > 0 && windowSize.width <= parseInt(classes['mobile-width']);
 
   // Library viewing
   const [ carbonKey, setCarbonKey ] = useState(new Date().toString());
-  const [ viewMode, setViewMode ] = useState(isMobileWidth ? 'compact' : 'comfortable');
+  const [ viewMode, setViewMode ] = useState('default');
   const { contributors } = useData();
   const categories = useCategories(libraryInfo.id);
   const filter = useMemo(() => ({
     author, category, deprecated: showDeprecated, term: debouncedSearchTerm, version
   }), [ author, category, debouncedSearchTerm, showDeprecated, version ]);
   const visibleIcons = useIcons(libraryInfo.id, filter);
+
+  useEffect(() => {
+    if (isMobileWidth) {
+      setViewMode('comfortable');
+    }
+  }, [ isMobileWidth ]);
 
   useEffect(() => {
     if (router.query.q) {
