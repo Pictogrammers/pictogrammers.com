@@ -108,7 +108,7 @@ const Home: NextPage = () => {
             </p>
             <Icon
               className={classes.crowd}
-              color='#696969'
+              color='currentColor'
               path={mdiCrowd}
               size={48}
             />

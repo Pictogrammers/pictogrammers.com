@@ -140,7 +140,7 @@
     min-width: 2.75rem;
 
     &.open {
-      background-color: hsl(var(--white));
+      background-color: hsl(var(--bg-color));
       border-radius: 5px 5px 0 0;
       box-shadow: var(--box-shadow);
     }

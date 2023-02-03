@@ -1,5 +1,11 @@
 @import './theme.module.scss';
 
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
 html,
 body {
   -moz-osx-font-smoothing: grayscale;
@@ -12,7 +18,7 @@ body {
 }
 
 body {
-  @include theme-light;
+  @include theme-colors($light-theme: true);
 
   background: hsl(var(--secondary-color));
   background: linear-gradient(180deg, hsl(var(--secondary-color)) 0%, hsla(var(--secondary-color) / 5%) 200%);
@@ -34,8 +40,8 @@ body {
   }
 }
 
-* {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  -webkit-tap-highlight-color: transparent;
+@media (prefers-color-scheme: dark) {
+  body {
+    @include theme-colors($light-theme: false);
+  }
 }

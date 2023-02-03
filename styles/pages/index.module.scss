@@ -1,7 +1,7 @@
 .main {
   section {
     &:nth-child(even) {
-      background-color: hsl(var(--light-grey));
+      background: linear-gradient(0turn, hsl(var(--bg-card-color)), hsl(var(--bg-color)));
     }
   }
 }

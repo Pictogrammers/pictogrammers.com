@@ -16,9 +16,6 @@
   --green: 162deg 100% 37%;
   --blue: 206deg 100% 50%;
 
-  --primary-color: var(--purple);
-  --secondary-color: var(--cyan);
-
   // Library colors
   --mdi-color: 207deg 90% 54%;
   --mdil-color: 207deg 34% 52%;
@@ -34,17 +31,36 @@
   --releases-color: var(--red);
 }
 
-@mixin theme-light {
+@mixin theme-colors($light-theme: true) {
   @include defaults;
 
-  --link-color: var(--dark-grey);
-  --link-hover-color: var(--cyan);
-  --box-shadow:
-    0 1px 1px hsl(var(--black) / 12%),
-    0 2px 2px hsl(var(--black) / 12%),
-    0 4px 4px hsl(var(--black) / 12%),
-    0 8px 8px hsl(var(--black) / 12%),
-    0 16px 16px hsl(var(--black) / 12%);
+  @if $light-theme {
+    --primary-color: var(--purple);
+    --secondary-color: var(--cyan);
+    --bg-color: var(--white);
+    --bg-card-color: var(--light-cyan);
+    --bg-highlight-color: var(--purple);
+    --link-color: var(--dark-grey);
+    --link-hover-color: var(--cyan);
+
+    //-
+    --box-shadow:
+      0 1px 1px hsl(var(--black) / 12%),
+      0 2px 2px hsl(var(--black) / 12%),
+      0 4px 4px hsl(var(--black) / 12%),
+      0 8px 8px hsl(var(--black) / 12%),
+      0 16px 16px hsl(var(--black) / 12%);
+  }
+
+  @else {
+    --primary-color: var(--light-cyan);
+    --secondary-color: var(--cyan);
+    --bg-color: 230deg 11% 11%;
+    --bg-card-color: 223deg 14% 20%;
+    --bg-highlight-color: var(--purple);
+    --link-color: var(--dark-cyan);
+    --link-hover-color: var(--light-cyan);
+  }
 }
 
 :export {

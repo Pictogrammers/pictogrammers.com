@@ -14,6 +14,8 @@ const Footer: FunctionComponent = () => {
 
   return (
     <footer className={classes.root}>
+      <div className={classes.wave}>
+      </div>
       <div className={classes.main}>
         <div className={classes.summary}>
           <Link aria-label='Return to the Pictogrammers Home' className={classes.logo} href='/'>
