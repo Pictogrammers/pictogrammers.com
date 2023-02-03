@@ -273,7 +273,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
               {!!icon.relatedIcons?.length && (
                 <div className={classes.related}>
                   <h2>Related Icons</h2>
-                  <IconGrid icons={icon.relatedIcons} library={libraryInfo} updateUrl={false} viewMode='comfortable' />
+                  <IconGrid icons={icon.relatedIcons} library={libraryInfo} updateUrl={false} viewMode='default' />
                 </div>
               )}
             </Fragment>

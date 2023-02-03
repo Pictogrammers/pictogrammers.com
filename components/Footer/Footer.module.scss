@@ -126,3 +126,23 @@
     }
   }
 }
+
+@media only screen and (max-width: $mobile-width) {
+  .root {
+    margin-top: 0;
+  }
+
+  .summary {
+    a {
+      margin: 0 auto;
+    }
+
+    div {
+      display: none;
+    }
+  }
+
+  .columns {
+    display: none;
+  }
+}

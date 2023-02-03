@@ -31,7 +31,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
   const categories = useCategories(library.id);
   const router = useRouter();
   const windowSize = useWindowSize();
-  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+  const isMobileWidth = windowSize.width > 0 && windowSize.width <= parseInt(classes['mobile-width']);
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
@@ -75,7 +75,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
           <ConditionalWrapper
             condition={!!icon.d}
             wrapper={(children: any) => (
-              <Tooltip arrow placement='top' title={<Fragment><strong>Icon Deprecated</strong><br/>Click for more info.</Fragment>}>
+              <Tooltip arrow placement='top' title={<Fragment><strong>Icon Deprecated</strong><br/>Click for more info</Fragment>}>
                 {children}
               </Tooltip>
             )}
@@ -87,13 +87,14 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
               disableRouter
               href={`/library/${library.id}/icon/${icon.n}`}
               onClick={(e: MouseEvent<HTMLAnchorElement>) => handleIconModalOpen(e, icon)}
+              title={!icon.d ? icon.n : undefined}
             >
               <CustomGridIcon gridSize={library.gridSize} path={icon.p} size={viewModes[viewMode as keyof typeof viewModes].iconSize} title={icon.n} />
               <p>{icon.n}</p>
             </Link>
           </ConditionalWrapper>
         )}
-        overscan={300}
+        overscan={viewMode === 'compact' ? 600 : 300}
         totalCount={icons.length}
         useWindowScroll
       />

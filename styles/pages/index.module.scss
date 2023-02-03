@@ -21,7 +21,7 @@
     align-items: center;
     display: grid;
     grid-gap: 3rem 5rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     justify-items: center;
     max-width: 1080px;
     width: 100%;
@@ -62,14 +62,10 @@
   align-items: center;
   display: grid;
   grid-gap: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   justify-content: space-between;
   margin: 3rem auto;
   max-width: 1080px;
-
-  @media only screen and (max-width: $mobile-width) {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  }
 }
 
 .join {

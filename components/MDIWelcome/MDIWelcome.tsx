@@ -19,7 +19,7 @@ interface MDIWelcomeProps {
 
 const MDIWelcome: FunctionComponent<MDIWelcomeProps> = ({ handleClose }) => {
   const windowSize = useWindowSize();
-  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+  const isMobileWidth = windowSize.width > 0 && windowSize.width <= parseInt(classes['mobile-width']);
 
   return (
     <Dialog

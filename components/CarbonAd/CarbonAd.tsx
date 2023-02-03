@@ -14,7 +14,7 @@ const CarbonAd: FunctionComponent<CarbonAdProps> = ({ displayOnMobile = false })
   const carbonAdsRef = useRef<HTMLDivElement | null>(null);
   const { publicRuntimeConfig: { carbonAds } } = getConfig();
   const windowSize = useWindowSize();
-  const isMobileWidth = windowSize.width <= parseInt(classes['mobile-width']);
+  const isMobileWidth = windowSize.width > 0 && windowSize.width <= parseInt(classes['mobile-width']);
 
   useEffect(() => {
     if (carbonAdsRef.current && !carbonAdsRef.current.childNodes.length) {

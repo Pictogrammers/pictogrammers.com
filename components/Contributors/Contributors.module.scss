@@ -1,17 +1,5 @@
 .contributors {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-@media only screen and (max-width: ($tablet-width + 200)) {
-  .contributors {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media only screen and (max-width: $mobile-width) {
-  .contributors {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
 }
