@@ -4,7 +4,7 @@ RewriteBase /
 # Handle GitHub Previews
 RewriteCond %{HTTP_USER_AGENT} github-camo
 RewriteCond %{HTTP_ACCEPT} image\/webp
-RewriteRule library\/(.*)\/icon\/(.*)$ https://dev.materialdesignicons.com/api/preview/$1/$2
+RewriteRule library\/(.*)\/icon\/(.*)$ https://api.pictogrammers.com/preview/$1/$2
 
 # Serve brotli version if they exist
 RewriteCond %{HTTP:Accept-encoding} br
