@@ -66,7 +66,7 @@ const getContributors = async () => {
   try {
     const gitHubContributors = await getGitHubContributors();
 
-    const res = await fetch('https://dev.materialdesignicons.com/api/user');
+    const res = await fetch('https://api.pictogrammers.com/user');
 
     if (!res.ok) {
       console.error('ERROR: Unable to retrieve contributor listing.');
