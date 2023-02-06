@@ -1,7 +1,8 @@
 .library {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, 150px);
+  justify-content: space-around;
 
   p {
     font-size: .8rem;
@@ -9,7 +10,7 @@
   }
 
   &.comfortable {
-    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+    grid-template-columns: repeat(auto-fill, 105px);
 
     p {
       font-size: .75rem;
@@ -17,7 +18,7 @@
   }
 
   &.compact {
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    grid-template-columns: repeat(auto-fill, 60px);
 
     .libraryIcon {
       height: 60px;

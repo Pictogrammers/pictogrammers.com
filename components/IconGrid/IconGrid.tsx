@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { VirtuosoGrid } from 'react-virtuoso';
 import Dialog from '@mui/material/Dialog';
 import Tooltip from '@mui/material/Tooltip';
+import Skeleton from '@mui/material/Skeleton';
 
 import useCategories, { CategoryProps } from '../../hooks/useCategories';
 import useWindowSize from '../../hooks/useWindowSize';
@@ -69,6 +70,14 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
   return (
     <Fragment>
       <VirtuosoGrid
+        components={{
+          ScrollSeekPlaceholder: () => (
+            <div className={cx(classes.libraryIcon, classes.iconLoading)}>
+              <Skeleton height={viewModes[viewMode as keyof typeof viewModes].iconSize * 40} width={viewModes[viewMode as keyof typeof viewModes].iconSize * 24} />
+              {viewMode !== 'compact' && <Skeleton height={24} width={100} />}
+            </div>
+          )
+        }}
         data={icons}
         listClassName={cx(classes.library, classes[viewMode])}
         itemContent={(index, icon: IconLibraryIcon) => (
@@ -94,7 +103,11 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
             </Link>
           </ConditionalWrapper>
         )}
-        overscan={viewMode === 'compact' ? 600 : 300}
+        overscan={1000}
+        scrollSeekConfiguration={{
+          enter: (velocity) => Math.abs(velocity) > 1000,
+          exit: (velocity) => Math.abs(velocity) < 30
+        }}
         totalCount={icons.length}
         useWindowScroll
       />

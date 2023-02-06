@@ -131,7 +131,7 @@ const SiteSearch: FunctionComponent = () => {
         filterOptions={(options) => options}
         freeSolo
         fullWidth
-        getOptionLabel={(option: any) => option.id}
+        getOptionLabel={(option: any) => option.id || searchTerm}
         onInputChange={(e: SyntheticEvent, value: string) => setSearchTerm(value)}
         onClose={closeSearchResults}
         onOpen={openSearchResults}
@@ -144,6 +144,11 @@ const SiteSearch: FunctionComponent = () => {
             classes={{ root: classes.searchBox }}
             InputProps={{
               ...params.InputProps,
+              onKeyDown: (e) => {
+                if (e.key === 'Enter') {
+                  e.stopPropagation();
+                }
+              },
               startAdornment: (
                 <InputAdornment position='start' sx={{ marginLeft: '5px', marginRight: 0 }}>
                   <Icon path={mdiMagnify} size={1} />
@@ -241,10 +246,12 @@ const SiteSearch: FunctionComponent = () => {
                   );
                 })}
                 {isLibrary && showMoreLink && (
-                  <ListItemButton component={Link} href={`/library/${option.id}/?q=${encodeURIComponent(debouncedSearchTerm)}`} onClick={closeSearchResults}>
-                    <Icon path={mdiDotsHorizontalCircleOutline} size={1} />
-                    <ListItemText>See All Results</ListItemText>
-                  </ListItemButton>
+                  <ListItem key={`more-${option.id}`} sx={{ padding: 0 }}>
+                    <ListItemButton component={Link} href={`/library/${option.id}/?q=${encodeURIComponent(debouncedSearchTerm)}`} onClick={closeSearchResults}>
+                      <Icon path={mdiDotsHorizontalCircleOutline} size={1} />
+                      <ListItemText>See All Results</ListItemText>
+                    </ListItemButton>
+                  </ListItem>
                 )}
               </List>
             </div>
