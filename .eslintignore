@@ -1,0 +1,6 @@
+next-env.d.ts
+/node_modules
+/out
+/api/dist
+/client/public/sw.js*
+/client/public/workbox-*.js*

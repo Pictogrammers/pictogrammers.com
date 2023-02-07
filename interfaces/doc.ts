@@ -1,4 +1,4 @@
-import { IconLibraries } from '../interfaces/icons';
+import { IconLibraries } from './icons';
 
 export interface DocData {
   // Use of any because literally anything can be put into front matter
