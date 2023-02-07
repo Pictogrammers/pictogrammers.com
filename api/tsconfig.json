@@ -18,6 +18,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "dist/",
+    "paths": {
+      "@/interfaces/*": ["../interfaces/*"]
+    },
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022"

@@ -20,10 +20,11 @@
 
 1. Clone this repository.
 2. Run `npm i`.
-3. Run `npm run dev` to start the dev server.
-4. Access the dev site at <http://localhost:3000>.
+3. Run `npm run dev` to start the dev servers.
+  - Access the dev client site at <http://localhost:3000>.
+  - Access the dev API at <http://localhost:8080>.
 
-> The site will hot-reload as you make changes.
+> The site and API will hot-reload as you make changes.
 
 See <https://pictogrammers.com/docs/contribute/website/> for more details about contributing to the site.
 
