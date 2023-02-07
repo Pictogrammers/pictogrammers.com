@@ -1,8 +1,8 @@
 name: Build/Deploy
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
     paths-ignore:
       - 'README.md'
       - 'CONTRIBUTING.md'
@@ -100,5 +100,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictogrammers --recursive-unlink
+            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictogrammersdev --recursive-unlink
             rm /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz
