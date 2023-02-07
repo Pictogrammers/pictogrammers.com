@@ -1,11 +1,11 @@
-/node_modules
-/.next/
+/node_modules/
 /out/
-/public/sw.js*
-/public/workbox-*.js*
+/api/dist/
+/client/.next/
+/client/public/sw.js*
+/client/public/workbox-*.js*
+/client/public/images/next-image-export-optimizer-hashes.json
 nextImageExportOptimizer
-/public/images/next-image-export-optimizer-hashes.json
-/build/
 .DS_Store
 *.pem
 *.log*

@@ -1,0 +1,6 @@
+.next
+out
+*.js
+*.jsx
+*.ts
+*.tsx

@@ -1,0 +1,17 @@
+{
+  "name": "pictogrammers-api",
+  "version": "2.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json --outDir ../out/api",
+    "dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"npm start\"",
+    "start": "node --es-module-specifier-resolution=node dist/index.js"
+  },
+  "dependencies": {
+    "fastify": "^4.12.0"
+  },
+  "devDependencies": {
+    "tsc-watch": "^6.0.0"
+  }
+}

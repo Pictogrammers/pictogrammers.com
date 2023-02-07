@@ -6,7 +6,7 @@
     Built with <a href="https://nextjs.org/" target="_blank">Next.js</a>.
   </p>
    <p>
-    <img src="./public/images/og-card.png" alt="Pictogrammers" />
+    <img src="./client/public/images/og-card.png" alt="Pictogrammers" />
   </p>
 </div>
 
