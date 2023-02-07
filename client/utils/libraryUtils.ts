@@ -5,7 +5,7 @@ import slugify from 'slugify';
 
 import { IconLibrary, IconLibraryIcon } from '@/interfaces/icons';
 import { ContributorProps } from '@/interfaces/contributor';
-import { CategoryProps } from '@/hooks/useCategories';
+import { CategoryProps } from '@/interfaces/category';
 
 import allContributors from '@/public/data/contributors.json';
 

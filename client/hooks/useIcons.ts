@@ -4,7 +4,7 @@ import uFuzzy from '@leeoniya/ufuzzy';
 import { useData } from '@/providers/DataProvider';
 
 import { IconLibraryIcon } from '@/interfaces/icons';
-import { CategoryProps } from '@/hooks/useCategories';
+import { CategoryProps } from '@/interfaces/category';
 import { ContributorProps } from '@/interfaces/contributor';
 
 interface FilterProps {

@@ -1,4 +1,4 @@
-import { CategoryProps } from '../client/hooks/useCategories';
+import { CategoryProps } from './category';
 
 export interface IconLibraries {
   [key: string]: {

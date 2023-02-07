@@ -90,7 +90,7 @@ const IconLibraryHistoryView: FunctionComponent<IconLibraryHistoryViewProps> = (
       }
 
       try {
-        const req = await fetch(`https://api.pictogrammers.com/package/${libraryInfo.packageId}/modification?modificationId=${activeMods}&page=${maxPageViewed}&size=100`);
+        const req = await fetch(`https://dev.materialdesignicons.com/api/package/${libraryInfo.packageId}/modification?modificationId=${activeMods}&page=${maxPageViewed}&size=100`);
         const json = await req.json();
 
         const processedData = json.map((change: IconChangeRecord) => {

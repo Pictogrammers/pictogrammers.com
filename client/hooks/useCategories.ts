@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useData } from '@/providers/DataProvider';
 
-export interface CategoryProps {
-  id: Number;
-  name: string;
-  slug: string;
-}
+import { CategoryProps } from '@/interfaces/category';
 
 const useCategories = (libraryId: string) => {
   const [ categories, setCategories ] = useState<CategoryProps[]>([]);

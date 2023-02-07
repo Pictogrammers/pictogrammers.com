@@ -6,7 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import Tooltip from '@mui/material/Tooltip';
 import Skeleton from '@mui/material/Skeleton';
 
-import useCategories, { CategoryProps } from '@/hooks/useCategories';
+import useCategories from '@/hooks/useCategories';
 import useWindowSize from '@/hooks/useWindowSize';
 
 import Link from '@/components/Link/Link';
@@ -16,6 +16,7 @@ import CustomGridIcon from '@/components/CustomGridIcon/CustomGridIcon';
 import ConditionalWrapper from '@/components/ConditionalWrapper/ConditionalWrapper';
 
 import { IconLibrary, IconLibraryIcon } from '@/interfaces/icons';
+import { CategoryProps } from '@/interfaces/category';
 
 import classes from './IconGrid.module.scss';
 
