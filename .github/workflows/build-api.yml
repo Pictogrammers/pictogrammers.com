@@ -1,6 +1,6 @@
 name: Build & Deploy API
-# on:
-#   push:
+on:
+  push:
 #     branches:
 #       - main
 #     paths:
