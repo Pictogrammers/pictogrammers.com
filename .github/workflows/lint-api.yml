@@ -1,0 +1,25 @@
+name: Code Quality - API
+on:
+  pull_request:
+    paths:
+      - 'api/**'
+      - 'interfaces/**'
+jobs:
+  eslint:
+    name: ESlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      
+      - name: Install Dependencies
+        run: npm ci --workspace=api --include-workspace-root
+
+      - name: Run ESLint
+        run: npm run lint:api

@@ -2,7 +2,7 @@ import os from 'node:os';
 import fs from 'node:fs/promises';
 import slugify from 'slugify';
 
-import config from '../client/config.js';
+import config from '../config.js';
 
 const isWin = os.platform() === 'win32';
 
@@ -110,7 +110,7 @@ const getIconLibraries = async (contributors = []) => {
 
   const allLibraries = await Object.keys(processedLibraries).reduce(async (prevPromise, libraryId) => {
     const output = await prevPromise;
-    await fs.writeFile(`../client/public/data/${libraryId}-${processedLibraries[libraryId].v}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
+    await fs.writeFile(`./public/data/${libraryId}-${processedLibraries[libraryId].v}.json`, JSON.stringify(processedLibraries[libraryId]), { flag: 'w' });
 
     output[libraryId] = {
       count: processedLibraries[libraryId].i.length,
@@ -121,7 +121,7 @@ const getIconLibraries = async (contributors = []) => {
     return output;
   }, Promise.resolve({}));
 
-  await fs.writeFile('../client/public/data/libraries.json', JSON.stringify(allLibraries), { flag: 'w' });
+  await fs.writeFile('./public/data/libraries.json', JSON.stringify(allLibraries), { flag: 'w' });
 };
 
 export default getIconLibraries;

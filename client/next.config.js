@@ -13,7 +13,7 @@ const config = require('./config');
 
 const nextConfig = {
   env: {
-    nextImageExportOptimizer_exportFolderPath: '../out',
+    nextImageExportOptimizer_exportFolderPath: 'dist',
     nextImageExportOptimizer_generateAndUseBlurImages: false,
     nextImageExportOptimizer_imageFolderPath: 'public/images',
     nextImageExportOptimizer_quality: 75,

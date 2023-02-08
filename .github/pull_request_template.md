@@ -22,4 +22,4 @@ _Put an `x` in the boxes that apply. You can also fill these out after creating 
 
 ## Additional Information
 
-Please provide us with any other details you think would be benefical for us to know while considering your changes. If your changes are complex in nature, let us know why you implemented your solution the way you did, what alternatives you considered, etc.
+Please provide us with any other details you think would be beneficial for us to know while considering your changes. If your changes are complex in nature, let us know why you implemented your solution the way you did, what alternatives you considered, etc.

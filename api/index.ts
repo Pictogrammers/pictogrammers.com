@@ -4,6 +4,7 @@ import getHealth from './endpoints/getHealth';
 
 const server = fastify();
 
+server.get('/', (req, res) => res.redirect('https://pictogrammers.com/'));
 server.get('/health', getHealth);
 
 server.listen({ port: 8080 }, (err, address) => {
@@ -11,5 +12,6 @@ server.listen({ port: 8080 }, (err, address) => {
     console.error(err);
     process.exit(1);
   }
+
   console.log(`Server listening at ${address}`);
 });

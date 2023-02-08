@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   generateRobotsTxt: true,
-  outDir: '../out',
+  outDir: 'dist',
   siteUrl: 'https://pictogrammers.com'
 };
