@@ -1,9 +1,10 @@
 name: Code Quality - Website
 on:
   pull_request:
-concurrency: 
-  group: ${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+    paths:
+      - 'client/**'
+      - 'docs/**'
+      - 'interfaces/**'
 jobs:
   eslint:
     name: ESlint

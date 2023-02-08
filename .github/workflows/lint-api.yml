@@ -1,9 +1,9 @@
 name: Code Quality - API
 on:
   pull_request:
-concurrency: 
-  group: ${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+    paths:
+      - 'api/**'
+      - 'interfaces/**'
 jobs:
   eslint:
     name: ESlint
