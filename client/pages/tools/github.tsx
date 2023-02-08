@@ -14,8 +14,8 @@ const ToolsGitHub: NextPage = () => {
       <Layout
         breadcrumbs={<Link href='/tools'>Tools</Link>}
         improvePage={{
-          gitHubUrl: 'https://github.com/Pictogrammers/pictogrammers.com/blob/main/pages/tools/github.tsx',
-          suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent('Suggested Change to "GitHub Preview Generator"')}&body=${encodeURIComponent('*URL:* https://pictogrammers.com/pages/tools/github.tsx\n\n<!-- Describe how you would improve the page here -->')}`
+          gitHubUrl: 'https://github.com/Pictogrammers/pictogrammers.com/blob/main/client/pages/tools/github.tsx',
+          suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent('Suggested Change to "GitHub Preview Generator"')}&body=${encodeURIComponent('*URL:* https://pictogrammers.com/tools/github\n\n<!-- Describe how you would improve the page here -->')}`
         }}
         title='GitHub Preview Generator'
       >

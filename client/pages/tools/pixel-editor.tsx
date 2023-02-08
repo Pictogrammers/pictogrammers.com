@@ -24,8 +24,8 @@ const ToolsPixelEditor: NextPage = () => {
       <Layout
         breadcrumbs={<Link href='/tools'>Tools</Link>}
         improvePage={{
-          gitHubUrl: 'https://github.com/Pictogrammers/pictogrammers.com/blob/main/pages/tools/pixel-editor.tsx',
-          suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent('Suggested Change to "Pixel Editor"')}&body=${encodeURIComponent('*URL:* https://pictogrammers.com/pages/tools/pixel-editor.tsx\n\n<!-- Describe how you would improve the page here -->')}`
+          gitHubUrl: 'https://github.com/Pictogrammers/pictogrammers.com/blob/main/client/pages/tools/pixel-editor.tsx',
+          suggestUrl: `https://github.com/Pictogrammers/pictogrammers.com/issues/new?title=${encodeURIComponent('Suggested Change to "Pixel Editor"')}&body=${encodeURIComponent('*URL:* https://pictogrammers.com/tools/pixel-editor\n\n<!-- Describe how you would improve the page here -->')}`
         }}
         title='Pixel Editor'
       >
