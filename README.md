@@ -15,6 +15,7 @@
 ### Requirements
 
 - Node.js v18+
+- Docker
 
 ### Instructions
 
@@ -23,6 +24,7 @@
 3. Run `npm run dev` to start the dev servers.
   - Access the dev client site at <http://localhost:3000>.
   - Access the dev API at <http://localhost:8080>.
+  - The dev MySQL instance will come up at <http://localhost:3306>.
 
 > The site and API will hot-reload as you make changes.
 

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: pictogrammers-db
+    image: mysql:8.0.21
+    restart: unless-stopped
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_ROOT_PASSWORD: pictogrammers
+      MYSQL_DATABASE: pictogrammers
+      MYSQL_USER: pictogrammers
+      MYSQL_PASSWORD: pictogrammers
+    ports:
+      - 3306:3306
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d

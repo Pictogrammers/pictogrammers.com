@@ -16,9 +16,6 @@
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "outDir": "dist/",
-    "paths": {
-      "@/interfaces/*": ["../interfaces/*"]
-    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
