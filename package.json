@@ -20,9 +20,10 @@
   ],
   "scripts": {
     "build": "npm run build --workspaces",
-    "dev": "concurrently -c \"auto\" \"npm:dev:api\" \"npm:dev:client\"",
+    "dev": "concurrently -c \"auto\" \"npm:dev:db\" \"npm:dev:api\" \"npm:dev:client\"",
     "dev:api": "npm run dev --workspace=api",
     "dev:client": "npm run dev --workspace=client",
+    "dev:db": "docker-compose up",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "npm run lint:api && npm run lint:client",
     "lint:api": "eslint \"api/*.{mjs,js,ts}\" \"interfaces/*.ts\"",
