@@ -9,50 +9,50 @@ on:
   workflow_dispatch:
 jobs:
   build:
-  name: Build API
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+    name: Build API
+      runs-on: ubuntu-latest
+      environment: production
+      steps:
+        - name: Check out Git repository
+          uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
+        - name: Setup Node
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
+            cache: 'npm'
 
-      - name: Install Dependencies
-        run: npm ci --workspace=api --include-workspace-root
+        - name: Install Dependencies
+          run: npm ci --workspace=api --include-workspace-root
 
-      - name: Run ESLint
-        run: npm run lint:api
+        - name: Run ESLint
+          run: npm run lint:api
 
-      - name: Build API
-        run: npm run build --workspace=api
+        - name: Build API
+          run: npm run build --workspace=api
 
-      - name: Prune dev dependencies
-        run: npm prune --omit=dev
+        - name: Prune dev dependencies
+          run: npm prune --omit=dev
 
-      - name: Move node_modules
-        run: mv ./node_modules/* ./api/node_modules
-      
-      - name: Create Deployment Tarball
-        uses: a7ul/tar-action@v1.1.0
-        with:
-          command: c
-          cwd: ./api
-          files: |
-            ./dist
-            ./package.json
-            ./node_modules
-          outPath: pictogrammers-api-${{ github.run_id }}.tar.gz
+        - name: Move node_modules
+          run: mv ./node_modules/* ./api/node_modules
+        
+        - name: Create Deployment Tarball
+          uses: a7ul/tar-action@v1.1.0
+          with:
+            command: c
+            cwd: ./api
+            files: |
+              ./dist
+              ./package.json
+              ./node_modules
+            outPath: pictogrammers-api-${{ github.run_id }}.tar.gz
 
-      - name: Upload Tarball Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: pictogrammers-api-${{ github.run_id }}
-          path: pictogrammers-api-${{ github.run_id }}.tar.gz
+        - name: Upload Tarball Artifact
+          uses: actions/upload-artifact@v3
+          with:
+            name: pictogrammers-api-${{ github.run_id }}
+            path: pictogrammers-api-${{ github.run_id }}.tar.gz
 
   deploy:
     needs: build
