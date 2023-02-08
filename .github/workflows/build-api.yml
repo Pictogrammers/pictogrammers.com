@@ -76,7 +76,7 @@ jobs:
           SSH_USERNAME: ${{ secrets.SSH_USER }}
           SSH_HOSTNAME: ${{ secrets.SSH_HOST }}
 
-      - name: Expand Tarball
+      - name: Expand Tarball & Restart API
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -86,8 +86,5 @@ jobs:
           script: |
             tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-api-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictogrammers-api --recursive-unlink
             rm /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-api-${{ github.run_id }}.tar.gz
-            sudo su
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh  
-            pm2 restart pictogrammers-api
+            sudo pm2 restart pictogrammers-api
       
