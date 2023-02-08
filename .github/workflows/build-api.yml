@@ -35,7 +35,7 @@ jobs:
         run: npm prune --omit=dev
 
       - name: Move node_modules
-        run: mv ./node_modules/* ./api/node_modules
+        run: mv node_modules/ api/node_modules
       
       - name: Create Deployment Tarball
         uses: a7ul/tar-action@v1.1.0
