@@ -2,7 +2,6 @@
   "name": "pictogrammers-api",
   "version": "2.0.0",
   "license": "MIT",
-  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
