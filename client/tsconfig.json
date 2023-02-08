@@ -14,7 +14,7 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/interfaces/*": ["../interfaces/*"],
+      "@/interfaces/*": ["interfaces/*"],
       "@/public/*": ["public/*"],
       "@/providers/*": ["providers/*"],
       "@/styles/*": ["styles/*"],

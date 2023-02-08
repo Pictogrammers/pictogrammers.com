@@ -1,4 +1,4 @@
-import type { UserRecordData } from '../../../interfaces/db/user';
+import type { UserRecordData } from '../../interfaces/user';
 
 import db from '../../lib/db';
 import getPackagesOnSite from '../../lib/getPackagesOnSite';

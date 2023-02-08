@@ -4,7 +4,6 @@ on:
     paths:
       - 'client/**'
       - 'docs/**'
-      - 'interfaces/**'
 jobs:
   eslint:
     name: ESlint

@@ -3,7 +3,6 @@ on:
   pull_request:
     paths:
       - 'api/**'
-      - 'interfaces/**'
 jobs:
   eslint:
     name: ESlint

@@ -6,7 +6,6 @@ on:
     paths:
       - 'client/**'
       - 'docs/**'
-      - 'interfaces/**'
   workflow_dispatch:
 jobs:
   build:
