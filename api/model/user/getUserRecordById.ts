@@ -29,7 +29,11 @@ const getUserRecordById = async (userId: string) => {
     };
   }
 
-  return rows[0];
+  return {
+    ...rows[0],
+    core: !!rows[0]?.core,
+    sponsored: !!rows[0]?.sponsored
+  };
 };
 
 export default getUserRecordById;
