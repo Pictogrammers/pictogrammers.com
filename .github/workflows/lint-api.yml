@@ -1,9 +1,6 @@
 name: Code Quality - API
 on:
   pull_request:
-    paths:
-      - 'api/**'
-      - 'interfaces/**'
 concurrency: 
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true

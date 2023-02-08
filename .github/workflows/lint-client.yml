@@ -1,10 +1,6 @@
 name: Code Quality - Website
 on:
   pull_request:
-    paths:
-      - 'client/**'
-      - 'docs/**'
-      - 'interfaces/**'
 concurrency: 
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true

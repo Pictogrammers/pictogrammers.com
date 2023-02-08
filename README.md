@@ -56,4 +56,4 @@ Before opening a PR with your changes, be sure to run `npm run lint` and correct
 
 ## Legal
 
-&copy; Copyright 2023 Pictogrammers. All company logos are copyrighted by their respective owners.
+&copy; Copyright 2023 Pictogrammers.
