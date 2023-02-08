@@ -1,6 +1,6 @@
-/node_modules/
-/out/
+node_modules
 /api/dist/
+/client/dist/
 /client/.next/
 /client/public/sw.js*
 /client/public/workbox-*.js*

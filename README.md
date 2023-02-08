@@ -47,8 +47,12 @@ Before opening a PR with your changes, be sure to run `npm run lint` and correct
 
 ### Building
 
-1. Run `npm build` to build the site.
-2. The built assets will be located in the `out` folder.
+> You shouldn't need to build locally. This information is provided for advanced troubleshooting cases.
+
+1. Run `npm build` to build the site and API.
+2. The built assets will be located in the following folders:
+  - Client: `/client/dist`
+  - API: `/api/dist`
 
 ## Legal
 

@@ -1,5 +1,5 @@
 .next
-out
+dist
 *.js
 *.jsx
 *.ts

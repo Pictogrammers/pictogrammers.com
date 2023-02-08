@@ -15,30 +15,30 @@
     "node": "18.x"
   },
   "workspaces": [
-    "client",
-    "api"
+    "api",
+    "client"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
-    "dev": "concurrently \"npm:dev:api\" \"npm:dev:client\"",
+    "dev": "concurrently -c \"auto\" \"npm:dev:api\" \"npm:dev:client\"",
     "dev:api": "npm run dev --workspace=api",
     "dev:client": "npm run dev --workspace=client",
     "lint": "npm run lint:js && npm run lint:style",
-    "lint:js": "eslint \"**/*.{mjs,js,jsx,ts,tsx}\"",
+    "lint:js": "npm run lint:api && npm run lint:client",
+    "lint:api": "eslint \"api/*.{mjs,js,ts}\" \"interfaces/*.ts\"",
+    "lint:client": "eslint \"client/*.{mjs,js,jsx,ts,tsx}\" \"interfaces/*.ts\"",
     "lint:style": "npm run lint:style --workspace=client",
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@types/node": "18.11.18",
-    "concurrently": "^7.6.0",
-    "dotenv": "^16.0.3",
-    "eslint": "8.33.0",
-    "eslint-plugin-sort-destructure-keys": "^1.4.0",
-    "fast-glob": "^3.2.12",
-    "gray-matter": "^4.0.3",
-    "husky": "^8.0.3",
-    "markdown-to-txt": "^2.0.1",
-    "slugify": "^1.6.5",
-    "typescript": "4.9.5"
+    "@next/eslint-plugin-next": "^13.1.6",
+    "@types/node": "~18.13.0",
+    "concurrently": "~7.6.0",
+    "dotenv": "~16.0.3",
+    "eslint-config-next": "~13.1.6",
+    "eslint-plugin-sort-destructure-keys": "~1.4.0",
+    "eslint": "~8.33.0",
+    "husky": "~8.0.3",
+    "typescript": "~4.9.5"
   }
 }

@@ -1,14 +1,12 @@
-name: Build/Deploy
+name: Build & Deploy Website
 on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'README.md'
-      - 'CONTRIBUTING.md'
-      - '.github/FUNDING.yml'
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/PULL_REQUEST_TEMPLATE/**'
+    paths:
+      - 'client/**'
+      - 'docs/**'
+      - 'interfaces/**'
   workflow_dispatch:
 concurrency: 
   group: ${{ github.head_ref || github.run_id }}
@@ -26,6 +24,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm'
 
       - name: Setup Caching
         uses: actions/cache@v3
@@ -38,37 +37,38 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
       
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci --workspace=client --include-workspace-root
 
       - name: Run Linters
-        run: npm run lint
+        run: npm run lint:client && npm run lint:style
 
       - name: Build Site
-        run: npm run build
+        run: npm run build --workspace=client
         env:
           API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
 
-      - name: Compress Assets
-        uses: stefh/ghaction-CompressFiles@v1
-        with:
-          path: ./out
-          depth: 10
-          extensions: '.css,.html,.js,.svg,.json'
-          tools: brotli
+      # Temporarily off while debugging
+      # - name: Compress Assets
+      #   uses: stefh/ghaction-CompressFiles@v1
+      #   with:
+      #     path: ./client/dist
+      #     depth: 10
+      #     extensions: '.css,.html,.js,.svg,.json'
+      #     tools: brotli
 
       - name: Create Deployment Tarball
         uses: a7ul/tar-action@v1.1.0
         with:
           command: c
-          cwd: ./out
+          cwd: ./client/dist
           files: .
-          outPath: pictogrammers-${{ github.run_id }}.tar.gz
+          outPath: pictogrammers-client-${{ github.run_id }}.tar.gz
 
       - name: Upload Tarball Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: pictogrammers-${{ github.run_id }}
-          path: pictogrammers-${{ github.run_id }}.tar.gz
+          name: pictogrammers-client-${{ github.run_id }}
+          path: pictogrammers-client-${{ github.run_id }}.tar.gz
 
   deploy:
     needs: build
@@ -79,14 +79,14 @@ jobs:
       - name: Download Tarball Artifact
         uses: actions/download-artifact@v3
         with:
-          name: pictogrammers-${{ github.run_id }}
+          name: pictogrammers-client-${{ github.run_id }}
 
       - name: Deploy Tarball to Server
         uses: trendyminds/github-actions-rsync@master
         with:
           RSYNC_OPTIONS: -avzr --delete
           RSYNC_TARGET: /opt/${{ secrets.SSH_USER }}/temp
-          RSYNC_SOURCE: /pictogrammers-${{ github.run_id }}.tar.gz
+          RSYNC_SOURCE: /pictogrammers-client-${{ github.run_id }}.tar.gz
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_USERNAME: ${{ secrets.SSH_USER }}
@@ -100,5 +100,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictogrammers --recursive-unlink
-            rm /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-${{ github.run_id }}.tar.gz
+            tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-client-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictogrammersdev --recursive-unlink
+            rm /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-client-${{ github.run_id }}.tar.gz

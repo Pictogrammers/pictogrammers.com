@@ -4,7 +4,7 @@ import glob from 'fast-glob';
 import matter from 'gray-matter';
 import { markdownToTxt } from 'markdown-to-txt';
 
-import config from '../client/config.js';
+import config from '../config.js';
 
 const DOCS_PATH = join(process.cwd(), '../docs');
 
@@ -64,7 +64,7 @@ const getDocSearchIndex = async () => {
     return output;
   }, Promise.resolve([]));
 
-  await writeFile('../client/public/data/docs.json', JSON.stringify(output), { flag: 'w' });
+  await writeFile('./public/data/docs.json', JSON.stringify(output), { flag: 'w' });
 };
 
 export default getDocSearchIndex;

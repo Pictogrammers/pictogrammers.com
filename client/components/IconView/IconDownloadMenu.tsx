@@ -146,7 +146,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
           <Button
             download={`${icon.n}\.svg`}
             href={downloadSvg()}
-            onClick={() => track('downloadSvg', { icon: icon.n, library: library.name })}
+            onClick={() => track('downloadSVG', { icon: icon.n, library: library.name })}
             sx={{ borderRadius: '4px 0 0 4px' }}
             variant='contained'
           >
