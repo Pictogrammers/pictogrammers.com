@@ -87,5 +87,7 @@ jobs:
             tar -zxf /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-api-${{ github.run_id }}.tar.gz -C /opt/${{ secrets.SSH_USER }}/pictogrammers-api --recursive-unlink
             rm /opt/${{ secrets.SSH_USER }}/temp/pictogrammers-api-${{ github.run_id }}.tar.gz
             sudo su
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh  
             pm2 restart pictogrammers-api
       
