@@ -30,11 +30,13 @@
     "lint:style": "npm run lint:style --workspace=client",
     "prepare": "husky install"
   },
+  "dependencies": {
+    "dotenv": "~16.0.3"
+  },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.1.6",
     "@types/node": "~18.13.0",
     "concurrently": "~7.6.0",
-    "dotenv": "~16.0.3",
     "eslint-config-next": "~13.1.6",
     "eslint-plugin-sort-destructure-keys": "~1.4.0",
     "eslint": "~8.33.0",
