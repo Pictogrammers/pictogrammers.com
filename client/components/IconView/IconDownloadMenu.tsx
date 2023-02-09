@@ -67,7 +67,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
   };
 
   const downloadXmlVectorDrawable = () => {
-    const code = `<!-- drawable/${icon.n.replace('-', '_')}.xml --><vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="${library.gridSize}dp" android:width="${library.gridSize}dp" android:viewportWidth="${library.gridSize}" android:viewportHeight="${library.gridSize}"><path android:fillColor="#000000" android:pathData="${icon.p}" /></vector>`;
+    const code = `<!-- drawable/${icon.n.replaceAll('-', '_')}.xml --><vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="${library.gridSize}dp" android:width="${library.gridSize}dp" android:viewportWidth="${library.gridSize}" android:viewportHeight="${library.gridSize}"><path android:fillColor="#000000" android:pathData="${icon.p}" /></vector>`;
     return `data:application/xml;charset=utf-8,${encodeURIComponent(code)}`;
   };
 
@@ -86,7 +86,7 @@ const IconDownloadMenu: FunctionComponent<IconDownloadMenuMenuProps> = ({ icon, 
       </MenuItem>,
       <MenuItem
         component='a'
-        download={`${icon.n.replace('-', '_')}\.xml`}
+        download={`${icon.n.replaceAll('-', '_')}\.xml`}
         href={downloadXmlVectorDrawable()}
         key='xml'
         onClick={() => track('downloadXML', { icon: icon.n, library: library.name })}
