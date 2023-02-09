@@ -5,4 +5,9 @@ declare module 'fastify' {
   interface FastifyInstance {
     githubOAuth2: OAuth2Namespace;
   }
+
+  interface Session {
+    authenticated: boolean;
+    user: object;
+  }
 }

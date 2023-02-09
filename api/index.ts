@@ -1,13 +1,24 @@
 import fastify from 'fastify';
 import oauthPlugin from '@fastify/oauth2';
+import cookiePlugin from '@fastify/cookie';
+import sessionPlugin from '@fastify/session';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
 
+import config from './config';
 import registerRoutes from './routes';
 
 const server = fastify();
+server.register(cookiePlugin);
+server.register(sessionPlugin, {
+  cookie: {
+    secure: process.env['NODE_ENV'] === 'production'
+  },
+  cookieName: 'sessionId',
+  secret: process.env['COOKIE_SECRET'] || 'the-development-super-secret-key'
+});
 server.register(oauthPlugin as any, {
-  callbackUri: 'http://localhost:8080/login/github/callback',
+  callbackUri: `${config.apiBase}/login/github/callback`,
   credentials: {
     auth: oauthPlugin.GITHUB_CONFIGURATION,
     client: {
