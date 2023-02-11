@@ -1,10 +1,11 @@
 import type { FastifyInstance } from 'fastify';
 
 import config from './config';
-import getSession from './endpoints/login/getSession';
-import getGithubCallback from './endpoints/login/getGithubCallback';
+import getSession from './endpoints/auth/getSession';
+import getGithubCallback from './endpoints/auth/getGithubCallback';
+import getLogout from './endpoints/auth/getLogout';
 import getContributors from './endpoints/contributors/getContributors';
-import getContributorById from './endpoints/contributors/getContributorById';
+import getContributorByGitHubId from './endpoints/contributors/getContributorByGitHubId';
 
 const registerRoutes = (server: FastifyInstance) => {
   // General Endpoints
@@ -12,12 +13,13 @@ const registerRoutes = (server: FastifyInstance) => {
   server.get('/health', () => 'OK');
 
   // Authentication Endpoints
-  server.get('/login/session', getSession);
-  server.get('/login/github/callback', getGithubCallback(server));
+  server.get('/auth/session', getSession);
+  server.get('/auth/github/callback', getGithubCallback(server));
+  server.get('/auth/logout', getLogout);
 
   // Contributor Endpoints
   server.get('/contributors', getContributors);
-  server.get('/contributors/:contributorId', getContributorById);
+  server.get('/contributors/:contributorGitHubId', getContributorByGitHubId);
 };
 
 export default registerRoutes;

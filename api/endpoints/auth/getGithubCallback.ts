@@ -10,9 +10,16 @@ const getGithubCallback = (server: FastifyInstance) => async (req: FastifyReques
     const { data } = await octokit.request('/user');
 
     req.session.authenticated = true;
-    req.session.user = data;
+    req.session.github = {
+      avatar: data.avatar_url,
+      email: data.email,
+      id: data.login,
+      name: data.name
+    };
+
     res.redirect(`${config.siteBase}/admin`);
   } catch (err) {
+    console.error(err);
     res.status(401);
   }
 };

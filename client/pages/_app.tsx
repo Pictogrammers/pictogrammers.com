@@ -1,35 +1,28 @@
 import { AppProps } from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { Manrope } from '@next/font/google';
 import Analytics from 'analytics';
 import googleAnalytics from '@analytics/google-analytics';
 import { AnalyticsProvider } from 'use-analytics';
-import { PaletteColorOptions, ThemeProvider, createTheme } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { DataProvider } from '@/providers/DataProvider';
+import { AdminDataProvider } from '@/providers/AdminProvider';
+
 import Layout from '@/components/Layout/Layout';
+import AdminLayout from '@/components/AdminLayout/AdminLayout';
 import CookieConsent from '@/components/CookieConsent/CookieConsent';
+import ConditionalWrapper from '@/components/ConditionalWrapper/ConditionalWrapper';
 
 import themeVars from '@/styles/theme.module.scss';
 import '@/styles/defaults.scss';
 import '@/components/CarbonAd/Carbon.scss';
 
 const manrope = Manrope({ subsets: ['latin'] });
-
-declare module '@mui/material/styles' {
-  // eslint-disable-next-line no-unused-vars
-  interface Palette {
-    neutral: PaletteColorOptions;
-    white: PaletteColorOptions;
-  }
-  // eslint-disable-next-line no-unused-vars
-  interface PaletteOptions {
-    neutral: PaletteColorOptions;
-    white: PaletteColorOptions;
-  }
-}
 
 const { palette } = createTheme();
 const theme = createTheme({
@@ -89,6 +82,8 @@ const theme = createTheme({
   }
 });
 
+const queryClient = new QueryClient();
+
 const Pictogrammers = ({ Component, pageProps }: AppProps) => {
   const { publicRuntimeConfig: { analytics } } = getConfig();
   const analyticsInstance = Analytics({
@@ -101,6 +96,7 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
       })
     ]
   });
+  const router = useRouter();
 
   return (
     <ThemeProvider theme={theme}>
@@ -124,16 +120,27 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
         <meta content='/images/twitter-card.png' name='twitter:image' key='twitter:image' />
       </Head>
-      <AnalyticsProvider instance={analyticsInstance}>
-        <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-          <DataProvider>
-            <CookieConsent />
-            <Layout className={manrope.className}>
-              <Component {...pageProps} />
-            </Layout>
-          </DataProvider>
-        </SnackbarProvider>
-      </AnalyticsProvider>
+      <QueryClientProvider client={queryClient}>
+        <AnalyticsProvider instance={analyticsInstance}>
+          <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+            <DataProvider>
+              <CookieConsent />
+              <Layout className={manrope.className}>
+                <ConditionalWrapper
+                  condition={router.route.startsWith('/admin')}
+                  wrapper={(children: any) => (
+                    <AdminDataProvider>
+                      <AdminLayout>{children}</AdminLayout>
+                    </AdminDataProvider>
+                  )}
+                >
+                  <Component {...pageProps} />
+                </ConditionalWrapper>
+              </Layout>
+            </DataProvider>
+          </SnackbarProvider>
+        </AnalyticsProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };

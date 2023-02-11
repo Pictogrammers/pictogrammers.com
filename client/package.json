@@ -27,7 +27,6 @@
     "@next/font": "~13.1.6",
     "@pictogrammers/bitmask-to-svg": "~0.9.1",
     "@pictogrammers/memory": "~1.1.0",
-    "@tanstack/react-query": "~4.24.4",
     "analytics": "~0.8.1",
     "clsx": "~1.2.1",
     "dayjs": "~1.11.7",

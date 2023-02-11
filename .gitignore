@@ -1,5 +1,6 @@
 node_modules
 /api/dist/
+/api/sessions/
 /client/dist/
 /client/.next/
 /client/public/sw.js*

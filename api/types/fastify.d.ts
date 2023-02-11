@@ -8,6 +8,12 @@ declare module 'fastify' {
 
   interface Session {
     authenticated: boolean;
+    github: {
+      avatar: string;
+      email: string;
+      id: string;
+      name: string;
+    }
     user: object;
   }
 }
