@@ -74,7 +74,7 @@ const Header: FunctionComponent = () => {
         </div>
         <div className={classes.secondary}>
           <SiteSearch />
-          <HeaderAuth />
+          {/* <HeaderAuth /> */}
           <button
             aria-label='menu'
             className={cx(classes.hamburger, {
