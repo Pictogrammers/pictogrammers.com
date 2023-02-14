@@ -2,6 +2,15 @@
   padding: 0 1rem;
 }
 
+.loading {
+  .paper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 5rem;
+  }
+}
+
 .paper {
   display: flex;
   flex-direction: column;
@@ -25,4 +34,12 @@
 
 .container {
   padding: 1rem;
+
+  &.unauthorized {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+  }
 }

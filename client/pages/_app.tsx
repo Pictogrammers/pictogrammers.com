@@ -1,22 +1,18 @@
 import { AppProps } from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { Manrope } from '@next/font/google';
 import Analytics from 'analytics';
 import googleAnalytics from '@analytics/google-analytics';
 import { AnalyticsProvider } from 'use-analytics';
 import { SnackbarProvider } from 'notistack';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+import { AuthProvider } from '@/providers/AuthProvider';
 import { DataProvider } from '@/providers/DataProvider';
-import { AdminDataProvider } from '@/providers/AdminProvider';
 
 import Layout from '@/components/Layout/Layout';
-import AdminLayout from '@/components/AdminLayout/AdminLayout';
 import CookieConsent from '@/components/CookieConsent/CookieConsent';
-import ConditionalWrapper from '@/components/ConditionalWrapper/ConditionalWrapper';
 
 import themeVars from '@/styles/theme.module.scss';
 import '@/styles/defaults.scss';
@@ -82,8 +78,6 @@ const theme = createTheme({
   }
 });
 
-const queryClient = new QueryClient();
-
 const Pictogrammers = ({ Component, pageProps }: AppProps) => {
   const { publicRuntimeConfig: { analytics } } = getConfig();
   const analyticsInstance = Analytics({
@@ -96,7 +90,6 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
       })
     ]
   });
-  const router = useRouter();
 
   return (
     <ThemeProvider theme={theme}>
@@ -120,27 +113,18 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
         <meta content='/images/twitter-card.png' name='twitter:image' key='twitter:image' />
       </Head>
-      <QueryClientProvider client={queryClient}>
+      <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
         <AnalyticsProvider instance={analyticsInstance}>
-          <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+          <AuthProvider>
             <DataProvider>
               <CookieConsent />
               <Layout className={manrope.className}>
-                <ConditionalWrapper
-                  condition={router.route.startsWith('/admin')}
-                  wrapper={(children: any) => (
-                    <AdminDataProvider>
-                      <AdminLayout>{children}</AdminLayout>
-                    </AdminDataProvider>
-                  )}
-                >
-                  <Component {...pageProps} />
-                </ConditionalWrapper>
+                <Component {...pageProps} />
               </Layout>
             </DataProvider>
-          </SnackbarProvider>
+          </AuthProvider>
         </AnalyticsProvider>
-      </QueryClientProvider>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };

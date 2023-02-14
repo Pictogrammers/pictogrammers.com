@@ -1,5 +1,7 @@
-import { Octokit } from '@octokit/rest';
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { Octokit } from '@octokit/rest';
+
+import getUserRecordByGitHubId from '../../model/user/getUserRecordByGitHubId';
 
 import config from '../../config';
 
@@ -9,7 +11,6 @@ const getGithubCallback = (server: FastifyInstance) => async (req: FastifyReques
     const octokit = new Octokit({ auth: token.access_token });
     const { data } = await octokit.request('/user');
 
-    req.session.authenticated = true;
     req.session.github = {
       avatar: data.avatar_url,
       email: data.email,
@@ -17,7 +18,17 @@ const getGithubCallback = (server: FastifyInstance) => async (req: FastifyReques
       name: data.name
     };
 
-    res.redirect(`${config.siteBase}/admin`);
+    try {
+      req.session.contributor = await getUserRecordByGitHubId(req.session.github.id);
+    } catch (err) {
+      // We let anyone log in to use some personalization features of the site,
+      // so if they're not a contributor, we just don't include that information.
+    }
+
+    const redirectPath = req.cookies['pg-login-redirect'] || '/';
+    res
+      .clearCookie('pg-login-redirect')
+      .redirect(`${config.siteBase}${redirectPath}`);
   } catch (err) {
     console.error(err);
     res.status(401);

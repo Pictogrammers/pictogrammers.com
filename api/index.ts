@@ -28,12 +28,12 @@ const FileStore = require('session-file-store')(sessionPlugin);
 server.register(cookiePlugin);
 server.register(sessionPlugin, {
   cookie: {
-    // domain: config.domain,
+    domain: config.domain,
+    httpOnly: false,
     maxAge: 86400000,
-    // sameSite: false,
     secure: process.env['NODE_ENV'] === 'production'
   },
-  // rolling: false,
+  cookieName: 'pg-session',
   saveUninitialized: false,
   secret: process.env['COOKIE_SECRET'] || 'the-development-super-secret-key',
   store: new FileStore()
