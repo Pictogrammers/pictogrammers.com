@@ -7,13 +7,6 @@ import Snackbar from '@mui/material/Snackbar';
 
 import classes from './CookieConsent.module.scss';
 
-declare module '@mui/material/Button' {
-  // eslint-disable-next-line no-unused-vars
-  interface ButtonPropsColorOverrides {
-    white: true
-  }
-}
-
 const CookieConsent: FunctionComponent = () => {
   const { publicRuntimeConfig: { analytics: config } } = getConfig();
   const [ showConsentModal, setShowConsentModal ] = useState(false);

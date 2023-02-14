@@ -1,0 +1,36 @@
+.root {
+  padding: 0 1rem;
+}
+
+.loading {
+  .container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 5rem;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: $width-max;
+  overflow: hidden;
+  position: relative;
+}
+
+.loginContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+
+  h2 {
+    color: hsl(var(--primary-color));
+    font-size: 1.2rem;
+    letter-spacing: .25rem;
+    margin-top: 0;
+    text-transform: uppercase;
+  }
+}

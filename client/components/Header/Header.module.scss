@@ -19,7 +19,7 @@
   }
 }
 
-.github {
+.auth {
   margin-left: 1rem;
 }
 
@@ -56,6 +56,7 @@
 .nav {
   align-items: center;
   display: flex;
+  justify-content: space-between;
   width: 100%;
 
   a {
@@ -65,6 +66,14 @@
 
 .main {
   display: flex;
+  flex: 1;
+}
+
+.secondary {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .hamburger {
@@ -110,7 +119,8 @@
 }
 
 @media only screen and (max-width: ($mobile-width + 150)) {
-  .github {
+  .about,
+  .contribute {
     display: none;
   }
 }
@@ -132,7 +142,10 @@
 
   .main {
     flex: 2;
-    position: relative;
+  }
+
+  .auth {
+    margin-right: .5rem;
   }
 
   .hamburger {
@@ -153,8 +166,6 @@
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 40px;
-    width: calc(100% + 44px);
     z-index: 999;
 
     a {
@@ -173,5 +184,10 @@
     &.open {
       display: flex;
     }
+  }
+
+  .about,
+  .contribute {
+    display: flex;
   }
 }

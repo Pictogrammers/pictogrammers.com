@@ -34,6 +34,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        destination: `${config.apiBase}/auth/logout?redirect=true`,
+        permanent: true,
+        source: '/logout'
+      },
+      {
         destination: '/libraries',
         permanent: true,
         source: '/library'

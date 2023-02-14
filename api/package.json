@@ -9,10 +9,17 @@
     "start": "node --es-module-specifier-resolution=node dist/index.js"
   },
   "dependencies": {
+    "@fastify/cookie": "~8.3.0",
+    "@fastify/cors": "~8.2.0",
+    "@fastify/oauth2": "~7.0.0",
+    "@fastify/session": "~10.1.1",
+    "@octokit/rest": "~19.0.7",
     "fastify": "~4.12.0",
-    "mysql2": "~3.1.1"
+    "mysql2": "~3.1.1",
+    "session-file-store": "~1.5.0"
   },
   "devDependencies": {
+    "@types/session-file-store": "~1.2.2",
     "tsc-watch": "~6.0.0"
   }
 }

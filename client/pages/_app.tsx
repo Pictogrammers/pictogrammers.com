@@ -5,10 +5,12 @@ import { Manrope } from '@next/font/google';
 import Analytics from 'analytics';
 import googleAnalytics from '@analytics/google-analytics';
 import { AnalyticsProvider } from 'use-analytics';
-import { PaletteColorOptions, ThemeProvider, createTheme } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+import { AuthProvider } from '@/providers/AuthProvider';
 import { DataProvider } from '@/providers/DataProvider';
+
 import Layout from '@/components/Layout/Layout';
 import CookieConsent from '@/components/CookieConsent/CookieConsent';
 
@@ -17,19 +19,6 @@ import '@/styles/defaults.scss';
 import '@/components/CarbonAd/Carbon.scss';
 
 const manrope = Manrope({ subsets: ['latin'] });
-
-declare module '@mui/material/styles' {
-  // eslint-disable-next-line no-unused-vars
-  interface Palette {
-    neutral: PaletteColorOptions;
-    white: PaletteColorOptions;
-  }
-  // eslint-disable-next-line no-unused-vars
-  interface PaletteOptions {
-    neutral: PaletteColorOptions;
-    white: PaletteColorOptions;
-  }
-}
 
 const { palette } = createTheme();
 const theme = createTheme({
@@ -124,16 +113,18 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
         <meta content='/images/twitter-card.png' name='twitter:image' key='twitter:image' />
       </Head>
-      <AnalyticsProvider instance={analyticsInstance}>
-        <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-          <DataProvider>
-            <CookieConsent />
-            <Layout className={manrope.className}>
-              <Component {...pageProps} />
-            </Layout>
-          </DataProvider>
-        </SnackbarProvider>
-      </AnalyticsProvider>
+      <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+        <AnalyticsProvider instance={analyticsInstance}>
+          <AuthProvider>
+            <DataProvider>
+              <CookieConsent />
+              <Layout className={manrope.className}>
+                <Component {...pageProps} />
+              </Layout>
+            </DataProvider>
+          </AuthProvider>
+        </AnalyticsProvider>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };
