@@ -88,7 +88,7 @@ module.exports = {
         description: 'Taking a lighter spin on Google\'s Material Design guidelines, MDI Light slims down icons to be modern, crisp, and clean.',
         exampleTypes: [ 'react', 'vue', 'webfont' ],
         featured: true,
-        git: 'https://github.com/Templarian/MaterialDesignLight',
+        git: 'https://github.com/Pictogrammers/MaterialDesignLight',
         gridSize: 24,
         id: 'mdil',
         image: 'images/libraries/mdil.svg',
