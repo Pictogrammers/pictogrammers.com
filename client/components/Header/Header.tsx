@@ -8,7 +8,7 @@ import PictogrammersWordmark from '@/public/images/brand/logos/pictogrammers-wor
 
 import Link from '@/components/Link/Link';
 import SiteSearch from '@/components/SiteSearch/SiteSearch';
-import HeaderAuth from '@/components/Header/HeaderAuth';
+// import HeaderAuth from '@/components/Header/HeaderAuth';
 
 import classes from './Header.module.scss';
 
