@@ -10,7 +10,7 @@ import { IconLibrary } from '@/interfaces/icons';
 
 import Head from '@/components/Head/Head';
 
-import classes from '@/styles/pages/404.module.scss';
+import classes from '@/styles/pages/error-page.module.scss';
 
 const ErrorBoundary: NextPage = () => {
   const [ resourceType, setResourceType ] = useState('');

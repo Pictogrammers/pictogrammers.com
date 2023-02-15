@@ -43,7 +43,7 @@ const Header: FunctionComponent = () => {
 
       return setMenu({
         left: viewportPadding,
-        top: buttonPosition.bottom,
+        top: buttonPosition.bottom - 1,
         width: menuWidth
       });
     }

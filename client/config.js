@@ -13,7 +13,7 @@ module.exports = {
     consentCookieExpiration: 182,
     googleTrackingId: 'G-0Y6PK9LKLT'
   },
-  apiBase: process.env.NODE_ENV !== 'production' ? 'http://localhost:8080' : 'https://api.pictogrammers.com',
+  apiBase: `https://${process.env.NODE_ENV !== 'production' ? 'dev-' : ''}api.pictogrammers.com`,
   carbonAds: {
     placement: 'pictogrammerscom',
     serve: 'CWYD42QY'
@@ -113,5 +113,6 @@ module.exports = {
         version: getLibraryVersion('@pictogrammers/memory-svg')
       }
     ]
-  }
+  },
+  sessionCookieName: `pg-${process.env.NODE_ENV !== 'production' ? 'dev-' : ''}session`
 };

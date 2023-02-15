@@ -21,12 +21,12 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
   const [ loading, setLoading ] = useState<boolean>(true);
   const [ authData, setAuthData ] = useState<AuthProps | null>(null);
   const [ lastError, setLastError ] = useState<string | null>(null);
-  const { publicRuntimeConfig: { apiBase } } = getConfig();
+  const { publicRuntimeConfig: { apiBase, sessionCookieName } } = getConfig();
   const { enqueueSnackbar } = useSnackbar();
   const { track } = useAnalytics();
   const router = useRouter();
 
-  const sessionCookie = Cookies.get('pg-session');
+  const sessionCookie = Cookies.get(sessionCookieName);
 
   useEffect(() => {
     const getSessionData = async () => {
@@ -59,7 +59,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
     try {
       await router.push('/');
       await fetch(`${apiBase}/auth/logout`, { credentials: 'include', mode: 'cors' });
-      Cookies.remove('pg-session');
+      Cookies.remove(sessionCookieName);
       setAuthData(null);
       setLastError(null);
     } catch (error) {

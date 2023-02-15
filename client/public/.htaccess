@@ -1,3 +1,6 @@
+ErrorDocument 404 /404.html
+ErrorDocument 403 /403.html
+
 RewriteEngine on
 RewriteBase /
 
@@ -5,6 +8,11 @@ RewriteBase /
 RewriteCond %{HTTP_USER_AGENT} github-camo
 RewriteCond %{HTTP_ACCEPT} image\/webp
 RewriteRule library\/(.*)\/icon\/(.*)$ https://dev.materialdesignicons.com/api/preview/$1/$2
+
+# Site Redirects
+RewriteRule logout(/?) https://api.pictogrammers.com/auth/logout?redirect=true [R]
+RewriteRule library(/?) https://pictogrammers.com/libraries/ [R]
+RewriteRule library/(.*)/(author|category|icon|version)(/?)$ https://pictogrammers.com/library/$1 [R]
 
 # Serve brotli version if they exist
 RewriteCond %{HTTP:Accept-encoding} br

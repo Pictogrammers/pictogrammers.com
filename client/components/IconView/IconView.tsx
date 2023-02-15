@@ -109,6 +109,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                 <Tooltip arrow placement='top' title='View Details'>
                   <IconButton
                     aria-label='View Details'
+                    component={Link}
                     href={`/library/${libraryInfo.id}/icon/${icon.n}`}
                   >
                     <Icon path={mdiArrowExpand} size={1} />

@@ -9,7 +9,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Icon from '@mdi/react';
 import { mdiHumanGreetingVariant } from '@mdi/js';
-import { siGithub } from 'simple-icons/icons';
+import { siGithub } from 'simple-icons';
 
 import { useAuth } from '@/providers/AuthProvider';
 

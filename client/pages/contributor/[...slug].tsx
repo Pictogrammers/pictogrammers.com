@@ -14,7 +14,7 @@ import Chip from '@mui/material/Chip';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Icon from '@mdi/react';
-import { siGithub, siTwitter } from 'simple-icons/icons';
+import { siGithub, siTwitter } from 'simple-icons';
 import { mdiHeart, mdiLinkVariant, mdiPaletteSwatch, mdiSourceBranch } from '@mdi/js';
 
 import { getAllContributorPaths, getContributor } from '@/utils/contributorUtils';

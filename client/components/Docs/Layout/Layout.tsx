@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Icon from '@mdi/react';
 import { mdiTextBoxPlus } from '@mdi/js';
-import { siGithub } from 'simple-icons/icons';
+import { siGithub } from 'simple-icons';
 
 import CarbonAd from '@/components/CarbonAd/CarbonAd';
 import TableOfContents from '@/components/Docs/TableOfContents/TableOfContents';

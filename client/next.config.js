@@ -31,25 +31,6 @@ const nextConfig = {
   },
   publicRuntimeConfig: config,
   reactStrictMode: true,
-  async redirects() {
-    return [
-      {
-        destination: `${config.apiBase}/auth/logout?redirect=true`,
-        permanent: true,
-        source: '/logout'
-      },
-      {
-        destination: '/libraries',
-        permanent: true,
-        source: '/library'
-      },
-      {
-        destination: '/library/:libraryId',
-        permanent: true,
-        source: '/library/:libraryId/(author|category|icon|version)'
-      }
-    ];
-  },
   sassOptions: {
     includePaths: [ path.join(__dirname, 'styles') ],
     prependData: '@import "variables.scss";'
