@@ -11,6 +11,7 @@ import config from './config';
 import registerRoutes from './routes';
 
 const server = fastify({
+  ignoreTrailingSlash: true,
   logger: process.env['NODE_ENV'] !== 'production'
 });
 
@@ -31,9 +32,9 @@ server.register(sessionPlugin, {
     domain: config.domain,
     httpOnly: false,
     maxAge: 86400000,
-    secure: process.env['NODE_ENV'] === 'production'
+    secure: true
   },
-  cookieName: 'pg-session',
+  cookieName: config.cookieName,
   saveUninitialized: false,
   secret: process.env['COOKIE_SECRET'] || 'the-development-super-secret-key',
   store: new FileStore()

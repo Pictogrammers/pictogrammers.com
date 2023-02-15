@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:1.23.3-alpine
+    container_name: nginx
+    networks:
+      pictogrammers:
+        aliases:
+          - dev.pictogrammers.com
+          - dev-api.pictogrammers.com
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certs:/etc/nginx/conf.d/certificates
+  db:
+    container_name: pictogrammers-db
+    image: mysql:8.0.21
+    restart: unless-stopped
+    cap_add:
+      - SYS_NICE
+    networks:
+      - pictogrammers
+    environment:
+      MYSQL_ROOT_PASSWORD: pictogrammers
+      MYSQL_DATABASE: pictogrammers
+      MYSQL_USER: pictogrammers
+      MYSQL_PASSWORD: pictogrammers
+    ports:
+      - 3306:3306
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+networks:
+  pictogrammers:

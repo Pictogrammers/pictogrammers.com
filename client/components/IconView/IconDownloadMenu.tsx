@@ -11,7 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Icon from '@mdi/react';
 import { mdiChevronDown, mdiDownload, mdiFilePngBox, mdiSvg } from '@mdi/js';
-import { siAndroid, siWindows } from 'simple-icons/icons';
+import { siAndroid, siWindows } from 'simple-icons';
 
 import { IconLibrary, IconLibraryIcon } from '@/interfaces/icons';
 

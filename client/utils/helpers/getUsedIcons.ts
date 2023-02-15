@@ -1,7 +1,7 @@
 import * as mdi from '@mdi/js';
 import * as mdil from '@mdi/light-js';
 import * as memory from '@pictogrammers/memory';
-import * as si from 'simple-icons/icons';
+import * as si from 'simple-icons';
 
 import { IconLibraries } from '@/interfaces/icons';
 
