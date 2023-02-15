@@ -24,8 +24,8 @@
   - On Mac, run `npm run dev:certs`. You need [Homebrew](https://brew.sh/) to be installed.
   - On any other platform, see [Generating Dev Certs](#generating-dev-certs).
   - Once your certs are generated, you do not need to run this command again unless you delete the certs or they expire.
-2. Run `npm i`.
-3. Run `npm run dev` to start the dev servers.
+3. Run `npm i`.
+4. Run `npm run dev` to start the dev servers.
   - Access the dev site at <https://dev.pictogrammers.com>.
   - Access the dev API at <https://dev-api.pictogrammers.com>.
   - The dev MySQL instance will come up at <http://localhost:3306>.
