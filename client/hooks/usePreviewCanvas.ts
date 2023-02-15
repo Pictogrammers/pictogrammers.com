@@ -75,6 +75,8 @@ const generatePreview = async (name: string, data: string, isWorkInProgress: boo
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('viewBox', '0 0 325 294');
+  svg.setAttribute('height', '294px');
+  svg.setAttribute('width', '325px');
   paths.forEach((path) => svg.appendChild(path));
 
   const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
