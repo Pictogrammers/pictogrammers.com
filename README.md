@@ -57,10 +57,10 @@ To test and debug any part of the site behind authentication, you will need to c
 2. Use `https://dev-api.pictogrammers.com/auth/github/callback` as the "Authorization callback URL".
 3. Create a `.env` file in the root of the repository.
 4. Copy and paste your client ID and secret into the env file.
-  ```text
-  GITHUB_CLIENT_ID={YOUR_CLIENT_ID}
-  GITHUB_CLIENT_SECRET={YOUR_CLIENT_SECRET}
-  ```
+   ```text
+   GITHUB_CLIENT_ID={YOUR_CLIENT_ID}
+   GITHUB_CLIENT_SECRET={YOUR_CLIENT_SECRET}
+   ```
 5. Restart the dev server.
 
 #### GitHub Access Token (Optional)
