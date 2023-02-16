@@ -27,15 +27,23 @@ import { ContributorProps } from '@/interfaces/contributor';
 
 import classes from './SiteSearch.module.scss';
 
-interface SearchResultsProps {
+interface SearchResultProps {
   id: string;
   libraryInfo?: IconLibrary;
   results: IconLibraryIcon[];
+  showMore?: boolean;
+  type?: string;
+  visible: number;
+}
+
+interface SearchResultsProps {
+  results: SearchResultProps[];
+  totalResults: number;
 }
 
 const SiteSearch: FunctionComponent = () => {
   const [ searchTerm, setSearchTerm ] = useState<string>('');
-  const [ searchResults, setSearchResults ] = useState<SearchResultsProps[]>([]);
+  const [ searchResults, setSearchResults ] = useState<SearchResultsProps>({ results: [], totalResults: 0 });
   const [ searchResultsVisible, setSearchResultsVisible ] = useState(false);
   const { publicRuntimeConfig: { libraries: librariesMeta } } = getConfig();
   const { contributors, docs, libraries } = useData();
@@ -84,7 +92,7 @@ const SiteSearch: FunctionComponent = () => {
 
   useEffect(() => {
     if (debouncedSearchTerm === '') {
-      return setSearchResults([]);
+      return setSearchResults({ results: [], totalResults: 0 });
     }
 
     const libraryResults = searchLibraries(debouncedSearchTerm);
@@ -93,22 +101,42 @@ const SiteSearch: FunctionComponent = () => {
     // eslint-disable-next-line sort-keys
     const allResults = { ...libraryResults, docs, contributors };
 
-    const results = Object.keys(allResults).reduce((output, key) => {
+    const results = Object.keys(allResults).reduce((output: SearchResultsProps, key) => {
       if (!allResults[key].length) {
         return output;
       }
 
+      const limitedResults = allResults[key].slice(0, 10);
+
       if (['contributors', 'docs'].includes(key)) {
-        output.push({ id: key, results: allResults[key] });
+        output.results.push({
+          id: key,
+          results: limitedResults,
+          type: key,
+          visible: limitedResults.length
+        });
+        output.totalResults += limitedResults.length;
         return output;
       }
 
       const libraryInfo = librariesMeta.icons.find((library: IconLibrary) => library.id === key);
-      output.push({ id: key, libraryInfo, results: allResults[key] });
+      const showMore = allResults[key].length > 10;
+      output.results.push({
+        id: key,
+        libraryInfo,
+        results: limitedResults,
+        showMore,
+        type: 'icons',
+        visible: limitedResults.length + (showMore ? 1 : 0)
+      });
+      output.totalResults += limitedResults.length + (showMore ? 1 : 0);
       return output;
-    }, [] as SearchResultsProps[]);
+    }, {
+      results: [],
+      totalResults: 0
+    });
 
-    setSearchResults(results.length ? results : [{ id: 'no-results', results: [] }]);
+    setSearchResults(results.totalResults ? results : { results: [{ id: 'no-results', results: [], visible: 0 }], totalResults: 0 });
   }, [
     debouncedSearchTerm,
     librariesMeta.icons,
@@ -121,6 +149,93 @@ const SiteSearch: FunctionComponent = () => {
   const closeSearchResults = () => {
     searchBoxRef?.current?.blur();
     setSearchResultsVisible(false);
+  };
+
+  const renderIconResult = (option: SearchResultProps, result: IconLibraryIcon, index: number) => {
+    return (
+      <ListItem disablePadding key={index}>
+        <ListItemButton
+          component={Link}
+          href={`/library/${option.id}/icon/${result.n}`}
+          onClick={closeSearchResults}
+        >
+          <CustomGridIcon
+            gridSize={option?.libraryInfo?.gridSize || 24}
+            path={result.p}
+            size={1}
+          />
+          <ListItemText>
+            {result.n}
+            <span className={classes.subtext}>
+              {!!result.d ? (
+                <strong className={classes.deprecated}><Icon path={mdiAlertOctagonOutline} size={.5} />DEPRECATED </strong>
+              ) : option.libraryInfo?.version === result.v ? (
+                <strong className={classes.new}><Icon path={mdiCreation} size={.5} />New! </strong>
+              ) : ''}
+              Added in v{result.v}
+            </span>
+          </ListItemText>
+        </ListItemButton>
+      </ListItem>
+    );
+  };
+
+  const renderDocsResult = (option: SearchResultProps, result: any, index: number) => {
+    return (
+      <ListItem disablePadding key={index}>
+        <ListItemButton
+          component={Link}
+          href={`/docs/${result.slug}`}
+          onClick={closeSearchResults}
+        >
+          <Icon path={mdiBookOpenPageVariantOutline} size={1} />
+          <ListItemText>
+            {result.title}
+            <span className={classes.subtext}>
+              {result.library ? `${result.library} • ` : ''}{result.category}
+            </span>
+          </ListItemText>
+        </ListItemButton>
+      </ListItem>
+    );
+  };
+
+  const renderContributorResult = (option: SearchResultProps, result: any, index: number) => {
+    return (
+      <ListItem disablePadding key={index}>
+        <ListItemButton
+          component={Link}
+          href={`/contributor/${result.github}`}
+          onClick={closeSearchResults}
+        >
+          <Avatar
+            classes={{ root: classes.avatar }}
+            sx={{
+              background: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
+              border: `2px solid hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
+              height: 32,
+              width: 32
+            }}
+          >
+            {result.image ? (
+              <ExportedImage
+                alt={result.name}
+                height={32}
+                placeholder='empty'
+                src={`/images/contributors/${result.id}.jpg`}
+                width={32}
+              />
+            ) : result.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+          </Avatar>
+          <ListItemText>
+            {result.name}
+            <span className={classes.subtext}>
+              {result.core ? 'Core Member' : 'Community Contributor'}{!!result.contributedRepos?.length ? ' • Code Contributor' : ''}
+            </span>
+          </ListItemText>
+        </ListItemButton>
+      </ListItem>
+    );
   };
 
   return (
@@ -136,7 +251,7 @@ const SiteSearch: FunctionComponent = () => {
         onClose={closeSearchResults}
         onOpen={openSearchResults}
         open={searchResultsVisible}
-        options={searchResults}
+        options={searchResults.results}
         PopperComponent={CustomPopper}
         renderInput={(params) => (
           <TextField
@@ -165,12 +280,12 @@ const SiteSearch: FunctionComponent = () => {
             variant='outlined'
           />
         )}
-        renderOption={(props, option: SearchResultsProps) => {
+        renderOption={(props, option: SearchResultProps, { index: groupIndex }) => {
           if (option.id === 'no-results') {
             return (
               <div className={classes.results} key='no-results'>
                 <List classes={{ root: classes.group }} dense>
-                  <ListItem key='no-results'>
+                  <ListItem key='no-results-list'>
                     <Icon path={mdiAlertOutline} size={1} />
                     <ListItemText>No results found.</ListItemText>
                   </ListItem>
@@ -179,75 +294,28 @@ const SiteSearch: FunctionComponent = () => {
             );
           }
 
-          if (!option.results.length) {
+          if (!option.visible) {
             return null;
           }
 
-          const isLibrary = !!option.libraryInfo;
-          const showMoreLink = option.results.length > 10;
-          const limitedResults = option.results.slice(0, 10);
-          const groupName = isLibrary ? option?.libraryInfo?.name : option.id === 'docs' ? 'Docs' : 'Contributors';
+          const groupName = option.type === 'icons' ? option?.libraryInfo?.name : option.type === 'docs' ? 'Docs' : 'Contributors';
+          const groupRenderer = option.type === 'icons' ? renderIconResult : option.type === 'docs' ? renderDocsResult : renderContributorResult;
+          const groupLength = Math.min(option.results.length || 0, 10);
+          const lastGroupLength = searchResults.results[groupIndex - 1]?.visible || 0;
+          const lastGroupIndex = Math.min(lastGroupLength, searchResults.results[groupIndex - 1]?.showMore ? 11 : 10) * groupIndex;
 
           return (
             <div className={classes.results} key={option.id}>
               <ListSubheader classes={{ root: classes.groupHeader }}>{groupName}</ListSubheader>
               <List classes={{ root: classes.group }} dense sx={{ padding: '0 0 .5rem' }}>
-                {limitedResults.map((result: any) => {
-                  const link = isLibrary ? `/library/${option.id}/icon/${result.n}` : option.id === 'docs' ? `/docs/${result.slug}` : `/contributor/${result.github}`;
-                  const title = isLibrary ? result.n : option.id === 'docs' ? result.title : result.name;
-                  const icon = isLibrary ? result.p : mdiBookOpenPageVariantOutline;
-                  const isNew = isLibrary && option.libraryInfo?.version === result.v;
-                  const isDeprecated = isLibrary && result.d;
-                  return (
-                    <ListItem key={result.cp || result.slug} sx={{ padding: 0 }}>
-                      <ListItemButton component={Link} href={link} onClick={closeSearchResults}>
-                        {option.id !== 'contributors' ? (
-                          <CustomGridIcon gridSize={option?.libraryInfo?.gridSize || 24} path={icon} size={1} />
-                        ) : (
-                          <Avatar
-                            classes={{ root: classes.avatar }}
-                            sx={{
-                              background: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
-                              border: `2px solid hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
-                              height: 32,
-                              width: 32
-                            }}
-                          >
-                            {result.image ? (
-                              <ExportedImage
-                                alt={result.name}
-                                height={32}
-                                placeholder='empty'
-                                src={`/images/contributors/${result.id}.jpg`}
-                                width={32}
-                              />
-                            ) : result.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-                          </Avatar>
-                        )}
-                        <ListItemText>
-                          {title}
-                          {!!isLibrary ? (
-                            <span className={classes.subtext}>
-                              {isDeprecated ? (
-                                <strong className={classes.deprecated}><Icon path={mdiAlertOctagonOutline} size={.5} />DEPRECATED </strong>
-                              ) : isNew ? (
-                                <strong className={classes.new}><Icon path={mdiCreation} size={.5} />New! </strong>
-                              ) : ''}
-                              Added in v{result.v}
-                            </span>
-                          ) : option.id !== 'contributors' ? (
-                            <span className={classes.subtext}>{result.library ? `${result.library} • ` : ''}{result.category}</span>
-                          ) : (
-                            <span className={classes.subtext}>{result.core ? 'Core Member' : 'Community Contributor'}{!!result.contributedRepos?.length ? ' • Code Contributor' : ''}</span>
-                          )}
-                        </ListItemText>
-                      </ListItemButton>
-                    </ListItem>
-                  );
-                })}
-                {isLibrary && showMoreLink && (
-                  <ListItem key={`more-${option.id}`} sx={{ padding: 0 }}>
-                    <ListItemButton component={Link} href={`/library/${option.id}/?q=${encodeURIComponent(debouncedSearchTerm)}`} onClick={closeSearchResults}>
+                {option.results.map((result: any, index) => groupRenderer(option, result, index + lastGroupIndex))}
+                {option.showMore && (
+                  <ListItem disablePadding key={lastGroupIndex + groupLength}>
+                    <ListItemButton
+                      component={Link}
+                      href={`/library/${option.id}/?q=${encodeURIComponent(debouncedSearchTerm)}`}
+                      onClick={closeSearchResults}
+                    >
                       <Icon path={mdiDotsHorizontalCircleOutline} size={1} />
                       <ListItemText>See All Results</ListItemText>
                     </ListItemButton>
