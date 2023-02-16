@@ -21,7 +21,8 @@
 
 1. Clone this repository.
 2. Generate your development certificates.
-   - On Mac, run `npm run dev:certs`. You need [Homebrew](https://brew.sh/) to be installed.
+   - On Mac, run `npm run certs:mac`. You need [Homebrew](https://brew.sh/) to be installed.
+   - On Windows, run `npm run certs:win`. You need [Chocolatey](https://chocolatey.org/) to be installed.
    - On any other platform, see [Generating Dev Certs](#generating-dev-certs).
    - Once your certs are generated, you do not need to run this command again unless you delete the certs or they expire.
 3. Run `npm i`.
@@ -36,7 +37,7 @@ See <https://pictogrammers.com/docs/contribute/website/> for more details about 
 
 ### Generating Dev Certs
 
-If you are not using a Mac, you will need to [follow the instructions on the `mkcert` GitHub page](https://github.com/FiloSottile/mkcert) to install the version for your platform.
+If you are not using Mac or Windows, you will need to [follow the instructions on the `mkcert` GitHub page](https://github.com/FiloSottile/mkcert) to install the version for your platform.
 
 You need to generate certs for the following two domains:
 
