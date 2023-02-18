@@ -16,7 +16,7 @@
 
 .results {
   .result {
-    padding: .1rem 1rem;
+    padding: .2rem 1rem !important;
     transition: none;
 
     & > * {
@@ -34,8 +34,6 @@
 
     &[class~='Mui-focused'],
     &[class~='Mui-focusVisible'] {
-      background-color: hsl(var(--light-cyan));
-
       &::after {
         opacity: 1;
       }
