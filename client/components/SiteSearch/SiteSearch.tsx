@@ -1,17 +1,16 @@
-import { FunctionComponent, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, FunctionComponent, ReactNode, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import getConfig from 'next/config';
+import { useRouter } from 'next/router';
 import ExportedImage from 'next-image-export-optimizer';
+import cx from 'clsx';
 import Autocomplete from '@mui/material/Autocomplete';
-import Popper, { PopperProps } from '@mui/material/Popper';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import Avatar from '@mui/material/Avatar';
 import uFuzzy from '@leeoniya/ufuzzy';
+import { useHotkeys } from 'react-hotkeys-hook';
 import Icon from '@mdi/react';
 import { mdiAlertOctagonOutline, mdiAlertOutline, mdiBookOpenPageVariantOutline, mdiCreation, mdiDotsHorizontalCircleOutline, mdiMagnify } from '@mdi/js';
 
@@ -27,28 +26,39 @@ import { ContributorProps } from '@/interfaces/contributor';
 
 import classes from './SiteSearch.module.scss';
 
-interface SearchResultProps {
-  id: string;
-  libraryInfo?: IconLibrary;
-  results: IconLibraryIcon[];
-  showMore?: boolean;
-  type?: string;
-  visible: number;
-}
-
 interface SearchResultsProps {
-  results: SearchResultProps[];
-  totalResults: number;
+  class?: string;
+  href: string;
+  image: {
+    color?: string;
+    gridSize?: number;
+    path?: string;
+    src?: string;
+    type: string;
+  }
+  key: string;
+  subtitle?: ReactNode | string;
+  title: string;
+  type: string;
 }
 
 const SiteSearch: FunctionComponent = () => {
   const [ searchTerm, setSearchTerm ] = useState<string>('');
-  const [ searchResults, setSearchResults ] = useState<SearchResultsProps>({ results: [], totalResults: 0 });
+  const [ searchResults, setSearchResults ] = useState<SearchResultsProps[]>([]);
   const [ searchResultsVisible, setSearchResultsVisible ] = useState(false);
+  const [ highlightedResult, setHighlightedResult ] = useState<any>(null);
+  const [ isMac, setIsMac ] = useState(false);
   const { publicRuntimeConfig: { libraries: librariesMeta } } = getConfig();
   const { contributors, docs, libraries } = useData();
   const debouncedSearchTerm = useDebounce(searchTerm, 250);
   const searchBoxRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  useHotkeys('ctrl+k, meta+k', () => searchBoxRef.current?.focus());
+
+  useEffect(() => {
+    setIsMac(window.navigator.platform.toLowerCase().indexOf('mac') === 0);
+  }, []);
 
   const searchLibraries = useCallback((searchTerm: string) => {
     return Object.keys(libraries).reduce((output: any, libraryId: string) => {
@@ -80,19 +90,9 @@ const SiteSearch: FunctionComponent = () => {
     return order.map((position) => contributors[info.idx[position]]);
   }, [ contributors ]);
 
-  const CustomPopper = useCallback((props: PopperProps) => {
-    return (
-      <Popper
-        {...props}
-        placement='bottom-end'
-        sx={{ width: '500px !important' }}
-      />
-    );
-  }, []);
-
   useEffect(() => {
     if (debouncedSearchTerm === '') {
-      return setSearchResults({ results: [], totalResults: 0 });
+      return setSearchResults([]);
     }
 
     const libraryResults = searchLibraries(debouncedSearchTerm);
@@ -101,42 +101,103 @@ const SiteSearch: FunctionComponent = () => {
     // eslint-disable-next-line sort-keys
     const allResults = { ...libraryResults, docs, contributors };
 
-    const results = Object.keys(allResults).reduce((output: SearchResultsProps, key) => {
+    const results = Object.keys(allResults).reduce((output: any, key) => {
       if (!allResults[key].length) {
         return output;
       }
 
       const limitedResults = allResults[key].slice(0, 10);
 
-      if (['contributors', 'docs'].includes(key)) {
-        output.results.push({
-          id: key,
-          results: limitedResults,
-          type: key,
-          visible: limitedResults.length
-        });
-        output.totalResults += limitedResults.length;
-        return output;
+      switch (key) {
+        case 'contributors':
+          output.push(...limitedResults.map((result: any) => {
+            return {
+              href: `/contributor/${result.github}`,
+              image: {
+                color: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
+                src: result.image ? `/images/contributors/${result.id}.jpg` : undefined,
+                type: 'avatar'
+              },
+              key: result.github,
+              subtitle: `${result.core ? 'Core Member' : 'Community Contributor'}${!!result.contributedRepos?.length ? ' • Code Contributor' : ''}`,
+              title: result.name,
+              type: 'Contributors'
+            };
+          }));
+          return output;
+        case 'docs':
+          output.push(...limitedResults.map((result: any) => {
+            return {
+              href: `/docs/${result.slug}`,
+              image: {
+                path: mdiBookOpenPageVariantOutline,
+                type: 'icon'
+              },
+              key: result.slug,
+              subtitle: `${result.library ? `${result.library} • ` : ''}${result.category}`,
+              title: result.title,
+              type: 'Documentation'
+            };
+          }));
+          return output;
+        default:
+          const libraryInfo = librariesMeta.icons.find((library: IconLibrary) => library.id === key);
+          output.push(...limitedResults.map((result: any) => {
+            return {
+              href: `/library/${key}/icon/${result.n}`,
+              image: {
+                gridSize: libraryInfo?.gridSize,
+                path: result.p,
+                type: 'icon'
+              },
+              key: `${key}-${result.n}`,
+              subtitle: (
+                <Fragment>
+                  {!!result.d ? (
+                    <strong className={classes.deprecated}><Icon path={mdiAlertOctagonOutline} size={.5} />DEPRECATED </strong>
+                  ) : libraryInfo?.version === result.v ? (
+                    <strong className={classes.new}><Icon path={mdiCreation} size={.5} />New! </strong>
+                  ) : ''}
+                  Added in v{result.v}
+                </Fragment>
+              ),
+              title: result.n,
+              type: libraryInfo.name
+            };
+          }));
+
+          if (allResults[key].length > 10) {
+            output.push({
+              class: classes.more,
+              href: `/library/${key}/?q=${encodeURIComponent(debouncedSearchTerm)}`,
+              image: {
+                path: mdiDotsHorizontalCircleOutline,
+                type: 'icon'
+              },
+              key: `view-more-${key}`,
+              title: `View All ${libraryInfo.name} Results...`,
+              type: libraryInfo.name
+            });
+          }
+          return output;
       }
+    }, []);
 
-      const libraryInfo = librariesMeta.icons.find((library: IconLibrary) => library.id === key);
-      const showMore = allResults[key].length > 10;
-      output.results.push({
-        id: key,
-        libraryInfo,
-        results: limitedResults,
-        showMore,
-        type: 'icons',
-        visible: limitedResults.length + (showMore ? 1 : 0)
-      });
-      output.totalResults += limitedResults.length + (showMore ? 1 : 0);
-      return output;
-    }, {
-      results: [],
-      totalResults: 0
-    });
+    if (!results.length) {
+      return setSearchResults([{
+        class: classes.noResults,
+        href: '#',
+        image: {
+          path: mdiAlertOutline,
+          type: 'icon'
+        },
+        key: 'no-results',
+        title: 'No results found.',
+        type: 'Search Results'
+      }]);
+    }
 
-    setSearchResults(results.totalResults ? results : { results: [{ id: 'no-results', results: [], visible: 0 }], totalResults: 0 });
+    setSearchResults(results);
   }, [
     debouncedSearchTerm,
     librariesMeta.icons,
@@ -151,119 +212,48 @@ const SiteSearch: FunctionComponent = () => {
     setSearchResultsVisible(false);
   };
 
-  const renderIconResult = (option: SearchResultProps, result: IconLibraryIcon, index: number) => {
-    return (
-      <ListItem disablePadding key={index}>
-        <ListItemButton
-          component={Link}
-          href={`/library/${option.id}/icon/${result.n}`}
-          onClick={closeSearchResults}
-        >
-          <CustomGridIcon
-            gridSize={option?.libraryInfo?.gridSize || 24}
-            path={result.p}
-            size={1}
-          />
-          <ListItemText>
-            {result.n}
-            <span className={classes.subtext}>
-              {!!result.d ? (
-                <strong className={classes.deprecated}><Icon path={mdiAlertOctagonOutline} size={.5} />DEPRECATED </strong>
-              ) : option.libraryInfo?.version === result.v ? (
-                <strong className={classes.new}><Icon path={mdiCreation} size={.5} />New! </strong>
-              ) : ''}
-              Added in v{result.v}
-            </span>
-          </ListItemText>
-        </ListItemButton>
-      </ListItem>
-    );
-  };
-
-  const renderDocsResult = (option: SearchResultProps, result: any, index: number) => {
-    return (
-      <ListItem disablePadding key={index}>
-        <ListItemButton
-          component={Link}
-          href={`/docs/${result.slug}`}
-          onClick={closeSearchResults}
-        >
-          <Icon path={mdiBookOpenPageVariantOutline} size={1} />
-          <ListItemText>
-            {result.title}
-            <span className={classes.subtext}>
-              {result.library ? `${result.library} • ` : ''}{result.category}
-            </span>
-          </ListItemText>
-        </ListItemButton>
-      </ListItem>
-    );
-  };
-
-  const renderContributorResult = (option: SearchResultProps, result: any, index: number) => {
-    return (
-      <ListItem disablePadding key={index}>
-        <ListItemButton
-          component={Link}
-          href={`/contributor/${result.github}`}
-          onClick={closeSearchResults}
-        >
-          <Avatar
-            classes={{ root: classes.avatar }}
-            sx={{
-              background: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
-              border: `2px solid hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
-              height: 32,
-              width: 32
-            }}
-          >
-            {result.image ? (
-              <ExportedImage
-                alt={result.name}
-                height={32}
-                placeholder='empty'
-                src={`/images/contributors/${result.id}.jpg`}
-                width={32}
-              />
-            ) : result.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-          </Avatar>
-          <ListItemText>
-            {result.name}
-            <span className={classes.subtext}>
-              {result.core ? 'Core Member' : 'Community Contributor'}{!!result.contributedRepos?.length ? ' • Code Contributor' : ''}
-            </span>
-          </ListItemText>
-        </ListItemButton>
-      </ListItem>
-    );
-  };
-
   return (
     <div className={classes.root}>
       <Autocomplete
-        classes={{ paper: classes.menuPaper }}
-        clearOnBlur={false}
+        classes={{
+          groupLabel: classes.header,
+          listbox: classes.results,
+          paper: classes.menuPaper
+        }}
+        clearOnBlur
+        componentsProps={{
+          popper: {
+            placement: 'bottom-end',
+            sx: { width: '500px !important' }
+          }
+        }}
         filterOptions={(options) => options}
         freeSolo
         fullWidth
-        getOptionLabel={(option: any) => option.id || searchTerm}
-        onInputChange={(e: SyntheticEvent, value: string) => setSearchTerm(value)}
+        getOptionLabel={(option: any) => option.key}
+        groupBy={(option: SearchResultsProps) => option.type}
         onClose={closeSearchResults}
+        onHighlightChange={(e, option) => setHighlightedResult(option)}
+        onInputChange={(e: SyntheticEvent, value: string) => setSearchTerm(value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            // @ts-ignore
+            e.defaultMuiPrevented = true;
+            router.push(highlightedResult.href);
+            closeSearchResults();
+          }
+        }}
         onOpen={openSearchResults}
         open={searchResultsVisible}
-        options={searchResults.results}
-        PopperComponent={CustomPopper}
+        options={searchResults}
         renderInput={(params) => (
           <TextField
             {...params}
-            classes={{ root: classes.searchBox }}
             InputProps={{
               ...params.InputProps,
-              onKeyDown: (e) => {
-                if (e.key === 'Enter') {
-                  e.stopPropagation();
-                }
-              },
+              endAdornment: params.InputProps.endAdornment || (
+                <div className={classes.keyboard}>{isMac ? '⌘' : 'Ctrl'} K</div>
+              ),
               startAdornment: (
                 <InputAdornment position='start' sx={{ marginLeft: '5px', marginRight: 0 }}>
                   <Icon path={mdiMagnify} size={1} />
@@ -280,51 +270,50 @@ const SiteSearch: FunctionComponent = () => {
             variant='outlined'
           />
         )}
-        renderOption={(props, option: SearchResultProps, { index: groupIndex }) => {
-          if (option.id === 'no-results') {
-            return (
-              <div className={classes.results} key='no-results'>
-                <List classes={{ root: classes.group }} dense>
-                  <ListItem key='no-results-list'>
-                    <Icon path={mdiAlertOutline} size={1} />
-                    <ListItemText>No results found.</ListItemText>
-                  </ListItem>
-                </List>
-              </div>
-            );
-          }
-
-          if (!option.visible) {
-            return null;
-          }
-
-          const groupName = option.type === 'icons' ? option?.libraryInfo?.name : option.type === 'docs' ? 'Docs' : 'Contributors';
-          const groupRenderer = option.type === 'icons' ? renderIconResult : option.type === 'docs' ? renderDocsResult : renderContributorResult;
-          const groupLength = Math.min(option.results.length || 0, 10);
-          const lastGroupLength = searchResults.results[groupIndex - 1]?.visible || 0;
-          const lastGroupIndex = Math.min(lastGroupLength, searchResults.results[groupIndex - 1]?.showMore ? 11 : 10) * groupIndex;
-
-          return (
-            <div className={classes.results} key={option.id}>
-              <ListSubheader classes={{ root: classes.groupHeader }}>{groupName}</ListSubheader>
-              <List classes={{ root: classes.group }} dense sx={{ padding: '0 0 .5rem' }}>
-                {option.results.map((result: any, index) => groupRenderer(option, result, index + lastGroupIndex))}
-                {option.showMore && (
-                  <ListItem disablePadding key={lastGroupIndex + groupLength}>
-                    <ListItemButton
-                      component={Link}
-                      href={`/library/${option.id}/?q=${encodeURIComponent(debouncedSearchTerm)}`}
-                      onClick={closeSearchResults}
-                    >
-                      <Icon path={mdiDotsHorizontalCircleOutline} size={1} />
-                      <ListItemText>See All Results</ListItemText>
-                    </ListItemButton>
-                  </ListItem>
-                )}
-              </List>
-            </div>
-          );
-        }}
+        renderOption={(props, option) => (
+          <ListItemButton
+            {...props}
+            classes={{
+              root: cx(classes.result, option?.class)
+            }}
+            component={Link}
+            href={option.href}
+            onClick={closeSearchResults}
+          >
+            {option.image.type === 'icon' && option.image.path ? (
+              <CustomGridIcon
+                gridSize={option.image.gridSize || 24}
+                path={option.image.path}
+                size={1}
+              />
+            ) : option.image.type === 'avatar' ? (
+              <Avatar
+                classes={{ root: classes.avatar }}
+                sx={{
+                  background: option.image.color,
+                  border: `2px solid ${option.image.color}))`,
+                  height: 32,
+                  width: 32
+                }}
+              >
+                {option.image.src ? (
+                  <ExportedImage
+                    alt={option.title}
+                    height={32}
+                    placeholder='empty'
+                    src={option.image.src}
+                    width={32}
+                  />
+                ) : option.title.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+              </Avatar>
+            ) : null}
+            <ListItemText>
+              {option.title}
+              {option.subtitle && <span className={classes.subtext}>{option.subtitle}</span>}
+            </ListItemText>
+          </ListItemButton>
+        )}
+        selectOnFocus
       />
     </div>
   );
