@@ -1,18 +1,16 @@
 import { Fragment, FunctionComponent, ReactNode, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import getConfig from 'next/config';
+import { useRouter } from 'next/router';
 import ExportedImage from 'next-image-export-optimizer';
 import cx from 'clsx';
 import Autocomplete from '@mui/material/Autocomplete';
-import Popper, { PopperProps } from '@mui/material/Popper';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import Avatar from '@mui/material/Avatar';
 import uFuzzy from '@leeoniya/ufuzzy';
+import { useHotkeys } from 'react-hotkeys-hook';
 import Icon from '@mdi/react';
 import { mdiAlertOctagonOutline, mdiAlertOutline, mdiBookOpenPageVariantOutline, mdiCreation, mdiDotsHorizontalCircleOutline, mdiMagnify } from '@mdi/js';
 
@@ -29,6 +27,7 @@ import { ContributorProps } from '@/interfaces/contributor';
 import classes from './SiteSearch.module.scss';
 
 interface SearchResultsProps {
+  class?: string;
   href: string;
   image: {
     color?: string;
@@ -37,7 +36,7 @@ interface SearchResultsProps {
     src?: string;
     type: string;
   }
-  key?: any;
+  key: string;
   subtitle?: ReactNode | string;
   title: string;
   type: string;
@@ -47,10 +46,19 @@ const SiteSearch: FunctionComponent = () => {
   const [ searchTerm, setSearchTerm ] = useState<string>('');
   const [ searchResults, setSearchResults ] = useState<SearchResultsProps[]>([]);
   const [ searchResultsVisible, setSearchResultsVisible ] = useState(false);
+  const [ highlightedResult, setHighlightedResult ] = useState<any>(null);
+  const [ isMac, setIsMac ] = useState(false);
   const { publicRuntimeConfig: { libraries: librariesMeta } } = getConfig();
   const { contributors, docs, libraries } = useData();
   const debouncedSearchTerm = useDebounce(searchTerm, 250);
   const searchBoxRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  useHotkeys('ctrl+k, meta+k', () => searchBoxRef.current?.focus());
+
+  useEffect(() => {
+    setIsMac(window.navigator.platform.toLowerCase().indexOf('mac') === 0);
+  }, []);
 
   const searchLibraries = useCallback((searchTerm: string) => {
     return Object.keys(libraries).reduce((output: any, libraryId: string) => {
@@ -82,16 +90,6 @@ const SiteSearch: FunctionComponent = () => {
     return order.map((position) => contributors[info.idx[position]]);
   }, [ contributors ]);
 
-  const CustomPopper = useCallback((props: PopperProps) => {
-    return (
-      <Popper
-        {...props}
-        placement='bottom-end'
-        sx={{ width: '500px !important' }}
-      />
-    );
-  }, []);
-
   useEffect(() => {
     if (debouncedSearchTerm === '') {
       return setSearchResults([]);
@@ -103,7 +101,7 @@ const SiteSearch: FunctionComponent = () => {
     // eslint-disable-next-line sort-keys
     const allResults = { ...libraryResults, docs, contributors };
 
-    const { results } = Object.keys(allResults).reduce((output: any, key) => {
+    const results = Object.keys(allResults).reduce((output: any, key) => {
       if (!allResults[key].length) {
         return output;
       }
@@ -112,8 +110,7 @@ const SiteSearch: FunctionComponent = () => {
 
       switch (key) {
         case 'contributors':
-          output.results.push({ title: 'Contributors', type: 'header' });
-          output.results.push(...limitedResults.map((result: any) => {
+          output.push(...limitedResults.map((result: any) => {
             return {
               href: `/contributor/${result.github}`,
               image: {
@@ -121,31 +118,31 @@ const SiteSearch: FunctionComponent = () => {
                 src: result.image ? `/images/contributors/${result.id}.jpg` : undefined,
                 type: 'avatar'
               },
-              key: output.iterator++,
+              key: result.github,
               subtitle: `${result.core ? 'Core Member' : 'Community Contributor'}${!!result.contributedRepos?.length ? ' • Code Contributor' : ''}`,
-              title: result.name
+              title: result.name,
+              type: 'Contributors'
             };
           }));
           return output;
         case 'docs':
-          output.results.push({ title: 'Documentation', type: 'header' });
-          output.results.push(...limitedResults.map((result: any) => {
+          output.push(...limitedResults.map((result: any) => {
             return {
               href: `/docs/${result.slug}`,
               image: {
                 path: mdiBookOpenPageVariantOutline,
                 type: 'icon'
               },
-              key: output.iterator++,
+              key: result.slug,
               subtitle: `${result.library ? `${result.library} • ` : ''}${result.category}`,
-              title: result.title
+              title: result.title,
+              type: 'Documentation'
             };
           }));
           return output;
         default:
           const libraryInfo = librariesMeta.icons.find((library: IconLibrary) => library.id === key);
-          output.results.push({ title: libraryInfo.name, type: 'header' });
-          output.results.push(...limitedResults.map((result: any) => {
+          output.push(...limitedResults.map((result: any) => {
             return {
               href: `/library/${key}/icon/${result.n}`,
               image: {
@@ -153,7 +150,7 @@ const SiteSearch: FunctionComponent = () => {
                 path: result.p,
                 type: 'icon'
               },
-              key: output.iterator++,
+              key: `${key}-${result.n}`,
               subtitle: (
                 <Fragment>
                   {!!result.d ? (
@@ -164,38 +161,39 @@ const SiteSearch: FunctionComponent = () => {
                   Added in v{result.v}
                 </Fragment>
               ),
-              title: result.n
+              title: result.n,
+              type: libraryInfo.name
             };
           }));
 
           if (allResults[key].length > 10) {
-            output.results.push({
+            output.push({
+              class: classes.more,
               href: `/library/${key}/?q=${encodeURIComponent(debouncedSearchTerm)}`,
               image: {
                 path: mdiDotsHorizontalCircleOutline,
                 type: 'icon'
               },
-              key: output.iterator++,
+              key: `view-more-${key}`,
               title: `View All ${libraryInfo.name} Results...`,
-              type: 'view-more'
+              type: libraryInfo.name
             });
           }
           return output;
       }
-    }, {
-      iterator: 0,
-      results: []
-    });
+    }, []);
 
     if (!results.length) {
       return setSearchResults([{
+        class: classes.noResults,
         href: '#',
         image: {
           path: mdiAlertOutline,
           type: 'icon'
         },
+        key: 'no-results',
         title: 'No results found.',
-        type: 'no-results'
+        type: 'Search Results'
       }]);
     }
 
@@ -217,29 +215,45 @@ const SiteSearch: FunctionComponent = () => {
   return (
     <div className={classes.root}>
       <Autocomplete
-        classes={{ paper: classes.menuPaper }}
-        clearOnBlur={false}
+        classes={{
+          groupLabel: classes.header,
+          listbox: classes.results,
+          paper: classes.menuPaper
+        }}
+        clearOnBlur
+        componentsProps={{
+          popper: {
+            placement: 'bottom-end',
+            sx: { width: '500px !important' }
+          }
+        }}
         filterOptions={(options) => options}
         freeSolo
         fullWidth
-        getOptionLabel={(option: any) => option.id || searchTerm}
-        onInputChange={(e: SyntheticEvent, value: string) => setSearchTerm(value)}
+        getOptionLabel={(option: any) => option.key}
+        groupBy={(option: SearchResultsProps) => option.type}
         onClose={closeSearchResults}
+        onHighlightChange={(e, option) => setHighlightedResult(option)}
+        onInputChange={(e: SyntheticEvent, value: string) => setSearchTerm(value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            // @ts-ignore
+            e.defaultMuiPrevented = true;
+            router.push(highlightedResult.href);
+            closeSearchResults();
+          }
+        }}
         onOpen={openSearchResults}
         open={searchResultsVisible}
         options={searchResults}
-        PopperComponent={CustomPopper}
         renderInput={(params) => (
           <TextField
             {...params}
-            classes={{ root: classes.searchBox }}
             InputProps={{
               ...params.InputProps,
-              onKeyDown: (e) => {
-                if (e.key === 'Enter') {
-                  e.stopPropagation();
-                }
-              },
+              endAdornment: params.InputProps.endAdornment || (
+                <div className={classes.keyboard}>{isMac ? '⌘' : 'Ctrl'} K</div>
+              ),
               startAdornment: (
                 <InputAdornment position='start' sx={{ marginLeft: '5px', marginRight: 0 }}>
                   <Icon path={mdiMagnify} size={1} />
@@ -256,76 +270,50 @@ const SiteSearch: FunctionComponent = () => {
             variant='outlined'
           />
         )}
-        ListboxComponent={List}
-        ListboxProps={{
-          classes: {
-            root: classes.results
-          }
-        } as any}
-        renderOption={(props, option) => {
-          if (option.type === 'no-results') {
-            return (
-              <Fragment>
-                <ListSubheader classes={{ root: classes.header }} key='no-results-header'>Search Results</ListSubheader>
-                <ListItem key='no-results'>
-                  <Icon path={mdiAlertOutline} size={1} />
-                  <ListItemText>No results found.</ListItemText>
-                </ListItem>
-              </Fragment>
-            );
-          }
-
-          if (option.type === 'header') {
-            return <ListSubheader classes={{ root: classes.header }} key={option.title}>{option.title}</ListSubheader>;
-          }
-
-          return (
-            <ListItem disablePadding key={option.key}>
-              <ListItemButton
-                classes={{
-                  root: cx(classes.result, {
-                    [classes.more]: option.type === 'view-more'
-                  })
+        renderOption={(props, option) => (
+          <ListItemButton
+            {...props}
+            classes={{
+              root: cx(classes.result, option?.class)
+            }}
+            component={Link}
+            href={option.href}
+            onClick={closeSearchResults}
+          >
+            {option.image.type === 'icon' && option.image.path ? (
+              <CustomGridIcon
+                gridSize={option.image.gridSize || 24}
+                path={option.image.path}
+                size={1}
+              />
+            ) : option.image.type === 'avatar' ? (
+              <Avatar
+                classes={{ root: classes.avatar }}
+                sx={{
+                  background: option.image.color,
+                  border: `2px solid ${option.image.color}))`,
+                  height: 32,
+                  width: 32
                 }}
-                component={Link}
-                href={option.href}
-                onClick={closeSearchResults}
               >
-                {option.image.type === 'icon' && option.image.path ? (
-                  <CustomGridIcon
-                    gridSize={option.image.gridSize || 24}
-                    path={option.image.path}
-                    size={1}
+                {option.image.src ? (
+                  <ExportedImage
+                    alt={option.title}
+                    height={32}
+                    placeholder='empty'
+                    src={option.image.src}
+                    width={32}
                   />
-                ) : option.image.type === 'avatar' ? (
-                  <Avatar
-                    classes={{ root: classes.avatar }}
-                    sx={{
-                      background: option.image.color,
-                      border: `2px solid ${option.image.color}))`,
-                      height: 32,
-                      width: 32
-                    }}
-                  >
-                    {option.image.src ? (
-                      <ExportedImage
-                        alt={option.title}
-                        height={32}
-                        placeholder='empty'
-                        src={option.image.src}
-                        width={32}
-                      />
-                    ) : option.title.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-                  </Avatar>
-                ) : null}
-                <ListItemText>
-                  {option.title}
-                  {option.subtitle && <span className={classes.subtext}>{option.subtitle}</span>}
-                </ListItemText>
-              </ListItemButton>
-            </ListItem>
-          );
-        }}
+                ) : option.title.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+              </Avatar>
+            ) : null}
+            <ListItemText>
+              {option.title}
+              {option.subtitle && <span className={classes.subtext}>{option.subtitle}</span>}
+            </ListItemText>
+          </ListItemButton>
+        )}
+        selectOnFocus
       />
     </div>
   );
