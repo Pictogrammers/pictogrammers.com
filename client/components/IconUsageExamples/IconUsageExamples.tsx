@@ -34,7 +34,7 @@ interface IconUsageExamplesProps {
   iconName: string;
 }
 
-const IconUsageExamples: FunctionComponent<IconUsageExamplesProps> = ({ exampleTypes = [], library, iconName }) => {
+const IconUsageExamples: FunctionComponent<IconUsageExamplesProps> = ({ exampleTypes = [], iconName, library }) => {
   const [ activeExample, setActiveExample ] = useState(0);
 
   if (!exampleTypes.length) {
