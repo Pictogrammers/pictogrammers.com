@@ -222,6 +222,9 @@ const SiteSearch: FunctionComponent = () => {
         }}
         clearOnBlur
         componentsProps={{
+          paper: {
+            elevation: 4
+          },
           popper: {
             placement: 'bottom-end',
             sx: { width: '500px !important' }
@@ -229,7 +232,6 @@ const SiteSearch: FunctionComponent = () => {
         }}
         filterOptions={(options) => options}
         freeSolo
-        fullWidth
         getOptionLabel={(option: any) => option.key}
         groupBy={(option: SearchResultsProps) => option.type}
         onClose={closeSearchResults}
@@ -251,6 +253,9 @@ const SiteSearch: FunctionComponent = () => {
             {...params}
             InputProps={{
               ...params.InputProps,
+              classes: {
+                root: classes.searchInput
+              },
               endAdornment: params.InputProps.endAdornment || (
                 <div className={classes.keyboard}>{isMac ? '⌘' : 'Ctrl'} K</div>
               ),
@@ -258,16 +263,10 @@ const SiteSearch: FunctionComponent = () => {
                 <InputAdornment position='start' sx={{ marginLeft: '5px', marginRight: 0 }}>
                   <Icon path={mdiMagnify} size={1} />
                 </InputAdornment>
-              ),
-              sx: {
-                backgroundColor: 'hsl(var(--white))',
-                borderRadius: '24px'
-              }
+              )
             }}
-            placeholder='Search Pictogrammers.com'
             inputRef={searchBoxRef}
-            size='small'
-            variant='outlined'
+            placeholder='Search'
           />
         )}
         renderOption={(props, option) => (
@@ -291,9 +290,7 @@ const SiteSearch: FunctionComponent = () => {
                 classes={{ root: classes.avatar }}
                 sx={{
                   background: option.image.color,
-                  border: `2px solid ${option.image.color}))`,
-                  height: 32,
-                  width: 32
+                  border: `2px solid ${option.image.color}`
                 }}
               >
                 {option.image.src ? (
@@ -314,6 +311,7 @@ const SiteSearch: FunctionComponent = () => {
           </ListItemButton>
         )}
         selectOnFocus
+        size='small'
       />
     </div>
   );

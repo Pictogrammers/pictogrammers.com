@@ -26,10 +26,8 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
   const { track } = useAnalytics();
   const router = useRouter();
 
-  const sessionCookie = Cookies.get(sessionCookieName);
-
   useEffect(() => {
-    const getSessionData = async () => {
+    const getSessionData = async (sessionCookie: any) => {
       const response = await fetch(`${apiBase}/auth/session`, { credentials: 'include', mode: 'cors' });
       if (response.ok) {
         const data = await response.json();
@@ -46,22 +44,24 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
       }
     };
 
+    const sessionCookie = Cookies.get(sessionCookieName);
     if (sessionCookie && !authData) {
-      getSessionData();
+      getSessionData(sessionCookie);
     } else if (!sessionCookie) {
       setLoading(false);
     }
-  }, [ authData, apiBase, sessionCookie ]);
+  }, [ authData, apiBase, sessionCookieName ]);
 
   const logout = async (event: MouseEvent) => {
     event.preventDefault();
 
     try {
-      await router.push('/');
       await fetch(`${apiBase}/auth/logout`, { credentials: 'include', mode: 'cors' });
-      Cookies.remove(sessionCookieName);
+      Cookies.remove(sessionCookieName, { domain: 'pictogrammers.com '});
       setAuthData(null);
       setLastError(null);
+      await router.push('/');
+      enqueueSnackbar('You have been logged out.', { variant: 'success' });
     } catch (error) {
       enqueueSnackbar('Fatal Error: Unable to log you out.', { variant: 'error' });
       track('logoutError');

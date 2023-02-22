@@ -3,7 +3,6 @@ import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 import ExportedImage from 'next-image-export-optimizer';
 import Cookies from 'js-cookie';
-import { useSnackbar } from 'notistack';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/material/Menu';
@@ -27,7 +26,6 @@ import classes from './Header.module.scss';
 const HeaderAuth: FunctionComponent = () => {
   const [ anchorEl, setAnchorEl ] = useState<null | HTMLElement>(null);
   const { publicRuntimeConfig: { apiBase } } = getConfig();
-  const { enqueueSnackbar } = useSnackbar();
   const auth = useAuth();
   const { contributors } = useData();
   const router = useRouter();
@@ -50,10 +48,16 @@ const HeaderAuth: FunctionComponent = () => {
       {auth.isLoggedIn ? (
         <Fragment>
           <IconButton
-            aria-label={auth?.contributor?.name || auth.github.name}
+            aria-label={auth.contributor?.name || auth.github.name}
+            classes={{
+              root: classes.authButton
+            }}
             onClick={handleMenuOpen}
           >
             <Avatar
+              classes={{
+                root: classes.avatar
+              }}
               sx={{
                 backgroundColor: `hsl(var(${thisContributorColor}))`,
                 border: `2px solid hsl(var(${thisContributorColor}))`
@@ -62,10 +66,10 @@ const HeaderAuth: FunctionComponent = () => {
               {thisContributor?.image ? (
                 <ExportedImage
                   alt={thisContributor?.name || auth.github.name}
-                  height={42}
+                  height={36}
                   placeholder='empty'
                   src={thisContributor?.image ? `/images/contributors/${thisContributor?.id}.jpg` : auth.github.avatar}
-                  width={42}
+                  width={36}
                 />
               ) : (thisContributor?.name || auth.github.name).split(' ').map((n: string) => n[0]).join('').toUpperCase()}
             </Avatar>
@@ -109,7 +113,6 @@ const HeaderAuth: FunctionComponent = () => {
                 onClick={(event: MouseEvent) => {
                   handleMenuClose();
                   auth.logout(event);
-                  enqueueSnackbar('You have been logged out.', { variant: 'success' });
                 }}
                 href={`${apiBase}/auth/logout`}
               >
@@ -125,15 +128,14 @@ const HeaderAuth: FunctionComponent = () => {
         <Tooltip title='Log In'>
           <IconButton
             aria-label='Log In'
+            classes={{
+              root: classes.authButton
+            }}
             component={Link}
             href='/login'
             onClick={handleLogin}
-            sx={{
-              height: 56,
-              width: 56
-            }}
           >
-            <Icon path={mdiLoginVariant} color='hsl(var(--primary-color))' size={1} />
+            <Icon path={mdiLoginVariant} color='hsl(var(--primary-color))' size={.9} />
           </IconButton>
         </Tooltip>
       )}

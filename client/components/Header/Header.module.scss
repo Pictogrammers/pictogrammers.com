@@ -4,9 +4,9 @@
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  max-height: 100px;
+  max-height: 5rem;
   max-width: $width-max;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
 }
 
 .options {
@@ -21,6 +21,16 @@
 
 .auth {
   margin-left: 1rem;
+
+  .authButton {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  .avatar {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
 }
 
 .logo {
@@ -60,7 +70,9 @@
   width: 100%;
 
   a {
+    font-size: .9rem;
     text-decoration: none;
+    text-transform: none;
   }
 }
 
@@ -169,6 +181,7 @@
     z-index: 999;
 
     a {
+      font-size: 1rem;
       padding: 1rem 0;
 
       &:not(:last-child) {

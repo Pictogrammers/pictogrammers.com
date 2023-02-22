@@ -24,12 +24,6 @@ const Header: FunctionComponent = () => {
       component={Link}
       href={href}
       onClick={() => setMenu(null)}
-      sx={{
-        borderRadius: '50px',
-        fontSize: '16px',
-        padding: '.5rem 1rem',
-        textTransform: 'none'
-      }}
       {...props}
     />
   );

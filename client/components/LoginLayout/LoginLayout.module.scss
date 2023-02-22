@@ -1,0 +1,25 @@
+.root {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 30rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.logo {
+  max-width: 300px;
+  padding: 2rem 0;
+
+  svg {
+    width: 100%;
+  }
+}

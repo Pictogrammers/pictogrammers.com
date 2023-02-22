@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app';
 import getConfig from 'next/config';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Manrope } from '@next/font/google';
 import Analytics from 'analytics';
@@ -13,12 +14,16 @@ import { DataProvider } from '@/providers/DataProvider';
 
 import Layout from '@/components/Layout/Layout';
 import CookieConsent from '@/components/CookieConsent/CookieConsent';
+import ConditionalWrapper from '@/components/ConditionalWrapper/ConditionalWrapper';
 
 import themeVars from '@/styles/theme.module.scss';
 import '@/styles/defaults.scss';
 import '@/components/CarbonAd/Carbon.scss';
 
-const manrope = Manrope({ subsets: ['latin'] });
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--manrope-font'
+});
 
 const { palette } = createTheme();
 const theme = createTheme({
@@ -80,6 +85,7 @@ const theme = createTheme({
 
 const Pictogrammers = ({ Component, pageProps }: AppProps) => {
   const { publicRuntimeConfig: { analytics } } = getConfig();
+  const router = useRouter();
   const analyticsInstance = Analytics({
     app: 'Pictogrammers',
     debug: process?.env?.NODE_ENV === 'development',
@@ -117,10 +123,15 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <AnalyticsProvider instance={analyticsInstance}>
           <AuthProvider>
             <DataProvider>
-              <CookieConsent />
-              <Layout className={manrope.className}>
-                <Component {...pageProps} />
-              </Layout>
+              <div className={manrope.className}>
+                <CookieConsent />
+                <ConditionalWrapper
+                  condition={router.route !== '/login'}
+                  wrapper={(children: any) => <Layout>{children}</Layout>}
+                >
+                  <Component {...pageProps} />
+                </ConditionalWrapper>
+              </div>
             </DataProvider>
           </AuthProvider>
         </AnalyticsProvider>
