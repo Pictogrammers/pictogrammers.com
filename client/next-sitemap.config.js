@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   exclude: [
-    '/403/',
+    '/403',
     '/login',
     '/admin',
     '/admin/*'

@@ -14,113 +14,113 @@
       padding: 0 .25rem;
     }
   }
-
-  .menuPaper {
-    margin-top: 2px;
-  }
 }
 
-.results {
-  padding-top: 0;
+.menuPaper {
+  margin-top: 2px;
 
-  .result {
-    padding: .2rem 1rem !important;
-    transition: none;
-
-    // Needed to solve an issue with `onHighlightChange`.
-    // See: https://github.com/mui/material-ui/issues/31383
-    & > * {
-      pointer-events: none;
-    }
-
-    &::after {
-      background-color: hsl(var(--dark-grey) / 50%);
-      content: '';
-      height: 24px;
-      mask: url('../../../node_modules/@mdi/svg/svg/keyboard-return.svg');
-      mask-size: cover;
-      opacity: 0;
-      position: absolute;
-      right: 1rem;
-      width: 24px;
-    }
-
-    &[class~='Mui-focused'],
-    &[class~='Mui-focusVisible'] {
+  .results {
+    padding-top: 0;
+  
+    .result {
+      padding: .2rem 1rem !important;
+      transition: none;
+  
+      // Needed to solve an issue with `onHighlightChange`.
+      // See: https://github.com/mui/material-ui/issues/31383
+      & > * {
+        pointer-events: none;
+      }
+  
       &::after {
-        opacity: 1;
+        background-color: hsl(var(--dark-grey) / 50%);
+        content: '';
+        height: 24px;
+        mask: url('../../../node_modules/@mdi/svg/svg/keyboard-return.svg');
+        mask-size: cover;
+        opacity: 0;
+        position: absolute;
+        right: 1rem;
+        width: 24px;
+      }
+  
+      &[class~='Mui-focused'],
+      &[class~='Mui-focusVisible'] {
+        &::after {
+          opacity: 1;
+        }
+      }
+  
+      &.more {
+        padding: .5rem 1rem;
+      }
+  
+      &.noResults {
+        background-color: transparent;
+        pointer-events: none;
       }
     }
-
-    &.more {
-      padding: .5rem 1rem;
-    }
-
-    &.noResults {
-      background-color: transparent;
-      pointer-events: none;
-    }
-  }
-
-  svg {
-    color: hsl(var(--grey));
-  }
-
-  .avatar,
-  svg {
-    margin-right: 1rem;
-    min-width: 2rem;
-  }
-
-  .avatar {
-    font-size: .9rem;
-    height: 32px;
-    width: 32px;
-  }
-
-  .header {
-    border-bottom: 1px solid hsl(var(--medium-grey));
-    font-size: .9rem;
-    letter-spacing: 1px;
-    line-height: 2;
-    margin: 0 0 .5rem;
-    padding: .5rem 1rem 0;
-    text-transform: uppercase;
-    top: 0;
-  }
-
-  .new {
-    color: hsl(var(--primary-color));
-
+  
     svg {
+      color: hsl(var(--grey));
+    }
+  
+    .avatar,
+    svg {
+      margin-right: 1rem;
+      min-width: 2rem;
+    }
+  
+    .avatar {
+      font-size: .9rem;
+      height: 32px;
+      width: 32px;
+    }
+  
+    .header {
+      border-bottom: 1px solid hsl(var(--medium-grey));
+      font-size: .9rem;
+      letter-spacing: 1px;
+      line-height: 2;
+      margin: 0 0 .5rem;
+      padding: .5rem 1rem 0;
+      text-transform: uppercase;
+      top: 0;
+    }
+  
+    .new {
       color: hsl(var(--primary-color));
+  
+      svg {
+        color: hsl(var(--primary-color));
+      }
     }
-  }
-
-  .deprecated {
-    color: hsl(var(--red));
-
-    svg {
+  
+    .deprecated {
       color: hsl(var(--red));
+  
+      svg {
+        color: hsl(var(--red));
+      }
     }
-  }
-
-  .new,
-  .deprecated {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-
-    svg {
-      margin: 0 -7px 0 -10px;
+  
+    .new,
+    .deprecated {
+      align-items: center;
+      display: inline-flex;
+      justify-content: center;
+  
+      svg {
+        margin: 0 -7px 0 -10px;
+      }
     }
-  }
-
-  .subtext {
-    color: hsl(var(--grey));
-    column-gap: .2rem;
-    display: flex;
-    font-size: .8rem;
+  
+    .subtext {
+      color: hsl(var(--grey));
+      column-gap: .2rem;
+      display: flex;
+      font-size: .8rem;
+    }
   }
 }
 
