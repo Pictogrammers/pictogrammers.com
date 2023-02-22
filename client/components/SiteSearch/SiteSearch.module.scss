@@ -3,20 +3,20 @@
   max-width: 250px;
   min-width: 200px;
   width: 100%;
-}
 
-.menuPaper {
-  margin-top: 2px;
-}
+  .searchInput {
+    background-color: hsl(var(--white));
+    font-size: .9rem;
+  
+    .keyboard {
+      color: hsl(var(--dark-grey) / 50%);
+      margin-right: .25rem;
+      padding: 0 .25rem;
+    }
+  }
 
-.searchInput {
-  background-color: hsl(var(--white));
-  font-size: .9rem;
-
-  .keyboard {
-    color: hsl(var(--dark-grey) / 50%);
-    margin-right: .25rem;
-    padding: 0 .25rem;
+  .menuPaper {
+    margin-top: 2px;
   }
 }
 
