@@ -23,19 +23,24 @@ const Header: FunctionComponent = () => {
   const [ menuOpen, setMenu ] = useState(false);
 
   const toggleMenu = () => {
-    if (menuOpen) {
-      document.body.style.removeProperty('overflow');
-      return setMenu(false);
-    }
+    return menuOpen ? closeMenu() : openMenu();
+  };
+
+  const openMenu = () => {
     document.body.style.overflow = 'hidden';
-    return setMenu(true);
+    setMenu(true);
+  };
+
+  const closeMenu = () => {
+    document.body.style.removeProperty('overflow');
+    setMenu(false);
   };
 
   const NavButton = ({ href, ...props }: NavButtonProps) => (
     <Button
       component={Link}
       href={href}
-      onClick={toggleMenu}
+      onClick={closeMenu}
       {...props}
     />
   );
@@ -45,7 +50,7 @@ const Header: FunctionComponent = () => {
       <Link
         className={classes.logo}
         href='/'
-        onClick={toggleMenu}
+        onClick={closeMenu}
       >
         <PictogrammersLogo className={classes.monogram} title='Pictogrammers Monogram' />
         <PictogrammersWordmark className={classes.wordmark} title='Pictogrammers' />
