@@ -34,7 +34,7 @@ const renderLibrariesAndCategories = (docs: any) => {
                   badge={libraryInfo?.image && <ExportedImage alt={libraryInfo.name} placeholder='empty' src={`/${libraryInfo.image}`} width={24} height={24} />}
                   description={categoryInfo.description}
                   headerElement='h3'
-                  href={`/docs/${library !== 'all' ? `library/${library}/` : ''}${categoryInfo.id}`}
+                  href={`/docs/${library !== 'all' ? `library/${library}/` : ''}${categoryInfo.id}/`}
                   icon={categoryInfo.icon}
                   key={categoryInfo.id}
                   superTitle={libraryInfo.name}

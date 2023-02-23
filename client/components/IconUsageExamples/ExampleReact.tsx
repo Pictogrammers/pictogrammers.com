@@ -38,7 +38,7 @@ import { ${jsName} } from '@${library}/js';
         color='secondary'
         component={Link}
         fullWidth
-        href={`/docs/library/${library}/getting-started/react`}
+        href={`/docs/library/${library}/getting-started/react/`}
         size='large'
         startIcon={<Icon path={mdiArrowRight} size={1} />}
         sx={{ textDecoration: 'none' }}

@@ -42,7 +42,7 @@ const DocCategoryList: FunctionComponent<DocCategoryListProps> = ({ category, do
                 color={`--${category.id}-color`}
                 description={doc.description}
                 fullWidth
-                href={`/docs/${doc.slug}`}
+                href={`/docs/${doc.slug}/`}
                 icon={doc.iconPath || category.icon}
                 key={d}
                 title={doc.title}

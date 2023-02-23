@@ -2,9 +2,10 @@ import { Fragment, FunctionComponent, MouseEvent, useState } from 'react';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 import ExportedImage from 'next-image-export-optimizer';
+import cx from 'clsx';
 import Cookies from 'js-cookie';
+import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
@@ -12,7 +13,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { mdiAccountBoxOutline, mdiLoginVariant, mdiLogoutVariant, mdiShieldAccountOutline } from '@mdi/js';
+import Button from '@mui/material/Button';
+import { mdiAccountBoxOutline, mdiChevronDown, mdiLogoutVariant, mdiShieldAccountOutline } from '@mdi/js';
 
 import { useAuth } from '@/providers/AuthProvider';
 import { useData } from '@/providers/DataProvider';
@@ -54,25 +56,40 @@ const HeaderAuth: FunctionComponent = () => {
             }}
             onClick={handleMenuOpen}
           >
-            <Avatar
+            <Badge
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              badgeContent={(
+                <Icon path={mdiChevronDown} size={.6} />
+              )}
               classes={{
-                root: classes.avatar
+                badge: classes.badgeIcon,
+                root: cx(classes.badge, {
+                  [classes.badgeActive]: !!anchorEl
+                })
               }}
-              sx={{
-                backgroundColor: `hsl(var(${thisContributorColor}))`,
-                border: `2px solid hsl(var(${thisContributorColor}))`
-              }}
+              color='secondary'
+              overlap='circular'
             >
-              {thisContributor?.image ? (
-                <ExportedImage
-                  alt={thisContributor?.name || auth.github.name}
-                  height={36}
-                  placeholder='empty'
-                  src={thisContributor?.image ? `/images/contributors/${thisContributor?.id}.jpg` : auth.github.avatar}
-                  width={36}
-                />
-              ) : (thisContributor?.name || auth.github.name).split(' ').map((n: string) => n[0]).join('').toUpperCase()}
-            </Avatar>
+              <Avatar
+                classes={{
+                  root: classes.avatar
+                }}
+                sx={{
+                  backgroundColor: `hsl(var(${thisContributorColor}))`,
+                  border: `2px solid hsl(var(${thisContributorColor}))`
+                }}
+              >
+                {thisContributor?.image ? (
+                  <ExportedImage
+                    alt={thisContributor?.name || auth.github.name}
+                    height={36}
+                    placeholder='empty'
+                    src={thisContributor?.image ? `/images/contributors/${thisContributor?.id}.jpg` : auth.github.avatar}
+                    width={36}
+                  />
+                ) : (thisContributor?.name || auth.github.name).split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+              </Avatar>
+            </Badge>
           </IconButton>
           <Menu
             anchorEl={anchorEl}
@@ -125,19 +142,17 @@ const HeaderAuth: FunctionComponent = () => {
           </Menu>
         </Fragment>
       ) : (
-        <Tooltip title='Log In'>
-          <IconButton
-            aria-label='Log In'
-            classes={{
-              root: classes.authButton
-            }}
-            component={Link}
-            href='/login'
-            onClick={handleLogin}
-          >
-            <Icon path={mdiLoginVariant} color='hsl(var(--primary-color))' size={.9} />
-          </IconButton>
-        </Tooltip>
+        <Button
+          classes={{
+            root: classes.authButton
+          }}
+          component={Link}
+          href='/login/'
+          onClick={handleLogin}
+          variant='contained'
+        >
+          Log In
+        </Button>
       )}
     </div>
   );

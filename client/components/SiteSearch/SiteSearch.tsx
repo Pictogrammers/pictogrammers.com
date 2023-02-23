@@ -112,7 +112,7 @@ const SiteSearch: FunctionComponent = () => {
         case 'contributors':
           output.push(...limitedResults.map((result: any) => {
             return {
-              href: `/contributor/${result.github}`,
+              href: `/contributor/${result.github}/`,
               image: {
                 color: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
                 src: result.image ? `/images/contributors/${result.id}.jpg` : undefined,
@@ -128,7 +128,7 @@ const SiteSearch: FunctionComponent = () => {
         case 'docs':
           output.push(...limitedResults.map((result: any) => {
             return {
-              href: `/docs/${result.slug}`,
+              href: `/docs/${result.slug}/`,
               image: {
                 path: mdiBookOpenPageVariantOutline,
                 type: 'icon'
@@ -144,7 +144,7 @@ const SiteSearch: FunctionComponent = () => {
           const libraryInfo = librariesMeta.icons.find((library: IconLibrary) => library.id === key);
           output.push(...limitedResults.map((result: any) => {
             return {
-              href: `/library/${key}/icon/${result.n}`,
+              href: `/library/${key}/icon/${result.n}/`,
               image: {
                 gridSize: libraryInfo?.gridSize,
                 path: result.p,
@@ -257,10 +257,10 @@ const SiteSearch: FunctionComponent = () => {
                 root: classes.searchInput
               },
               endAdornment: params.InputProps.endAdornment || (
-                <div className={classes.keyboard}>{isMac ? '⌘' : 'Ctrl'} K</div>
+                <div className={classes.keyboard}>{isMac ? '⌘' : 'Ctrl '}K</div>
               ),
               startAdornment: (
-                <InputAdornment position='start' sx={{ marginLeft: '5px', marginRight: 0 }}>
+                <InputAdornment position='start' sx={{ marginLeft: '2px', marginRight: 0 }}>
                   <Icon path={mdiMagnify} size={1} />
                 </InputAdornment>
               )

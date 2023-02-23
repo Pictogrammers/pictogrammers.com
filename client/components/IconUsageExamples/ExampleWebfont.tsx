@@ -33,7 +33,7 @@ const ExampleWebfont: FunctionComponent<ExampleWebfontProps> = ({ iconName, libr
         color='secondary'
         component={Link}
         fullWidth
-        href={`/docs/library/${library}/getting-started/webfont`}
+        href={`/docs/library/${library}/getting-started/webfont/`}
         size='large'
         startIcon={<Icon path={mdiArrowRight} size={1} />}
         sx={{ textDecoration: 'none' }}

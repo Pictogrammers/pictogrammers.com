@@ -60,6 +60,10 @@ const BrandGuidelines: FunctionComponent<BrandGuidelinesProps> = ({ description,
         type='article'
       />
       <Layout
+        breadcrumbs={[
+          <Link href='/docs/' key='docs'>Docs</Link>,
+          <Link href='/docs/general/' key='category'>General</Link>
+        ]}
         title='Brand Guidelines'
         toc={toc}
       >

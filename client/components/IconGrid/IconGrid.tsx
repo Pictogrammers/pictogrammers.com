@@ -95,7 +95,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
                 [classes.deprecated]: !!icon.d
               })}
               disableRouter
-              href={`/library/${library.id}/icon/${icon.n}`}
+              href={`/library/${library.id}/icon/${icon.n}/`}
               onClick={(e: MouseEvent<HTMLAnchorElement>) => handleIconModalOpen(e, icon)}
               title={!icon.d ? icon.n : undefined}
             >

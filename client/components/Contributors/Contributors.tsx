@@ -58,7 +58,7 @@ const Contributor: FunctionComponent<ContributorProps> = ({
           ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
         </Avatar>
       )}
-      href={`/contributor/${github}`}
+      href={`/contributor/${github}/`}
       title={name}
     />
   );

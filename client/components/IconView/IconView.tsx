@@ -74,7 +74,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
           }}
         >
           <Link href='/libraries/'>Icons & Fonts</Link>
-          <Link href={`/library/${libraryInfo.id}`}>{libraryName}</Link>
+          <Link href={`/library/${libraryInfo.id}/`}>{libraryName}</Link>
         </Breadcrumbs>
         <div className={classes.iconName}>
           <Tooltip arrow placement='right' title='Copy Icon Name'>
@@ -110,7 +110,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                   <IconButton
                     aria-label='View Details'
                     component={Link}
-                    href={`/library/${libraryInfo.id}/icon/${icon.n}`}
+                    href={`/library/${libraryInfo.id}/icon/${icon.n}/`}
                   >
                     <Icon path={mdiArrowExpand} size={1} />
                   </IconButton>
@@ -136,7 +136,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
           <div className={classes.infoBar}>
             <div className={classes.info}>
               <Tooltip arrow placement='top' title={`View the v${icon.v} release`}>
-                <Link href={`/library/${libraryInfo.id}/version/${icon.v}`} onClick={() => onClose?.()}>
+                <Link href={`/library/${libraryInfo.id}/version/${icon.v}/`} onClick={() => onClose?.()}>
                   <Chip
                     color='primary'
                     icon={<Icon path={mdiCheck} size={.8} />}
@@ -147,7 +147,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
               </Tooltip>
               {contributor && (
                 <Tooltip arrow placement='top' title={`View ${contributor.name}`}>
-                  <Link href={`/contributor/${contributor.github}`} onClick={() => onClose?.()}>
+                  <Link href={`/contributor/${contributor.github}/`} onClick={() => onClose?.()}>
                     <Chip
                       icon={
                         <Avatar
@@ -244,7 +244,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                   {icon?.categories?.map((tag) => {
                     return (
                       <Tooltip arrow key={tag.slug} placement='top' title={`View all ${tag.name} icons`}>
-                        <Link href={`/library/${libraryInfo.id}/category/${tag.slug}`} onClick={() => onClose?.()}>
+                        <Link href={`/library/${libraryInfo.id}/category/${tag.slug}/`} onClick={() => onClose?.()}>
                           <Chip icon={<Icon path={mdiTag} size={.7} />} label={tag.name} sx={{ backgroundColor: 'hsl(var(--dark-cyan))', color: 'hsl(var(--white))', cursor: 'pointer' }} />
                         </Link>
                       </Tooltip>

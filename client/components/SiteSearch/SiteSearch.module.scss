@@ -1,5 +1,4 @@
 .root {
-  margin-left: 1rem;
   max-width: 250px;
   min-width: 200px;
   width: 100%;
@@ -9,7 +8,11 @@
     font-size: .9rem;
   
     .keyboard {
-      color: hsl(var(--dark-grey) / 50%);
+      background-color: hsl(var(--light-grey) / 30%);
+      border: 1px solid hsl(var(--medium-grey));
+      border-radius: 4px;
+      color: hsl(var(--dark-grey) / 60%);
+      font-size: .75rem;
       margin-right: .25rem;
       padding: 0 .25rem;
     }
@@ -121,11 +124,5 @@
       display: flex;
       font-size: .8rem;
     }
-  }
-}
-
-@media only screen and (max-width: ($mobile-width + 50)) {
-  .root {
-    display: none;
   }
 }

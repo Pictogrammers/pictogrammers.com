@@ -33,7 +33,7 @@ const ExampleHomeAssistant: FunctionComponent<ExampleHomeAssistantProps> = ({ ic
         color='secondary'
         component={Link}
         fullWidth
-        href={`/docs/library/${library}/guides/home-assistant`}
+        href={`/docs/library/${library}/guides/home-assistant/`}
         size='large'
         startIcon={<Icon path={mdiArrowRight} size={1} />}
         sx={{ textDecoration: 'none' }}

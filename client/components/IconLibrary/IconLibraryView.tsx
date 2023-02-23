@@ -118,7 +118,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
   useEffect(() => {
     if (router.query.q) {
       setSearchTerm(router.query.q as string);
-      router.push(`/library/${slug}`, undefined, { shallow: true });
+      router.push(`/library/${slug}/`, undefined, { shallow: true });
     }
   }, [ router, slug ]);
 
@@ -153,7 +153,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
   };
 
   const handleChipDelete = () => {
-    router.push(`/library/${libraryInfo.id}`);
+    router.push(`/library/${libraryInfo.id}/`);
   };
 
   const renderCategories = () => {
@@ -170,7 +170,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
             <ListItem disablePadding key={catId}>
               <ListItemButton
                 component={Link}
-                href={`/library/${libraryInfo.id}/category/${categorySlug}`}
+                href={`/library/${libraryInfo.id}/category/${categorySlug}/`}
                 selected={categorySlug === category}
               >
                 <Icon path={mdiTagOutline} size={.8} />
@@ -248,7 +248,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
       return (
         <Alert classes={{ root: classes.infoAlert }} severity='warning'>
           <AlertTitle>New Icons in v{version}</AlertTitle>
-          Please be sure to check the <Link href={`/docs/library/${libraryInfo.id}/releases/changelog`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here. For real-time updates, check the <Link href={`/library/${libraryInfo.id}/history`}>history</Link> page.
+          Please be sure to check the <Link href={`/docs/library/${libraryInfo.id}/releases/changelog/`}>changelog</Link> before updating as icon updates, removals, and renames are not reflected here. For real-time updates, check the <Link href={`/library/${libraryInfo.id}/history/`}>history</Link> page.
         </Alert>
       );
     }
@@ -257,7 +257,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
       return (
         <Alert classes={{ root: classes.infoAlert }} severity='error'>
           <AlertTitle>Deprecated Icons</AlertTitle>
-          The icons below have been deprecated and will be removed in an upcoming release. Please check the <Link href={`/docs/library/${libraryInfo.id}/releases/changelog`}>changelog</Link> before updating to a new version of the library.
+          The icons below have been deprecated and will be removed in an upcoming release. Please check the <Link href={`/docs/library/${libraryInfo.id}/releases/changelog/`}>changelog</Link> before updating to a new version of the library.
         </Alert>
       );
     }
@@ -292,7 +292,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
         description={libraryInfo.description}
         title={`${libraryInfo.name} - Icon Library`}
       >
-        <link rel='canonical' href={`https://pictogrammers.com/library/${libraryInfo.id}`} />
+        <link rel='canonical' href={`https://pictogrammers.com/library/${libraryInfo.id}/`} />
       </Head>
       <Paper className={classes.container}>
         <div className={classes.libraryView}>
@@ -300,7 +300,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
             <div className={classes.libraryInfo}>
               <LibraryMenu compact={isMobileWidth} selectedLibrary={libraryInfo} />
               <Tooltip arrow title={`Released on ${dayjs(libraryReleaseDate).format('MMMM Do, YYYY')}`} placement='left'>
-                <Link href={`/library/${libraryInfo.id}/history`}>
+                <Link href={`/library/${libraryInfo.id}/history/`}>
                   <Chip
                     color='secondary'
                     label={`v${libraryVersion}`}
@@ -358,7 +358,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
                 <ListItem disablePadding>
                   <ListItemButton
                     component={Link}
-                    href={`/library/${libraryInfo.id}/version/${libraryVersion}`}
+                    href={`/library/${libraryInfo.id}/version/${libraryVersion}/`}
                     selected={version === libraryVersion}
                   >
                     <Icon path={mdiCreation} size={.8} />
@@ -369,7 +369,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
                   <ListItem disablePadding>
                     <ListItemButton
                       component={Link}
-                      href={`/library/${libraryInfo.id}/deprecated`}
+                      href={`/library/${libraryInfo.id}/deprecated/`}
                       selected={!!showDeprecated}
                     >
                       <Icon path={mdiAlertOctagonOutline} size={.8} />
@@ -379,25 +379,25 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
                 )}
                 <ListSubheader classes={{ root: classes.subheader }}>Releases</ListSubheader>
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/changelog`}>
+                  <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/changelog/`}>
                     <Icon path={mdiListBoxOutline} size={.8} />
                     <ListItemText>Changelog</ListItemText>
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/upgrade`}>
+                  <ListItemButton component={Link} href={`/docs/library/${libraryInfo.id}/releases/upgrade/`}>
                     <Icon path={mdiArrowUpBoldCircleOutline} size={.8} />
                     <ListItemText>Upgrade Guide</ListItemText>
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} href={`/library/${libraryInfo.id}/history`}>
+                  <ListItemButton component={Link} href={`/library/${libraryInfo.id}/history/`}>
                     <Icon path={mdiHistory} size={.8} />
                     <ListItemText>History</ListItemText>
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} href={'/docs/general/license'}>
+                  <ListItemButton component={Link} href={'/docs/general/license/'}>
                     <Icon path={mdiLicense} size={.8} />
                     <ListItemText>License</ListItemText>
                   </ListItemButton>
