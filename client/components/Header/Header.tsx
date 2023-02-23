@@ -22,11 +22,20 @@ interface NavButtonProps extends ButtonProps {
 const Header: FunctionComponent = () => {
   const [ menuOpen, setMenu ] = useState(false);
 
+  const toggleMenu = () => {
+    if (menuOpen) {
+      document.body.style.removeProperty('overflow');
+      return setMenu(false);
+    }
+    document.body.style.overflow = 'hidden';
+    return setMenu(true);
+  };
+
   const NavButton = ({ href, ...props }: NavButtonProps) => (
     <Button
       component={Link}
       href={href}
-      onClick={() => setMenu(false)}
+      onClick={toggleMenu}
       {...props}
     />
   );
@@ -36,7 +45,7 @@ const Header: FunctionComponent = () => {
       <Link
         className={classes.logo}
         href='/'
-        onClick={() => setMenu(false)}
+        onClick={toggleMenu}
       >
         <PictogrammersLogo className={classes.monogram} title='Pictogrammers Monogram' />
         <PictogrammersWordmark className={classes.wordmark} title='Pictogrammers' />
@@ -74,14 +83,7 @@ const Header: FunctionComponent = () => {
         className={cx(classes.hamburger, {
           [classes.open]: menuOpen
         })}
-        onClick={() => {
-          if (menuOpen) {
-            document.body.style.removeProperty('overflow');
-            return setMenu(false);
-          }
-          document.body.style.overflow = 'hidden';
-          return setMenu(true);
-        }}
+        onClick={toggleMenu}
       >
         <MdiHamburger
           className={cx({
