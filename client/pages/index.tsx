@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { NextPage } from 'next';
 import getConfig from 'next/config';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Icon from '@mdi/react';
@@ -67,11 +67,12 @@ const Home: NextPage = () => {
                 {getRandomArrayValues(coreContributors, 9).map((contributor) => (
                   <Avatar classes={{ root: classes.contributor }} key={contributor.id}>
                     {contributor.avatar ? (
-                      <Image
+                      <ExportedImage
                         alt={contributor.name}
                         height={65}
                         placeholder='empty'
                         src={contributor.avatar}
+                        unoptimized
                         width={65}
                       />
                     ) : contributor.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

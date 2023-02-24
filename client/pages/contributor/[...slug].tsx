@@ -1,7 +1,7 @@
 import { Fragment, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import getConfig from 'next/config';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import cx from 'clsx';
 import { ParsedUrlQuery } from 'querystring';
 import Paper from '@mui/material/Paper';
@@ -131,11 +131,12 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                 }}
               >
                 {avatar ? (
-                  <Image
+                  <ExportedImage
                     alt={name}
                     height={128}
                     placeholder='empty'
                     src={avatar}
+                    unoptimized
                     width={128}
                   />
                 ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

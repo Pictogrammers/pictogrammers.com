@@ -1,5 +1,5 @@
 import { Fragment, FunctionComponent } from 'react';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import cx from 'clsx';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
@@ -69,11 +69,12 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
         }}
       >
         {userInfo?.avatar ? (
-          <Image
+          <ExportedImage
             alt={user.name}
             height={50}
             placeholder='empty'
             src={userInfo.avatar}
+            unoptimized
             width={50}
           />
         ) : user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

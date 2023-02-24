@@ -1,5 +1,5 @@
 import { Fragment, FunctionComponent } from 'react';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import Avatar from '@mui/material/Avatar';
 
 import { ContributorProps, ContributorsMdxProps } from '@/interfaces/contributor';
@@ -47,11 +47,12 @@ const Contributor: FunctionComponent<ContributorProps> = ({
           }}
         >
           {avatar ? (
-            <Image
+            <ExportedImage
               alt={name}
               height={50}
               placeholder='empty'
               src={avatar}
+              unoptimized
               width={50}
             />
           ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

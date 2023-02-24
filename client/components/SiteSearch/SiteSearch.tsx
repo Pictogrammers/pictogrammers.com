@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent, ReactNode, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import cx from 'clsx';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -294,11 +294,12 @@ const SiteSearch: FunctionComponent = () => {
                 }}
               >
                 {option.image.src ? (
-                  <Image
+                  <ExportedImage
                     alt={option.title}
                     height={32}
                     placeholder='empty'
                     src={option.image.src}
+                    unoptimized
                     width={32}
                   />
                 ) : option.title.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

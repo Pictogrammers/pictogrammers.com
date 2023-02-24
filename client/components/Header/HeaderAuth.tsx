@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent, MouseEvent, useState } from 'react';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import cx from 'clsx';
 import Cookies from 'js-cookie';
 import Badge from '@mui/material/Badge';
@@ -79,11 +79,12 @@ const HeaderAuth: FunctionComponent = () => {
                   border: `2px solid hsl(var(${thisContributorColor}))`
                 }}
               >
-                <Image
+                <ExportedImage
                   alt={thisContributor?.name || auth.github.name}
                   height={36}
                   placeholder='empty'
                   src={auth.github.avatarUrl}
+                  unoptimized
                   width={36}
                 />
               </Avatar>

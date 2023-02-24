@@ -1,5 +1,5 @@
 import { Fragment, FunctionComponent, useState } from 'react';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import cx from 'clsx';
 import Paper from '@mui/material/Paper';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -161,11 +161,12 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                           }}
                         >
                           {contributor.avatar ? (
-                            <Image
+                            <ExportedImage
                               alt={contributor.name}
                               height={24}
                               placeholder='empty'
                               src={contributor.avatar}
+                              unoptimized
                               width={24}
                             />
                           ) : contributor.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
