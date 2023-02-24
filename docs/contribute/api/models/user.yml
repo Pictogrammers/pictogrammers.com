@@ -9,7 +9,7 @@ properties:
   email:
     type: string
     format: email
-    example: austin@email.com
+    example: austin@pictogrammers.com
     auth: Admin
   description:
     type: string
@@ -17,18 +17,15 @@ properties:
   github:
     type: string
     example: Templarian
-  twitter:
-    type: string
-    example: templarian
-  base64:
-    type: string
-    description: Base64 Encoded 100x100 Avatar
-  sponsored:
-    type: boolean
-    description: Can this user be sponsored on github
+  links:
+    type: json
+    example: "[ { \"type\": \"twitter\", \"value\": \"Templarian\" } ]"
   core:
     type: boolean
     description: Core maintainer
+  contributor:
+    type: boolean
+    description: Normal user vs. Contributor
   iconCount:
     type: integer
     example: 42

@@ -1,16 +1,18 @@
 export interface ContributorProps {
   authorLibraries?: string[];
+  avatar: string;
   contributedRepos: string[];
   core: boolean;
   description?: string;
   github: string;
   iconCount: number;
   id: string;
+  links: {
+    type: string;
+    value: string;
+  }[];
   name: string;
-  image?: boolean;
-  sponsored: boolean;
-  twitter?: string;
-  website?: string;
+  sponsorable: boolean;
 }
 
 export interface ContributorsMdxProps {

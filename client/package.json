@@ -25,6 +25,7 @@
     "@mdi/svg": "~7.1.96",
     "@mui/material": "~5.11.10",
     "@next/font": "~13.1.6",
+    "@octokit/graphql": "~5.0.5",
     "@pictogrammers/bitmask-to-svg": "~0.9.1",
     "@pictogrammers/memory": "~1.1.0",
     "analytics": "~0.8.1",

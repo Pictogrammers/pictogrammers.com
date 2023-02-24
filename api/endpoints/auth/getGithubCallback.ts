@@ -1,5 +1,6 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import { Octokit } from '@octokit/rest';
+import { graphql } from '@octokit/graphql';
+import type { GraphQlQueryResponseData } from '@octokit/graphql';
 
 import getUserRecordByGitHubId from '../../model/user/getUserRecordByGitHubId';
 
@@ -8,15 +9,24 @@ import config from '../../config';
 const getGithubCallback = (server: FastifyInstance) => async (req: FastifyRequest, res: FastifyReply) => {
   try {
     const { token } = await server.githubOAuth2.getAccessTokenFromAuthorizationCodeFlow(req);
-    const octokit = new Octokit({ auth: token.access_token });
-    const { data } = await octokit.request('/user');
+    const { viewer } = await graphql(
+      `{
+        viewer { 
+          avatarUrl,
+          email,
+          hasSponsorsListing,
+          login,
+          name
+        }
+      }`,
+      {
+        headers: {
+          authorization: `token ${token.access_token}`
+        }
+      }
+    ) as GraphQlQueryResponseData;
 
-    req.session.github = {
-      avatar: data.avatar_url,
-      email: data.email,
-      id: data.login,
-      name: data.name
-    };
+    req.session.github = viewer;
 
     try {
       req.session.contributor = await getUserRecordByGitHubId(req.session.github.id);

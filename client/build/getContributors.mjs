@@ -1,10 +1,11 @@
 import { writeFile } from 'node:fs/promises';
+import { graphql } from '@octokit/graphql';
 
-const genericImage = 'iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAAA2FBMVEUAAAB+V8J/WMKAWcOBWsOBW8OCXMSDXcSEX8WFYMWGYcaGYsaHY8aIZMeJZceKZsiLZ8iLaMiNa8mObMqPbcqQb8uRb8uXeM6Yec6bfdCegdGkidSojtaqkNesktixmtqznNu4ot2+quC+q+DAreHCr+LCsOLJuebLvOfQwunWyevWyuzYzO3azu3az+7b0O7h1/Hi2fHj2vLj2/Ll3fPp4vTp4/Xs5/bt6Pfu6ffv6/jw7Pjy7/nz8Pn08fr29Pv39Pv6+P37+v38+/78/P79/P7+/v////9zKY31AAABZUlEQVR42u3WW1OCQBjG8TZPUYGlEhpoecAo0/KMlQcUeb//N8oVAaeRK3acLp7n7u9e/GYY2eGCnWFAgAABAgQIECBAgAABAgRIUkRuT5YzSw1StWbLSVsWi5TnxLc2/DTW+5yXRSLygvxtyntyc8iFLBAxKViPZy9MUyAypmBulrGsG+ZYILKicAXGClGtBCI2BfMkxiQvTFsgYlGwAc9BmJZARHXoMJ2nHpSjCkRY9fCnbfrZ9GtTFfvGa12XvKEepD70yO1qwu+uXFE6TqmYwy0cv7RSustGmbkvKWmhiFbvTLf8Tfz6aDymGN/VO9F22qlrYhClZdPxFi8P/OfUm592S0mMZEyH/s57vd2dXAe2Y2aSIfkRndo3f0pPYY7ySZDLPp3ezw1jOTfM/mUCpEJxe96dTqOsJEBqsUh7d/oZZQ3IuRBjGbcG/2iJ0sAtDAQIECBAgAABAgQIECBA/i/yC65GvcXs6q8cAAAAAElFTkSuQmCC';
-
-const getGitHubContributors = async () => {
+// We use the GitHub REST API here because it's impossible to get a
+// repository's contributors via the GraphQL API at this time.
+const getCodeContributors = async () => {
   if (!process.env.API_KEY_GITHUB) {
-    console.warn('WARNING: "API_KEY_GITHUB" not found. Skipping GitHub lookup for contributors.');
+    console.warn('WARNING: "API_KEY_GITHUB" not found. Skipping GitHub lookup for code contributors.');
     return {};
   }
 
@@ -60,11 +61,38 @@ const getGitHubContributors = async () => {
   }
 };
 
+const getAdditionalGitHubUserInfo = async (contributors) => {
+  const usersQueries = contributors.reduce((output, contributor) => {
+    // We are only concerned with contributors
+    if (contributor.contributor) {
+      output.push(`u${contributor.id.split('-')[0]}: user(login: "${contributor.github}") { avatarUrl, hasSponsorsListing }`);
+    }
+    return output;
+  }, []);
+
+  try {
+    const request = await graphql(
+      `query { ${usersQueries.join(',\n')} }`,
+      {
+        headers: {
+          authorization: `token ${process.env.API_KEY_GITHUB}`
+        }
+      }
+    );
+    return request.data;
+  } catch (err) {
+    // The GraphQL implementation throws an error, but returns valid data
+    // on the error object. We still want valid data, even if someone's
+    // GitHub profile information changes.
+    return err.data;
+  }
+};
+
 const getContributors = async () => {
   console.log('INFO: Retrieving contributors from the API...');
 
   try {
-    const gitHubContributors = await getGitHubContributors();
+    const codeContributors = await getCodeContributors();
 
     const res = await fetch('https://dev.materialdesignicons.com/api/user');
 
@@ -80,37 +108,28 @@ const getContributors = async () => {
       return writeFile('./public/data/contributors.json', JSON.stringify({ contributors: [], totalContributors: 0 }), { flag: 'w' });
     }
 
+    const gitHubUserInfo = await getAdditionalGitHubUserInfo(contributors);
+
     const processedContributors = await contributors
       .reduce(async (prevPromise, contributor) => {
         const output = await prevPromise;
+        const { id, ...rest } = contributor;
 
-        const { base64, description, id, website, ...rest } = contributor;
-
-        // Add GitHub repos contributor has contributed to
-        rest.contributedRepos = gitHubContributors[rest.github] || [];
-
-        if (rest.iconCount === 0 && !rest.contributedRepos.length && !rest.core) {
-          // No icons, no github contributions, and not core, omit user
+        // We're only concerned with contributors
+        if (!rest.contributor) {
           return output;
         }
 
+        // Shorten the contributor ID
         const contributorId = id.split('-')[0];
         rest.id = contributorId;
 
-        // Filter out generic images
-        if (base64 !== genericImage) {
-          const imagePath = `/images/contributors/${contributorId}.jpg`;
-          await writeFile(`./public${imagePath}`, contributor.base64, { encoding: 'base64', flag: 'w' });
-          rest.image = true;
-        }
+        // Add GitHub repos contributor has contributed to
+        rest.contributedRepos = codeContributors[rest.github] || [];
 
-        // Remove generically filled websites
-        if (website !== `https://github.com/${rest.github}`) {
-          rest.website = website;
-        }
-
-        // Blank out placeholder descriptions
-        rest.description = description.toLowerCase().includes('placeholder') ? '' : description;
+        // Add additional profile information from GitHub
+        rest.avatar = gitHubUserInfo[`u${contributorId}`]?.avatarUrl;
+        rest.sponsorable = gitHubUserInfo[`u${contributorId}`]?.hasSponsorsListing;
 
         output.push(rest);
         return output;

@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent, ReactNode, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
-import ExportedImage from 'next-image-export-optimizer';
+import Image from 'next/image';
 import cx from 'clsx';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -115,7 +115,7 @@ const SiteSearch: FunctionComponent = () => {
               href: `/contributor/${result.github}/`,
               image: {
                 color: `hsl(var(${result.core ? '--primary-color' : '--dark-cyan'}))`,
-                src: result.image ? `/images/contributors/${result.id}.jpg` : undefined,
+                src: result.avatar,
                 type: 'avatar'
               },
               key: result.github,
@@ -294,7 +294,7 @@ const SiteSearch: FunctionComponent = () => {
                 }}
               >
                 {option.image.src ? (
-                  <ExportedImage
+                  <Image
                     alt={option.title}
                     height={32}
                     placeholder='empty'

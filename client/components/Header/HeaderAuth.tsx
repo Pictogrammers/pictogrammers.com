@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent, MouseEvent, useState } from 'react';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
-import ExportedImage from 'next-image-export-optimizer';
+import Image from 'next/image';
 import cx from 'clsx';
 import Cookies from 'js-cookie';
 import Badge from '@mui/material/Badge';
@@ -79,15 +79,13 @@ const HeaderAuth: FunctionComponent = () => {
                   border: `2px solid hsl(var(${thisContributorColor}))`
                 }}
               >
-                {thisContributor?.image ? (
-                  <ExportedImage
-                    alt={thisContributor?.name || auth.github.name}
-                    height={36}
-                    placeholder='empty'
-                    src={thisContributor?.image ? `/images/contributors/${thisContributor?.id}.jpg` : auth.github.avatar}
-                    width={36}
-                  />
-                ) : (thisContributor?.name || auth.github.name).split(' ').map((n: string) => n[0]).join('').toUpperCase()}
+                <Image
+                  alt={thisContributor?.name || auth.github.name}
+                  height={36}
+                  placeholder='empty'
+                  src={auth.github.avatarUrl}
+                  width={36}
+                />
               </Avatar>
             </Badge>
           </IconButton>

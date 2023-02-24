@@ -48,6 +48,15 @@ Place these certifications in the `.dev/certs` directory. Then start the applica
 
 ### Env variables
 
+#### GitHub API Access Token (REQUIRED)
+
+As part of the site's build process, information is pulled from GitHub about our contributors. This data is required for the site to build.
+
+1. Create a _classic_ [GitHub personal access token](https://github.com/settings/tokens). 
+2. Create a `.env` file in the root of the repository.
+3. Add `API_KEY_GITHUB` to the `.env` file with your token.
+4. Restart the dev server.
+
 #### GitHub OAuth Client & Secret (Optional)
 
 To test and debug any part of the site behind authentication, you will need to create a GitHub OAuth application and provide the Client ID and Secret in the environment file.
@@ -62,19 +71,6 @@ To test and debug any part of the site behind authentication, you will need to c
    GITHUB_CLIENT_ID={YOUR_CLIENT_ID}
    GITHUB_CLIENT_SECRET={YOUR_CLIENT_SECRET}
    ```
-5. Restart the dev server.
-
-#### GitHub Access Token (Optional)
-
-To test and debug contributor fetching, specifically around GitHub, you will need to be a member of the Pictogrammers organization and have a GitHub access token.
-
-> This is not required to work on the site, information about GitHub code contributions just will not be available when working locally if you skip this.
-
-1. Create a [GitHub personal access token](https://github.com/settings/tokens?type=beta).
-2. Request access to the Pictogrammers organization with your token.
-  - A core member will need to approve this, so it may take some time.
-3. Create a `.env` file in the root of the repository.
-4. Add `API_KEY_GITHUB` to the `.env` file with your token.
 5. Restart the dev server.
 
 ### Code Quality
