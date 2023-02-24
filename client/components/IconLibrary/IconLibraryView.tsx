@@ -8,8 +8,8 @@ import {
   useState
 } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import cx from 'clsx';
-import ExportedImage from 'next-image-export-optimizer';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Avatar from '@mui/material/Avatar';
@@ -212,12 +212,12 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
                   color: 'hsl(var(--white)) !important'
                 }}
               >
-                {authorInfo.image ? (
-                  <ExportedImage
+                {authorInfo.avatar ? (
+                  <Image
                     alt={authorInfo.name}
                     height={18}
                     placeholder='empty'
-                    src={`/images/contributors/${authorInfo.id}.jpg`}
+                    src={authorInfo.avatar}
                     width={18}
                   />
                 ) : authorInfo.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

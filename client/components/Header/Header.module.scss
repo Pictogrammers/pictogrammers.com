@@ -2,9 +2,9 @@
   align-items: center;
   background-color: hsl(var(--secondary-color));
   display: flex;
+  height: 80px;
   justify-content: space-between;
   margin: 0 auto;
-  max-height: 5rem;
   max-width: $width-max;
   padding: 1rem 1.5rem;
 }
@@ -18,7 +18,8 @@
   padding: 0 .25rem;
 
   .wordmark {
-    display: none;
+    margin: 2px 0 0 -8px;
+    width: 140px;
   }
 
   .monogram {
@@ -53,6 +54,7 @@
   }
 
   .primary {
+    align-items: center;
     display: flex;
     flex-wrap: nowrap;
   
@@ -141,15 +143,21 @@
   }
 }
 
+@media only screen and (max-width: ($tablet-width + 50)) {
+  .about,
+  .contribute {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: ($mobile-width + 50)) {
   .logo {
     margin: 0;
+  }
 
-    .wordmark {
-      display: block;
-      margin: 2px 0 0 -8px;
-      width: 140px;
-    }
+  .about,
+  .contribute {
+    display: flex;
   }
 
   .main {
@@ -161,7 +169,7 @@
     opacity: 0;
     position: fixed;
     right: 0;
-    top: 76px;
+    top: 80px;
     transition: opacity 250ms linear;
     visibility: hidden;
     z-index: 999;

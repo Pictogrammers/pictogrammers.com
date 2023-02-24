@@ -1,9 +1,9 @@
 import { Fragment, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import getConfig from 'next/config';
+import Image from 'next/image';
 import cx from 'clsx';
 import { ParsedUrlQuery } from 'querystring';
-import ExportedImage from 'next-image-export-optimizer';
 import Paper from '@mui/material/Paper';
 import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
@@ -14,7 +14,7 @@ import Chip from '@mui/material/Chip';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Icon from '@mdi/react';
-import { siGithub, siTwitter } from 'simple-icons';
+import { siGithub, siMastodon, siTwitter } from 'simple-icons';
 import { mdiHeart, mdiLinkVariant, mdiPaletteSwatch, mdiSourceBranch } from '@mdi/js';
 
 import { getAllContributorPaths, getContributor } from '@/utils/contributorUtils';
@@ -65,8 +65,23 @@ interface ContributorPageProps {
   contributor: ContributorProps;
 }
 
+const linkDefinitions = {
+  mastodon: {
+    icon: siMastodon.path,
+    title: (value: string) => `View ${value} on Mastodon`
+  },
+  twitter: {
+    icon: siTwitter.path,
+    title: (value: string) => `View ${value} on Twitter`
+  },
+  website: {
+    icon: mdiLinkVariant,
+    title: (value: string) => `Visit ${value}'s Website`
+  }
+} as any;
+
 const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
-  const { authorLibraries = [], contributedRepos, core, description, github, iconCount, id, image, name, sponsored, twitter, website } = contributor;
+  const { authorLibraries = [], avatar, contributedRepos, core, description, github, iconCount, links = [], name, sponsorable } = contributor;
 
   const { publicRuntimeConfig: { libraries: { icons: iconLibraries } } } = getConfig();
   const windowSize = useWindowSize();
@@ -115,18 +130,18 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                   width: 128
                 }}
               >
-                {image ? (
-                  <ExportedImage
+                {avatar ? (
+                  <Image
                     alt={name}
                     height={128}
                     placeholder='empty'
-                    src={`/images/contributors/${id}.jpg`}
+                    src={avatar}
                     width={128}
                   />
                 ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
               </Avatar>
               <div className={classes.links}>
-                {sponsored && github && (
+                {sponsorable && github && (
                   <Tooltip arrow title={`Sponsor ${name} on GitHub`}>
                     <IconButton
                       aria-label={`Sponsor ${name} on GitHub`}
@@ -140,7 +155,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                   </Tooltip>
                 )}
                 {github && github !== 'contributors' && (
-                  <Tooltip arrow title={`View ${github} on GitHub`}>
+                  <Tooltip arrow title={`View ${name} on GitHub`}>
                     <IconButton
                       aria-label={`View ${github} on GitHub`}
                       href={`https://github.com/${github}`}
@@ -151,30 +166,27 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                     </IconButton>
                   </Tooltip>
                 )}
-                {twitter && twitter !== ' ' && (
-                  <Tooltip arrow title={`View ${twitter} on Twitter`}>
-                    <IconButton
-                      aria-label={`View ${twitter} on Twitter`}
-                      href={`https://twitter.com/${twitter}`}
-                      size='large'
-                      target='_blank'
+                {links.map((link) => {
+                  const linkTitle = linkDefinitions[link.type].title(name);
+                  const linkIcon = linkDefinitions[link.type].icon;
+
+                  return (
+                    <Tooltip
+                      arrow
+                      key={link.type}
+                      title={linkTitle}
                     >
-                      <Icon path={siTwitter.path} size={1.2} />
-                    </IconButton>
-                  </Tooltip>
-                )}
-                {website && (
-                  <Tooltip arrow title={`Visit ${name}'s Website`}>
-                    <IconButton
-                      aria-label={`Visit ${name}'s Website`}
-                      href={website}
-                      size='large'
-                      target='_blank'
-                    >
-                      <Icon path={mdiLinkVariant} size={1.2} />
-                    </IconButton>
-                  </Tooltip>
-                )}
+                      <IconButton
+                        aria-label={linkTitle}
+                        href={link.value}
+                        size='large'
+                        target='_blank'
+                      >
+                        <Icon path={linkIcon} size={1.2} />
+                      </IconButton>
+                    </Tooltip>
+                  );
+                })}
               </div>
             </div>
           }

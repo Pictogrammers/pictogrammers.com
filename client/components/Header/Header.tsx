@@ -63,8 +63,8 @@ const Header: FunctionComponent = () => {
             <NavButton href='/libraries/'>Icons & Fonts</NavButton>
             <NavButton href='/docs/'>Docs</NavButton>
             <NavButton href='/tools/'>Tools</NavButton>
-            <NavButton href='/docs/general/about/'>About</NavButton>
-            <NavButton href='/docs/contribute/'>Contribute</NavButton>
+            <NavButton className={classes.about} href='/docs/general/about/'>About</NavButton>
+            <NavButton className={classes.contribute} href='/docs/contribute/'>Contribute</NavButton>
           </div>
           <div className={classes.social}>
             <IconButton href='https://github.com/Pictogrammers'>

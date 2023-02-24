@@ -1,5 +1,5 @@
 import { Fragment, FunctionComponent } from 'react';
-import ExportedImage from 'next-image-export-optimizer';
+import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
 
 import { ContributorProps, ContributorsMdxProps } from '@/interfaces/contributor';
@@ -11,12 +11,11 @@ import LandingPageCard from '@/components/LandingPageCard/LandingPageCard';
 import classes from './Contributors.module.scss';
 
 const Contributor: FunctionComponent<ContributorProps> = ({
+  avatar,
   contributedRepos,
   core,
   github,
   iconCount,
-  id,
-  image,
   name
 }) => {
   const description = (
@@ -47,12 +46,12 @@ const Contributor: FunctionComponent<ContributorProps> = ({
             width: '50px'
           }}
         >
-          {image ? (
-            <ExportedImage
+          {avatar ? (
+            <Image
               alt={name}
               height={50}
               placeholder='empty'
-              src={`/images/contributors/${id}.jpg`}
+              src={avatar}
               width={50}
             />
           ) : name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

@@ -1,6 +1,6 @@
 import { Fragment, FunctionComponent } from 'react';
+import Image from 'next/image';
 import cx from 'clsx';
-import ExportedImage from 'next-image-export-optimizer';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
@@ -68,12 +68,12 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
           border: `2px solid hsl(var(${userInfo?.core ? '--primary-color' : '--dark-cyan'}))`
         }}
       >
-        {userInfo?.image ? (
-          <ExportedImage
+        {userInfo?.avatar ? (
+          <Image
             alt={user.name}
             height={50}
             placeholder='empty'
-            src={`/images/contributors/${userInfo.id}.jpg`}
+            src={userInfo.avatar}
             width={50}
           />
         ) : user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}

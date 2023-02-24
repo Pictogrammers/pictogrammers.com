@@ -24,16 +24,13 @@ POST /admin/user
           email:
             type: string
             format: email
-          twitter:
-            type: string
-          avatar:
-            type: string
-            format: base64
           description:
             type: string
-          website:
-            type: string
-          sponsored:
+          links:
+            type: json
+          contributor:
+            type: boolean
+          core:
             type: boolean
     ```
   </Tab>
