@@ -38,10 +38,10 @@
     "dotenv": "~16.0.3"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^13.1.6",
-    "@types/node": "~18.14.0",
+    "@next/eslint-plugin-next": "^13.2.1",
+    "@types/node": "~18.14.1",
     "concurrently": "~7.6.0",
-    "eslint-config-next": "~13.1.6",
+    "eslint-config-next": "~13.2.1",
     "eslint-plugin-sort-destructure-keys": "~1.5.0",
     "eslint": "~8.34.0",
     "husky": "~8.0.3",
