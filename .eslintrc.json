@@ -1,14 +1,8 @@
 {
-  "extends": "next/core-web-vitals",
-  "globals": {
-    "JSX": true,
-    "Promise": true
-  },
   "plugins": [
     "sort-destructure-keys"
   ],
   "rules": {
-    "@next/next/no-html-link-for-pages": [ 2, "client/pages/" ],
     "array-callback-return": [ 2, { "allowImplicit": true } ],
     "arrow-parens": 2,
     "brace-style": 2,
@@ -17,7 +11,6 @@
     "comma-spacing": [ 2, { "after": true } ],
     "curly": [ 2, "all" ],
     "indent": [ 2, 2, { "ignoredNodes": [ "TemplateLiteral" ], "SwitchCase": 1 } ],
-    "jsx-quotes": [ 2, "prefer-single" ],
     "key-spacing": [ 2, { "afterColon": true, "beforeColon": false } ],
     "keyword-spacing": [ 2, { "overrides": { "else": { "before": true } } } ],
     "linebreak-style": [ 2, "unix" ],

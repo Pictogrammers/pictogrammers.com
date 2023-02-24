@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "../.eslintrc.json"
+  ],
+  "globals": {
+    "JSX": true,
+    "Promise": true
+  },
+  "rules": {
+    "@next/next/no-html-link-for-pages": [ 2, "client/pages/" ],
+    "jsx-quotes": [ 2, "prefer-single" ]
+  }
+}

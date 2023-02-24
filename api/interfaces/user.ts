@@ -12,4 +12,4 @@ export interface UserRecordData extends RowDataPacket {
     value: string;
   }[];
   name: string;
-};
+}
