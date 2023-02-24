@@ -1,6 +1,6 @@
 export interface ContributorProps {
   authorLibraries?: string[];
-  avatar: string;
+  avatar?: string;
   contributedRepos: string[];
   core: boolean;
   description?: string;

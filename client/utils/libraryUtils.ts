@@ -4,7 +4,6 @@ import getConfig from 'next/config';
 import slugify from 'slugify';
 
 import { IconLibrary, IconLibraryIcon } from '@/interfaces/icons';
-import { ContributorProps } from '@/interfaces/contributor';
 import { CategoryProps } from '@/interfaces/category';
 
 import allContributors from '@/public/data/contributors.json';
@@ -35,7 +34,7 @@ export const getAllLibraryPaths = async () => {
         output.versionSlugs.push(versionSlug);
       }
 
-      const contributor = allContributors.contributors.find((contributor: ContributorProps) => contributor.id === icon.a);
+      const contributor = allContributors.contributors.find((contributor) => contributor.id === icon.a);
       if (contributor) {
         const contributorSlug = `${library.id}/author/${slugify(contributor.github)}`;
         if (!output.contributorSlugs.includes(contributorSlug)) {
