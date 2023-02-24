@@ -147,6 +147,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                       aria-label={`Sponsor ${name} on GitHub`}
                       classes={{ root: classes.sponsor }}
                       href={`https://github.com/sponsors/${github}`}
+                      rel='nofollow me'
                       size='large'
                       target='_blank'
                     >
@@ -159,6 +160,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                     <IconButton
                       aria-label={`View ${github} on GitHub`}
                       href={`https://github.com/${github}`}
+                      rel='nofollow me'
                       size='large'
                       target='_blank'
                     >
@@ -179,6 +181,7 @@ const ContributorPage: NextPage<ContributorPageProps> = ({ contributor }) => {
                       <IconButton
                         aria-label={linkTitle}
                         href={link.value}
+                        rel='nofollow me'
                         size='large'
                         target='_blank'
                       >
