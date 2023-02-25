@@ -143,21 +143,20 @@
   }
 }
 
-@media only screen and (max-width: ($tablet-width + 50)) {
-  .about,
-  .contribute {
-    display: none;
+@media only screen and (max-width: $tablet-width) {
+  .main {
+    .primary {
+      .about,
+      .contribute {
+        display: none;
+      }
+    }
   }
 }
 
 @media only screen and (max-width: ($mobile-width + 50)) {
   .logo {
     margin: 0;
-  }
-
-  .about,
-  .contribute {
-    display: flex;
   }
 
   .main {
@@ -190,6 +189,11 @@
       transform: translateY(-15px);
       transition: transform 500ms;
   
+      .about,
+      .contribute {
+        display: flex;
+      }
+
       .menu {
         align-items: center;
         flex-direction: column;

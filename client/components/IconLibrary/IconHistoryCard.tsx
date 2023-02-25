@@ -60,7 +60,7 @@ const IconHistoryCard: FunctionComponent<IconHistoryCardProps> = ({
   userInfo
 }) => {
   const userAvatar = (
-    <Link href={`/contributor/${user.github}`}>
+    <Link href={`/contributor/${user.github}/`}>
       <Avatar
         classes={{ root: classes.avatar }}
         sx={{

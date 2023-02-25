@@ -34,10 +34,11 @@ const Footer: FunctionComponent = () => {
           </div>
           <div>
             <h3>Community</h3>
-            <p><Link href='/docs/contribute/'>Contribute</Link></p>
             <p><Link href='/docs/contribute/contributors/'>Contributors</Link></p>
-            <p><Link href='https://github.com/Pictogrammers'>GitHub</Link></p>
+            <p><Link href='https://github.com/Pictogrammers' rel='me'>GitHub</Link></p>
             <p><Link href='https://fosstodon.org/@pictogrammers' rel='me'>Mastodon</Link></p>
+            <p><Link href='https://facebook.com/pictogrammers' rel='me'>Facebook</Link></p>
+            <p><Link href='https://linkedin.com/company/pictogrammers' rel='me'>LinkedIn</Link></p>
           </div>
           <div>
             <h3>Help</h3>

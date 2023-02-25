@@ -3,7 +3,7 @@ import cx from 'clsx';
 import Button, { ButtonProps } from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mdi/react';
-import { siFacebook, siGithub, siMastodon } from 'simple-icons';
+import { siFacebook, siGithub, siLinkedin, siMastodon } from 'simple-icons';
 
 import MdiHamburger from '@/public/images/hamburger.svg';
 import PictogrammersLogo from '@/public/images/pictogrammers-logo.svg';
@@ -73,8 +73,11 @@ const Header: FunctionComponent = () => {
             <IconButton href='https://fosstodon.org/@pictogrammers'>
               <Icon path={siMastodon.path} size={1} />
             </IconButton>
-            <IconButton href='https://www.facebook.com/pictogrammers'>
+            <IconButton href='https://facebook.com/pictogrammers'>
               <Icon path={siFacebook.path} size={1} />
+            </IconButton>
+            <IconButton href='https://linkedin.com/company/pictogrammers'>
+              <Icon path={siLinkedin.path} size={1} />
             </IconButton>
           </div>
         </nav>
