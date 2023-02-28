@@ -109,7 +109,7 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='website' property='og:type' key='og:type' />
         <meta content='https://pictogrammers.com/' property='og:url' key='og:url' />
         <meta content='Open-source iconography for designers and developers' property='og:description' key='og:description' />
-        <meta content='/images/og-card.png' property='og:image' key='og:image' />
+        <meta content='https://pictogrammers.com/images/og-card.png' property='og:image' key='og:image' />
         <meta content='630' property='og:image:height' key='og:image:height' />
         <meta content='1200' property='og:image:width' key='og:image:width' />
         <meta content='summary' name='twitter:card' key='twitter:card' />
@@ -117,7 +117,7 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='@pictogrammers' name='twitter:site' key='twitter:site' />
         <meta content='Pictogrammers' name='twitter:title' key='twitter:title' />
         <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
-        <meta content='/images/twitter-card.png' name='twitter:image' key='twitter:image' />
+        <meta content='https://pictogrammers.com/images/twitter-card.png' name='twitter:image' key='twitter:image' />
       </Head>
       <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
         <AnalyticsProvider instance={analyticsInstance}>
