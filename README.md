@@ -52,7 +52,8 @@ Place these certifications in the `.dev/certs` directory. Then start the applica
 
 As part of the site's build process, information is pulled from GitHub about our contributors. This data is required for the site to build.
 
-1. Create a _classic_ [GitHub personal access token](https://github.com/settings/tokens). 
+1. Create a _classic_ [GitHub personal access token](https://github.com/settings/tokens).
+  - Required permissions: `public_repo`, `read:org`, `read:user`, `user:email`
 2. Create a `.env` file in the root of the repository.
 3. Add `API_KEY_GITHUB` to the `.env` file with your token.
 4. Restart the dev server.

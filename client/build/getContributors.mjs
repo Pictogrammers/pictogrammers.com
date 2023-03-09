@@ -1,6 +1,8 @@
 import { writeFile } from 'node:fs/promises';
 import { graphql } from '@octokit/graphql';
 
+import config from '../config.js';
+
 // We use the GitHub REST API here because it's impossible to get a
 // repository's contributors via the GraphQL API at this time.
 const getCodeContributors = async () => {
@@ -61,31 +63,42 @@ const getCodeContributors = async () => {
   }
 };
 
+const runGitHubGraphQLQuery = async (query) => {
+  try {
+    const request = await graphql(query, {
+      headers: {
+        authorization: `token ${process.env.API_KEY_GITHUB}`
+      }
+    });
+    return request.data;
+  } catch (err) {
+    // If any of the queries we attempt to run return null, the GraphQL
+    // implementation throws an error. However, all valid data is found on
+    // `err.data`. Therefore, we return that.
+    return err.data;
+  }
+};
+
 const getAdditionalGitHubUserInfo = async (contributors) => {
-  const usersQueries = contributors.reduce((output, contributor) => {
-    // We are only concerned with contributors
-    if (contributor.contributor) {
-      output.push(`u${contributor.id.split('-')[0]}: user(login: "${contributor.github}") { avatarUrl, hasSponsorsListing }`);
+  const usersQueries = contributors.map((contributor) => `u${contributor.id.split('-')[0]}: user(login: "${contributor.github}") { avatarUrl, hasSponsorsListing }`);
+  const userResults = await runGitHubGraphQLQuery(`query { ${usersQueries.join(',\n')} }`);
+
+  // Check for null results, if any user doesn't exist,
+  // we'll check to see if it's an organization name instead.
+  const nullQuery = Object.keys(userResults).reduce((output, contributorId) => {
+    if (userResults[contributorId] === null) {
+      const contributorInfo = contributors.find((contributor) => `u${contributor.id.split('-')[0]}` === contributorId);
+      output.push(`${contributorId}: organization(login: "${contributorInfo.github}") { avatarUrl, hasSponsorsListing }`);
     }
     return output;
   }, []);
 
-  try {
-    const request = await graphql(
-      `query { ${usersQueries.join(',\n')} }`,
-      {
-        headers: {
-          authorization: `token ${process.env.API_KEY_GITHUB}`
-        }
-      }
-    );
-    return request.data;
-  } catch (err) {
-    // The GraphQL implementation throws an error, but returns valid data
-    // on the error object. We still want valid data, even if someone's
-    // GitHub profile information changes.
-    return err.data;
+  if (nullQuery.length) {
+    const orgResults = await runGitHubGraphQLQuery(`query { ${nullQuery.join(',\n')} }`);
+    return { ...userResults, ...orgResults };
   }
+
+  return userResults;
 };
 
 const getContributors = async () => {
@@ -94,7 +107,7 @@ const getContributors = async () => {
   try {
     const codeContributors = await getCodeContributors();
 
-    const res = await fetch('https://dev.materialdesignicons.com/api/user');
+    const res = await fetch(`${config.apiBase}/users?contributors=true`);
 
     if (!res.ok) {
       console.error('ERROR: Unable to retrieve contributor listing.');
@@ -114,11 +127,6 @@ const getContributors = async () => {
       .reduce(async (prevPromise, contributor) => {
         const output = await prevPromise;
         const { id, ...rest } = contributor;
-
-        // We're only concerned with contributors
-        if (!rest.contributor) {
-          return output;
-        }
 
         // Shorten the contributor ID
         const contributorId = id.split('-')[0];

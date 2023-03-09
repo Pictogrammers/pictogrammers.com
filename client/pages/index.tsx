@@ -12,8 +12,6 @@ import Hero from '@/components/Hero/Hero';
 import HomeSection from '@/components/HomeSection/HomeSection';
 import LibraryCard from '@/components/LibraryCard/LibraryCard';
 
-import getRandomArrayValues from '@/utils/helpers/getRandomArrayValues';
-
 import { IconLibrary } from '@/interfaces/icons';
 import { ContributorProps } from '@/interfaces/contributor';
 
@@ -64,7 +62,7 @@ const Home: NextPage = () => {
           <div>
             {!!coreContributors?.length && (
               <AvatarGroup classes={{ root: classes.contributors }} max={12}>
-                {getRandomArrayValues(coreContributors, 9).map((contributor) => (
+                {coreContributors.slice(0, 9).map((contributor: ContributorProps) => (
                   <Avatar classes={{ root: classes.contributor }} key={contributor.id}>
                     {contributor.avatar ? (
                       <ExportedImage
@@ -78,11 +76,13 @@ const Home: NextPage = () => {
                     ) : contributor.name.split(' ').map((n: string) => n[0]).join('').toUpperCase()}
                   </Avatar>
                 ))}
-                <Avatar classes={{ root: classes.contributor }}>+{totalContributors - 9}</Avatar>
+                {(totalContributors - 9) > 0 && (
+                  <Avatar classes={{ root: classes.contributor }}>+{totalContributors - 9}</Avatar>
+                )}
               </AvatarGroup>
             )}
             <p>
-              The Pictogrammers are a dedicated group of <Link href='/docs/contribute/contributors/'>{totalContributors > 0 ? `${Math.floor(totalContributors / 10) * 10}+` : ''} collaborators</Link> from all walks of life. Hailing from nearly every part of the globe, we come together to express ideas in a universal language so that all may benefit. Icons may be small, but they are powerful forms of communication in today&apos;s digital age. Built on our passion for beautiful and simple design, we strive to make iconography easily accessible for whatever your use case may be. From designers building prototypes to developers writing code, finding and implementing an icon should be a snap!
+              The Pictogrammers are a dedicated group of <Link href='/docs/contribute/contributors/'>{totalContributors > 10 ? `${Math.floor(totalContributors / 10) * 10}+` : ''} collaborators</Link> from all walks of life. Hailing from nearly every part of the globe, we come together to express ideas in a universal language so that all may benefit. Icons may be small, but they are powerful forms of communication in today&apos;s digital age. Built on our passion for beautiful and simple design, we strive to make iconography easily accessible for whatever your use case may be. From designers building prototypes to developers writing code, finding and implementing an icon should be a snap!
             </p>
           </div>
         </HomeSection>

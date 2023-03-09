@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 
 import config from './config';
+import getHealth from './endpoints/health/getHealth';
 import getSession from './endpoints/auth/getSession';
 import getGithubCallback from './endpoints/auth/getGithubCallback';
 import getLogout from './endpoints/auth/getLogout';
@@ -10,7 +11,7 @@ import getUserByGitHubId from './endpoints/users/getUserByGitHubId';
 const registerRoutes = (server: FastifyInstance) => {
   // General Endpoints
   server.get('/', (req, res) => res.redirect(config.siteBase));
-  server.get('/health', () => 'OK');
+  server.get('/health', getHealth);
 
   // Authentication Endpoints
   server.get('/auth/session', getSession);
