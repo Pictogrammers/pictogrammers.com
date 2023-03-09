@@ -29,6 +29,8 @@ jobs:
 
       - name: Build API
         run: npm run build --workspace=api
+        env:
+          NODE_ENV: production
 
       - name: Prune dev dependencies
         run: npm prune --omit=dev

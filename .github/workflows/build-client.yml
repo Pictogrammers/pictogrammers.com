@@ -42,6 +42,7 @@ jobs:
         run: npm run build --workspace=client
         env:
           API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
+          NODE_ENV: production
 
       - name: Compress Assets
         uses: stefh/ghaction-CompressFiles@v1
