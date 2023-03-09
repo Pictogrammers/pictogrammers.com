@@ -6,7 +6,7 @@ import getContributors from './getContributors.mjs';
 import getDocSearchIndex from './getDocSearchIndex.mjs';
 import getIconLibraries from './getIconLibraries.mjs';
 
-// We need to turn of SSL verification and wait for
+// We need to turn off SSL verification and wait for
 // services to be listening on dev to prebuild.
 if (process.env.NODE_EVE !== 'production') {
   process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
