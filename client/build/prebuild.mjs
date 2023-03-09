@@ -8,7 +8,7 @@ import getIconLibraries from './getIconLibraries.mjs';
 
 // We need to turn off SSL verification and wait for
 // services to be listening on dev to prebuild.
-if (process.env.NODE_EVE !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
   await waitUntilApiReady();
 }
