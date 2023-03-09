@@ -16,10 +16,12 @@
     "@octokit/graphql": "~5.0.5",
     "fastify": "~4.13.0",
     "mysql2": "~3.1.2",
-    "session-file-store": "~1.5.0"
+    "session-file-store": "~1.5.0",
+    "uuid": "~9.0.0"
   },
   "devDependencies": {
     "@types/session-file-store": "~1.2.2",
+    "@types/uuid": "~9.0.1",
     "tsc-watch": "~6.0.0"
   }
 }

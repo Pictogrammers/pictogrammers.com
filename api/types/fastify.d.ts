@@ -7,12 +7,13 @@ declare module 'fastify' {
   }
 
   interface Session {
-    contributor: object;
     github: {
-      avatar: string;
+      avatarUrl: string;
       email: string;
-      id: string;
+      hasSponsorsListing: boolean;
+      login: string;
       name: string;
-    }
+    },
+    user: object;
   }
 }

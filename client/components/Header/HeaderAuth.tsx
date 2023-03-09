@@ -32,7 +32,7 @@ const HeaderAuth: FunctionComponent = () => {
   const { contributors } = useData();
   const router = useRouter();
 
-  const thisContributor = contributors.find((contributor: ContributorProps) => contributor.github === auth?.contributor?.github);
+  const thisContributor = contributors.find((contributor: ContributorProps) => contributor.github === auth.user?.github);
   const thisContributorColor = thisContributor ? thisContributor?.core ? '--primary-color' : '--dark-cyan' : '--dark-grey';
 
   const handleMenuOpen = (event: MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
@@ -50,7 +50,7 @@ const HeaderAuth: FunctionComponent = () => {
       {auth.isLoggedIn ? (
         <Fragment>
           <IconButton
-            aria-label={auth.contributor?.name || auth.github.name}
+            aria-label={auth.user?.name || auth.github.name}
             classes={{
               root: classes.authButton
             }}
@@ -96,11 +96,11 @@ const HeaderAuth: FunctionComponent = () => {
             open={!!anchorEl}
           >
             <MenuList dense sx={{ padding: 0 }}>
-              {auth?.contributor && [
+              {auth.user?.contributor && [
                 <MenuItem
                   component={Link}
-                  href={`/contributor/${auth.contributor.github}`}
-                  key={auth.contributor.github}
+                  href={`/contributor/${auth.user.github}`}
+                  key={auth.user.github}
                   onClick={handleMenuClose}
                 >
                   <ListItemIcon>
@@ -110,7 +110,7 @@ const HeaderAuth: FunctionComponent = () => {
                 </MenuItem>,
                 <Divider key='profile-div' />
               ]}
-              {auth?.contributor?.core && [
+              {auth.user?.core && [
                 <MenuItem
                   component={Link}
                   href='/admin'

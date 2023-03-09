@@ -43,7 +43,7 @@ const AdminLayout: FunctionComponent<AdminLayoutProps> = ({
     return loader;
   }
 
-  if (!auth?.contributor?.core) {
+  if (!auth.user?.core) {
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>

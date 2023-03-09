@@ -3,36 +3,31 @@ import { graphql } from '@octokit/graphql';
 import type { GraphQlQueryResponseData } from '@octokit/graphql';
 
 import getUserRecordByGitHubId from '../../model/user/getUserRecordByGitHubId';
+import addUserRecord from '../../model/user/addUserRecord';
 
 import config from '../../config';
 
 const getGithubCallback = (server: FastifyInstance) => async (req: FastifyRequest, res: FastifyReply) => {
   try {
     const { token } = await server.githubOAuth2.getAccessTokenFromAuthorizationCodeFlow(req);
-    const { viewer } = await graphql(
-      `{
-        viewer { 
-          avatarUrl,
-          email,
-          hasSponsorsListing,
-          login,
-          name
-        }
-      }`,
-      {
-        headers: {
-          authorization: `token ${token.access_token}`
-        }
+    const { viewer } = await graphql('{ viewer { avatarUrl, email, hasSponsorsListing, login, name } }', {
+      headers: {
+        authorization: `token ${token.access_token}`
       }
-    ) as GraphQlQueryResponseData;
+    }) as GraphQlQueryResponseData;
 
     req.session.github = viewer;
 
     try {
-      req.session.contributor = await getUserRecordByGitHubId(req.session.github.id);
+      req.session.user = await getUserRecordByGitHubId(viewer.login);
     } catch (err) {
-      // We let anyone log in to use some personalization features of the site,
-      // so if they're not a contributor, we just don't include that information.
+      // If we have never seen this user, we need to create a user record for them
+      await addUserRecord({
+        email: viewer.email,
+        github: viewer.login,
+        name: viewer.name
+      });
+      req.session.user = await getUserRecordByGitHubId(viewer.login);
     }
 
     const redirectPath = req.cookies['pg-login-redirect'] || '/';
