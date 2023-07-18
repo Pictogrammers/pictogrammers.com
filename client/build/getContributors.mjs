@@ -139,6 +139,9 @@ const getContributors = async () => {
         rest.avatar = gitHubUserInfo[`u${contributorId}`]?.avatarUrl;
         rest.sponsorable = gitHubUserInfo[`u${contributorId}`]?.hasSponsorsListing;
 
+        // Normalize data
+        rest.links = rest.links === null ? [] : rest.links;
+
         output.push(rest);
         return output;
       }, Promise.resolve([]));
