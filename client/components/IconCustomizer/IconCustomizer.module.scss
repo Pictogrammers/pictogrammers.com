@@ -82,7 +82,7 @@
   }
 }
 
-@media only screen and (max-width: $tablet-width) {
+@media only screen and (width <= $tablet-width) {
   .interface {
     flex-direction: column;
   }
@@ -92,7 +92,7 @@
   }
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (width <= $mobile-width) {
   .colors,
   .sliderGroup,
   .flipControls {

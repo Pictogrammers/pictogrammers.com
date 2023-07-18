@@ -92,7 +92,7 @@
   }
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (width <= $mobile-width) {
   .root {
     flex-direction: column-reverse;
     padding: 1rem 2.5rem;

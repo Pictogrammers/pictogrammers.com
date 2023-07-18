@@ -1,7 +1,7 @@
 import type { UserRecordData } from '../../interfaces/user';
 
-import db from '../../lib/db';
-import getPackagesOnSite from '../../lib/getPackagesOnSite';
+import db from '../../lib/db.js';
+import getPackagesOnSite from '../../lib/getPackagesOnSite.js';
 
 const getUserRecords = async (contributorsOnly: boolean = false) => {
   const { packagePlaceholders, packages } = getPackagesOnSite();

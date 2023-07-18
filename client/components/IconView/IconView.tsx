@@ -42,12 +42,13 @@ import { useData } from '@/providers/DataProvider';
 import classes from './IconView.module.scss';
 
 interface IconViewProps {
+  closeOnMoreInfo?: boolean;
   icon: IconLibraryIcon;
   libraryInfo: IconLibrary;
   onClose?: Function;
 }
 
-const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose }) => {
+const IconView: FunctionComponent<IconViewProps> = ({ closeOnMoreInfo, icon, libraryInfo, onClose }) => {
   const { exampleTypes, git, gridSize = 24, name: libraryName } = libraryInfo;
   const { contributors } = useData();
   const contributor = contributors.find((c: ContributorProps) => c.id === icon.a);
@@ -111,6 +112,11 @@ const IconView: FunctionComponent<IconViewProps> = ({ icon, libraryInfo, onClose
                     aria-label='View Details'
                     component={Link}
                     href={`/library/${libraryInfo.id}/icon/${icon.n}/`}
+                    onClick={() => {
+                      if (closeOnMoreInfo) {
+                        onClose();
+                      }
+                    }}
                   >
                     <Icon path={mdiArrowExpand} size={1} />
                   </IconButton>

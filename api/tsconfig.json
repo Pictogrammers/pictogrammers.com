@@ -6,9 +6,8 @@
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "error",
     "lib": [ "es2022" ],
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
@@ -21,5 +20,6 @@
     "strict": true,
     "target": "es2022"
   },
-  "include": ["**/*.ts"]
+  "exclude": ["dist/**/*"],
+  "include": ["**/*.ts", "lib/db.ts", "lib/getPackagesOnSite.ts"]
 }

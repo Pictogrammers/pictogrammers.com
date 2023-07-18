@@ -33,7 +33,7 @@
   }
 }
 
-@media only screen and (max-width: $tablet-width) {
+@media only screen and (width <= $tablet-width) {
   .tochead {
     margin-top: 0;
   }

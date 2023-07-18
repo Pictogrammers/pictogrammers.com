@@ -172,7 +172,7 @@ const IconLibraryView: FunctionComponent<IconLibraryViewProps> = ({
                 href={`/library/${libraryInfo.id}/category/${categorySlug}/`}
                 selected={categorySlug === category}
               >
-                <Icon path={mdiTagOutline} size={.8} />
+                <Icon className={classes.categoryIcon} path={mdiTagOutline} size={.8} />
                 <ListItemText>
                   {categories[catId as any].name}
                 </ListItemText>

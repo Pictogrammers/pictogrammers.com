@@ -59,7 +59,7 @@ const nextConfig = {
                     // These are all required for the special
                     // animations on the Pictogrammers monogram
                     // and the mobile hamburger menu.
-                    cleanupIDs: false,
+                    cleanupIds: false,
                     collapseGroups: false,
                     mergePaths: false
                   }
