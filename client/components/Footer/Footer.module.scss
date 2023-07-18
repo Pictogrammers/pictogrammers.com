@@ -96,7 +96,7 @@
   }
 }
 
-@media only screen and (max-width: $tablet-width) {
+@media only screen and (width <= $tablet-width) {
   .root {
     font-size: .8rem;
     padding: 2rem;
@@ -127,7 +127,7 @@
   }
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (width <= $mobile-width) {
   .root {
     margin-top: 0;
   }

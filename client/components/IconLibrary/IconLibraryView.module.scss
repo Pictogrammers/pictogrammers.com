@@ -88,6 +88,10 @@
     margin: 1rem 0 0 .25rem;
     text-transform: uppercase;
   }
+
+  .categoryIcon {
+    flex-shrink: 0;
+  }
 }
 
 .infoGrid {
@@ -114,13 +118,13 @@
   width: 100%;
 }
 
-@media only screen and (max-width: $tablet-width) {
+@media only screen and (width <= $tablet-width) {
   .sidebar {
     display: none;
   }
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (width <= $mobile-width) {
   .root {
     padding: 0;
   }

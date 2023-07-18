@@ -140,7 +140,7 @@
   }
 }
 
-@media only screen and (max-width: $tablet-width) {
+@media only screen and (width <= $tablet-width) {
   .container {
     display: block;
     padding-top: 1rem;
@@ -181,7 +181,7 @@
   }
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (width <= $mobile-width) {
   .root {
     padding: 0;
 

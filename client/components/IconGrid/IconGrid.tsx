@@ -120,7 +120,7 @@ const IconGrid: FunctionComponent<IconGridProps> = ({ icons, library, modalHook,
           open
           onClose={handleIconModalClose}
         >
-          <IconView icon={iconModal} libraryInfo={library} onClose={handleIconModalClose} />
+          <IconView closeOnMoreInfo={!updateUrl} icon={iconModal} libraryInfo={library} onClose={handleIconModalClose} />
         </Dialog>
       )}
     </Fragment>

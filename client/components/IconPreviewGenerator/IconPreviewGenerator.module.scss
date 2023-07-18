@@ -20,7 +20,7 @@
   display: none;
 }
 
-@media only screen and (max-width: ($tablet-width + 200)) {
+@media only screen and (width <= ($tablet-width + 200)) {
   .root {
     flex-direction: column;
   }

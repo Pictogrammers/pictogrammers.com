@@ -16,6 +16,7 @@
     "declaration-no-important": [ true, { "severity": "warning" } ],
     "import-notation": "string",
     "max-line-length": null,
+    "media-query-no-invalid": null,
     "no-descending-specificity": null,
     "number-leading-zero": "never",
     "order/properties-alphabetical-order": true,

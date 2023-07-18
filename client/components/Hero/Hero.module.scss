@@ -44,7 +44,7 @@
   letter-spacing: -3px;
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (width <= $mobile-width) {
   section {
     &:not(.full) {
       background-position: 0 2rem;

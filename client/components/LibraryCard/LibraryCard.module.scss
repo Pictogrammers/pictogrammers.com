@@ -22,7 +22,7 @@
     text-decoration: none;
   }
 
-  @media only screen and (max-width: $mobile-width) {
+  @media only screen and (width <= $mobile-width) {
     padding: 2rem 0;
   }
 }

@@ -80,7 +80,7 @@
   }
 }
 
-@media only screen and (max-width: $mobile-width) {
+@media only screen and (width <= $mobile-width) {
   .users {
     flex-direction: column-reverse;
     margin-top: -3rem;

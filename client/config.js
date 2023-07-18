@@ -72,7 +72,7 @@ module.exports = {
     ],
     icons: [
       {
-        description: 'The original. Following Google\'s Material Design guidelines for system icons, MDI is our largest library, touting over 6500 unique icons!',
+        description: 'The original. Following Google\'s Material Design guidelines for system icons, MDI is our largest library, touting over 7200 unique icons!',
         exampleTypes: [ 'react', 'vue', 'home-assistant', 'webfont' ],
         featured: true,
         git: 'https://github.com/Templarian/MaterialDesign',

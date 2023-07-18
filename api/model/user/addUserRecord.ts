@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { ResultSetHeader } from 'mysql2';
 
-import db from '../../lib/db';
+import db from '../../lib/db.js';
 
 interface addUserRecordProps {
   email: string;
