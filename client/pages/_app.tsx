@@ -119,7 +119,10 @@ const Pictogrammers = ({ Component, pageProps }: AppProps) => {
         <meta content='Open-source iconography for designers and developers' name='twitter:description' key='twitter:description' />
         <meta content='https://pictogrammers.com/images/twitter-card.png' name='twitter:image' key='twitter:image' />
       </Head>
-      <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+      <SnackbarProvider
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        style={{ fontFamily: manrope.style.fontFamily }}
+      >
         <AnalyticsProvider instance={analyticsInstance}>
           <AuthProvider>
             <DataProvider>
