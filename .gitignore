@@ -1,4 +1,4 @@
-node_modules
+node_modules/
 /.dev/certs/
 /api/dist/
 /api/sessions/

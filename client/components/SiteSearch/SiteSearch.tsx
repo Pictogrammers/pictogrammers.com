@@ -64,7 +64,7 @@ const SiteSearch: FunctionComponent = () => {
     return Object.keys(libraries).reduce((output: any, libraryId: string) => {
       const uf = new uFuzzy({});
       const haystack = libraries[libraryId].icons.map((icon: IconLibraryIcon) => icon.st.join('¦'));
-      const idxs = uf.filter(haystack, searchTerm);
+      const idxs = uf.filter(haystack, searchTerm) || [];
       const info = uf.info(idxs, haystack, searchTerm);
       const order = uf.sort(info, haystack, searchTerm);
       output[libraryId] = order.map((position) => libraries[libraryId].icons[info.idx[position]]);
@@ -75,7 +75,7 @@ const SiteSearch: FunctionComponent = () => {
   const searchDocs = useCallback((searchTerm: string) => {
     const uf = new uFuzzy({});
     const haystack = docs.map((doc: Doc) => Object.values(doc).join('¦'));
-    const idxs = uf.filter(haystack, searchTerm);
+    const idxs = uf.filter(haystack, searchTerm) || [];
     const info = uf.info(idxs, haystack, searchTerm);
     const order = uf.sort(info, haystack, searchTerm);
     return order.map((position) => docs[info.idx[position]]);
@@ -84,7 +84,7 @@ const SiteSearch: FunctionComponent = () => {
   const searchContributors = useCallback((searchTerm: string) => {
     const uf = new uFuzzy({});
     const haystack = contributors.map((contributor: ContributorProps) => `${contributor.name}¦${contributor.github}`);
-    const idxs = uf.filter(haystack, searchTerm);
+    const idxs = uf.filter(haystack, searchTerm) || [];
     const info = uf.info(idxs, haystack, searchTerm);
     const order = uf.sort(info, haystack, searchTerm);
     return order.map((position) => contributors[info.idx[position]]);

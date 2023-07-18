@@ -50,7 +50,7 @@ const useIcons = (libraryId: string, filter: FilterProps) => {
             .replace(new RegExp(`(^${libraryId})`, 'gi'), '') // Remove a prefix of the library ID
             .toLowerCase();
 
-          const idxs = uf.filter(haystack, needle);
+          const idxs = uf.filter(haystack, needle) || [];
           const info = uf.info(idxs, haystack, needle);
           const order = uf.sort(info, haystack, needle);
           return order.map((position) => output[info.idx[position]]);
