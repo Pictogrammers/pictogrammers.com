@@ -38,7 +38,7 @@ RewriteRule ^(.*)$ $1.br [QSA,L]
 </Files>
 
 <Files *.json.br>
-  AddType "application.json" .br
+  AddType "application/json" .br
   AddEncoding br .br
   SetEnv no-gzip 1
 </Files>
