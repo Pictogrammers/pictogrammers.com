@@ -12,6 +12,7 @@ const withBA = require('@next/bundle-analyzer')({
 const config = require('./config');
 
 const nextConfig = {
+  distDir: 'dist',
   env: {
     nextImageExportOptimizer_exportFolderPath: 'dist',
     nextImageExportOptimizer_generateAndUseBlurImages: false,
@@ -29,6 +30,7 @@ const nextConfig = {
   } : {
     unoptimized: true
   },
+  output: 'export',
   publicRuntimeConfig: config,
   reactStrictMode: true,
   sassOptions: {

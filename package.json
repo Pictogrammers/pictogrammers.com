@@ -41,10 +41,11 @@
     "@next/eslint-plugin-next": "^13.4.10",
     "@types/node": "~18.14.6",
     "concurrently": "~8.2.0",
+    "eslint": "~8.45.0",
     "eslint-config-next": "~13.4.10",
     "eslint-plugin-sort-destructure-keys": "~1.5.0",
-    "eslint": "~8.45.0",
     "husky": "~8.0.3",
+    "serve": "~14.2.0",
     "typescript": "~5.1.6"
   }
 }
