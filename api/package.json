@@ -9,13 +9,13 @@
     "start": "node --es-module-specifier-resolution=node dist/index.js"
   },
   "dependencies": {
-    "@fastify/cookie": "~8.3.0",
+    "@fastify/cookie": "~9.0.4",
     "@fastify/cors": "~8.3.0",
-    "@fastify/oauth2": "~7.2.1",
+    "@fastify/oauth2": "~7.3.0",
     "@fastify/session": "~10.4.0",
     "@octokit/graphql": "~7.0.1",
-    "fastify": "~4.20.0",
-    "mysql2": "~3.5.2",
+    "fastify": "~4.22.0",
+    "mysql2": "~3.6.0",
     "session-file-store": "~1.5.0",
     "uuid": "~9.0.0"
   },
