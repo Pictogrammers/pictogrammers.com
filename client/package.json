@@ -50,7 +50,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "~13.4.19",
     "@octokit/graphql": "~7.0.1",
-    "@pictogrammers/memory-svg": "~1.1.0",
+    "@pictogrammers/memory-svg": "~1.2.0",
     "@svgr/webpack": "~8.1.0",
     "@types/js-cookie": "~3.0.3",
     "@types/js-yaml": "^4.0.5",
