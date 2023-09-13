@@ -25,7 +25,7 @@
     "@mui/material": "~5.14.7",
     "@next/font": "~13.4.19",
     "@pictogrammers/bitmask-to-svg": "~0.9.1",
-    "@pictogrammers/memory": "~1.1.0",
+    "@pictogrammers/memory": "~1.2.0",
     "analytics": "~0.8.9",
     "clsx": "~2.0.0",
     "dayjs": "~1.11.9",
