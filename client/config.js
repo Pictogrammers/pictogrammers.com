@@ -81,6 +81,7 @@ module.exports = {
         image: 'images/libraries/mdi.svg',
         name: 'Material Design Icons',
         package: '@mdi/svg',
+        jsPackage: '@mdi/js',
         packageId: '38EF63D0-4744-11E4-B3CF-842B2B6CFE1B',
         shortName: 'MDI',
         version: getLibraryVersion('@mdi/svg')
@@ -95,6 +96,7 @@ module.exports = {
         image: 'images/libraries/mdil.svg',
         name: 'Material Design Icons Light',
         package: '@mdi/light-svg',
+        jsPackage: '@mdi/light-js',
         packageId: '531A9B44-1962-11E5-89CC-842B2B6CFE1B',
         shortName: 'MDI Light',
         version: getLibraryVersion('@mdi/light-svg')
@@ -108,6 +110,7 @@ module.exports = {
         image: 'images/libraries/memory.svg',
         name: 'Memory Icons',
         package: '@pictogrammers/memory-svg',
+        jsPackage: '@pictogrammers/memory',
         packageId: '2764ae46-20c1-11ed-8ca4-1209440c2141',
         shortName: 'Memory',
         version: getLibraryVersion('@pictogrammers/memory-svg')

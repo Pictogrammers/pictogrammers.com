@@ -8,6 +8,7 @@ import ExampleWebfont from './ExampleWebfont';
 import ExampleHomeAssistant from './ExampleHomeAssistant';
 
 import classes from './IconUsageExamples.module.scss';
+import { IconLibrary } from '@/interfaces/icons';
 
 const exampleTypesDef = {
   'home-assistant': {
@@ -31,10 +32,11 @@ const exampleTypesDef = {
 interface IconUsageExamplesProps {
   exampleTypes: string[];
   library: string;
+  libraryInfo: IconLibrary;
   iconName: string;
 }
 
-const IconUsageExamples: FunctionComponent<IconUsageExamplesProps> = ({ exampleTypes = [], iconName, library }) => {
+const IconUsageExamples: FunctionComponent<IconUsageExamplesProps> = ({ exampleTypes = [], iconName, library, libraryInfo }) => {
   const [ activeExample, setActiveExample ] = useState(0);
 
   if (!exampleTypes.length) {
@@ -68,6 +70,7 @@ const IconUsageExamples: FunctionComponent<IconUsageExamplesProps> = ({ exampleT
           <ExampleComponent
             key={`panel-${type}`}
             library={library}
+            libraryInfo={libraryInfo}
             iconName={iconName}
             visible={activeExample === i}
           />

@@ -16,6 +16,7 @@ export interface IconLibrary {
   image: string;
   name: string;
   package: string;
+  jsPackage: string;
   packageId: string;
   shortName: string;
   unreleased?: boolean;

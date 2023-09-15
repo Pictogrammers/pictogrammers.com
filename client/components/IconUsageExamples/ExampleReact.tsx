@@ -11,13 +11,16 @@ import kebabToPascal from '@/utils/helpers/kebabToPascal';
 
 import classes from './IconUsageExamples.module.scss';
 
+import { IconLibrary } from '@/interfaces/icons';
+
 interface ExampleReactProps {
   library: string;
+  libraryInfo: IconLibrary;
   iconName: string;
   visible: boolean;
 }
 
-const ExampleReact: FunctionComponent<ExampleReactProps> = ({ iconName, library, visible }) => {
+const ExampleReact: FunctionComponent<ExampleReactProps> = ({ iconName, library, libraryInfo, visible }) => {
   const jsName = `${library}${kebabToPascal(iconName)}`;
 
   return (
@@ -30,7 +33,7 @@ const ExampleReact: FunctionComponent<ExampleReactProps> = ({ iconName, library,
     >
       <Code className={cx('language-jsx', classes.code)} displayAsBlock>{
 `import Icon from '@mdi/react';
-import { ${jsName} } from '@${library}/js';
+import { ${jsName} } from '@${libraryInfo.jsPackage}';
 
 <Icon path={${jsName}} size={1} />`
       }</Code>
