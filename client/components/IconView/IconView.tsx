@@ -243,6 +243,7 @@ const IconView: FunctionComponent<IconViewProps> = ({ closeOnMoreInfo, icon, lib
                 <IconUsageExamples
                   exampleTypes={exampleTypes}
                   library={libraryInfo.id}
+                  libraryInfo={libraryInfo}
                   iconName={icon.n}
                 />
               </div>

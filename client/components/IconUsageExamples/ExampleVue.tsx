@@ -10,14 +10,16 @@ import Code from '@/components/CodeHighlighter/CodeHighlighter';
 import kebabToPascal from '@/utils/helpers/kebabToPascal';
 
 import classes from './IconUsageExamples.module.scss';
+import { IconLibrary } from '@/interfaces/icons';
 
 interface ExampleVueProps {
   library: string;
+  libraryInfo: IconLibrary;
   iconName: string;
   visible: boolean;
 }
 
-const ExampleVue: FunctionComponent<ExampleVueProps> = ({ iconName, library, visible }) => {
+const ExampleVue: FunctionComponent<ExampleVueProps> = ({ iconName, library, libraryInfo, visible }) => {
   const jsName = `${library}${kebabToPascal(iconName)}`;
 
   return (
@@ -35,7 +37,7 @@ const ExampleVue: FunctionComponent<ExampleVueProps> = ({ iconName, library, vis
 
 <script>
 import SvgIcon from '@jamescoyle/vue-icon';
-import { ${jsName} } from '@${library}/js';
+import { ${jsName} } from '@${libraryInfo.jsPackage}';
 
 export default {
   name: "my-component",

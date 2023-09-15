@@ -8,9 +8,11 @@ import Link from '@/components/Link/Link';
 import Code from '@/components/CodeHighlighter/CodeHighlighter';
 
 import classes from './IconUsageExamples.module.scss';
+import { IconLibrary } from '@/interfaces/icons';
 
 interface ExampleHomeAssistantProps {
   library: string;
+  libraryInfo: IconLibrary;
   iconName: string;
   visible: boolean;
 }
