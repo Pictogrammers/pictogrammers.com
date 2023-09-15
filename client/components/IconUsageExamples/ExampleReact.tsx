@@ -33,7 +33,7 @@ const ExampleReact: FunctionComponent<ExampleReactProps> = ({ iconName, library,
     >
       <Code className={cx('language-jsx', classes.code)} displayAsBlock>{
 `import Icon from '@mdi/react';
-import { ${jsName} } from '@${libraryInfo.jsPackage}';
+import { ${jsName} } from '${libraryInfo.jsPackage}';
 
 <Icon path={${jsName}} size={1} />`
       }</Code>

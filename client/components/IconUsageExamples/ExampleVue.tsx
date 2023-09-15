@@ -37,7 +37,7 @@ const ExampleVue: FunctionComponent<ExampleVueProps> = ({ iconName, library, lib
 
 <script>
 import SvgIcon from '@jamescoyle/vue-icon';
-import { ${jsName} } from '@${libraryInfo.jsPackage}';
+import { ${jsName} } from '${libraryInfo.jsPackage}';
 
 export default {
   name: "my-component",
