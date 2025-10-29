@@ -61,7 +61,7 @@ jobs:
           outPath: pictogrammers-client-${{ github.run_id }}.tar.gz
 
       - name: Upload Tarball Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v5
         with:
           name: pictogrammers-client-${{ github.run_id }}
           path: pictogrammers-client-${{ github.run_id }}.tar.gz
@@ -73,7 +73,7 @@ jobs:
     environment: production
     steps:
       - name: Download Tarball Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v6
         with:
           name: pictogrammers-client-${{ github.run_id }}
 
