@@ -18,11 +18,8 @@ import { ContributorProps } from '@/interfaces/contributor';
 import { useData } from '@/providers/DataProvider';
 
 import AmbrookLogo from '@/public/images/users/ambrook.svg';
-import AccusoftLogo from '@/public/images/users/accusoft.svg';
 import HomeAssistantLogo from '@/public/images/users/home-assistant.svg';
 import KeePassXCLogo from '@/public/images/users/keepassxc.svg';
-import NabuCasaLogo from '@/public/images/users/nabu-casa.svg';
-import OnTaskLogo from '@/public/images/users/ontask.svg';
 
 import classes from '@/styles/pages/index.module.scss';
 
@@ -46,11 +43,8 @@ const Home: NextPage = () => {
           <div className={classes.users}>
             <div className={classes.logos}>
               <AmbrookLogo />
-              <AccusoftLogo />
               <HomeAssistantLogo />
               <KeePassXCLogo />
-              <NabuCasaLogo />
-              <OnTaskLogo />
             </div>
             <p>
               From open-source software to industry leaders,<br />
